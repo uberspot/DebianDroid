@@ -5,3 +5,7 @@
 !libs/
 !LICENSE
 !.gitignore
+!ic_launcher-web.png
+!assets/
+!AndroidManifest.xml
+
