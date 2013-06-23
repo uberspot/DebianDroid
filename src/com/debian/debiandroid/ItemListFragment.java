@@ -2,11 +2,11 @@ package com.debian.debiandroid;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.v4.app.ListFragment;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.actionbarsherlock.app.SherlockListFragment;
 import com.debian.debiandroid.content.ContentMenu;
 
 /**
@@ -18,7 +18,7 @@ import com.debian.debiandroid.content.ContentMenu;
  * Activities containing this fragment MUST implement the {@link Callbacks}
  * interface.
  */
-public class ItemListFragment extends ListFragment {
+public class ItemListFragment extends SherlockListFragment {
 
     /**
      * The serialization (saved instance state) Bundle key representing the
@@ -73,7 +73,7 @@ public class ItemListFragment extends ListFragment {
         // TODO: replace with a real list adapter.
         setListAdapter(new ArrayAdapter<ContentMenu.MenuItem>(
                 getActivity(),
-                android.R.layout.simple_list_item_activated_1,
+                android.R.layout.simple_list_item_1,
                 android.R.id.text1,
                 ContentMenu.ITEMS));
     }

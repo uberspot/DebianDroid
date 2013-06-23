@@ -1,12 +1,12 @@
 package com.debian.debiandroid;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.actionbarsherlock.app.SherlockFragment;
 import com.debian.debiandroid.content.ContentMenu;
 
 /**
@@ -15,7 +15,7 @@ import com.debian.debiandroid.content.ContentMenu;
  * in two-pane mode (on tablets) or a {@link ItemDetailActivity}
  * on handsets.
  */
-public class ItemDetailFragment extends Fragment {
+public class ItemDetailFragment extends SherlockFragment {
     /**
      * The fragment argument representing the item ID that this fragment
      * represents.

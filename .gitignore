@@ -8,4 +8,11 @@
 !ic_launcher-web.png
 !assets/
 !AndroidManifest.xml
+!actionbarsherlock/
+!.settings/
+!.classpath
+!screenshot1.png
+!screenshot2.png
+!screenshot_tablet.png
+!project.properties
 

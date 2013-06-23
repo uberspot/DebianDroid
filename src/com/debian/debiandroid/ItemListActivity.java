@@ -1,8 +1,9 @@
 package com.debian.debiandroid;
 
+import com.actionbarsherlock.app.SherlockFragmentActivity;
+
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 
 
 /**
@@ -21,7 +22,7 @@ import android.support.v4.app.FragmentActivity;
  * {@link ItemListFragment.Callbacks} interface
  * to listen for item selections.
  */
-public class ItemListActivity extends FragmentActivity
+public class ItemListActivity extends SherlockFragmentActivity
         implements ItemListFragment.Callbacks {
 
     /**
