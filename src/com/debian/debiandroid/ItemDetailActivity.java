@@ -39,9 +39,9 @@ public class ItemDetailActivity extends SherlockFragmentActivity {
             // Create the detail fragment and add it to the activity
             // using a fragment transaction.
             Bundle arguments = new Bundle();
-            arguments.putString(ItemDetailFragment.ARG_ITEM_ID,
-                    getIntent().getStringExtra(ItemDetailFragment.ARG_ITEM_ID));
-            ItemDetailFragment fragment = new ItemDetailFragment();
+            String extra = getIntent().getStringExtra(ItemDetailFragment.ARG_ITEM_ID);
+            arguments.putString(ItemDetailFragment.ARG_ITEM_ID, extra);
+            ItemDetailFragment fragment = ItemDetailFragment.getDetailFragment(extra);
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.item_detail_container, fragment)

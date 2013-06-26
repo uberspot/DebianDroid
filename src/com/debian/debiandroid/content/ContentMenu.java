@@ -14,14 +14,15 @@ public class ContentMenu {
     /**  A map of sample items, by ID. */
     public static Map<String, MenuItem> ITEM_MAP = new HashMap<String, MenuItem>();
 
+    public enum ITEM {PTS, BTS, UDD, SUBS, CIF, SETT};
+    
     static {
-        // Add sample items.
-        addItem(new MenuItem("1", "Package Tracking"));
-        addItem(new MenuItem("2", "Bug Tracking"));
-        addItem(new MenuItem("3", "UDD"));
-        addItem(new MenuItem("4", "Subscriptions"));
-        addItem(new MenuItem("5", "Common Interest Finder"));
-        addItem(new MenuItem("6", "Settings"));
+        addItem(new MenuItem(ITEM.PTS.toString(), "Package Tracking"));
+        addItem(new MenuItem(ITEM.BTS.toString(), "Bug Tracking"));
+        addItem(new MenuItem(ITEM.UDD.toString(), "UDD"));
+        addItem(new MenuItem(ITEM.SUBS.toString(), "Subscriptions"));
+        addItem(new MenuItem(ITEM.CIF.toString(), "Common Interest Finder"));
+        addItem(new MenuItem(ITEM.SETT.toString(), "Settings"));
     }
 
     private static void addItem(MenuItem item) {

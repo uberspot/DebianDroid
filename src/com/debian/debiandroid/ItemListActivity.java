@@ -59,14 +59,17 @@ public class ItemListActivity extends SherlockFragmentActivity
      */
     @Override
     public void onItemSelected(String id) {
+    	//CHANGE TO CALL APPROPRIATE FRAGMENT BASED ON LIST SELECTION
+    	
         if (mTwoPane) {
             // In two-pane mode, show the detail view in this activity by
             // adding or replacing the detail fragment using a
             // fragment transaction.
+        	
             Bundle arguments = new Bundle();
             arguments.putString(ItemDetailFragment.ARG_ITEM_ID, id);
-            ItemDetailFragment fragment = new ItemDetailFragment();
-            fragment.setArguments(arguments);
+            ItemDetailFragment fragment = ItemDetailFragment.getDetailFragment(id);
+            fragment.setArguments(arguments); 
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.item_detail_container, fragment)
                     .commit();

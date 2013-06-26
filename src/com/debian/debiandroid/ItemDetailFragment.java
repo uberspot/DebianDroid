@@ -22,10 +22,7 @@ public class ItemDetailFragment extends SherlockFragment {
      */
     public static final String ARG_ITEM_ID = "item_id";
 
-    /**
-     * The content this fragment is presenting.
-     */
-    private ContentMenu.MenuItem mItem;
+    public ContentMenu.MenuItem mItem;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -49,13 +46,18 @@ public class ItemDetailFragment extends SherlockFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_item_detail, container, false);
-
-        // Show the content as text in a TextView.
+    	View rootView = inflater.inflate(R.layout.fragment_item_detail, container, false);
         if (mItem != null) {
             ((TextView) rootView.findViewById(R.id.item_detail)).setText(mItem.content);
         }
-
         return rootView;
+    }
+    
+    public static ItemDetailFragment getDetailFragment(String id){
+    	System.out.println("id: " + id + " bts: " + ContentMenu.ITEM.BTS.toString());
+    	if(id.equalsIgnoreCase(ContentMenu.ITEM.BTS.toString()))
+    		return new BTSFragment();
+    	else
+    		return new ItemDetailFragment();
     }
 }

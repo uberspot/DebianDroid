@@ -3,5 +3,9 @@
 
     <string name="app_name">DebianDroid</string>
     <string name="title_item_detail">Item Detail</string>
-
+    <string name="search_packages">Search Package</string>
+    <string name="select_bugs">Select bugs</string>
+    <string name="search">Search</string>
+    
+    
 </resources>
