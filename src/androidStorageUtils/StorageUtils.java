@@ -43,8 +43,10 @@ import android.os.Environment;
  */
 public class StorageUtils extends ContextWrapper {
 
+    /** Singleton instance */
 	private static StorageUtils instance = null;
 	
+    /** Default name for preferences file*/
 	public static final String STORAGE_NAME = "Preferences";
 	
 	/** Initial constructor
@@ -54,7 +56,7 @@ public class StorageUtils extends ContextWrapper {
 		super(base);
 	}
 	
-	/** Static 'instance' method */
+	/** Static instance method */
 	public static StorageUtils getInstance(Context context) {
 	      if(instance == null) {
 	         instance = new StorageUtils(context);
@@ -162,7 +164,6 @@ public class StorageUtils extends ContextWrapper {
 	}
 	
 	/** Saves a preference in the storage
-	 * @param preferencesName the name of the file holding the preferences
 	 * @param valueName the name of the preference
 	 * @param value the value of the preference
 	 * @return true if it was saved successfully, false otherwise
@@ -172,7 +173,6 @@ public class StorageUtils extends ContextWrapper {
 	}
 	
 	/** Loads a preference from the storage
-	 * @param preferencesName the name of the file holding the preferences
 	 * @param valueName the name of the preference
 	 * @return a string containing the preference
 	 */

@@ -20,7 +20,7 @@ public class ContentMenu {
         addItem(new MenuItem(ITEM.PTS.toString(), "Package Tracking"));
         addItem(new MenuItem(ITEM.BTS.toString(), "Bug Tracking"));
         addItem(new MenuItem(ITEM.UDD.toString(), "UDD"));
-        addItem(new MenuItem(ITEM.SUBS.toString(), "Subscriptions"));
+        addItem(new MenuItem(ITEM.SUBS.toString(), "Favourites"));
         addItem(new MenuItem(ITEM.CIF.toString(), "Common Interest Finder"));
         addItem(new MenuItem(ITEM.SETT.toString(), "Settings"));
     }

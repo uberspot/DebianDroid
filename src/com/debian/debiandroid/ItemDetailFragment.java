@@ -53,10 +53,23 @@ public class ItemDetailFragment extends SherlockFragment {
         return rootView;
     }
     
+    /** Returns the appropriate ItemDetailFragment implementation based on the given id
+     * @param id a string containing the ContentMenu.Item describing the fragment to be returned
+     * @return 
+     */
     public static ItemDetailFragment getDetailFragment(String id){
-    	System.out.println("id: " + id + " bts: " + ContentMenu.ITEM.BTS.toString());
     	if(id.equalsIgnoreCase(ContentMenu.ITEM.BTS.toString()))
     		return new BTSFragment();
+    	else if(id.equalsIgnoreCase(ContentMenu.ITEM.PTS.toString()))
+    		return new PTSFragment();
+    	else if(id.equalsIgnoreCase(ContentMenu.ITEM.UDD.toString()))
+    		return new UDDFragment();
+    	else if(id.equalsIgnoreCase(ContentMenu.ITEM.CIF.toString()))
+    		return new CIFFragment();
+    	else if(id.equalsIgnoreCase(ContentMenu.ITEM.SETT.toString()))
+    		return new SETTFragment();
+    	else if(id.equalsIgnoreCase(ContentMenu.ITEM.SUBS.toString()))
+    		return new SUBSFragment();
     	else
     		return new ItemDetailFragment();
     }

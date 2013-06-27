@@ -18,9 +18,10 @@ Debian Android app for gsoc2013.
  2. Import the project as a new android application to eclipse
  3. Add the newly created project as a library to DebianDroid via right click to Debiandroid->properties->Android tab->Add... in Library section
  4. Delete the libs/android-support-v4.jar since it's now in actionbarsherlock/libs/ and change the DebianDroid properties->Java Build Path->Android Dependencies to point to that .jar instead of /libs because otherwise there will be a conflict between the two. Add it as a seperate .jar if no other way works.
- 5. Change all occurences of Activity, FragmentActivity, Fragment, ListFragment etc to SherlockActivity, SherlockFragment etc...
- 6. Change all styles.xml to use as a parent theme the "@style/Theme.Sherlock.Light.DarkActionBar"
- 7. Clean, build, deploy
+ 5. Make sure you ticked the correct files to export in the "Order and export" tab in the Java Build Path
+ 6. Change all occurences of Activity, FragmentActivity, Fragment, ListFragment etc to SherlockActivity, SherlockFragment etc...
+ 7. Change all styles.xml to use as a parent theme the "@style/Theme.Sherlock.Light.DarkActionBar"
+ 8. Clean, build, deploy
 
 ##License
 

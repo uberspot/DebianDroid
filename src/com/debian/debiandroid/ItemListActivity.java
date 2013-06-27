@@ -58,9 +58,7 @@ public class ItemListActivity extends SherlockFragmentActivity
      * indicating that the item with the given ID was selected.
      */
     @Override
-    public void onItemSelected(String id) {
-    	//CHANGE TO CALL APPROPRIATE FRAGMENT BASED ON LIST SELECTION
-    	
+    public void onItemSelected(String id) {    	
         if (mTwoPane) {
             // In two-pane mode, show the detail view in this activity by
             // adding or replacing the detail fragment using a
@@ -73,7 +71,6 @@ public class ItemListActivity extends SherlockFragmentActivity
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.item_detail_container, fragment)
                     .commit();
-
         } else {
             // In single-pane mode, simply start the detail activity
             // for the selected item ID.
