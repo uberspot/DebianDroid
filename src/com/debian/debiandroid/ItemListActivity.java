@@ -4,6 +4,9 @@ import com.actionbarsherlock.app.SherlockFragmentActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.view.GestureDetectorCompat;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 
 
 /**
@@ -25,6 +28,8 @@ import android.os.Bundle;
 public class ItemListActivity extends SherlockFragmentActivity
         implements ItemListFragment.Callbacks {
 
+	private GestureDetectorCompat gestureDetector;
+	
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
      * device.
@@ -49,8 +54,32 @@ public class ItemListActivity extends SherlockFragmentActivity
                     .findFragmentById(R.id.item_list))
                     .setActivateOnItemClick(true);
         }
-
-        // TODO: If exposing deep links into your app, handle intents here.
+        
+        gestureDetector = new GestureDetectorCompat(this, new SwipeListener());
+        
+        // TODO: If exposing deep links into your app, handle intents here. //e.g. opening BTS/PTS links from other apps
+    }
+    
+    @Override 
+    public boolean onTouchEvent(MotionEvent event){ 
+        gestureDetector.onTouchEvent(event);
+        return super.onTouchEvent(event);
+    }
+    
+    public void swipeRight(){
+    	ItemDetailFragment fragment = ItemDetailFragment.getDetailFragment(
+    			ItemDetailFragment.getPreviousFragmentId());
+    	getSupportFragmentManager().beginTransaction()
+    	.replace(R.id.item_detail_container, fragment)
+    	.commit();
+    }
+    
+    public void swipeLeft(){
+    	ItemDetailFragment fragment = ItemDetailFragment.getDetailFragment(
+    			ItemDetailFragment.getNextFragmentId());
+    	getSupportFragmentManager().beginTransaction()
+    	.replace(R.id.item_detail_container, fragment)
+    	.commit();
     }
 
     /**
@@ -77,6 +106,46 @@ public class ItemListActivity extends SherlockFragmentActivity
             Intent detailIntent = new Intent(this, ItemDetailActivity.class);
             detailIntent.putExtra(ItemDetailFragment.ARG_ITEM_ID, id);
             startActivity(detailIntent);
+        }
+    }
+    
+class SwipeListener extends GestureDetector.SimpleOnGestureListener {
+    	
+    	private static final int SWIPE_THRESHOLD = 100;
+        private static final int SWIPE_VELOCITY_THRESHOLD = 100;
+        
+        @Override
+        public boolean onDown(MotionEvent event) { 
+            return true;
+        }
+        
+        @Override
+        public boolean onFling(MotionEvent event1, MotionEvent event2, float velocityX, float velocityY) {
+            try {
+                float diffY = event2.getY() - event1.getY();
+                float diffX = event2.getX() - event1.getX();
+                if (Math.abs(diffX) > Math.abs(diffY)) {
+                    if (Math.abs(diffX) > SWIPE_THRESHOLD && Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
+                        if (diffX > 0) {
+                            swipeRight();
+                        } else {
+                        	swipeLeft();
+                        }
+                        return true;
+                    }
+                } else {
+                    if (Math.abs(diffY) > SWIPE_THRESHOLD && Math.abs(velocityY) > SWIPE_VELOCITY_THRESHOLD) {
+                        if (diffY > 0) {
+                        	//Bottom swipe
+                        } else {
+                        	//Top swipe
+                        }
+                    }
+                }
+            } catch (Exception exception) {
+                exception.printStackTrace();
+            }
+            return false;
         }
     }
 }

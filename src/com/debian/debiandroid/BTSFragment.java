@@ -8,15 +8,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import androidStorageUtils.StorageUtils;
 
 public class BTSFragment extends ItemDetailFragment {
 	
 	private Spinner spinner;
-	private Button searchButton;
+	private ImageButton searchButton;
 	private String searchOptionSelected;
 	private Context context;
 	private EditText btsInput;
@@ -38,7 +38,7 @@ public class BTSFragment extends ItemDetailFragment {
   		spinner = (Spinner) rootView.findViewById(R.id.btsSpinner);
   		setupSpinner();
   		
-  		searchButton = (Button) rootView.findViewById(R.id.btsSearchButton);
+  		searchButton = (ImageButton) rootView.findViewById(R.id.btsSearchButton);
   		searchButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 	//DO SEARCH USING APILAYER, DISPLAY RESULTS
@@ -67,7 +67,7 @@ public class BTSFragment extends ItemDetailFragment {
 		String[] values = {"by number", "in package", "in pckgs maintained by", "submitted by", "with status", "with mail from"}; 
 		
 		spinner.setAdapter(new ArrayAdapter<String>(this.getActivity(), 
-        				android.R.layout.simple_spinner_dropdown_item, values));
+        				android.R.layout.simple_spinner_item, values));
         
 		spinner.setSelection(getSelectedOption(values));
 		spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){

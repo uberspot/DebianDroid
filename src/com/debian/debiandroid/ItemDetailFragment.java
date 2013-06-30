@@ -21,6 +21,7 @@ public class ItemDetailFragment extends SherlockFragment {
      * represents.
      */
     public static final String ARG_ITEM_ID = "item_id";
+    public static String currentFragmentID = "";
 
     public ContentMenu.MenuItem mItem;
 
@@ -58,19 +59,49 @@ public class ItemDetailFragment extends SherlockFragment {
      * @return 
      */
     public static ItemDetailFragment getDetailFragment(String id){
+    	currentFragmentID = id;
+    	Bundle arguments = new Bundle();
+        arguments.putString(ItemDetailFragment.ARG_ITEM_ID, id);
+        ItemDetailFragment fragment;
     	if(id.equalsIgnoreCase(ContentMenu.ITEM.BTS.toString()))
-    		return new BTSFragment();
+    		fragment = new BTSFragment();
     	else if(id.equalsIgnoreCase(ContentMenu.ITEM.PTS.toString()))
-    		return new PTSFragment();
+    		fragment = new PTSFragment();
     	else if(id.equalsIgnoreCase(ContentMenu.ITEM.UDD.toString()))
-    		return new UDDFragment();
+    		fragment = new UDDFragment();
     	else if(id.equalsIgnoreCase(ContentMenu.ITEM.CIF.toString()))
-    		return new CIFFragment();
+    		fragment = new CIFFragment();
     	else if(id.equalsIgnoreCase(ContentMenu.ITEM.SETT.toString()))
-    		return new SETTFragment();
+    		fragment = new SETTFragment();
     	else if(id.equalsIgnoreCase(ContentMenu.ITEM.SUBS.toString()))
-    		return new SUBSFragment();
+    		fragment = new SUBSFragment();
     	else
-    		return new ItemDetailFragment();
+    		fragment = new ItemDetailFragment();
+    	fragment.setArguments(arguments);
+    	return fragment;
+    }
+
+    public static String getNextFragmentId(){
+    	int position = getPositionOfItem(currentFragmentID);
+    	if(position++!=-1 && position<ContentMenu.ITEM.values().length)
+    		return ContentMenu.ITEM.values()[position].toString();
+    	return currentFragmentID;
+    }
+    
+    public static String getPreviousFragmentId(){
+    	int position = getPositionOfItem(currentFragmentID);
+    	if(position--!=-1 && position>=0)
+    		return ContentMenu.ITEM.values()[position].toString();
+    	return currentFragmentID;
+    }
+    
+    private static int getPositionOfItem(String id){
+    	ContentMenu.ITEM[] items = ContentMenu.ITEM.values();
+    	for(int i=0;i<items.length; i++) {
+    		if(items[i].toString().equalsIgnoreCase(id)) {
+    			return i;
+    		}
+    	}
+    	return -1;
     }
 }

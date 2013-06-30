@@ -5,12 +5,12 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 
 public class PTSFragment extends ItemDetailFragment {
 
-	private Button searchButton;
+	private ImageButton searchButton;
 	private EditText ptsInput;
 	
 	@Override
@@ -23,7 +23,7 @@ public class PTSFragment extends ItemDetailFragment {
             Bundle savedInstanceState) {
     	View rootView = inflater.inflate(R.layout.pts_item_detail, container, false);
   		
-    	searchButton = (Button) rootView.findViewById(R.id.ptsSearchButton);
+    	searchButton = (ImageButton) rootView.findViewById(R.id.ptsSearchButton);
   		searchButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 	//DO SEARCH USING APILAYER, DISPLAY RESULTS
