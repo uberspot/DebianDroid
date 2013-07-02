@@ -2,6 +2,7 @@ package com.debian.debiandroid;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.MenuItem;
+import com.debian.debiandroid.content.ContentMenu;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -71,6 +72,13 @@ public class ItemDetailActivity extends SherlockFragmentActivity {
         gestureDetector.onTouchEvent(event);
         return super.onTouchEvent(event);
     }
+    
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+    	//Forward the qrcode scan result to the corresponding CIFFragment
+    	ItemDetailFragment fragment = (ItemDetailFragment) getSupportFragmentManager().findFragmentById(R.id.item_detail_container);
+    	if(ItemDetailFragment.currentFragmentID.equals(ContentMenu.ITEM.CIF.toString()))
+    		fragment.onActivityResult(requestCode, resultCode, intent);
+	}
     
     public void swipeRight(){
     	ItemDetailFragment fragment = ItemDetailFragment.getDetailFragment(

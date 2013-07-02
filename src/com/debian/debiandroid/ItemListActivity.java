@@ -1,6 +1,7 @@
 package com.debian.debiandroid;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.debian.debiandroid.content.ContentMenu;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -53,16 +54,18 @@ public class ItemListActivity extends SherlockFragmentActivity
             ((ItemListFragment) getSupportFragmentManager()
                     .findFragmentById(R.id.item_list))
                     .setActivateOnItemClick(true);
+            
+            gestureDetector = new GestureDetectorCompat(this, new SwipeListener());
         }
-        
-        gestureDetector = new GestureDetectorCompat(this, new SwipeListener());
         
         // TODO: If exposing deep links into your app, handle intents here. //e.g. opening BTS/PTS links from other apps
     }
     
     @Override 
     public boolean onTouchEvent(MotionEvent event){ 
-        gestureDetector.onTouchEvent(event);
+    	if (mTwoPane) {
+    		gestureDetector.onTouchEvent(event);
+    	}
         return super.onTouchEvent(event);
     }
     
@@ -81,6 +84,15 @@ public class ItemListActivity extends SherlockFragmentActivity
     	.replace(R.id.item_detail_container, fragment)
     	.commit();
     }
+    
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+    	if (mTwoPane) {
+	    	//Forward the qrcode scan result to the corresponding CIFFragment
+	    	ItemDetailFragment fragment = (ItemDetailFragment) getSupportFragmentManager().findFragmentById(R.id.item_detail_container);
+	    	if(ItemDetailFragment.currentFragmentID.equals(ContentMenu.ITEM.CIF.toString()))
+	    		fragment.onActivityResult(requestCode, resultCode, intent);
+    	}
+	}
 
     /**
      * Callback method from {@link ItemListFragment.Callbacks}
