@@ -1,6 +1,8 @@
 package com.debian.debiandroid;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
 import com.debian.debiandroid.content.ContentMenu;
 
 import android.content.Intent;
@@ -56,6 +58,7 @@ public class ItemListActivity extends SherlockFragmentActivity
                     .setActivateOnItemClick(true);
             
             gestureDetector = new GestureDetectorCompat(this, new SwipeListener());
+            onItemSelected(ContentMenu.ITEM.PTS.toString());
         }
         
         // TODO: If exposing deep links into your app, handle intents here. //e.g. opening BTS/PTS links from other apps
@@ -159,5 +162,26 @@ class SwipeListener extends GestureDetector.SimpleOnGestureListener {
             }
             return false;
         }
+    }
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		if (!mTwoPane) {
+		    ItemDetailFragment.getSettingsMenuItem(menu);
+		    return true;
+		}
+	    return false;
+	}
+	
+	@Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+		if (!mTwoPane) {
+	    	 switch(item.getItemId()){
+		    	 case ItemDetailFragment.SETTINGS_ID: 
+		    		 startActivity(new Intent(this, SettingsActivity.class));
+		        	return true;
+	        }
+    	}
+		return super.onOptionsItemSelected(item);
     }
 }

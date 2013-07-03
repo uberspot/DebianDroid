@@ -2,11 +2,11 @@ package com.debian.debiandroid;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.MenuItem;
+
 import com.debian.debiandroid.content.ContentMenu;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.NavUtils;
 import android.support.v4.view.GestureDetectorCompat;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -56,16 +56,6 @@ public class ItemDetailActivity extends SherlockFragmentActivity {
         
         gestureDetector = new GestureDetectorCompat(this, new SwipeListener());
     }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                NavUtils.navigateUpTo(this, new Intent(this, ItemListActivity.class));
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
     
     @Override 
     public boolean onTouchEvent(MotionEvent event){ 
@@ -78,6 +68,15 @@ public class ItemDetailActivity extends SherlockFragmentActivity {
     	ItemDetailFragment fragment = (ItemDetailFragment) getSupportFragmentManager().findFragmentById(R.id.item_detail_container);
     	if(ItemDetailFragment.currentFragmentID.equals(ContentMenu.ITEM.CIF.toString()))
     		fragment.onActivityResult(requestCode, resultCode, intent);
+	}
+    
+    @Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    if (item.getItemId() == android.R.id.home) {
+	        finish();
+	        return true;
+	    }
+	    return false;
 	}
     
     public void swipeRight(){

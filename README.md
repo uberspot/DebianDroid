@@ -23,6 +23,14 @@ Debian Android app for gsoc2013.
  7. Change all styles.xml to use as a parent theme the "@style/Theme.Sherlock.Light.DarkActionBar"
  8. Clean, build, deploy
 
+ ###ZXing installation
+
+ 1. Download core.jar from the official zxing site
+ 2. Add it to /libs and make sure it's exported along with the other libs in your projects Preferences->Java Build Path->Order and Export
+ 3. Download the zxing.zip source code
+ 4. Add the source from the android-integration/ subfolder to /src/com/google/zxing/integration/android/ 
+ 5. Add code to create/read qrcodes and clean, build and deploy project
+
 ##License
 
     DebianDroid is free software: you can redistribute it and/or modify

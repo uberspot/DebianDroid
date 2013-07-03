@@ -12,5 +12,8 @@
     <string name="udd">UDD</string>
     <string name="QRCode">QRCode</string>
     <string name="scan_qrcode">Scan a QRCode</string>
+    <string name="general_settings">General Settings</string>
+    <string name="use_3g">Use 3G</string>
+    <string name="use_3g_summary">Tick to use 3G as well to download data or untick to use only wifi</string>
     
 </resources>

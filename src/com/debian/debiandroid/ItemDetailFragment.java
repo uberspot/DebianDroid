@@ -1,5 +1,6 @@
 package com.debian.debiandroid;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,6 +8,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockFragment;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
 import com.debian.debiandroid.content.ContentMenu;
 
 /**
@@ -22,6 +26,7 @@ public class ItemDetailFragment extends SherlockFragment {
      */
     public static final String ARG_ITEM_ID = "item_id";
     public static String currentFragmentID = "";
+    public static final int SETTINGS_ID = Menu.FIRST+1;
 
     public ContentMenu.MenuItem mItem;
 
@@ -50,7 +55,7 @@ public class ItemDetailFragment extends SherlockFragment {
     	View rootView = inflater.inflate(R.layout.fragment_item_detail, container, false);
         if (mItem != null) {
             ((TextView) rootView.findViewById(R.id.item_detail)).setText(mItem.content);
-        }
+        } 
         return rootView;
     }
     
@@ -71,13 +76,12 @@ public class ItemDetailFragment extends SherlockFragment {
     		fragment = new UDDFragment();
     	else if(id.equalsIgnoreCase(ContentMenu.ITEM.CIF.toString()))
     		fragment = new CIFFragment();
-    	else if(id.equalsIgnoreCase(ContentMenu.ITEM.SETT.toString()))
-    		fragment = new SETTFragment();
     	else if(id.equalsIgnoreCase(ContentMenu.ITEM.SUBS.toString()))
     		fragment = new SUBSFragment();
     	else
     		fragment = new ItemDetailFragment();
     	fragment.setArguments(arguments);
+    	fragment.setHasOptionsMenu(true);
     	return fragment;
     }
 
@@ -101,7 +105,30 @@ public class ItemDetailFragment extends SherlockFragment {
     		if(items[i].toString().equalsIgnoreCase(id)) {
     			return i;
     		}
-    	}
+    	} 
     	return -1;
+    }
+    
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    	getSettingsMenuItem(menu);
+    }
+    
+    public static void getSettingsMenuItem(Menu menu) {
+		MenuItem item = menu.add(0, SETTINGS_ID, 0, "Settings");
+		item.setIcon(android.R.drawable.ic_menu_preferences);
+		
+		item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+	}
+    
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+    	 switch(item.getItemId()){
+	    	 case SETTINGS_ID:
+	    		 startActivity(new Intent(this.getSherlockActivity(), SettingsActivity.class));
+	        	return true;
+	        default:
+	        	return super.onOptionsItemSelected(item);
+        }
     }
 }

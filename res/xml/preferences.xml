@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory 
+        android:title="@string/general_settings"
+        android:key="general_settings">
+    
+	    <CheckBoxPreference
+	        android:key="use3g"
+	        android:title="@string/use_3g"
+	        android:summary="@string/use_3g_summary"
+	        android:defaultValue="false" />
+    </PreferenceCategory>
+    
+</PreferenceScreen>
