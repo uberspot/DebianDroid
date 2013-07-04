@@ -116,7 +116,7 @@ public class ItemDetailFragment extends SherlockFragment {
     
     public static void getSettingsMenuItem(Menu menu) {
 		MenuItem item = menu.add(0, SETTINGS_ID, 0, "Settings");
-		item.setIcon(android.R.drawable.ic_menu_preferences);
+		item.setIcon(R.drawable.settings);
 		
 		item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 	}

@@ -35,7 +35,7 @@
 					    android:id="@+id/ptsSearchButton"
 					    android:layout_width="wrap_content"
 					    android:layout_height="wrap_content"
-					    android:src="@drawable/search"
+					    android:src="@drawable/rightarrow"
 					    android:layout_weight="1"
 					    android:contentDescription="@string/search"
 					    android:gravity="right"

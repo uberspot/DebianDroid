@@ -40,8 +40,7 @@ public class CIFFragment extends ItemDetailFragment {
     	
     	qrcodeView = (ImageView) rootView.findViewById(R.id.cifQRCodeView);
     	try {
-    	    // generate a 150x150 QR code
-    	    Bitmap bm = QRCodeEncoder.encodeAsBitmap("test", BarcodeFormat.QR_CODE, 200, 200);
+    	    Bitmap bm = QRCodeEncoder.encodeAsBitmap("test", BarcodeFormat.QR_CODE, 250, 250);
  
     	    if(bm != null) {
     	    	qrcodeView.setImageBitmap(bm);
