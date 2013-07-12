@@ -1,41 +1,46 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/tablelayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".MainPage" >
-    <TextView 
-	    android:id="@+id/cifLabel"
-	    style="?android:attr/textAppearanceLarge"
-	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
-	    android:gravity="center_vertical|left"
-	    android:padding="16dp"
-	    android:text="@string/find_common_interests"
-	    android:textIsSelectable="false"
-	    tools:context=".ItemDetailFragment" />
- <LinearLayout 
+    <LinearLayout 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical" >
-    <ImageView
-        android:id="@+id/cifQRCodeView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-		android:contentDescription="@string/QRCode"
-		android:padding="10dp" />
-	</LinearLayout>
-	 <Button
-	        android:id="@+id/cifScanQRButton"
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:gravity="center_vertical|center_horizontal"
-	        android:text="@string/scan_qrcode"
-	        android:layout_marginLeft="10dp"
-	        android:layout_marginRight="10dp"
-	        android:drawableLeft="@drawable/search"
-	        style="@style/ButtonTextSmall"
-	        android:background="@drawable/btn_red" />
-</LinearLayout>
+		    <TextView 
+			    android:id="@+id/cifLabel"
+			    style="?android:attr/textAppearanceLarge"
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content"
+			    android:gravity="center_vertical|left"
+			    android:padding="16dp"
+			    android:text="@string/find_common_interests"
+			    android:textIsSelectable="false"
+			    tools:context=".ItemDetailFragment" />
+		 <LinearLayout 
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:orientation="vertical" >
+		    <ImageView
+		        android:id="@+id/cifQRCodeView"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+				android:contentDescription="@string/QRCode"
+				android:padding="10dp" />
+			</LinearLayout>
+			 <Button
+			        android:id="@+id/cifScanQRButton"
+			        android:layout_width="match_parent"
+			        android:layout_height="wrap_content"
+			        android:gravity="center_vertical|center_horizontal"
+			        android:text="@string/scan_qrcode"
+			        android:layout_marginLeft="10dp"
+			        android:layout_marginRight="10dp"
+			        android:drawableLeft="@drawable/search"
+			        style="@style/ButtonTextSmall"
+			        android:background="@drawable/btn_red" />
+	 </LinearLayout>
+</ScrollView>
  

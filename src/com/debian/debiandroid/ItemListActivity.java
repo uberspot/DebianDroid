@@ -60,17 +60,23 @@ public class ItemListActivity extends SherlockFragmentActivity
             gestureDetector = new GestureDetectorCompat(this, new SwipeListener());
             onItemSelected(ContentMenu.ITEM.PTS.toString());
         }
-        
+                
         // TODO: If exposing deep links into your app, handle intents here. //e.g. opening BTS/PTS links from other apps
     }
     
     @Override 
     public boolean onTouchEvent(MotionEvent event){ 
-    	if (mTwoPane) {
-    		gestureDetector.onTouchEvent(event);
+    	if (mTwoPane && gestureDetector.onTouchEvent(event)) {
+            	return true;
     	}
         return super.onTouchEvent(event);
     }
+    
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev){
+        super.dispatchTouchEvent(ev);
+        return gestureDetector.onTouchEvent(ev);
+    } 
     
     public void swipeRight(){
     	ItemDetailFragment fragment = ItemDetailFragment.getDetailFragment(

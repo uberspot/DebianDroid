@@ -60,9 +60,16 @@ public class ItemDetailActivity extends SherlockFragmentActivity {
     
     @Override 
     public boolean onTouchEvent(MotionEvent event){ 
-        gestureDetector.onTouchEvent(event);
+        if(gestureDetector.onTouchEvent(event))
+        	return true;
         return super.onTouchEvent(event);
     }
+    
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev){
+        super.dispatchTouchEvent(ev);
+        return gestureDetector.onTouchEvent(ev);
+    } 
     
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
     	//Forward the qrcode scan result to the corresponding CIFFragment
