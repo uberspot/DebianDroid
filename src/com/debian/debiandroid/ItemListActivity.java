@@ -1,13 +1,18 @@
 package com.debian.debiandroid;
 
+import java.util.Arrays;
+
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
+import com.debian.debiandroid.apiLayer.*;
 import com.debian.debiandroid.content.ContentMenu;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.view.GestureDetectorCompat;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 
@@ -59,10 +64,30 @@ public class ItemListActivity extends SherlockFragmentActivity
             
             gestureDetector = new GestureDetectorCompat(this, new SwipeListener());
             onItemSelected(ContentMenu.ITEM.PTS.toString());
+            
+            
         }
-                
+              
+        //new task().execute();
         // TODO: If exposing deep links into your app, handle intents here. //e.g. opening BTS/PTS links from other apps
     }
+    /*
+    class task extends AsyncTask<Void, Void, Void> {
+		@Override
+		protected Void doInBackground(Void... params) {
+			
+			Log.i("SOAP", new PTSSoapCaller().getSOAPAPIVersion());
+			Log.i("SOAP", new PTSSoapCaller().getLatestVersion("vim"));
+			Log.i("SOAP", Arrays.toString(new PTSSoapCaller().getBinaryNames("vim")));
+			Log.i("SOAP", new PTSSoapCaller().getBugCounts("vim"));
+			Log.i("SOAP", new PTSSoapCaller().getLintianSummary("vim"));
+			Log.i("SOAP", new PTSSoapCaller().getMaintainerEmail("vim"));
+			Log.i("SOAP", new PTSSoapCaller().getMaintainerName("vim"));
+			Log.i("SOAP", Arrays.toString(new PTSSoapCaller().getUploaderNames("vim")));
+
+			return null;
+		}  
+    }*/
     
     @Override 
     public boolean onTouchEvent(MotionEvent event){ 
