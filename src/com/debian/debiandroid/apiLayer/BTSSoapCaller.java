@@ -1,5 +1,7 @@
 package com.debian.debiandroid.apiLayer;
 
+import java.util.HashMap;
+
 import org.ksoap2.serialization.PropertyInfo;
 
 public class BTSSoapCaller extends SoapCaller{
@@ -12,7 +14,7 @@ public class BTSSoapCaller extends SoapCaller{
     /** Key values for 'key' parameter in getBugs method*/
     public enum BUGKEY {PACKAGE, SUBMITTER,MAINT, SRC, SEVERITY, STATUS, OWNER};
 
-    public String getBugs(String key, String value) {
+    public int[] getBugs(String key, String value) {
     	PropertyInfo[] properties = new PropertyInfo[2];
         properties[0] = new PropertyInfo();
         properties[0].setName("key");
@@ -24,11 +26,20 @@ public class BTSSoapCaller extends SoapCaller{
         properties[1].setType(String.class);
         
         try {
-        	return doRequest("get_bugs", "get_bugs", properties).toString();
+        	String response = doRequest("get_bugs", "get_bugs", properties).toString();
+        	String[] nums = response.trim().replace("get_bugsResponse{Array=[", "")
+        			.replace("]; }", "").trim().split(", ");
+        	int[] bugNums = new int[nums.length];
+        	for (int i = 0; i < nums.length; i++) {
+        	    try {
+        	    	bugNums[i] = Integer.parseInt(nums[i]);
+        	    } catch (NumberFormatException nfe) {};
+        	}
+        	return bugNums;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-        return "";
+        return new int[]{};
     }
     
     public String getStatus(int[] bugNumbers) {
@@ -40,7 +51,10 @@ public class BTSSoapCaller extends SoapCaller{
 	        properties[i].setType(int.class);
     	}
         try {
-        	return doRequest("get_status", "get_status", properties).toString();
+        	String response = doRequest("get_status", "get_status", properties).toString();
+        	response = response.replace("get_statusResponse{s-gensym3=Map{","")
+        			.trim();
+        	return response.substring(0, response.length()-4); 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -54,14 +68,17 @@ public class BTSSoapCaller extends SoapCaller{
         properties[0].setValue(bugNumber);
         properties[0].setType(int.class);
         try {
-        	return doRequest("get_bug_log", "get_bug_log", properties).toString();
+        	String response = doRequest("get_bug_log", "get_bug_log", properties).toString();
+        	
+        	return response.replace("get_bug_logResponse{Array=[","").replace("]; }", "")
+        			.trim(); 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
         return "";
     }
     
-    public String getUserTag(String email, String[] tags) {
+    public HashMap<String, int[]> getUserTag(String email, String[] tags) {
     	PropertyInfo[] properties = new PropertyInfo[1+tags.length];
         properties[0] = new PropertyInfo();
         properties[0].setName("email");
@@ -75,25 +92,51 @@ public class BTSSoapCaller extends SoapCaller{
 	        properties[i].setType(String.class);
     	}
         try {
-        	return doRequest("get_usertag", "get_usertag", properties).toString();
+        	String response = doRequest("get_usertag", "get_usertag", properties).toString();
+        	String[] tagsInResponse = response.replace("get_usertagResponse{s-gensym3=anyType{","")
+			.replace("}; }","").trim().split(";");
+        	HashMap<String, int[]> tagsAndBugNums = new HashMap<String, int[]>();
+        	for(String tagInResponse: tagsInResponse) {
+        		int indexOfEquals = tagInResponse.indexOf('=');
+        		String tag = tagInResponse.substring(0, indexOfEquals);
+        		String[] nums = tagInResponse.substring(indexOfEquals+1).replace("[", "").replace("]", "").split(", ");
+        		int[] bugNums = new int[nums.length];
+            	for (int i = 0; i < nums.length; i++) {
+            	    try {
+            	    	bugNums[i] = Integer.parseInt(nums[i]);
+            	    } catch (NumberFormatException nfe) {nfe.printStackTrace();};
+            	}
+            	tagsAndBugNums.put(tag, bugNums);
+        	}
+        	
+        	return  tagsAndBugNums;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-        return "";
+        return new HashMap<String, int[]>();
     }
     
-    public String getNewestBugs(int numOfBugs) {
+    public int[] getNewestBugs(int numOfBugs) {
     	PropertyInfo[] properties = new PropertyInfo[1];
         properties[0] = new PropertyInfo();
         properties[0].setName("amount");
         properties[0].setValue(numOfBugs);
         properties[0].setType(int.class);
         try {
-        	return doRequest("newest_bugs", "newest_bugs", properties).toString();
+        	String response = doRequest("newest_bugs", "newest_bugs", properties).toString();
+        	String[] nums = response.trim().replace("newest_bugsResponse{Array=[", "")
+        			.replace("]; }", "").trim().split(", ");
+        	int[] bugNums = new int[nums.length];
+        	for (int i = 0; i < nums.length; i++) {
+        	    try {
+        	    	bugNums[i] = Integer.parseInt(nums[i]);
+        	    } catch (NumberFormatException nfe) {};
+        	}
+        	return bugNums;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-        return "";
+        return new int[]{};
     }
 
 }
