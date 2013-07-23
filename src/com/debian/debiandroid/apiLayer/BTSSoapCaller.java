@@ -4,9 +4,12 @@ import java.util.HashMap;
 
 import org.ksoap2.serialization.PropertyInfo;
 
+import android.content.Context;
+
 public class BTSSoapCaller extends SoapCaller{
 
-    public BTSSoapCaller() {
+    public BTSSoapCaller(Context context) {
+    	super(context);
     	NAMESPACE = "Debbugs/SOAP";
     	URL = "http://bugs.debian.org/cgi-bin/soap.cgi";
     }

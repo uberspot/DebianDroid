@@ -76,6 +76,17 @@ public class StorageUtils extends ContextWrapper {
 		return false;
 	}
 	
+	/** Returns a File with the given fileName from the internal device storage 
+	 * @param fileName
+	 * @return the File requested or null if it doesn't exist
+	 */
+	public File getFileFromInternalStorage(String fileName) {
+		if(fileExists(fileName)) {
+			return new File( getFilesDir().getAbsolutePath(), fileName);
+		}
+		return null;
+	}
+	
 	/** Appends data to the given file.
 	 * @param fileName the name of the file to append data to
 	 * @param data an array of bytes to append to the file
@@ -85,7 +96,7 @@ public class StorageUtils extends ContextWrapper {
 		FileOutputStream fos;
 		try{
 			fos = openFileOutput(fileName, Context.MODE_APPEND);
-			fos.write(data);
+			fos.write(data); 
 			fos.close();
 		} catch (Exception e){
     		return false;

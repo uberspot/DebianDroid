@@ -2,9 +2,12 @@ package com.debian.debiandroid.apiLayer;
 
 import org.ksoap2.serialization.PropertyInfo;
 
+import android.content.Context;
+
 public class PTSSoapCaller extends SoapCaller{
 
-    public PTSSoapCaller() {
+    public PTSSoapCaller(Context context) {
+    	super(context);
     	URL = "http://packages.qa.debian.org/cgi-bin/soap-alpha.cgi";
     }
     

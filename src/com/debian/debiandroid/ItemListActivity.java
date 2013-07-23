@@ -1,6 +1,7 @@
 package com.debian.debiandroid;
 
-import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Iterator;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
@@ -65,29 +66,28 @@ public class ItemListActivity extends SherlockFragmentActivity
             gestureDetector = new GestureDetectorCompat(this, new SwipeListener());
             onItemSelected(ContentMenu.ITEM.PTS.toString());
             
-            
         }
               
-        //new task().execute();
+        new task().execute();
         // TODO: If exposing deep links into your app, handle intents here. //e.g. opening BTS/PTS links from other apps
     }
-    /*
+    
     class task extends AsyncTask<Void, Void, Void> {
 		@Override
 		protected Void doInBackground(Void... params) {
 			
-			Log.i("SOAP", new PTSSoapCaller().getSOAPAPIVersion());
-			Log.i("SOAP", new PTSSoapCaller().getLatestVersion("vim"));
-			Log.i("SOAP", Arrays.toString(new PTSSoapCaller().getBinaryNames("vim")));
-			Log.i("SOAP", new PTSSoapCaller().getBugCounts("vim"));
-			Log.i("SOAP", new PTSSoapCaller().getLintianSummary("vim"));
-			Log.i("SOAP", new PTSSoapCaller().getMaintainerEmail("vim"));
-			Log.i("SOAP", new PTSSoapCaller().getMaintainerName("vim"));
-			Log.i("SOAP", Arrays.toString(new PTSSoapCaller().getUploaderNames("vim")));
-
+			System.out.println( new BTSSoapCaller(getApplicationContext()).getBugLog(264023));
+			Log.i("Debian", new BTSSoapCaller(getApplicationContext()).getStatus(new int[]{264023, 407364}));
+			
+		    /*Iterator<Integer> iterator = map.keySet().iterator();  
+		       
+		    while (iterator.hasNext()) {
+		    	int key = (Integer) iterator.next();
+		         key + " " + map.get(key));
+		    }  */
 			return null;
 		}  
-    }*/
+    }
     
     @Override 
     public boolean onTouchEvent(MotionEvent event){ 
@@ -99,7 +99,10 @@ public class ItemListActivity extends SherlockFragmentActivity
     
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev){
-        super.dispatchTouchEvent(ev);
+    	if(!mTwoPane) {
+    		return super.dispatchTouchEvent(ev);
+    	}
+    	super.dispatchTouchEvent(ev);
         return gestureDetector.onTouchEvent(ev);
     } 
     
