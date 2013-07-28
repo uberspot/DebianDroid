@@ -76,8 +76,9 @@ public class ItemListActivity extends SherlockFragmentActivity
 		@Override
 		protected Void doInBackground(Void... params) {
 			
-			System.out.println( new BTSSoapCaller(getApplicationContext()).getBugLog(264023));
-			Log.i("Debian", new BTSSoapCaller(getApplicationContext()).getStatus(new int[]{264023, 407364}));
+			//System.out.println( new BTSSoapCaller(getApplicationContext()).getBugLog(264023));
+			System.out.println(new UDDCaller().getNewMaintainers());
+			//Log.i("Debian", new BTSSoapCaller(getApplicationContext()).getStatus(new int[]{264023, 407364}));
 			
 		    /*Iterator<Integer> iterator = map.keySet().iterator();  
 		       
