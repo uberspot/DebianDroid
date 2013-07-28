@@ -161,8 +161,10 @@ public class StorageUtils extends ContextWrapper {
 		Object obj = null; 
 		ObjectInputStream input = null;
 		try {
-			input = new ObjectInputStream ( new BufferedInputStream( openFileInput(fileName) ) );
-			obj = input.readObject();
+			if(fileExists(fileName)) {
+				input = new ObjectInputStream ( new BufferedInputStream( openFileInput(fileName) ) );
+				obj = input.readObject();
+			}
 		} catch (Exception e) {
 			e.printStackTrace(System.out);
 		} finally {
