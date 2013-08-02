@@ -22,6 +22,7 @@ public class PTSFragment extends ItemDetailFragment {
 	/** ID for the (un)subscribe menu item. It starts from +2 
 	 * because the settings icon is in the +1 position */
 	public static final int SUBSCRIPTION_ID = Menu.FIRST+2;
+	public static final int REFRESH_ID = Menu.FIRST+3;
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -61,7 +62,7 @@ public class PTSFragment extends ItemDetailFragment {
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		//Add subscription icon
-		MenuItem subMenuItem = menu.add(0, SUBSCRIPTION_ID, 0, "(Un)Subscribe");
+		MenuItem subMenuItem = menu.add(0, SUBSCRIPTION_ID, Menu.CATEGORY_SECONDARY, "(Un)Subscribe");
 		subMenuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 		if(pts.isSubscribedTo("testpckgname")) {
 			subMenuItem.setIcon(R.drawable.subscribed);
@@ -70,6 +71,11 @@ public class PTSFragment extends ItemDetailFragment {
 			subMenuItem.setIcon(R.drawable.unsubscribed);
 			subMenuItem.setTitle("Subscribe");
 		}
+		
+		menu.add(0, REFRESH_ID, Menu.CATEGORY_ALTERNATIVE, "Refresh")
+				.setIcon(R.drawable.refresh)
+				.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+		
 	    super.onCreateOptionsMenu(menu, inflater);
 	}
 	
@@ -86,6 +92,9 @@ public class PTSFragment extends ItemDetailFragment {
 			    			item.setTitle("Unsubscribe");
 			    			pts.addSubscriptionTo("testpckgname");
 			    		}
+			    		return true;
+		    	 case REFRESH_ID:
+			    		// Do a refresh if there was a search
 			    		return true;
 	        }
 		return super.onOptionsItemSelected(item);
