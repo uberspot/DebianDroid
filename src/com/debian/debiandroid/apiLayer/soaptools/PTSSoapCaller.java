@@ -1,4 +1,4 @@
-package com.debian.debiandroid.apiLayer;
+package com.debian.debiandroid.apiLayer.soaptools;
 
 import org.ksoap2.serialization.PropertyInfo;
 

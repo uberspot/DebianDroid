@@ -1,7 +1,6 @@
-package com.debian.debiandroid.apiLayer;
+package androidStorageUtils;
 
 import android.content.Context;
-import androidStorageUtils.StorageUtils;
 
 public class Cacher extends StorageUtils{
 

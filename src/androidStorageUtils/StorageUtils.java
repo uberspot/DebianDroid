@@ -33,6 +33,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.HashSet;
+import java.util.Set;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.content.Context;
 import android.content.ContextWrapper;
@@ -192,6 +197,40 @@ public class StorageUtils extends ContextWrapper {
 	public String getPreference(String valueName) {
 	      return PreferenceManager.getDefaultSharedPreferences(this).getString(valueName, "");
 	}
+	
+	/** Saves a preference in the storage in a given StringSet
+	 * @param valueName the name of the preference
+	 * @param value the value of the preference
+	 * @return true if it was saved successfully, false otherwise
+	 */
+	public boolean addPreferenceToSet(String valueName, String value) {
+	      Set<String> currentSet = getPreferenceSet(valueName);
+	      currentSet.add(value);
+	      return saveObjectToInternalStorage(stringSetToJsonString(currentSet), valueName);
+	}
+	
+	/** Loads a preference StringSet from the storage
+	 * @param valueName the name of the preference
+	 * @return a string containing the preference
+	 */
+	public Set<String> getPreferenceSet(String valueName) {
+		  Object setString =  loadObjectFromInternalStorage(valueName);
+		  if(setString!=null) {
+			  return jsonStringToStringSet(setString.toString());  
+		  }
+	      return new HashSet<String>();
+	}
+	
+	/** Removes a preference in the storage from a given StringSet
+	 * @param valueName the name of the preference
+	 * @param value the value of the preference
+	 * @return true if it was saved successfully, false otherwise
+	 */
+	public boolean removePreferenceFromSet(String valueName, String value) {
+		Set<String> currentSet = getPreferenceSet(valueName);
+		currentSet.remove(value);
+		return saveObjectToInternalStorage(stringSetToJsonString(currentSet), valueName);
+	}
 
 	/** Save the given object to a file in external storage
 	 * @param obj the object to save
@@ -328,5 +367,33 @@ public class StorageUtils extends ContextWrapper {
 				try { output.close(); } catch (IOException e) { }
 		}
 		return false;
+	}
+	
+	protected String stringSetToJsonString(Set<String> set) {
+		JSONObject json = new JSONObject();
+		try {
+			json.put("size", set.size());
+			String[] setString = set.toArray(new String[set.size()]);
+			for(int i=0; i < setString.length; i++) {
+				json.put(Integer.toString(i), setString[i]);
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return json.toString();
+	}
+	
+	protected Set<String> jsonStringToStringSet(String jsonString) {
+		Set<String> setString = new HashSet<String>();
+		try {
+			JSONObject json = new JSONObject(jsonString);
+			int size = json.getInt("size");
+		    for(int i=0; i<size; i++) {
+		    	setString.add(json.getString(i + ""));
+		    }
+		} catch (JSONException e) {
+		    e.printStackTrace();
+		}
+		return setString;
 	}
 }

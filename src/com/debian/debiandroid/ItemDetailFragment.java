@@ -115,10 +115,9 @@ public class ItemDetailFragment extends SherlockFragment {
     }
     
     public static void getSettingsMenuItem(Menu menu) {
-		MenuItem item = menu.add(0, SETTINGS_ID, 0, "Settings");
-		item.setIcon(R.drawable.settings);
-		
-		item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+		menu.add(0, SETTINGS_ID, 0, "Settings")
+				.setIcon(R.drawable.settings)
+				.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 	}
     
     @Override

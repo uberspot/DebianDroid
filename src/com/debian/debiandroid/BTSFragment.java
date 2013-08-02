@@ -1,5 +1,10 @@
 package com.debian.debiandroid;
 
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
+import com.debian.debiandroid.apiLayer.BTS;
+
 import android.content.Context;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -18,13 +23,20 @@ public class BTSFragment extends ItemDetailFragment {
 	private Spinner spinner;
 	private ImageButton searchButton;
 	private String searchOptionSelected;
-	private Context context;
 	private EditText btsInput;
+	
+	private BTS bts;
+	private Context context;
+		
+	/** ID for the (un)subscribe menu item. It starts from +2 
+	 * because the settings icon is in the +1 position */
+	public static final int SUBSCRIPTION_ID = Menu.FIRST+2;
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = getSherlockActivity().getApplicationContext();
+        bts = new BTS(context);
     }
 	
 	@Override
@@ -92,4 +104,37 @@ public class BTSFragment extends ItemDetailFragment {
 		}
 		return 0;
 	}
+	
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		//Add subscription icon
+		MenuItem subMenuItem = menu.add(0, SUBSCRIPTION_ID, 0, "(Un)Subscribe");
+		subMenuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+		if(bts.isSubscribedTo("testBugNumber")) {
+			subMenuItem.setIcon(R.drawable.subscribed);
+			subMenuItem.setTitle("Unsubscribe");
+		} else {
+			subMenuItem.setIcon(R.drawable.unsubscribed);
+			subMenuItem.setTitle("Subscribe");
+		}
+	    super.onCreateOptionsMenu(menu, inflater);
+	}
+	
+	@Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+	    	 switch(item.getItemId()){
+		    	 case SUBSCRIPTION_ID:
+			    		if(bts.isSubscribedTo("testBugNumber")) {
+			    			item.setIcon(R.drawable.unsubscribed);
+			    			item.setTitle("Subscribe");
+			    			bts.removeSubscriptionTo("testBugNumber");
+			    		} else {
+			    			item.setIcon(R.drawable.subscribed);
+			    			item.setTitle("Unsubscribe");
+			    			bts.addSubscriptionTo("testBugNumber");
+			    		}
+			    		return true;
+	        }
+		return super.onOptionsItemSelected(item);
+    }
 }

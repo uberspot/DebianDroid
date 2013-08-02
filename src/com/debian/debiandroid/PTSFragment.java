@@ -1,5 +1,10 @@
 package com.debian.debiandroid;
 
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
+import com.debian.debiandroid.apiLayer.PTS;
+
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -12,10 +17,16 @@ public class PTSFragment extends ItemDetailFragment {
 
 	private ImageButton searchButton;
 	private EditText ptsInput;
+	private PTS pts;
+		
+	/** ID for the (un)subscribe menu item. It starts from +2 
+	 * because the settings icon is in the +1 position */
+	public static final int SUBSCRIPTION_ID = Menu.FIRST+2;
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        pts = new PTS(getSherlockActivity().getApplicationContext());
     }
 	
 	@Override
@@ -47,4 +58,36 @@ public class PTSFragment extends ItemDetailFragment {
         return rootView;
     }
 	
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		//Add subscription icon
+		MenuItem subMenuItem = menu.add(0, SUBSCRIPTION_ID, 0, "(Un)Subscribe");
+		subMenuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+		if(pts.isSubscribedTo("testpckgname")) {
+			subMenuItem.setIcon(R.drawable.subscribed);
+			subMenuItem.setTitle("Unsubscribe");
+		} else {
+			subMenuItem.setIcon(R.drawable.unsubscribed);
+			subMenuItem.setTitle("Subscribe");
+		}
+	    super.onCreateOptionsMenu(menu, inflater);
+	}
+	
+	@Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+	    	 switch(item.getItemId()){
+		    	 case SUBSCRIPTION_ID:
+			    		if(pts.isSubscribedTo("testpckgname")) {
+			    			item.setIcon(R.drawable.unsubscribed);
+			    			item.setTitle("Subscribe");
+			    			pts.removeSubscriptionTo("testpckgname");
+			    		} else {
+			    			item.setIcon(R.drawable.subscribed);
+			    			item.setTitle("Unsubscribe");
+			    			pts.addSubscriptionTo("testpckgname");
+			    		}
+			    		return true;
+	        }
+		return super.onOptionsItemSelected(item);
+    }
 }

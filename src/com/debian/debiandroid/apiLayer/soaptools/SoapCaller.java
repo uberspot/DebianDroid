@@ -1,4 +1,4 @@
-package com.debian.debiandroid.apiLayer;
+package com.debian.debiandroid.apiLayer.soaptools;
 
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.PropertyInfo;
@@ -7,6 +7,7 @@ import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 
 import android.content.Context;
+import androidStorageUtils.Cacher;
 
 public class SoapCaller {
 	
