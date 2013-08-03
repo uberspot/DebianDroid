@@ -45,6 +45,8 @@ public class BTSFragment extends ItemDetailFragment {
             Bundle savedInstanceState) {
     	View rootView = inflater.inflate(R.layout.bts_item_detail, container, false);	
         
+    	getSherlockActivity().getSupportActionBar().setTitle("Select Bugs");
+    	
         searchOptionSelected = StorageUtils.getInstance(context).getPreference("btsSearchOption");
         
         // Find the Views once in OnCreate to save time and not use findViewById later.

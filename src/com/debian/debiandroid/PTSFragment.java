@@ -35,6 +35,8 @@ public class PTSFragment extends ItemDetailFragment {
             Bundle savedInstanceState) {
     	View rootView = inflater.inflate(R.layout.pts_item_detail, container, false);
   		
+    	getSherlockActivity().getSupportActionBar().setTitle("Search Package");
+    	
     	searchButton = (ImageButton) rootView.findViewById(R.id.ptsSearchButton);
   		searchButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

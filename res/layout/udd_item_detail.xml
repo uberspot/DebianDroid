@@ -5,15 +5,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".MainPage" >
-    <TextView 
-	    android:id="@+id/uddLabel"
-	    style="?android:attr/textAppearanceLarge"
-	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
-	    android:gravity="center_vertical|left"
-	    android:padding="16dp"
-	    android:text="@string/udd"
-	    android:textIsSelectable="false"
-	    tools:context=".ItemDetailFragment" />
-	</LinearLayout>
+    
+</LinearLayout>
  

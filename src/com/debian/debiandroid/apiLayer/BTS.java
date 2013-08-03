@@ -1,5 +1,7 @@
 package com.debian.debiandroid.apiLayer;
 
+import java.util.Set;
+
 import android.content.Context;
 import androidStorageUtils.StorageUtils;
 
@@ -23,5 +25,9 @@ public class BTS {
 
 	public boolean addSubscriptionTo(String bugNumber) {
 		return btsStorage.addPreferenceToSet(BTSSUBSCRIPTIONS, bugNumber);
+	}
+	
+	public Set<String> getSubscriptions() {
+		return btsStorage.getPreferenceSet(BTSSUBSCRIPTIONS);
 	}
 }

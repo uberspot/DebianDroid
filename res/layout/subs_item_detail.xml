@@ -4,16 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:padding="8dp"
     tools:context=".MainPage" >
-    <TextView 
-	    android:id="@+id/subscriptionsLabel"
-	    style="?android:attr/textAppearanceLarge"
-	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
-	    android:gravity="center_vertical|left"
-	    android:padding="16dp"
-	    android:text="@string/favourites"
-	    android:textIsSelectable="false"
-	    tools:context=".ItemDetailFragment" />
-	</LinearLayout>
+    
+    <ExpandableListView
+	    android:id="@+id/subscriptionlist"
+        android:layout_height="match_parent"
+	    android:layout_width="wrap_content"
+	    android:groupIndicator="@null" />  
+    
+</LinearLayout>
  

@@ -5,21 +5,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".MainPage" >
-    <TextView 
-	    android:id="@+id/ptsSearchPackagesLabel"
-	    style="?android:attr/textAppearanceLarge"
-	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
-	    android:gravity="center_vertical|left"
-	    android:padding="16dp"
-	    android:text="@string/search_packages"
-	    android:textIsSelectable="false"
-	    tools:context=".ItemDetailFragment" />
+    
 
 <LinearLayout  
     android:id="@+id/horizontalLayout1"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:padding="8dp"
     android:orientation="horizontal"  >
 					<EditText
 					    android:id="@+id/ptsInputSearch"

@@ -17,6 +17,8 @@ public class UDDFragment extends ItemDetailFragment {
             Bundle savedInstanceState) {
     	View rootView = inflater.inflate(R.layout.udd_item_detail, container, false);
   		
+    	getSherlockActivity().getSupportActionBar().setTitle("UDD");
+    	
         return rootView;
     }
 	

@@ -1,5 +1,7 @@
 package com.debian.debiandroid.apiLayer;
 
+import java.util.Set;
+
 import android.content.Context;
 import androidStorageUtils.StorageUtils;
 
@@ -23,5 +25,9 @@ public class PTS {
 
 	public boolean addSubscriptionTo(String pckgName) {
 		return ptsStorage.addPreferenceToSet(PTSSUBSCRIPTIONS, pckgName);
+	}
+	
+	public Set<String> getSubscriptions() {
+		return ptsStorage.getPreferenceSet(PTSSUBSCRIPTIONS);
 	}
 }
