@@ -4,6 +4,7 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.debian.debiandroid.apiLayer.PTS;
+import com.debian.debiandroid.apiLayer.SearchCacher;
 
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -28,6 +29,9 @@ public class PTSFragment extends ItemDetailFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         pts = new PTS(getSherlockActivity().getApplicationContext());
+        if(SearchCacher.hasLastSearch()) {
+        	//TODO fill all UI elements with values from last search
+        }
     }
 	
 	@Override

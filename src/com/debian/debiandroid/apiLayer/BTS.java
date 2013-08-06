@@ -30,4 +30,8 @@ public class BTS {
 	public Set<String> getSubscriptions() {
 		return btsStorage.getPreferenceSet(BTSSUBSCRIPTIONS);
 	}
+	
+	public static boolean isBTSHost(String host) {
+		return host.equalsIgnoreCase("bugs.debian.org");
+	}
 }

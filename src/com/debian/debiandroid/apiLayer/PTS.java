@@ -30,4 +30,8 @@ public class PTS {
 	public Set<String> getSubscriptions() {
 		return ptsStorage.getPreferenceSet(PTSSUBSCRIPTIONS);
 	}
+	
+	public static boolean isPTSHost(String host) {
+		return host.equalsIgnoreCase("packages.qa.debian.org");
+	}
 }

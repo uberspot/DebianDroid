@@ -4,6 +4,7 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.debian.debiandroid.apiLayer.BTS;
+import com.debian.debiandroid.apiLayer.SearchCacher;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -38,6 +39,9 @@ public class BTSFragment extends ItemDetailFragment {
         super.onCreate(savedInstanceState);
         context = getSherlockActivity().getApplicationContext();
         bts = new BTS(context);
+        if(SearchCacher.hasLastSearch()) {
+        	//TODO fill all UI elements with values from last search
+        }
     }
 	
 	@Override

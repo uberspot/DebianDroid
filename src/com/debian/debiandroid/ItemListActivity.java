@@ -10,6 +10,7 @@ import com.debian.debiandroid.apiLayer.*;
 import com.debian.debiandroid.content.ContentMenu;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.view.GestureDetectorCompat;
@@ -69,7 +70,30 @@ public class ItemListActivity extends SherlockFragmentActivity
         }
               
         new task().execute();
-        // TODO: If exposing deep links into your app, handle intents here. //e.g. opening BTS/PTS links from other apps
+        // Check if app opened links to bugs.debian.org or packages.qa.debian.org 
+        // and if so forward to proper fragment
+        Intent intent = getIntent();
+        if (Intent.ACTION_VIEW.equals(intent.getAction())) {
+        	  Uri uri = intent.getData();
+        	  
+        	  System.out.println("URI: " + uri);
+        	  
+        	  Bundle arguments = new Bundle();
+              
+        	  // Parse uri to get search variables and forward to corresponding fragment
+        	  if(PTS.isPTSHost(uri.getHost())) {
+        		  SearchCacher.setLastSearchByPTSURI(uri);
+        		  arguments.putString(ItemDetailFragment.ARG_ITEM_ID, ContentMenu.ITEM.PTS.toString());
+        		  onItemSelected(ContentMenu.ITEM.PTS.toString());
+        	  }
+        	  if(BTS.isBTSHost(uri.getHost())) {
+        		  uri = Uri.parse(uri.toString().replace(';', '&'));
+        		  SearchCacher.setLastSearchByBTSURI(uri);
+        		  arguments.putString(ItemDetailFragment.ARG_ITEM_ID, ContentMenu.ITEM.BTS.toString());
+        		  onItemSelected(ContentMenu.ITEM.BTS.toString());
+        	  }
+        	  //else ignore it...
+        }
     }
     
     class task extends AsyncTask<Void, Void, Void> {
@@ -105,22 +129,6 @@ public class ItemListActivity extends SherlockFragmentActivity
     	}
     	super.dispatchTouchEvent(ev);
         return gestureDetector.onTouchEvent(ev);
-    } 
-    
-    public void swipeRight(){
-    	ItemDetailFragment fragment = ItemDetailFragment.getDetailFragment(
-    			ItemDetailFragment.getPreviousFragmentId());
-    	getSupportFragmentManager().beginTransaction()
-    	.replace(R.id.item_detail_container, fragment)
-    	.commit();
-    }
-    
-    public void swipeLeft(){
-    	ItemDetailFragment fragment = ItemDetailFragment.getDetailFragment(
-    			ItemDetailFragment.getNextFragmentId());
-    	getSupportFragmentManager().beginTransaction()
-    	.replace(R.id.item_detail_container, fragment)
-    	.commit();
     }
     
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
@@ -134,19 +142,21 @@ public class ItemListActivity extends SherlockFragmentActivity
 
     /**
      * Callback method from {@link ItemListFragment.Callbacks}
-     * indicating that the item with the given ID was selected.
+     * indicating that the item with the given ID was selected
+     * and that the user will be forwarded to the appropriate fragment
+     * or ItemDetailActivity.
      */
     @Override
-    public void onItemSelected(String id) {    	
-        if (mTwoPane) {
+    public void onItemSelected(String id) {
+    	if (mTwoPane) {
             // In two-pane mode, show the detail view in this activity by
             // adding or replacing the detail fragment using a
             // fragment transaction.
-        	
+            ItemDetailFragment fragment = ItemDetailFragment.getDetailFragment(id);
             Bundle arguments = new Bundle();
             arguments.putString(ItemDetailFragment.ARG_ITEM_ID, id);
-            ItemDetailFragment fragment = ItemDetailFragment.getDetailFragment(id);
-            fragment.setArguments(arguments); 
+        	fragment.setArguments(arguments);
+        	
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.item_detail_container, fragment)
                     .commit();
@@ -177,9 +187,11 @@ class SwipeListener extends GestureDetector.SimpleOnGestureListener {
                 if (Math.abs(diffX) > Math.abs(diffY)) {
                     if (Math.abs(diffX) > SWIPE_THRESHOLD && Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
                         if (diffX > 0) {
-                            swipeRight();
+                        	// Swipe right
+                        	onItemSelected(ItemDetailFragment.getPreviousFragmentId());
                         } else {
-                        	swipeLeft();
+                        	// Swipe left
+                        	onItemSelected(ItemDetailFragment.getNextFragmentId());
                         }
                         return true;
                     }
