@@ -1,5 +1,6 @@
 package com.debian.debiandroid;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
 
@@ -9,6 +10,9 @@ import com.actionbarsherlock.view.MenuItem;
 import com.debian.debiandroid.apiLayer.*;
 import com.debian.debiandroid.content.ContentMenu;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -70,6 +74,15 @@ public class ItemListActivity extends SherlockFragmentActivity
         }
               
         new task().execute();
+        
+        // Start service that auto updates subscribed packages and notifies user
+        //startService(new Intent(this, DDNotifyService.class));
+        PendingIntent pintent = PendingIntent.getService(this, 0, new Intent(this, DDNotifyService.class), 0);
+
+        AlarmManager alarm = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+        // Start every 300 seconds
+        alarm.setRepeating(AlarmManager.RTC_WAKEUP, Calendar.getInstance().getTimeInMillis(), 300*1000, pintent);
+        
         // Check if app opened links to bugs.debian.org or packages.qa.debian.org 
         // and if so forward to proper fragment
         Intent intent = getIntent();
