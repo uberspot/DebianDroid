@@ -15,7 +15,7 @@ public class SoapCaller {
 	protected String URL;
 	protected Cacher cacher;
 	
-	public SoapCaller(Context context){
+	public SoapCaller(Context context) {
 		NAMESPACE = "";
 		URL = "";
 		cacher = new Cacher(context);

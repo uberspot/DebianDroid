@@ -26,8 +26,8 @@
 					    android:ems="10"
 					    android:layout_weight="2"
 					    android:gravity="left"
-					    android:inputType="textNoSuggestions" >
-					    <requestFocus />
+					    android:inputType="textAutoComplete"
+					    android:imeOptions="actionSearch" >
 					</EditText>
 					<ImageButton
 					    android:id="@+id/btsSearchButton"

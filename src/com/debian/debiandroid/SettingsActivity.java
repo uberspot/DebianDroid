@@ -1,10 +1,12 @@
 package com.debian.debiandroid;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
+import android.preference.PreferenceManager;
 import android.support.v4.app.NavUtils;
 
 import com.actionbarsherlock.app.SherlockPreferenceActivity;
@@ -44,4 +46,18 @@ public class SettingsActivity extends SherlockPreferenceActivity {
 	       }
 	        return super.onOptionsItemSelected(item);
 	    }
+		
+		@Override
+		public void onDestroy() {
+			//reload preferences on exit from settings screen 
+			loadSettings(getApplicationContext());
+	    	super.onDestroy();
+		}
+		
+		public static void loadSettings(Context context) {
+			try {
+				DDNotifyService.updateIntervalTime = Integer.parseInt(PreferenceManager.getDefaultSharedPreferences(
+						context).getString("rinterval", "600"))*1000; // stored seconds -> milliseconds
+			} catch(NumberFormatException e) { e.printStackTrace(); }
+		}
 }

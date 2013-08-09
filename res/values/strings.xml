@@ -16,5 +16,7 @@
     <string name="use_3g">Use 3G</string>
     <string name="use_3g_summary">Tick to use 3G as well to download data or untick to use only wifi</string>
     <string name="scanforqrcode">Scan for QRCode</string>
+    <string name="maint_username">Developer username</string>
+    <string name="refresh_interval">Auto-refresh interval</string>
     
 </resources>

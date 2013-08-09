@@ -9,6 +9,19 @@
 	        android:title="@string/use_3g"
 	        android:summary="@string/use_3g_summary"
 	        android:defaultValue="false" />
+	    <EditTextPreference
+	        android:key="ddusername"
+            android:name="Developer username"
+            android:summary="Username of Debian developer"
+            android:defaultValue="empty"
+            android:title="@string/maint_username"
+            android:inputType="textAutoComplete" />
+	    <EditTextPreference
+	        android:key="rinterval"
+            android:name="Auto-refresh interval"
+            android:summary="Interval (in seconds) between checks for new package/bug data."
+            android:defaultValue="600"
+            android:title="@string/refresh_interval"
+            android:inputType="number" />
     </PreferenceCategory>
-    
 </PreferenceScreen>

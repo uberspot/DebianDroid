@@ -11,8 +11,11 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
+import android.widget.TextView.OnEditorActionListener;
 
 public class PTSFragment extends ItemDetailFragment {
 
@@ -49,18 +52,16 @@ public class PTSFragment extends ItemDetailFragment {
         });
   		
   		ptsInput = (EditText) rootView.findViewById(R.id.ptsInputSearch);
-  		ptsInput.setOnKeyListener(new View.OnKeyListener() {
-			@Override
-			public boolean onKey(View v, int keyCode, KeyEvent event) {
-				// If the event is a key-down event on the "enter" button
-		        if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
-		        				(keyCode == KeyEvent.KEYCODE_ENTER)) {
-		        	//DO SEARCH USING APILAYER, DISPLAY RESULTS
-		          return true;
-		        }
-				return false;
-			}
-		});
+  		ptsInput.setOnEditorActionListener(new OnEditorActionListener() {
+  		    @Override
+  		    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+  		        if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+  		        	//DO SEARCH USING APILAYER, DISPLAY RESULTS
+  		            return true;
+  		        }
+  		        return false;
+  		    }
+  		});
     	
         return rootView;
     }

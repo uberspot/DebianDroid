@@ -1,3 +1,7 @@
+// TODO: settings reload when changed, all string to xml, udd ui, qr code scan/results etc
+// add check for internet connection in parts of ui and notify user, pts/bts results ui,
+// create launcher widget, code cleanup/comments
+
 package com.debian.debiandroid;
 
 import java.util.Calendar;
@@ -73,25 +77,26 @@ public class ItemListActivity extends SherlockFragmentActivity
             
         }
               
-        new task().execute();
+        new task().execute(); //temporary
+        
+        // Load stored settings before starting service
+        SettingsActivity.loadSettings(getApplicationContext());
         
         // Start service that auto updates subscribed packages and notifies user
-        //startService(new Intent(this, DDNotifyService.class));
         PendingIntent pintent = PendingIntent.getService(this, 0, new Intent(this, DDNotifyService.class), 0);
 
         AlarmManager alarm = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
-        // Start every 300 seconds
+        // Start service again every 300 seconds
         alarm.setRepeating(AlarmManager.RTC_WAKEUP, Calendar.getInstance().getTimeInMillis(), 300*1000, pintent);
         
         // Check if app opened links to bugs.debian.org or packages.qa.debian.org 
-        // and if so forward to proper fragment
         Intent intent = getIntent();
         if (Intent.ACTION_VIEW.equals(intent.getAction())) {
         	  Uri uri = intent.getData();
         	  
         	  System.out.println("URI: " + uri);
         	  
-        	  // Parse uri to get search variables and forward to corresponding fragment
+        	  // Parse uri to get search parameters and forward to corresponding fragment
         	  if(PTS.isPTSHost(uri.getHost())) {
         		  SearchCacher.setLastSearchByPTSURI(uri);
         		  onItemSelected(ContentMenu.ITEM.PTS.toString());
@@ -101,7 +106,6 @@ public class ItemListActivity extends SherlockFragmentActivity
         		  SearchCacher.setLastSearchByBTSURI(uri);
         		  onItemSelected(ContentMenu.ITEM.BTS.toString());
         	  }
-        	  //else ignore it...
         }
     }
     
@@ -110,7 +114,7 @@ public class ItemListActivity extends SherlockFragmentActivity
 		protected Void doInBackground(Void... params) {
 			
 			//System.out.println( new BTSSoapCaller(getApplicationContext()).getBugLog(264023));
-			//System.out.println(new UDDCaller().getNewMaintainers());
+			//System.out.println(new UDDCaller(getApplicationContext()).getLastUploads());
 			//Log.i("Debian", new BTSSoapCaller(getApplicationContext()).getStatus(new int[]{264023, 407364}));
 			
 		    /*Iterator<Integer> iterator = map.keySet().iterator();  

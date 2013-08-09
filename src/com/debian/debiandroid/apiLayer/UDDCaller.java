@@ -5,27 +5,42 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import android.content.Context;
+import androidStorageUtils.Cacher;
+
 public class UDDCaller {
+	
+	protected Cacher cacher;
+	
+	public UDDCaller(Context context) {
+		cacher = new Cacher(context);
+	}
 		
 	private static final String UDD_CGI_URL = "http://udd.debian.org/cgi-bin/";
 	
 	public String getOrphanedPackages() {
-		return doQueryRequest(UDD_CGI_URL + "bapase.cgi?t=o");
+		return doQueryRequest("bapase.cgi?t=o");
 	}
 	
 	public String getLastUploads() {
-		return doQueryRequest(UDD_CGI_URL + "last-uploads.cgi");
+		return doQueryRequest("last-uploads.cgi");
 	}
 	
 	public String getNewMaintainers() {
-		return doQueryRequest(UDD_CGI_URL + "new-maintainers.cgi");
+		return doQueryRequest("new-maintainers.cgi");
 	}
 
 	public String doQueryRequest(String queryURL) {
+		// if (fresh) cached string exists then return it, otherwise 
+        // continue with the normal retrieval
+        String cachedString = cacher.getCachedString(queryURL);
+        if(cachedString!=null) {
+        	return cachedString;
+        }
 		HttpURLConnection urlConnection = null;
 		StringBuilder htmlPage = new StringBuilder();
 		try {
-			URL url = new URL(queryURL);
+			URL url = new URL(UDD_CGI_URL + queryURL);
 			urlConnection = (HttpURLConnection) url.openConnection();
 			urlConnection.connect();
 
@@ -46,6 +61,7 @@ public class UDDCaller {
 			if (urlConnection != null)
 				urlConnection.disconnect();
 		}
+		cacher.cacheString(queryURL, htmlPage.toString());
 		return htmlPage.toString();
 	}
 }

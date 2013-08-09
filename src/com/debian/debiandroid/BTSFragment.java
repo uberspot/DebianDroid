@@ -12,11 +12,14 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.TextView.OnEditorActionListener;
 import androidStorageUtils.StorageUtils;
 
 public class BTSFragment extends ItemDetailFragment {
@@ -65,18 +68,16 @@ public class BTSFragment extends ItemDetailFragment {
         });
   		
   		btsInput = (EditText) rootView.findViewById(R.id.btsInputSearch);
-  		btsInput.setOnKeyListener(new View.OnKeyListener() {
-			@Override
-			public boolean onKey(View v, int keyCode, KeyEvent event) {
-				// If the event is a key-down event on the "enter" button
-		        if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
-		        				(keyCode == KeyEvent.KEYCODE_ENTER)) {
-		        	//DO SEARCH USING APILAYER, DISPLAY RESULTS
-		          return true;
-		        }
-				return false;
-			}
-		});
+  		btsInput.setOnEditorActionListener(new OnEditorActionListener() {
+  		    @Override
+  		    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+  		        if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+  		        	//DO SEARCH USING APILAYER, DISPLAY RESULTS
+  		            return true;
+  		        }
+  		        return false;
+  		    }
+  		});
   		
         return rootView;
     }

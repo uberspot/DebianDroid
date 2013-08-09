@@ -49,6 +49,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ItemListActivity" />
         </activity>
+         <service android:name=".DDNotifyService" android:exported="false" />
     </application>
 
 </manifest>

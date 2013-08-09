@@ -57,8 +57,8 @@ public class Cacher extends StorageUtils{
 	
 	public void disableCache(){ enabledCache = false; }
 
-	public void disableCacheTimeLimit() { cacheLimit = Long.MAX_VALUE; }
+	public static void disableCacheTimeLimit() { cacheLimit = Long.MAX_VALUE; }
 	
-	public void enableCacheTimeLimit() { cacheLimit = defaultCacheLimit; }
+	public static void enableCacheTimeLimit() { cacheLimit = defaultCacheLimit; }
 
 }
