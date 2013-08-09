@@ -91,18 +91,14 @@ public class ItemListActivity extends SherlockFragmentActivity
         	  
         	  System.out.println("URI: " + uri);
         	  
-        	  Bundle arguments = new Bundle();
-              
         	  // Parse uri to get search variables and forward to corresponding fragment
         	  if(PTS.isPTSHost(uri.getHost())) {
         		  SearchCacher.setLastSearchByPTSURI(uri);
-        		  arguments.putString(ItemDetailFragment.ARG_ITEM_ID, ContentMenu.ITEM.PTS.toString());
         		  onItemSelected(ContentMenu.ITEM.PTS.toString());
         	  }
         	  if(BTS.isBTSHost(uri.getHost())) {
         		  uri = Uri.parse(uri.toString().replace(';', '&'));
         		  SearchCacher.setLastSearchByBTSURI(uri);
-        		  arguments.putString(ItemDetailFragment.ARG_ITEM_ID, ContentMenu.ITEM.BTS.toString());
         		  onItemSelected(ContentMenu.ITEM.BTS.toString());
         	  }
         	  //else ignore it...

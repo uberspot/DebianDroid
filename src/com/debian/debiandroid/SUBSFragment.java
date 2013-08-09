@@ -5,6 +5,8 @@ import java.util.Set;
 
 import com.debian.debiandroid.apiLayer.BTS;
 import com.debian.debiandroid.apiLayer.PTS;
+import com.debian.debiandroid.apiLayer.SearchCacher;
+import com.debian.debiandroid.content.ContentMenu;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -36,7 +38,6 @@ public class SUBSFragment extends ItemDetailFragment {
     	
     	expandableList.setDividerHeight(1);
     	expandableList.setClickable(true);
-    	
     	setSubscribedData();
     	
     	final DExpandableAdapter adapter = new DExpandableAdapter(parentItems, childItems);
@@ -48,8 +49,25 @@ public class SUBSFragment extends ItemDetailFragment {
     		
             public boolean onChildClick(ExpandableListView parent, View view,
                     int groupPosition, int childPosition, long id) {
-                System.out.println("Child Clicked " + ((TextView)view).getText());
-				//Move to pts/bts fragment to display the selected package/bug
+            	String itemClicked = ((TextView)view).getText().toString();
+                System.out.println("Child Clicked " + itemClicked + " " + groupPosition);
+                if(groupPosition==0) {
+                	SearchCacher.setLastSearchByPckgName(itemClicked);
+                	// Move to pts fragment
+          		  	ItemDetailFragment fragment = ItemDetailFragment.getDetailFragment(
+          				  ContentMenu.ITEM.PTS.toString());
+	          		getActivity().getSupportFragmentManager().beginTransaction()
+	              	.replace(R.id.item_detail_container, fragment)
+	              	.commit();
+                } else if(groupPosition==1) {
+                	SearchCacher.setLastSearchByBugNumber(itemClicked);
+                	// Move to bts fragment
+          		  	ItemDetailFragment fragment = ItemDetailFragment.getDetailFragment(
+          				  ContentMenu.ITEM.BTS.toString());
+	          		getActivity().getSupportFragmentManager().beginTransaction()
+	              	.replace(R.id.item_detail_container, fragment)
+	              	.commit();
+                }
                 return true;
             }
         });
