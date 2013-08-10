@@ -20,5 +20,21 @@
     <string name="maint_username">Developer username</string>
     <string name="refresh_interval">Auto-refresh interval</string>
     <string name="cache_limit">Cache time limit</string>
+    <string name="maint_username_sum">Username of Debian developer</string>
+    <string name="refresh_interval_sum">Interval (in seconds) between checks for new package/bug data.</string>
+    <string name="cache_limit_sum">How many hours to keep retrieved info in cache</string>
+    <string name="clear_cache">Clear cache now</string>
+    <string name="clear_cache_sum">Clear all cached info now</string>
+    <string name="refresh">Refresh</string>
+    <string name="subscribe">Subscribe</string>
+    <string name="unsubscribe">Unsubscribe</string>
+    <string name="by_number">by number</string>
+    <string name="in_package">in package</string>
+    <string name="in_pckgs_maint_by">in pckgs maintained by</string>
+    <string name="submitted_by">submitted by</string>
+    <string name="with_status">with status</string>
+    <string name="with_mail_from">with mail from</string>
+    <string name="subscribed_packages">Subscribed Packages</string>
+    <string name="subscribed_bugs">Subscribed Bugs</string>
     
 </resources>

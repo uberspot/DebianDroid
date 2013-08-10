@@ -32,7 +32,7 @@ public class SUBSFragment extends ItemDetailFragment {
             Bundle savedInstanceState) {
     	View rootView = inflater.inflate(R.layout.subs_item_detail, container, false);
         
-    	getSherlockActivity().getSupportActionBar().setTitle("Favourites");
+    	getSherlockActivity().getSupportActionBar().setTitle(getString(R.string.favourites));
     	
     	ExpandableListView expandableList = (ExpandableListView) rootView.findViewById(R.id.subscriptionlist);
     	
@@ -84,8 +84,8 @@ public class SUBSFragment extends ItemDetailFragment {
 		Set<String> ptsSubs = new PTS(context).getSubscriptions();
 		Set<String> btsSubs = new BTS(context).getSubscriptions();
 		
-		parentItems.add("Subscribed Packages (" + ptsSubs.size() + ")");
-		parentItems.add("Subscribed Bugs (" + btsSubs.size() + ")");
+		parentItems.add(getString(R.string.subscribed_packages) + " (" + ptsSubs.size() + ")");
+		parentItems.add(getString(R.string.subscribed_bugs) + " (" + btsSubs.size() + ")");
 		
 		ArrayList<String> child = new ArrayList<String>();
 		child.addAll(ptsSubs);

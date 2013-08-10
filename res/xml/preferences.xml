@@ -12,14 +12,14 @@
 	    <EditTextPreference
 	        android:key="ddusername"
             android:name="Developer username"
-            android:summary="Username of Debian developer"
+            android:summary="@string/maint_username_sum"
             android:defaultValue="empty"
             android:title="@string/maint_username"
             android:inputType="textAutoComplete" />
 	    <EditTextPreference
 	        android:key="rinterval"
             android:name="Auto-refresh interval"
-            android:summary="Interval (in seconds) between checks for new package/bug data."
+            android:summary="@string/refresh_interval_sum"
             android:defaultValue="600"
             android:title="@string/refresh_interval"
             android:inputType="number" />
@@ -31,12 +31,13 @@
 	    <EditTextPreference
 	        android:key="cachelimit"
             android:name="Cache time limit"
-            android:summary="How many hours to keep retrieved info in cache"
+            android:summary="@string/cache_limit_sum"
             android:defaultValue="48"
             android:title="@string/cache_limit"
             android:inputType="number" />
-	    <Preference android:title="Clear cache now"
-                android:key="clearcache"
-                android:summary="Clear all cached info now"/>
+	    <Preference 
+	        android:key="clearcache"
+	        android:title="@string/clear_cache"
+            android:summary="@string/clear_cache_sum"/>
     </PreferenceCategory>
 </PreferenceScreen>

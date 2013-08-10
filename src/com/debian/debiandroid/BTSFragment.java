@@ -52,7 +52,7 @@ public class BTSFragment extends ItemDetailFragment {
             Bundle savedInstanceState) {
     	View rootView = inflater.inflate(R.layout.bts_item_detail, container, false);	
         
-    	getSherlockActivity().getSupportActionBar().setTitle("Select Bugs");
+    	getSherlockActivity().getSupportActionBar().setTitle(getString(R.string.select_bugs));
     	
         searchOptionSelected = StorageUtils.getInstance(context).getPreference("btsSearchOption");
         
@@ -84,7 +84,12 @@ public class BTSFragment extends ItemDetailFragment {
 	
 	/** Initializes the spinner view and fills it with pts search choices */
 	private void setupSpinner() {		
-		String[] values = {"by number", "in package", "in pckgs maintained by", "submitted by", "with status", "with mail from"}; 
+		String[] values = { getString(R.string.by_number), 
+							getString(R.string.in_package), 
+							getString(R.string.in_pckgs_maint_by), 
+							getString(R.string.submitted_by), 
+							getString(R.string.with_status), 
+							getString(R.string.with_mail_from) }; 
 		
 		spinner.setAdapter(new ArrayAdapter<String>(this.getActivity(), 
         				android.R.layout.simple_spinner_item, values));
@@ -120,13 +125,13 @@ public class BTSFragment extends ItemDetailFragment {
 		subMenuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 		if(bts.isSubscribedTo("testBugNumber")) {
 			subMenuItem.setIcon(R.drawable.subscribed);
-			subMenuItem.setTitle("Unsubscribe");
+			subMenuItem.setTitle(getString(R.string.unsubscribe));
 		} else {
 			subMenuItem.setIcon(R.drawable.unsubscribed);
-			subMenuItem.setTitle("Subscribe");
+			subMenuItem.setTitle(getString(R.string.subscribe));
 		}
 		
-		menu.add(0, REFRESH_ID, Menu.CATEGORY_ALTERNATIVE, "Refresh")
+		menu.add(0, REFRESH_ID, Menu.CATEGORY_ALTERNATIVE, getString(R.string.refresh))
 				.setIcon(R.drawable.refresh)
 				.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 		
@@ -139,11 +144,11 @@ public class BTSFragment extends ItemDetailFragment {
 		    	 case SUBSCRIPTION_ID:
 			    		if(bts.isSubscribedTo("testBugNumber")) {
 			    			item.setIcon(R.drawable.unsubscribed);
-			    			item.setTitle("Subscribe");
+			    			item.setTitle(getString(R.string.subscribe));
 			    			bts.removeSubscriptionTo("testBugNumber");
 			    		} else {
 			    			item.setIcon(R.drawable.subscribed);
-			    			item.setTitle("Unsubscribe");
+			    			item.setTitle(getString(R.string.unsubscribe));
 			    			bts.addSubscriptionTo("testBugNumber");
 			    		}
 			    		return true;

@@ -31,7 +31,7 @@ public class CIFFragment extends ItemDetailFragment {
             Bundle savedInstanceState) {
     	View rootView = inflater.inflate(R.layout.cif_item_detail, container, false);
     	
-    	getSherlockActivity().getSupportActionBar().setTitle("Find Common Interests");
+    	getSherlockActivity().getSupportActionBar().setTitle(getString(R.string.find_common_interests));
     	
     	qrScanButton = (Button) rootView.findViewById(R.id.cifScanQRButton);
     	qrScanButton.setOnClickListener(new View.OnClickListener() {

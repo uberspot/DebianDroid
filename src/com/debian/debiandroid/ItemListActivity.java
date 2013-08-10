@@ -1,4 +1,4 @@
-// TODO: all string to xml, udd ui, qr code scan/results etc
+// TODO: udd ui, qr code scan/results etc
 // add check for internet connection in parts of ui and notify user, pts/bts results ui,
 // create launcher widget, code cleanup/comments
 

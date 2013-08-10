@@ -42,7 +42,7 @@ public class PTSFragment extends ItemDetailFragment {
             Bundle savedInstanceState) {
     	View rootView = inflater.inflate(R.layout.pts_item_detail, container, false);
   		
-    	getSherlockActivity().getSupportActionBar().setTitle("Search Package");
+    	getSherlockActivity().getSupportActionBar().setTitle(getString(R.string.search_packages));
     	
     	searchButton = (ImageButton) rootView.findViewById(R.id.ptsSearchButton);
   		searchButton.setOnClickListener(new View.OnClickListener() {
@@ -79,7 +79,7 @@ public class PTSFragment extends ItemDetailFragment {
 			subMenuItem.setTitle("Subscribe");
 		}
 		
-		menu.add(0, REFRESH_ID, Menu.CATEGORY_ALTERNATIVE, "Refresh")
+		menu.add(0, REFRESH_ID, Menu.CATEGORY_ALTERNATIVE, getString(R.string.refresh))
 				.setIcon(R.drawable.refresh)
 				.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 		
@@ -92,11 +92,11 @@ public class PTSFragment extends ItemDetailFragment {
 		    	 case SUBSCRIPTION_ID:
 			    		if(pts.isSubscribedTo("testpckgname")) {
 			    			item.setIcon(R.drawable.unsubscribed);
-			    			item.setTitle("Subscribe");
+			    			item.setTitle(getString(R.string.subscribe));
 			    			pts.removeSubscriptionTo("testpckgname");
 			    		} else {
 			    			item.setIcon(R.drawable.subscribed);
-			    			item.setTitle("Unsubscribe");
+			    			item.setTitle(getString(R.string.unsubscribe));
 			    			pts.addSubscriptionTo("testpckgname");
 			    		}
 			    		return true;
