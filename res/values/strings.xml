@@ -13,10 +13,12 @@
     <string name="QRCode">QRCode</string>
     <string name="scan_qrcode">Scan a QRCode</string>
     <string name="general_settings">General Settings</string>
+    <string name="cache_settings">Cache Settings</string>
     <string name="use_3g">Use 3G</string>
     <string name="use_3g_summary">Tick to use 3G as well to download data or untick to use only wifi</string>
     <string name="scanforqrcode">Scan for QRCode</string>
     <string name="maint_username">Developer username</string>
     <string name="refresh_interval">Auto-refresh interval</string>
+    <string name="cache_limit">Cache time limit</string>
     
 </resources>

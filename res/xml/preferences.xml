@@ -24,4 +24,19 @@
             android:title="@string/refresh_interval"
             android:inputType="number" />
     </PreferenceCategory>
+    <PreferenceCategory 
+        android:title="@string/cache_settings"
+        android:key="cache_settings">
+
+	    <EditTextPreference
+	        android:key="cachelimit"
+            android:name="Cache time limit"
+            android:summary="How many hours to keep retrieved info in cache"
+            android:defaultValue="48"
+            android:title="@string/cache_limit"
+            android:inputType="number" />
+	    <Preference android:title="Clear cache now"
+                android:key="clearcache"
+                android:summary="Clear all cached info now"/>
+    </PreferenceCategory>
 </PreferenceScreen>

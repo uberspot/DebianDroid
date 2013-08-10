@@ -11,6 +11,8 @@ public class Cacher extends StorageUtils{
 	
 	private boolean enabledCache;
 	
+	private static final String cacheExtension = ".cache";
+	
 	public Cacher(Context base) {
 		super(base);
 		enabledCache = true;
@@ -28,7 +30,7 @@ public class Cacher extends StorageUtils{
 	public String getCachedString(String fileName) {
 		if(!enabledCache)
 			return null;
-    	Object obj = loadObjectFromInternalStorage(fileName);
+    	Object obj = loadObjectFromInternalStorage(fileName + cacheExtension);
     	if(obj!=null) {
     		String string = obj.toString();
         	int firstSpace = string.indexOf(' ');
@@ -50,7 +52,7 @@ public class Cacher extends StorageUtils{
 	 */
 	public void cacheString(String fileName, String string) {
 		if(enabledCache)
-			saveObjectToInternalStorage( System.currentTimeMillis() + " " + string, fileName);
+			saveObjectToInternalStorage(System.currentTimeMillis() + " " + string + cacheExtension, fileName);
 	}
 	
 	public void enableCache(){ enabledCache = true; }
@@ -60,5 +62,15 @@ public class Cacher extends StorageUtils{
 	public static void disableCacheTimeLimit() { cacheLimit = Long.MAX_VALUE; }
 	
 	public static void enableCacheTimeLimit() { cacheLimit = defaultCacheLimit; }
-
+	
+	public static void setCacheLimitByHours(int hours) { cacheLimit = hours*60*60*1000; }
+	
+	public void clearCache() { 
+		String[] files = fileList();
+		for(String file: files) {
+			if(file.endsWith(cacheExtension)){
+				deleteFile(file);
+			}
+		}
+	}
 }
