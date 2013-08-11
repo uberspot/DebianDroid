@@ -87,6 +87,9 @@ public class ItemDetailFragment extends SherlockFragment {
 
     public static String getNextFragmentId(){
     	int position = getPositionOfItem(currentFragmentID);
+    	if(position==-1) {
+    		return ContentMenu.ITEM.PTS.toString();
+    	}
     	if(position++!=-1 && position<ContentMenu.ITEM.values().length)
     		return ContentMenu.ITEM.values()[position].toString();
     	return currentFragmentID;
@@ -94,12 +97,19 @@ public class ItemDetailFragment extends SherlockFragment {
     
     public static String getPreviousFragmentId(){
     	int position = getPositionOfItem(currentFragmentID);
+    	// return to ItemListActivity and don't show fragments anymore
+    	if(position==0) {
+    		return null;
+    	}
     	if(position--!=-1 && position>=0)
     		return ContentMenu.ITEM.values()[position].toString();
     	return currentFragmentID;
     }
     
     private static int getPositionOfItem(String id){
+    	if(id.equals("")) {
+    		return -1;
+    	}
     	ContentMenu.ITEM[] items = ContentMenu.ITEM.values();
     	for(int i=0;i<items.length; i++) {
     		if(items[i].toString().equalsIgnoreCase(id)) {

@@ -89,11 +89,15 @@ public class ItemDetailActivity extends SherlockFragmentActivity {
     } 
     
     public void swipeRight(){
-    	ItemDetailFragment fragment = ItemDetailFragment.getDetailFragment(
-    			ItemDetailFragment.getPreviousFragmentId());
-    	getSupportFragmentManager().beginTransaction()
-    	.replace(R.id.item_detail_container, fragment)
-    	.commit();
+    	String fragmentID = ItemDetailFragment.getPreviousFragmentId();
+    	if(fragmentID==null) {
+    		finish();
+    	} else {
+	    	ItemDetailFragment fragment = ItemDetailFragment.getDetailFragment(fragmentID);
+	    	getSupportFragmentManager().beginTransaction()
+	    	.replace(R.id.item_detail_container, fragment)
+	    	.commit();
+    	}
     }
     
     public void swipeLeft(){

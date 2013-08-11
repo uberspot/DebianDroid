@@ -59,6 +59,8 @@ public class ItemListActivity extends SherlockFragmentActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_list);
 
+        gestureDetector = new GestureDetectorCompat(this, new SwipeListener());
+        
         if (findViewById(R.id.item_detail_container) != null) {
             // The detail container view will be present only in the
             // large-screen layouts (res/values-large and
@@ -72,7 +74,6 @@ public class ItemListActivity extends SherlockFragmentActivity
                     .findFragmentById(R.id.item_list))
                     .setActivateOnItemClick(true);
             
-            gestureDetector = new GestureDetectorCompat(this, new SwipeListener());
             onItemSelected(ContentMenu.ITEM.PTS.toString());
             
         }
@@ -129,7 +130,7 @@ public class ItemListActivity extends SherlockFragmentActivity
     
     @Override 
     public boolean onTouchEvent(MotionEvent event){ 
-    	if (mTwoPane && gestureDetector.onTouchEvent(event)) {
+    	if (gestureDetector.onTouchEvent(event)) { //mTwoPane && 
             	return true;
     	}
         return super.onTouchEvent(event);
@@ -201,7 +202,9 @@ class SwipeListener extends GestureDetector.SimpleOnGestureListener {
                     if (Math.abs(diffX) > SWIPE_THRESHOLD && Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
                         if (diffX > 0) {
                         	// Swipe right
-                        	onItemSelected(ItemDetailFragment.getPreviousFragmentId());
+                        	String fragmentID = ItemDetailFragment.getPreviousFragmentId();
+                        	if(fragmentID!=null)
+                        		onItemSelected(fragmentID);
                         } else {
                         	// Swipe left
                         	onItemSelected(ItemDetailFragment.getNextFragmentId());
