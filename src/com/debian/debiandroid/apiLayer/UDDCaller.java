@@ -33,9 +33,10 @@ public class UDDCaller {
 	public String doQueryRequest(String queryURL) {
 		// if (fresh) cached string exists then return it, otherwise 
         // continue with the normal retrieval
-        String cachedString = cacher.getCachedString(queryURL);
-        if(cachedString!=null) {
-        	return cachedString;
+		String cached = cacher.getCachedString(queryURL);
+        String cachedString = "";
+        if(cached!=null) {
+        	cachedString = cached;
         }
 		HttpURLConnection urlConnection = null;
 		StringBuilder htmlPage = new StringBuilder();
@@ -54,6 +55,8 @@ public class UDDCaller {
 					htmlPage.append(inputLine);
 					htmlPage.append("\n");
 				}
+				cacher.cacheString(queryURL, htmlPage.toString());
+				return htmlPage.toString();
 			}
 		} catch (Exception e) {
 			e.printStackTrace(System.out);
@@ -61,7 +64,7 @@ public class UDDCaller {
 			if (urlConnection != null)
 				urlConnection.disconnect();
 		}
-		cacher.cacheString(queryURL, htmlPage.toString());
-		return htmlPage.toString();
+		//if any errors occured return the cached string (or "" if no cached version exists)
+		return cachedString;
 	}
 }

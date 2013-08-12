@@ -108,6 +108,12 @@ public class ItemDetailActivity extends SherlockFragmentActivity {
     	.commit();
     }
     
+    @Override
+    public void onDestroy() {
+    	ItemDetailFragment.currentFragmentID = "";
+    	super.onDestroy();
+    }
+    
     class SwipeListener extends GestureDetector.SimpleOnGestureListener {
     	
     	private static final int SWIPE_THRESHOLD = 100;

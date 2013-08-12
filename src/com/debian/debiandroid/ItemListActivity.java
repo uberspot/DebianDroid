@@ -1,6 +1,7 @@
-// TODO: udd ui, qr code scan/results etc
-// add check for internet connection in parts of ui and notify user, pts/bts results ui,
-// create launcher widget, code cleanup/comments
+/* TODO: udd ui, qr code scan/results etc, pts/bts results ui,
+ add check for internet connection in parts of ui and notify user,
+ create launcher widget, code cleanup/comments 
+ * */
 
 package com.debian.debiandroid;
 
@@ -75,7 +76,6 @@ public class ItemListActivity extends SherlockFragmentActivity
                     .setActivateOnItemClick(true);
             
             onItemSelected(ContentMenu.ITEM.PTS.toString());
-            
         }
               
         new task().execute(); //temporary
@@ -138,9 +138,9 @@ public class ItemListActivity extends SherlockFragmentActivity
     
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev){
-    	if(!mTwoPane) {
-    		return super.dispatchTouchEvent(ev);
-    	}
+    	//if(!mTwoPane) {
+    		//return super.dispatchTouchEvent(ev);
+    	//}
     	super.dispatchTouchEvent(ev);
         return gestureDetector.onTouchEvent(ev);
     }
@@ -207,7 +207,9 @@ class SwipeListener extends GestureDetector.SimpleOnGestureListener {
                         		onItemSelected(fragmentID);
                         } else {
                         	// Swipe left
-                        	onItemSelected(ItemDetailFragment.getNextFragmentId());
+                        	String fragmentID = ItemDetailFragment.getNextFragmentId();
+                        	if(fragmentID!=null)
+                        		onItemSelected(fragmentID);
                         }
                         return true;
                     }

@@ -98,7 +98,7 @@ public class ItemDetailFragment extends SherlockFragment {
     public static String getPreviousFragmentId(){
     	int position = getPositionOfItem(currentFragmentID);
     	// return to ItemListActivity and don't show fragments anymore
-    	if(position==0) {
+    	if(position==0 || position==-1) {
     		return null;
     	}
     	if(position--!=-1 && position>=0)
