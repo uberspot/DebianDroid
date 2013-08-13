@@ -13,6 +13,7 @@ import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.debian.debiandroid.apiLayer.*;
+import com.debian.debiandroid.apiLayer.soaptools.BTSSoapCaller;
 import com.debian.debiandroid.content.ContentMenu;
 
 import android.app.AlarmManager;
@@ -114,9 +115,10 @@ public class ItemListActivity extends SherlockFragmentActivity
 		@Override
 		protected Void doInBackground(Void... params) {
 			
-			//System.out.println( new BTSSoapCaller(getApplicationContext()).getBugLog(264023));
+			new BTSSoapCaller(getApplicationContext()).getBugLog(264023);
+			//new BTSSoapCaller(getApplicationContext()).getStatus(new int[]{264023, 712979, 606957});
 			//System.out.println(new UDDCaller(getApplicationContext()).getLastUploads());
-			//Log.i("Debian", new BTSSoapCaller(getApplicationContext()).getStatus(new int[]{264023, 407364}));
+			//Log.i("Debian", );
 			
 		    /*Iterator<Integer> iterator = map.keySet().iterator();  
 		       
@@ -138,9 +140,6 @@ public class ItemListActivity extends SherlockFragmentActivity
     
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev){
-    	//if(!mTwoPane) {
-    		//return super.dispatchTouchEvent(ev);
-    	//}
     	super.dispatchTouchEvent(ev);
         return gestureDetector.onTouchEvent(ev);
     }

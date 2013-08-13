@@ -18,10 +18,6 @@ public class UDDCaller {
 		
 	private static final String UDD_CGI_URL = "http://udd.debian.org/cgi-bin/";
 	
-	public String getOrphanedPackages() {
-		return doQueryRequest("bapase.cgi?t=o");
-	}
-	
 	public String getLastUploads() {
 		return doQueryRequest("last-uploads.cgi");
 	}
