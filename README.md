@@ -26,6 +26,7 @@ Debian Android app for gsoc2013.
  12. Notify user if internet connection stops working and the use of 3g is deactivated. Change cache time to Long.maxvalue so that it always retrieves info from cache regardless of the 'keep in cache' time  [todo]
  13. If "use 3g" settings is false detect if 3g is used and deactivate searching then [todo]
  14. Translate to other languages. Easy if all string are gathered in values/strings.xml [in the making]
+ 15. Add widget that can be displayed on the phone's homescreen and shows latest news/bug reports about bugs or other useful info [in the making]
 
 ##Documentation
 
