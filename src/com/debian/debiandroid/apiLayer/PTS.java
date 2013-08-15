@@ -2,16 +2,19 @@ package com.debian.debiandroid.apiLayer;
 
 import java.util.Set;
 
+import com.debian.debiandroid.apiLayer.soaptools.PTSSoapCaller;
+
 import android.content.Context;
 import androidStorageUtils.StorageUtils;
 
-public class PTS {
+public class PTS extends PTSSoapCaller{
 
 	private StorageUtils ptsStorage;
 	
 	public static final String PTSSUBSCRIPTIONS = "PTSSubscriptions";
 	
 	public PTS(Context context) {
+		super(context);
 		ptsStorage = StorageUtils.getInstance(context);
 	}
 

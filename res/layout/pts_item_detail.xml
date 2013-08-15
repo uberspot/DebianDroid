@@ -1,39 +1,86 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/tablelayout"
+    android:id="@+id/scrolllayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".MainPage" >
-    
-
-<LinearLayout  
-    android:id="@+id/horizontalLayout1"
+    <LinearLayout 
+    android:id="@+id/tablelayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="8dp"
-    android:orientation="horizontal"  >
-					<EditText
-					    android:id="@+id/ptsInputSearch"
-					    android:layout_width="wrap_content"
-					    android:layout_height="wrap_content"
-					    android:ems="10"
-					    android:layout_weight="1"
-					    android:gravity="left"
-					    android:inputType="textAutoComplete"
-						android:imeOptions="actionSearch" >
-					</EditText>
-					<ImageButton
-					    android:id="@+id/ptsSearchButton"
-					    android:layout_width="wrap_content"
-					    android:layout_height="wrap_content"
-					    android:src="@drawable/searcharrow"
-					    android:layout_weight="1"
-					    android:contentDescription="@string/search"
-					    android:gravity="right"
-					    android:background="@null"
-					    android:onClick="onPTSSearchButtonClick" /> 
-</LinearLayout>
+    android:orientation="vertical"
+    tools:context=".MainPage" >
+    
 
-	</LinearLayout>
- 
+		<LinearLayout  
+		    android:id="@+id/horizontalLayout1"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:padding="8dp"
+		    android:orientation="horizontal"  >
+							<EditText
+							    android:id="@+id/ptsInputSearch"
+							    android:layout_width="wrap_content"
+							    android:layout_height="wrap_content"
+							    android:ems="10"
+							    android:layout_weight="1"
+							    android:gravity="left"
+							    android:inputType="textAutoComplete"
+								android:imeOptions="actionSearch" >
+							</EditText>
+							<ImageButton
+							    android:id="@+id/ptsSearchButton"
+							    android:layout_width="wrap_content"
+							    android:layout_height="wrap_content"
+							    android:src="@drawable/searcharrow"
+							    android:layout_weight="1"
+							    android:contentDescription="@string/search"
+							    android:gravity="right"
+							    android:background="@null"/> 
+		</LinearLayout>
+		
+		<TextView
+		    android:id="@+id/ptsPckgName"
+		    style="?android:attr/textAppearanceLarge"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:padding="10dp"
+		    android:textIsSelectable="true" />
+		<TextView
+		    android:id="@+id/ptsPckgLatestVersion"
+		    style="?android:attr/textAppearanceMedium"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:padding="9dp"
+		    android:textIsSelectable="true" />
+		<TextView
+		    android:id="@+id/ptsPckgMaintainerInfo"
+		    style="?android:attr/textAppearanceMedium"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:padding="9dp"
+		    android:textIsSelectable="true" />
+		<TextView
+		    android:id="@+id/ptsPckgBugCount"
+		    style="?android:attr/textAppearanceMedium"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:padding="9dp"
+		    android:textIsSelectable="true" />
+		<TextView
+		    android:id="@+id/ptsPckgUplNames"
+		    style="?android:attr/textAppearanceMedium"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:padding="9dp"
+		    android:textIsSelectable="true" />
+		<TextView
+		    android:id="@+id/ptsPckgBinNames"
+		    style="?android:attr/textAppearanceMedium"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:padding="9dp"
+		    android:textIsSelectable="true" />
+		</LinearLayout>
+ </ScrollView>

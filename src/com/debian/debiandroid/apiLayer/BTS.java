@@ -2,16 +2,19 @@ package com.debian.debiandroid.apiLayer;
 
 import java.util.Set;
 
+import com.debian.debiandroid.apiLayer.soaptools.BTSSoapCaller;
+
 import android.content.Context;
 import androidStorageUtils.StorageUtils;
 
-public class BTS {
+public class BTS extends BTSSoapCaller{
 
 	private StorageUtils btsStorage;
 
 	public static final String BTSSUBSCRIPTIONS = "BTSSubscriptions";
 
 	public BTS(Context context) {
+		super(context);
 		btsStorage = StorageUtils.getInstance(context);
 	}
 
