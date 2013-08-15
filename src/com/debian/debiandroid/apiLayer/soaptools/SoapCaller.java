@@ -52,9 +52,9 @@ public class SoapCaller {
             androidHttpTransport.call(soapAction, envelope);
             //Log.i("Debian", androidHttpTransport.requestDump);
             //Cache new response before returning it
-            Object response = envelope.bodyIn;
-            cacher.cacheString(reqFileName, response.toString());
-            return response.toString();
+            String response = envelope.bodyIn.toString();
+            cacher.cacheString(reqFileName, response);
+            return response;
         } catch(Exception e) {
         	e.printStackTrace();
         }

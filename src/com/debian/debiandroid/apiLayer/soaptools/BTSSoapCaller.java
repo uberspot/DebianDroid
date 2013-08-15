@@ -17,34 +17,37 @@ public class BTSSoapCaller extends SoapCaller{
     }
     
     /** Key values for 'key' parameter in getBugs method*/
-    public enum BUGKEY {PACKAGE, SUBMITTER, MAINT, SRC, SEVERITY, STATUS, OWNER};
-
-    public int[] getBugs(String key, String value) {
-    	PropertyInfo[] properties = new PropertyInfo[2];
-        properties[0] = new PropertyInfo();
-        properties[0].setName("key");
-        properties[0].setValue(key);
-        properties[0].setType(String.class);
-        properties[1] = new PropertyInfo();
-        properties[1].setName("value");
-        properties[1].setValue(value);
-        properties[1].setType(String.class);
-        
+    public static final String PACKAGE = "package" ,SUBMITTER = "submitter" ,
+    		MAINT = "maint" ,SRC = "src" ,SEVERITY = "severity" ,
+    		STATUS = "status", STATUS_DONE = "done", STATUS_FORWARDED = "forwarded", 
+    		STATUS_OPEN = "open", OWNER = "owner", ARCHIVE = "archive", ARCHIVE_TRUE = "true",
+    		ARCHIVE_FALSE = "false", ARCHIVE_BOTH = "both", TAG = "tag";
+    
+    public ArrayList<String> getBugs(String keys[], String values[]) {
+    	if(keys.length!=values.length)
+    		return new ArrayList<String>();
+    	PropertyInfo[] properties = new PropertyInfo[keys.length*2];
+    	for(int i=0, j=0; i<keys.length && j<keys.length*2; i++) {
+	        properties[j] = new PropertyInfo();
+	        properties[j].setName("key");
+	        properties[j].setValue(keys[i]);
+	        properties[j].setType(String.class);
+	        j++;
+	        properties[j] = new PropertyInfo();
+	        properties[j].setName("value");
+	        properties[j].setValue(values[i]);
+	        properties[j].setType(String.class);
+	        j++;
+    	}
         try {
         	String response = doRequest("get_bugs", "get_bugs", properties).toString();
         	String[] nums = response.trim().replace("get_bugsResponse{Array=[", "")
         			.replace("]; }", "").trim().split(", ");
-        	int[] bugNums = new int[nums.length];
-        	for (int i = 0; i < nums.length; i++) {
-        	    try {
-        	    	bugNums[i] = Integer.parseInt(nums[i]);
-        	    } catch (NumberFormatException nfe) {};
-        	}
-        	return bugNums;
+        	return new ArrayList<String>(Arrays.asList(nums));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-        return new int[]{};
+        return new ArrayList<String>();
     }
     
     public ArrayList<HashMap<String,String>> getStatus(int[] bugNumbers) {
@@ -91,6 +94,9 @@ public class BTSSoapCaller extends SoapCaller{
 		status.put("source", getTagValue("source", statusString));
 		status.put("severity", getTagValue("severity", statusString));
 		status.put("tags", getTagValue("tags", statusString));
+		status.put("last_modified", getTagValue("last_modified", statusString));
+		status.put("pending", getTagValue("pending", statusString));
+		status.put("archived", getTagValue("archived", statusString));
 		return status;
 	}
 

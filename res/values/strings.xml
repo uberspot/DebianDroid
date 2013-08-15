@@ -36,5 +36,15 @@
     <string name="with_mail_from">with mail from</string>
     <string name="subscribed_packages">Subscribed Packages</string>
     <string name="subscribed_bugs">Subscribed Bugs</string>
+    <string name="all_bugs">All Bugs</string>
+    <string name="searching">Searching</string>
+    <string name="searching_info_about">Searching info about</string>
+    <string name="please_wait">Please wait</string>
+    <string name="pckg">Package</string>
+    <string name="latest_version">Latest version</string>
+    <string name="maintainer">Maintainer</string>
+    <string name="bug_count">Bug count</string>
+    <string name="uploaders">Uploaders</string>
+    <string name="binary_names">Binary names</string>
     
 </resources>
