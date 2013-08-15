@@ -5,6 +5,7 @@
 
 package com.debian.debiandroid;
 
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -115,8 +116,7 @@ public class ItemListActivity extends SherlockFragmentActivity
 		@Override
 		protected Void doInBackground(Void... params) {
 			
-			new BTSSoapCaller(getApplicationContext()).getBugLog(264023);
-			//new BTSSoapCaller(getApplicationContext()).getStatus(new int[]{264023, 712979, 606957});
+			//new BTSSoapCaller(getApplicationContext()).getStatus(new int[]{719510});
 			//System.out.println(new UDDCaller(getApplicationContext()).getLastUploads());
 			//Log.i("Debian", );
 			

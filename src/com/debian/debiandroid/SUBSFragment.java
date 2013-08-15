@@ -34,8 +34,12 @@ public class SUBSFragment extends ItemDetailFragment {
         
     	getSherlockActivity().getSupportActionBar().setTitle(getString(R.string.favourites));
     	
-    	ExpandableListView expandableList = (ExpandableListView) rootView.findViewById(R.id.subscriptionlist);
+    	setupSubsList((ExpandableListView) rootView.findViewById(R.id.subscriptionlist));
     	
+        return rootView;
+    }
+
+	public void setupSubsList(ExpandableListView expandableList) {    	
     	expandableList.setDividerHeight(1);
     	expandableList.setClickable(true);
     	setSubscribedData();
@@ -50,7 +54,6 @@ public class SUBSFragment extends ItemDetailFragment {
             public boolean onChildClick(ExpandableListView parent, View view,
                     int groupPosition, int childPosition, long id) {
             	String itemClicked = ((TextView)view).getText().toString();
-                System.out.println("Child Clicked " + itemClicked + " " + groupPosition);
                 if(groupPosition==0) {
                 	SearchCacher.setLastSearchByPckgName(itemClicked);
                 	// Move to pts fragment
@@ -71,10 +74,7 @@ public class SUBSFragment extends ItemDetailFragment {
                 return true;
             }
         });
-    	
-    	
-        return rootView;
-    }
+	}
 	
 	public void setSubscribedData() {
 		parentItems = new ArrayList<String>();
@@ -87,12 +87,7 @@ public class SUBSFragment extends ItemDetailFragment {
 		parentItems.add(getString(R.string.subscribed_packages) + " (" + ptsSubs.size() + ")");
 		parentItems.add(getString(R.string.subscribed_bugs) + " (" + btsSubs.size() + ")");
 		
-		ArrayList<String> child = new ArrayList<String>();
-		child.addAll(ptsSubs);
-	    childItems.add(child);
-	    
-	    child = new ArrayList<String>();
-	    child.addAll(btsSubs);
-		childItems.add(child);
+	    childItems.add(new ArrayList<String>(ptsSubs));
+		childItems.add(new ArrayList<String>(btsSubs));
 	}
 }

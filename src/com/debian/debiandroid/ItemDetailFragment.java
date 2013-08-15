@@ -40,7 +40,8 @@ public class ItemDetailFragment extends SherlockFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setRetainInstance(true);
+        
         if (getArguments().containsKey(ARG_ITEM_ID)) {
             // Load the content specified by the fragment
             // arguments. In a real-world scenario, use a Loader
@@ -53,9 +54,9 @@ public class ItemDetailFragment extends SherlockFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
     	View rootView = inflater.inflate(R.layout.fragment_item_detail, container, false);
-        if (mItem != null) {
+        /*if (mItem != null) {
             ((TextView) rootView.findViewById(R.id.item_detail)).setText(mItem.content);
-        } 
+        }*/
         return rootView;
     }
     
