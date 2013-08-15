@@ -39,9 +39,9 @@ public class SoapCaller {
         // if (fresh) cached string exists then return it, otherwise 
         // continue with the normal retrieval
         String cached = cacher.getCachedString(reqFileName);
-        String cachedString = "";
-        if(cached!=null) {
-        	cachedString = cached;
+        if(cached!=null && 
+        		cacher.getTimeFromLastCache(reqFileName) <= Cacher.cacheLimit) {
+        		return cached;
         }
         SoapSerializationEnvelope envelope = new
         SoapSerializationEnvelope(SoapEnvelope.VER10);
@@ -59,6 +59,6 @@ public class SoapCaller {
         	e.printStackTrace();
         }
         //if any errors occured return the cached string (or "" if no cached version exists)
-        return cachedString; 
+        return (cached!=null)?cached:"";
     }
 }

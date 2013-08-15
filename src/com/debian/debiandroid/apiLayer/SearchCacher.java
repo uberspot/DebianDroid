@@ -39,6 +39,6 @@ public class SearchCacher {
 	}
 	
 	public static boolean hasLastSearch() {
-		return lastPckgName!=null && lastBugNumber!=null;
+		return lastPckgName!=null || lastBugNumber!=null;
 	}
 }
