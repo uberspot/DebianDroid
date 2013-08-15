@@ -2,6 +2,28 @@ package androidStorageUtils;
 
 import android.content.Context;
 
+/***
+	Example method caching the result
+	//In constructor
+	Cacher cacher = new Cacher(context); 
+	//In method
+	public void retrieveResult() {
+			// if (fresh) cached string exists then return it, otherwise 
+		    // continue with the normal retrieval
+		    String cached = cacher.getCachedString(reqFileName);
+		    if(cached!=null && 
+		    		cacher.getTimeFromLastCache(reqFileName) <= Cacher.cacheLimit) {
+		    		return cached;
+		    }
+		    try {
+			    //Do normal retrieval and cache the result of that...
+			    cacher.cacheString(reqFileName, response.toString());
+			    return response.toString();
+		    } catch(Exception e) { }
+		    //if any errors occured return the cached string (or "" if no cached version exists)
+        	return (cached!=null)?cached:"";
+	}
+ */
 public class Cacher extends StorageUtils{
 
 	public static final long defaultCacheLimit = 172800000 ; //48 hours in ms
@@ -34,15 +56,22 @@ public class Cacher extends StorageUtils{
     	if(obj!=null) {
     		String string = obj.toString();
         	int firstSpace = string.indexOf(' ');
-        	try {
-		        long timeFromLastCache = System.currentTimeMillis() - 
-		        				Long.parseLong(string.substring(0, firstSpace));
-		        if(timeFromLastCache <= cacheLimit) {
-		        	return string.substring(firstSpace);
-		    	}
-	        } catch (NumberFormatException e) { e.printStackTrace(); }
+		        return string.substring(firstSpace);
         }
         return null;
+	}
+	
+	public long getTimeFromLastCache(String fileName) {
+		Object obj = loadObjectFromInternalStorage(fileName + cacheExtension);
+    	if(obj!=null) {
+    		String string = obj.toString();
+        	int firstSpace = string.indexOf(' ');
+        	try {
+		        return System.currentTimeMillis() - 
+		        				Long.parseLong(string.substring(0, firstSpace));
+	        } catch (NumberFormatException e) { e.printStackTrace(); }
+        }
+        return Long.MAX_VALUE;
 	}
 
 	/** Caches given string to given filename in internal memory. Also prepends the current timestamp
@@ -52,7 +81,7 @@ public class Cacher extends StorageUtils{
 	 */
 	public void cacheString(String fileName, String string) {
 		if(enabledCache)
-			saveObjectToInternalStorage(System.currentTimeMillis() + " " + string + cacheExtension, fileName);
+			saveObjectToInternalStorage(System.currentTimeMillis() + " " + string, fileName + cacheExtension);
 	}
 	
 	public void enableCache(){ enabledCache = true; }
