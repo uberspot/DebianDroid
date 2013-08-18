@@ -39,6 +39,7 @@
     <string name="all_bugs">All Bugs</string>
     <string name="searching">Searching</string>
     <string name="searching_info_about">Searching info about</string>
+     <string name="searching_info">Searching info</string>
     <string name="please_wait">Please wait</string>
     <string name="pckg">Package</string>
     <string name="latest_version">Latest version</string>

@@ -12,7 +12,7 @@ public class BTS extends BTSSoapCaller{
 	private StorageUtils btsStorage;
 
 	public static final String BTSSUBSCRIPTIONS = "BTSSubscriptions";
-
+	
 	public BTS(Context context) {
 		super(context);
 		btsStorage = StorageUtils.getInstance(context);

@@ -1,7 +1,16 @@
-/* TODO: udd ui, qr code scan/results etc, pts/bts results ui,
+/* TODO: udd ui, qr code scan/results etc,
  add check for internet connection in parts of ui and notify user,
- create launcher widget, code cleanup/comments 
- * */
+ create launcher widget (with dinstall timer)
+ code cleanup/comments,
+ links in a page autosearch in that http://qa.debian.org/madison.php?package=vim&table=debian&a=&c=&s=#
+ find similar packages with "*pckgname*"
+ pending packages 
+ dinstall 
+ add time limit for pts searches in case there is too much data
+ fix soapcaller to use less memory and parse string immediately
+ Add extra parameters to bug search fragment with an +(add) button
+ add clear favourites button in favourites fragment or in options
+ */
 
 package com.debian.debiandroid;
 

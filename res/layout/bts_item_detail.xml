@@ -39,6 +39,10 @@
 					    android:gravity="right"
 					    android:background="@null" /> 
 </LinearLayout>
-
-	</LinearLayout>
+<ExpandableListView
+        android:id="@+id/btsList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:groupIndicator="@null" />
+</LinearLayout>
  

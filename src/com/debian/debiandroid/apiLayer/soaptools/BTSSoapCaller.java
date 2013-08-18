@@ -18,7 +18,7 @@ public class BTSSoapCaller extends SoapCaller{
     
     /** Key values for 'key' parameter in getBugs method*/
     public static final String PACKAGE = "package" ,SUBMITTER = "submitter" ,
-    		MAINT = "maint" ,SRC = "src" ,SEVERITY = "severity" ,
+    		MAINT = "maint" ,SRC = "src" ,SEVERITY = "severity" , BUGNUMBER = "bugnum",
     		STATUS = "status", STATUS_DONE = "done", STATUS_FORWARDED = "forwarded", 
     		STATUS_OPEN = "open", OWNER = "owner", ARCHIVE = "archive", ARCHIVE_TRUE = "true",
     		ARCHIVE_FALSE = "false", ARCHIVE_BOTH = "both", TAG = "tag";
@@ -148,7 +148,6 @@ public class BTSSoapCaller extends SoapCaller{
 		int indexOfBodyEnd = log.indexOf("; msg_num");
 		logMail.put("body", log.substring(0, indexOfBodyEnd));
 		String[] lines = log.substring(indexOfBodyEnd).split("\n");
-		System.out.println("body " + log.substring(0, indexOfBodyEnd));
 		for(String line: lines) {
 			line = line.trim();
 			if(line.startsWith("Date:")){

@@ -39,8 +39,8 @@ public class PTSFragment extends ItemDetailFragment {
 					ptsPckgMaintainerInfo, ptsPckgBugCount, 
 					ptsPckgUplNames, ptsPckgBinNames;
 	
-	private ArrayList<String> parentItems;
-	private ArrayList<Object> childItems;
+	private ArrayList<String> bugListParentItems;
+	private ArrayList<Object> bugListChildItems;
 	
 	/** ID for the (un)subscribe menu item. It starts from +2 
 	 * because the settings icon is in the +1 position */
@@ -51,7 +51,7 @@ public class PTSFragment extends ItemDetailFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         pts = new PTS(getSherlockActivity().getApplicationContext());
-        if(SearchCacher.hasLastSearch()) {
+        if(SearchCacher.hasLastPckgSearch()) {
         	new SearchPackageInfoTask().execute();
         }
     }
@@ -61,7 +61,7 @@ public class PTSFragment extends ItemDetailFragment {
             Bundle savedInstanceState) {
     	View rootView = inflater.inflate(R.layout.pts_item_detail, container, false);
 
-    	bugList = (ExpandableListView) rootView.findViewById(R.id.ptsBugslist);
+    	bugList = (ExpandableListView) rootView.findViewById(R.id.ptsBugsList);
     	ViewGroup header = (ViewGroup)inflater.inflate(R.layout.pts_item_header, bugList, false);
     	bugList.addHeaderView(header, null, false);
     	
@@ -102,7 +102,7 @@ public class PTSFragment extends ItemDetailFragment {
 		bugList.setDividerHeight(1);
 		bugList.setClickable(true);
     	
-    	final DExpandableAdapter adapter = new DExpandableAdapter(parentItems, childItems);
+    	final DExpandableAdapter adapter = new DExpandableAdapter(bugListParentItems, bugListChildItems);
     	adapter.setInflater((LayoutInflater) getSherlockActivity()
     						.getSystemService(Context.LAYOUT_INFLATER_SERVICE));
     	bugList.setAdapter(adapter);
@@ -114,7 +114,7 @@ public class PTSFragment extends ItemDetailFragment {
             	String itemClicked = ((TextView)view).getText().toString();
                 System.out.println("Child Clicked " + itemClicked + " " + groupPosition);
                 //save search by bug num
-                SearchCacher.setLastSearchByBugNumber(itemClicked);
+                SearchCacher.setLastBugSearch(BTS.BUGNUMBER, itemClicked);
                 // Move to bts fragment
       		  	ItemDetailFragment fragment = ItemDetailFragment.getDetailFragment(
       				  ContentMenu.ITEM.BTS.toString());
@@ -127,15 +127,15 @@ public class PTSFragment extends ItemDetailFragment {
 	}
 	
 	public void setBugData(String pkgName) {
-		parentItems = new ArrayList<String>();
-		childItems = new ArrayList<Object>();
+		bugListParentItems = new ArrayList<String>();
+		bugListChildItems = new ArrayList<Object>();
 		
 		Context context = getSherlockActivity().getApplicationContext();
 		BTS bts = new BTS(context);
 		
 		ArrayList<String> bugs = bts.getBugs(new String[]{BTS.PACKAGE}, new String[]{pkgName});
-		parentItems.add(getString(R.string.all_bugs) + " (" + bugs.size() + ")");
-	    childItems.add(bugs);
+		bugListParentItems.add(getString(R.string.all_bugs) + " (" + bugs.size() + ")");
+	    bugListChildItems.add(bugs);
 	}
 	
 	@Override
@@ -186,7 +186,9 @@ public class PTSFragment extends ItemDetailFragment {
 				    	}
 			    		return true;
 		    	 case REFRESH_ID:
-		    		 	new SearchPackageInfoTask().execute();
+			    		 if(SearchCacher.hasLastPckgSearch()) {
+			    		 	new SearchPackageInfoTask().execute();
+			    		 }
 			    		return true;
 	        }
 		return super.onOptionsItemSelected(item);

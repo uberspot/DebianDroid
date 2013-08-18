@@ -7,7 +7,8 @@ import android.net.Uri;
 public class SearchCacher {
 	 
 	private static String lastPckgName = null;
-	private static String lastBugNumber = null;
+	private static String lastBugSearchValue = null;
+	private static String lastBugSearchOption = null;
 	
 	/** @return the name of the package last searched */
 	public static String getLastPckgName() {
@@ -16,29 +17,45 @@ public class SearchCacher {
 	
 	public static void setLastSearchByPckgName(String lastPckgName) {
 		SearchCacher.lastPckgName = lastPckgName;
-	}
-	
-	/** @return the name of the package last searched */
-	public static String getLastBugNumber() {
-		return lastBugNumber;
-	}
-	
-	public static void setLastSearchByBugNumber(String lastBugNumber) {
-		SearchCacher.lastBugNumber = lastBugNumber;
+		SearchCacher.lastBugSearchOption = BTS.PACKAGE;
+		SearchCacher.lastBugSearchValue = lastPckgName;
 	}
 	
 	public static void setLastSearchByBTSURI(Uri uri) {
 		lastPckgName = uri.getQueryParameter("package");
-		lastBugNumber = uri.getQueryParameter("bug");
-		System.out.println("lastPckgName: " + lastPckgName + " lastBugNumber: " + lastBugNumber);
+		lastBugSearchValue = uri.getQueryParameter("bug");
+		lastBugSearchOption = BTS.PACKAGE;
 	}
 	
 	public static void setLastSearchByPTSURI(Uri uri) {
-		lastPckgName = uri.getLastPathSegment().replace(".html", "");
-		System.out.println("lastPckgName: " + lastPckgName);
+		setLastSearchByPckgName(uri.getLastPathSegment().replace(".html", ""));
 	}
 	
-	public static boolean hasLastSearch() {
-		return lastPckgName!=null || lastBugNumber!=null;
+	public static boolean hasLastPckgSearch() {
+		return lastPckgName!=null;
+	}
+
+	public static String getLastBugSearchValue() {
+		return lastBugSearchValue;
+	}
+
+	public static void setLastBugSearch(String searchOption, String searchValue) {
+		SearchCacher.lastBugSearchValue = searchValue;
+		SearchCacher.lastBugSearchOption = searchOption;
+		if(searchOption.equals(BTS.PACKAGE)) {
+			lastPckgName = searchValue;
+		}
+	}
+
+	public static String getLastBugSearchOption() {
+		return lastBugSearchOption;
+	}
+
+	public static boolean hasLastBugsSearch() {
+		return lastBugSearchOption!=null && lastBugSearchValue!=null;
+	}
+
+	public static boolean hasAnyLastSearch() {
+		return hasLastBugsSearch() || hasLastPckgSearch();
 	}
 }
