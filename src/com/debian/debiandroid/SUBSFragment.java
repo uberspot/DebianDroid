@@ -64,7 +64,7 @@ public class SUBSFragment extends ItemDetailFragment {
 	              	.commit();
                 } else if(groupPosition==1) {
                 	String[] items = itemClicked.split("\\|");
-                	if(items.length>2) {
+                	if(items.length>1) {
 	                	SearchCacher.setLastBugSearch(items[0], items[1]);
 	                	// Move to bts fragment
 	          		  	ItemDetailFragment fragment = ItemDetailFragment.getDetailFragment(

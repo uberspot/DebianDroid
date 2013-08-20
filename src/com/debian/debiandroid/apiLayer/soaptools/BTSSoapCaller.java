@@ -41,9 +41,11 @@ public class BTSSoapCaller extends SoapCaller{
     	}
         try {
         	String response = doRequest("get_bugs", "get_bugs", properties).toString();
-        	String[] nums = response.trim().replace("get_bugsResponse{Array=[", "")
-        			.replace("]; }", "").trim().split(", ");
-        	return new ArrayList<String>(Arrays.asList(nums));
+        	response = response.trim().replace("get_bugsResponse{Array=[", "")
+        			.replace("]; }", "").trim();
+        	if("".equals(response))
+        		return new ArrayList<String>();
+        	return new ArrayList<String>(Arrays.asList(response.split(", ")));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

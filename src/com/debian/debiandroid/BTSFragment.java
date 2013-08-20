@@ -84,10 +84,13 @@ public class BTSFragment extends ItemDetailFragment {
   		searchButton = (ImageButton) rootView.findViewById(R.id.btsSearchButton);
   		searchButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+            	String input = btsInput.getText().toString().trim();
+            	if(input!=null && !input.trim().equals("")) {
             		SearchCacher.setLastBugSearch(
             				optionSelectedToBTSParam(searchOptionSelected), 
             				btsInput.getText().toString());      	
                 	new SearchBugInfoTask().execute();
+            	}
             }
         });
   		
@@ -95,10 +98,11 @@ public class BTSFragment extends ItemDetailFragment {
   		btsInput.setOnEditorActionListener(new OnEditorActionListener() {
   		    @Override
   		    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-  		        if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+  		    	String input = btsInput.getText().toString().trim();
+  		        if (actionId == EditorInfo.IME_ACTION_SEARCH && input!=null && !input.trim().equals("")) {
   		        	SearchCacher.setLastBugSearch(
   		        			optionSelectedToBTSParam(searchOptionSelected), 
-  		        			btsInput.getText().toString());
+  		        			input);
                 	new SearchBugInfoTask().execute();
   		            return true;
   		        }
@@ -188,29 +192,33 @@ public class BTSFragment extends ItemDetailFragment {
         } else if(SearchCacher.hasLastPckgSearch()) {
         	bugNums = bts.getBugs(new String[]{BTS.PACKAGE}, new String[]{SearchCacher.getLastPckgName()});
         }
+		if(bugNums.size()<=0) {
+			bugListParentItems.add(getString(R.string.no_info_found));
+			bugListChildItems.add(new ArrayList<String>());
+		}
 		for(int i=0; i<bugNums.size(); i++) {
-			try {
-				//build array with mail log
-				ArrayList<HashMap<String,String>> mailLog = bts.getBugLog(Integer.parseInt(bugNums.get(i).trim()));
+			ArrayList<HashMap<String,String>> mailLog = new ArrayList<HashMap<String, String>>(2);
+				try {
+					//build array with mail log
+					mailLog = bts.getBugLog(Integer.parseInt(bugNums.get(i).trim()));
+				} catch(NumberFormatException e) { e.printStackTrace(); }
 				int mailLogSize = mailLog.size();
 				ArrayList<String> log = new ArrayList<String>(mailLogSize);
-				
-				// Shows bugs in the format [bugNumber](mails sent for that bugnum) Subject of first mail
-				bugListParentItems.add("["+bugNums.get(i)+"]("+mailLogSize+")" 
-								+ ((mailLogSize>0)?mailLog.get(0).get("subject"):"") );
-				
-				for(HashMap<String,String> mail: mailLog) {
-					StringBuilder m = new StringBuilder();
-					m.append("Date: ").append(mail.get("date")).append("\n")
-					//.append("Subject: ").append(mail.get("subject")).append("\n")
-					.append("From: ").append(mail.get("from")).append("\n")
-					//.append("CC: ").append(mail.get("cc"))
-					.append("\n-------------\nBody: ").append(mail.get("body"));
+					// Shows bugs in the format [bugNumber](mails sent for that bugnum) Subject of first mail
+					bugListParentItems.add("["+bugNums.get(i)+"]("+mailLogSize+")" 
+									+ ((mailLogSize>0)?mailLog.get(0).get("subject"):"") );
 					
-					log.add(m.toString());
-				}
-			    bugListChildItems.add(log);
-			 } catch(NumberFormatException e) { e.printStackTrace(); }
+					for(HashMap<String,String> mail: mailLog) {
+						StringBuilder m = new StringBuilder();
+						m.append("Date: ").append(mail.get("date")).append("\n")
+						//.append("Subject: ").append(mail.get("subject")).append("\n")
+						.append("From: ").append(mail.get("from")).append("\n")
+						//.append("CC: ").append(mail.get("cc"))
+						.append("\n-------------\nBody: ").append(mail.get("body"));
+						
+						log.add(m.toString());
+					}
+				    bugListChildItems.add(log);
 		}
 	}
 	
@@ -299,13 +307,17 @@ public class BTSFragment extends ItemDetailFragment {
 		@SuppressLint("NewApi")
 		protected void onPostExecute (Void result) {
 			progressDialog.dismiss();
-			
+			if(SearchCacher.hasLastBugsSearch()) {
+				   btsInput.setText(SearchCacher.getLastBugSearchValue());
+			       spinner.setSelection(getSelectedOption(spinnerValues, 
+			    			BTSParamToSpinnerOption(SearchCacher.getLastBugSearchOption())));
+			}
+			// If in android 3+ update the action bar menu so that 
+			// the subscription icon is valid to the new search
 	    	if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
 	    		getSherlockActivity().invalidateOptionsMenu();
 			}
-	    	btsInput.setText(SearchCacher.getLastBugSearchValue());
-	    	spinner.setSelection(getSelectedOption(spinnerValues, 
-	    			BTSParamToSpinnerOption(SearchCacher.getLastBugSearchOption())));
+	    	
 	    	setupBugsList();
 	    }
     }

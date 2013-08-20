@@ -47,5 +47,6 @@
     <string name="bug_count">Bug count</string>
     <string name="uploaders">Uploaders</string>
     <string name="binary_names">Binary names</string>
-    
+    <string name="no_info_found_for">No information found for</string>
+    <string name="no_info_found">No information found</string>
 </resources>

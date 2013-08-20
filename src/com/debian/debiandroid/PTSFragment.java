@@ -54,6 +54,9 @@ public class PTSFragment extends ItemDetailFragment {
         if(SearchCacher.hasLastPckgSearch()) {
         	new SearchPackageInfoTask().execute();
         }
+        
+        bugListParentItems = new ArrayList<String>();
+		bugListChildItems = new ArrayList<Object>();
     }
 	
 	@Override
@@ -78,15 +81,19 @@ public class PTSFragment extends ItemDetailFragment {
     	
   		searchButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-            	SearchCacher.setLastSearchByPckgName(ptsInput.getText().toString().trim());
-            	new SearchPackageInfoTask().execute();
+            	String input = ptsInput.getText().toString().trim();
+            	if(input!=null && !input.trim().equals("")) {
+	            	SearchCacher.setLastSearchByPckgName(input);
+	            	new SearchPackageInfoTask().execute();
+            	}
             }
         });
   		
   		ptsInput.setOnEditorActionListener(new OnEditorActionListener() {
   		    @Override
   		    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-  		        if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+		        String input = ptsInput.getText().toString().trim();
+  		        if (actionId == EditorInfo.IME_ACTION_SEARCH && input!=null && !input.trim().equals("")) {
   		        	SearchCacher.setLastSearchByPckgName(ptsInput.getText().toString().trim());
   		        	new SearchPackageInfoTask().execute();
   		            return true;
@@ -111,16 +118,17 @@ public class PTSFragment extends ItemDetailFragment {
     	bugList.setOnChildClickListener(new OnChildClickListener() {
             public boolean onChildClick(ExpandableListView parent, View view,
                     int groupPosition, int childPosition, long id) {
-            	String itemClicked = ((TextView)view).getText().toString();
-                System.out.println("Child Clicked " + itemClicked + " " + groupPosition);
-                //save search by bug num
-                SearchCacher.setLastBugSearch(BTS.BUGNUMBER, itemClicked);
-                // Move to bts fragment
-      		  	ItemDetailFragment fragment = ItemDetailFragment.getDetailFragment(
-      				  ContentMenu.ITEM.BTS.toString());
-          		getActivity().getSupportFragmentManager().beginTransaction()
-              	.replace(R.id.item_detail_container, fragment)
-              	.commit();
+            	String itemClicked = ((TextView)view).getText().toString().trim();
+            	if(!"".equals(itemClicked)) {
+	                //save search by bug num
+	                SearchCacher.setLastBugSearch(BTS.BUGNUMBER, itemClicked);
+	                // Move to bts fragment
+	      		  	ItemDetailFragment fragment = ItemDetailFragment.getDetailFragment(
+	      				  ContentMenu.ITEM.BTS.toString());
+	          		getActivity().getSupportFragmentManager().beginTransaction()
+	              	.replace(R.id.item_detail_container, fragment)
+	              	.commit();
+            	}
                 return true;
             }
         });
@@ -207,28 +215,41 @@ public class PTSFragment extends ItemDetailFragment {
 		protected Void doInBackground(Void... params) {
 			pckgInfo = new String[6];
 			pckgInfo[0] = SearchCacher.getLastPckgName(); //Last Package Name
-			pckgInfo[1] = pts.getLatestVersion(pckgInfo[0]);
-			pckgInfo[2] = pts.getMaintainerName(pckgInfo[0]) + "\n <" + pts.getMaintainerEmail(pckgInfo[0])+ ">";
-			pckgInfo[3] = pts.getBugCounts(pckgInfo[0]);
-			pckgInfo[4] = Arrays.toString(pts.getUploaderNames(pckgInfo[0]));
-			pckgInfo[5] = Arrays.toString(pts.getBinaryNames(pckgInfo[0]));
-			setBugData(pckgInfo[0]);
+			if(pckgInfo[0]!=null) {
+				pckgInfo[1] = pts.getLatestVersion(pckgInfo[0]);
+				pckgInfo[2] = pts.getMaintainerName(pckgInfo[0]) + "\n <" + pts.getMaintainerEmail(pckgInfo[0])+ ">";
+				pckgInfo[3] = pts.getBugCounts(pckgInfo[0]);
+				if(!pckgInfo[1].trim().equals("") && !pckgInfo[3].trim().equals("") ) {
+					pckgInfo[4] = Arrays.toString(pts.getUploaderNames(pckgInfo[0]));
+					pckgInfo[5] = Arrays.toString(pts.getBinaryNames(pckgInfo[0])); 
+					setBugData(pckgInfo[0]);
+				}
+			}
 			return null;
 		}  
 		@SuppressLint("NewApi")
 		protected void onPostExecute (Void result) {
 			progressDialog.dismiss();
-			ptsInput.setText(pckgInfo[0]);
-			ptsPckgName.setText(getString(R.string.pckg) + ": \n  "+ pckgInfo[0]);
-			ptsPckgLatestVersion.setText(getString(R.string.latest_version) + ": \n  " + pckgInfo[1]);
-			ptsPckgMaintainerInfo.setText(getString(R.string.maintainer) + ": \n  " + pckgInfo[2]);
-			ptsPckgBugCount.setText(getString(R.string.bug_count) + ": \n  " + pckgInfo[3]);
-			ptsPckgUplNames.setText(getString(R.string.uploaders) + ": \n" + pckgInfo[4]);
-	    	ptsPckgBinNames.setText(getString(R.string.binary_names) + ": \n" + pckgInfo[5]);
-	    	if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+			if(pckgInfo[0]!=null) {
+				ptsInput.setText(pckgInfo[0]);
+				
+				setupBugsList();
+				
+				if(!pckgInfo[1].trim().equals("") && !pckgInfo[3].trim().equals("") ) {
+					ptsPckgName.setText(getString(R.string.pckg) + ": \n  "+ pckgInfo[0]);
+					ptsPckgLatestVersion.setText(getString(R.string.latest_version) + ": \n  " + pckgInfo[1]);
+					ptsPckgMaintainerInfo.setText(getString(R.string.maintainer) + ": \n  " + pckgInfo[2]);
+					ptsPckgBugCount.setText(getString(R.string.bug_count) + ": \n  " + pckgInfo[3]);
+					ptsPckgUplNames.setText(getString(R.string.uploaders) + ": \n" + pckgInfo[4]);
+			    	ptsPckgBinNames.setText(getString(R.string.binary_names) + ": \n" + pckgInfo[5]);
+		    	} else {
+		    		System.out.println(pckgInfo[1]+","+pckgInfo[3]+","+(!pckgInfo[1].trim().equals("") && !pckgInfo[3].trim().equals(""))+"\n"+getString(R.string.no_info_found_for) + " " + pckgInfo[0]);
+		    		ptsPckgName.setText(getString(R.string.no_info_found_for) + " " + pckgInfo[0]);
+		    	}
+			}
+			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
 	    		getSherlockActivity().invalidateOptionsMenu();
 			}
-	    	setupBugsList();
 	    }
     }
 }
