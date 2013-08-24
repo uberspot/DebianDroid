@@ -10,7 +10,8 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:textIsSelectable="false"
+        style="@android:style/TextAppearance.Small"
         android:gravity="center_vertical|center_horizontal"
         android:textColor="@android:color/black"
-        android:textSize="8pt" />
+         />
 </LinearLayout>

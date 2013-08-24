@@ -7,5 +7,4 @@
     android:gravity="center_vertical"
     android:padding="8dp"
     android:textIsSelectable="false"
-    android:textSize="18sp"
-    android:textStyle="bold" />
+    android:textSize="18sp"/>

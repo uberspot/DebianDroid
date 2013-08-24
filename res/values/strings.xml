@@ -17,10 +17,10 @@
     <string name="use_3g">Use 3G</string>
     <string name="use_3g_summary">Tick to use 3G as well to download data or untick to use only wifi</string>
     <string name="scanforqrcode">Scan for QRCode</string>
-    <string name="maint_username">Developer username</string>
+    <string name="maint_username">Maintainer username</string>
     <string name="refresh_interval">Auto-refresh interval</string>
     <string name="cache_limit">Cache time limit</string>
-    <string name="maint_username_sum">Username of Debian developer</string>
+    <string name="maint_username_sum">Username of Debian maintainer</string>
     <string name="refresh_interval_sum">Interval (in seconds) between checks for new package/bug data.</string>
     <string name="cache_limit_sum">How many hours to keep retrieved info in cache</string>
     <string name="clear_cache">Clear cache now</string>
@@ -39,7 +39,7 @@
     <string name="all_bugs">All Bugs</string>
     <string name="searching">Searching</string>
     <string name="searching_info_about">Searching info about</string>
-     <string name="searching_info">Searching info</string>
+    <string name="searching_info">Searching info</string>
     <string name="please_wait">Please wait</string>
     <string name="pckg">Package</string>
     <string name="latest_version">Latest version</string>
@@ -49,4 +49,13 @@
     <string name="binary_names">Binary names</string>
     <string name="no_info_found_for">No information found for</string>
     <string name="no_info_found">No information found</string>
+    <string name="widget_settings">Widget_settings</string>
+    <string name="widget_tz_summ">Choose the timezone of the time displayed in the DInstall info widget</string>
+    <string name="debiandroid_widget">DebianDroid Widget</string>
+    <string name="next_dinstall_at">Next DInstall at</string>
+    <string name="or_in">or in</string>
+    <string name="hours">hours</string>
+    <string name="maint_email_sum">The email of the debian maintainer of this device</string>
+    <string name="maint_email">Maintainer email</string>
+    
 </resources>
