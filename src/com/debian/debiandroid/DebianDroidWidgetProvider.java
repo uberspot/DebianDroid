@@ -9,6 +9,7 @@ import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
+import android.preference.PreferenceManager;
 import android.widget.RemoteViews;
 
 /*** Class that gets called when it's time to update the widgets info. 
@@ -17,8 +18,8 @@ import android.widget.RemoteViews;
  * frequent updates you can use AlarmManager. */
 public class DebianDroidWidgetProvider extends AppWidgetProvider {
 	
-	public static int widgetUpdateInterval = 30; //in seconds
-	public static final String widgetTZ = "widgettz";
+	public static final int widgetUpdateInterval = 600; //in seconds
+	public static final String wUpdateIntervalKey = "wupdateinterval";
 	
 	public void onUpdate(Context context, AppWidgetManager appWidgetManager,
 			int[] appWidgetIds) {
@@ -64,20 +65,33 @@ public class DebianDroidWidgetProvider extends AppWidgetProvider {
 	 
 	 @Override
 	 public void onDisabled(Context context) {
+		  stopWidgetUpdate(context);
+		  super.onDisabled(context);
+	 }
+	 
+	 public static void stopWidgetUpdate(Context context) {
 		  Intent intent = new Intent(context, AlarmManagerBroadcastReceiver.class);
 		  PendingIntent sender = PendingIntent.getBroadcast(context, 0, intent, 0);
 		  AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 		  alarmManager.cancel(sender);
-		  super.onDisabled(context);
 	 }
 	 
-	 @Override
-	 public void onEnabled(Context context) {
+	 public static void startWidgetUpdate(Context context) {
 		  AlarmManager am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
 		  Intent intent = new Intent(context, AlarmManagerBroadcastReceiver.class);
 		  PendingIntent pi = PendingIntent.getBroadcast(context, 0, intent, 0);
 		  //After after widgetUpdateInterval seconds
-		  am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + (1000 * 5), widgetUpdateInterval*1000 , pi);
+		  int upInterval = widgetUpdateInterval;
+		  try {
+			  upInterval = Integer.parseInt(PreferenceManager
+					  .getDefaultSharedPreferences(context).getString(wUpdateIntervalKey, ""+widgetUpdateInterval));
+		  } catch(NumberFormatException e) { e.printStackTrace(); }
+		  am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + (1000 * 5), upInterval*1000 , pi);
+	 }
+	 
+	 @Override
+	 public void onEnabled(Context context) {
+		  startWidgetUpdate(context);
 		  super.onEnabled(context);
 	 }
 	 

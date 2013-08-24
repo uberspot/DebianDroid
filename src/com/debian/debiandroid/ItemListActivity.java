@@ -11,7 +11,7 @@
  * - add extra parameters to bug search fragment with an +(add) button for more complicated searches
  * - add clear favourites button in favourites fragment or in options
  * - make widget prettier
- * - settings for mail and widget timezone
+ * - settings for widget update frequency
  */
 
 package com.debian.debiandroid;

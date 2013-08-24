@@ -57,5 +57,7 @@
     <string name="hours">hours</string>
     <string name="maint_email_sum">The email of the debian maintainer of this device</string>
     <string name="maint_email">Maintainer email</string>
-    
+    <string name="widget_update_sum">Time (in seconds) between updates of countdown in dinstall widget</string>
+    <string name="widget_interval">Widget update interval</string>
+    <string name="is_not_a_number">is not a number</string>
 </resources>

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.Preference;
+import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NavUtils;
@@ -29,14 +30,9 @@ public class SettingsActivity extends SherlockPreferenceActivity {
 					.commit();
 		} else {
 			addPreferencesFromResource(R.xml.preferences);
-			Preference button = (Preference) findPreference("clearcache");
-			button.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-				@Override
-				public boolean onPreferenceClick(Preference arg0) {
-					new Cacher(getApplicationContext()).clearCache();
-					return true;
-				}
-			});
+			findPreference("clearcache").setOnPreferenceClickListener(clearCacheListener);
+			findPreference("wupdateinterval").setOnPreferenceChangeListener(numberCheckListener);
+			findPreference("cachelimit").setOnPreferenceChangeListener(numberCheckListener);
 		}
 	}
 
@@ -45,14 +41,9 @@ public class SettingsActivity extends SherlockPreferenceActivity {
 		public void onCreate(final Bundle savedInstanceState) {
 			super.onCreate(savedInstanceState);
 			addPreferencesFromResource(R.xml.preferences);
-			Preference button = (Preference) findPreference("clearcache");
-			button.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-				@Override
-				public boolean onPreferenceClick(Preference arg0) {
-					new Cacher(getActivity().getApplicationContext()).clearCache(); 
-					return true;
-				}
-			});
+			findPreference("clearcache").setOnPreferenceClickListener(clearCacheListener);
+			findPreference("wupdateinterval").setOnPreferenceChangeListener(numberCheckListener);
+			findPreference("cachelimit").setOnPreferenceChangeListener(numberCheckListener);
 		}
 	}
 
@@ -69,7 +60,11 @@ public class SettingsActivity extends SherlockPreferenceActivity {
 	@Override
 	public void onDestroy() {
 		// reload preferences on exit from settings screen
-		loadSettings(getApplicationContext());
+		Context context = getApplicationContext();
+		loadSettings(context);
+		// restart widget update to get new interval setting
+		DebianDroidWidgetProvider.stopWidgetUpdate(context);
+		DebianDroidWidgetProvider.startWidgetUpdate(context);
 		super.onDestroy();
 	}
 
@@ -85,4 +80,19 @@ public class SettingsActivity extends SherlockPreferenceActivity {
 			e.printStackTrace();
 		}
 	}
+	
+	private static Preference.OnPreferenceChangeListener numberCheckListener = new OnPreferenceChangeListener() {
+	    @Override
+	    public boolean onPreferenceChange(Preference preference, Object newValue) {
+	    	return !newValue.toString().equals("")  &&  newValue.toString().matches("\\d*");
+	    }
+	};
+	
+	private static Preference.OnPreferenceClickListener clearCacheListener = new Preference.OnPreferenceClickListener() {
+		@Override
+		public boolean onPreferenceClick(Preference pref) {
+			new Cacher(pref.getContext()).clearCache(); 
+			return true;
+		}
+	};
 }

@@ -47,4 +47,15 @@
 	        android:title="@string/clear_cache"
             android:summary="@string/clear_cache_sum"/>
     </PreferenceCategory>
+     <PreferenceCategory 
+        android:title="@string/widget_settings"
+        android:key="widget_settings">
+	    <EditTextPreference
+	        android:key="wupdateinterval"
+            android:name="Widget Update Interval"
+            android:summary="@string/widget_update_sum"
+            android:defaultValue="600"
+            android:title="@string/widget_interval"
+            android:inputType="number" />
+	    </PreferenceCategory>
 </PreferenceScreen>
