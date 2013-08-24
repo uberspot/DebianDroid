@@ -9,17 +9,27 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
+import android.util.Patterns;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.TextView.OnEditorActionListener;
+import android.widget.Toast;
 
 public class CIFFragment extends ItemDetailFragment {
 
 	private ImageView qrcodeView;
 	private Button qrScanButton;
+	private ImageButton searchButton;
+	private EditText mailInput;
+	private String developerMail;
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -33,6 +43,9 @@ public class CIFFragment extends ItemDetailFragment {
     	
     	getSherlockActivity().getSupportActionBar().setTitle(getString(R.string.find_common_interests));
     	
+    	searchButton = (ImageButton) rootView.findViewById(R.id.cifSearchButton);
+    	mailInput = (EditText) rootView.findViewById(R.id.cifInputSearch);
+    	
     	qrScanButton = (Button) rootView.findViewById(R.id.cifScanQRButton);
     	qrScanButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -43,22 +56,58 @@ public class CIFFragment extends ItemDetailFragment {
     	
     	qrcodeView = (ImageView) rootView.findViewById(R.id.cifQRCodeView);
     	try {
-    		String developerName = PreferenceManager.getDefaultSharedPreferences(
-    				getSherlockActivity()).getString("ddusername", "empty");
-    	    Bitmap bm = QRCodeEncoder.encodeAsBitmap(developerName, BarcodeFormat.QR_CODE, 250, 250);
- 
+    		developerMail = PreferenceManager.getDefaultSharedPreferences(
+    				getSherlockActivity()).getString("ddemail", "empty");
+    		if(!Patterns.EMAIL_ADDRESS.matcher(developerMail).matches())
+    			Toast.makeText(getSherlockActivity(), 
+    					getString(R.string.no_mail_in_settings_msg), Toast.LENGTH_SHORT).show();
+    		
+    	    Bitmap bm = QRCodeEncoder.encodeAsBitmap(developerMail, BarcodeFormat.QR_CODE, 250, 250);
     	    if(bm != null) {
     	    	qrcodeView.setImageBitmap(bm);
     	    }
     	} catch (WriterException e) { }
     	
+    	searchButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+            	String input = mailInput.getText().toString().trim();
+            	if(input!=null && !input.equals("")) {
+            		doCIFSearch(input);
+            	}
+            }
+        });
+  		
+  		mailInput.setOnEditorActionListener(new OnEditorActionListener() {
+  		    @Override
+  		    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+		        String input = mailInput.getText().toString().trim();
+  		        if (actionId == EditorInfo.IME_ACTION_SEARCH && input!=null && !input.equals("")) {
+  		        	doCIFSearch(input);
+  		            return true;
+  		        }
+  		        return false;
+  		    }
+  		});
+  		
         return rootView;
     }
 	
-	 public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+	public void onActivityResult(int requestCode, int resultCode, Intent intent) {
 		  IntentResult scanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
 		  if (scanResult != null && scanResult.getContents()!=null) {
-		    Log.i("QRCODE", scanResult.getContents());
+			  doCIFSearch(scanResult.getContents());
 		  }
+	}
+	
+	private void doCIFSearch(String scannedMail) {
+		if(!Patterns.EMAIL_ADDRESS.matcher(scannedMail).matches() ) {
+			Toast.makeText(getSherlockActivity(), 
+					getString(R.string.invalid_mail_msg) + " " + scannedMail, Toast.LENGTH_SHORT).show();
+		} else if (!Patterns.EMAIL_ADDRESS.matcher(developerMail).matches() ){
+			Toast.makeText(getSherlockActivity(), 
+					getString(R.string.invalid_mail_msg) + " " + developerMail, Toast.LENGTH_SHORT).show();
+		} else {
+			//do search and display results
+		}
 	}
 }

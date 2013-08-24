@@ -26,6 +26,47 @@
 			        android:drawableLeft="@drawable/search"
 			        style="@style/ButtonTextSmall"
 			        android:background="@drawable/btn_red" />
+			 <TextView 
+				    android:id="@+id/cifTextView"
+				    android:layout_width="fill_parent"
+				    android:layout_height="wrap_content"
+				    android:layout_margin="5dp"
+				    android:text="@string/or_type_other_persons_email_directly"
+				    android:gravity="center_vertical|center_horizontal"
+				    style="@android:style/TextAppearance.Medium"
+				    android:padding="5dp"
+				    android:textIsSelectable="false"/>
+			 <LinearLayout
+			        android:layout_width="match_parent"
+			        android:layout_height="wrap_content"
+			        android:orientation="horizontal"
+			        android:focusable="true" 
+			        android:focusableInTouchMode="true"
+			        android:padding="8dp" >
+			
+			        <EditText
+			            android:id="@+id/cifInputSearch"
+			            android:nextFocusUp="@id/cifInputSearch" 
+			            android:nextFocusLeft="@id/cifInputSearch"
+			            android:layout_width="wrap_content"
+			            android:layout_height="wrap_content"
+			            android:layout_weight="1"
+			            android:ems="10"
+			            android:gravity="left"
+			            android:imeOptions="actionSearch"
+			            android:inputType="textEmailAddress" >
+			        </EditText>
+			
+			        <ImageButton
+			            android:id="@+id/cifSearchButton"
+			            android:layout_width="wrap_content"
+			            android:layout_height="wrap_content"
+			            android:layout_weight="1"
+			            android:background="@null"
+			            android:contentDescription="@string/search"
+			            android:gravity="right"
+			            android:src="@drawable/searcharrow" />
+			    </LinearLayout>
 	 </LinearLayout>
 </ScrollView>
  

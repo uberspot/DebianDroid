@@ -13,7 +13,7 @@ public class SoapCaller {
 	
 	protected String NAMESPACE;
 	protected String URL;
-	protected Cacher cacher;
+	protected static Cacher cacher;
 	
 	public SoapCaller(Context context) {
 		NAMESPACE = "";

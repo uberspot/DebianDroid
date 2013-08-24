@@ -58,6 +58,9 @@
     <string name="maint_email_sum">The email of the debian maintainer of this device</string>
     <string name="maint_email">Maintainer email</string>
     <string name="widget_update_sum">Time (in seconds) between updates of countdown in dinstall widget</string>
+    <string name="or_type_other_persons_email_directly">or type other persons email directly</string>
     <string name="widget_interval">Widget update interval</string>
-    <string name="is_not_a_number">is not a number</string>
+    <string name="invalid_mail_msg">Invalid mail address in search!</string>
+    <string name="no_mail_in_settings_msg">Don\'t forget to add the mail you use in packaging in settings!</string>
+    
 </resources>

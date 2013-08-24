@@ -10,11 +10,19 @@ public class UDDCaller extends HTTPCaller {
 		
 	private static final String UDD_CGI_URL = "http://udd.debian.org/cgi-bin/";
 	
-	public String getLastUploads() {
-		return doQueryRequest(UDD_CGI_URL + "last-uploads.cgi");
+	public String getLastUploadsCSV() {
+		return doQueryRequest(UDD_CGI_URL + "last-uploads.cgi?out=csv");
 	}
 	
-	public String getNewMaintainers() {
-		return doQueryRequest(UDD_CGI_URL + "new-maintainers.cgi");
+	public String getRCBugsCSV() {
+		return doQueryRequest(UDD_CGI_URL + "rcbugs.cgi?out=csv");
+	}
+	
+	public String getNewMaintainersCSV() {
+		return doQueryRequest(UDD_CGI_URL + "new-maintainers.cgi?out=csv");
+	}
+	
+	public String getOverlappingInterests(String devamail, String devbmail) {
+		return doQueryRequest(UDD_CGI_URL + "overlapping_interests.cgi?deva="+devamail+"&devb="+devbmail);
 	}
 }
