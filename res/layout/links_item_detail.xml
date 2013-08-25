@@ -1,0 +1,30 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/tablelayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusable="true" 
+	android:focusableInTouchMode="true"
+    android:orientation="vertical"
+    tools:context=".MainPage" >
+        <EditText
+            android:id="@+id/linksInputSearch"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:padding="3dp"
+            android:nextFocusUp="@id/linksInputSearch" 
+            android:nextFocusLeft="@id/linksInputSearch"
+            android:hint="@string/links_search_hint"
+            android:gravity="center_horizontal|center_vertical"
+            android:imeOptions="actionSearch"
+            android:inputType="textAutoComplete" >
+        </EditText>
+    
+	    <ListView
+			    android:id="@+id/linkslistview"
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content" /> 
+    
+</LinearLayout>
+ 

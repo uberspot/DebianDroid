@@ -107,9 +107,7 @@ public class ItemListActivity extends SherlockFragmentActivity
         Intent intent = getIntent();
         if (Intent.ACTION_VIEW.equals(intent.getAction())) {
         	  Uri uri = intent.getData();
-        	  
-        	  System.out.println("URI: " + uri);
-        	  
+        	          	  
         	  // Parse uri to get search parameters and forward to corresponding fragment
         	  if(PTS.isPTSHost(uri.getHost())) {
         		  SearchCacher.setLastSearchByPTSURI(uri);

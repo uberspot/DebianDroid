@@ -14,7 +14,7 @@ public class ContentMenu {
     /**  A map of sample items, by ID. */
     public static Map<String, MenuItem> ITEM_MAP = new HashMap<String, MenuItem>();
 
-    public enum ITEM {PTS, BTS, UDD, SUBS, CIF};
+    public enum ITEM {PTS, BTS, UDD, SUBS, CIF, LINKS};
     
     static {
         addItem(new MenuItem(ITEM.PTS.toString(), "Package Tracking"));
@@ -22,6 +22,7 @@ public class ContentMenu {
         addItem(new MenuItem(ITEM.UDD.toString(), "UDD"));
         addItem(new MenuItem(ITEM.SUBS.toString(), "Favourites"));
         addItem(new MenuItem(ITEM.CIF.toString(), "Common Interest Finder"));
+        addItem(new MenuItem(ITEM.LINKS.toString(), "Useful Links"));
     }
 
     private static void addItem(MenuItem item) {

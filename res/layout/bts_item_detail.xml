@@ -27,6 +27,7 @@
 					    android:layout_height="wrap_content"
 			            android:nextFocusUp="@id/btsInputSearch" 
 			            android:nextFocusLeft="@id/btsInputSearch"
+			            android:hint="@string/bts_search_hint"
 					    android:ems="10"
 					    android:layout_weight="2"
 					    android:gravity="left"

@@ -10,6 +10,7 @@
     <string name="settings">Settings</string>
     <string name="favourites">Favourites</string>
     <string name="udd">UDD</string>
+    <string name="links">Links</string>
     <string name="QRCode">QRCode</string>
     <string name="scan_qrcode">Scan a QRCode</string>
     <string name="general_settings">General Settings</string>
@@ -62,5 +63,10 @@
     <string name="widget_interval">Widget update interval</string>
     <string name="invalid_mail_msg">Invalid mail address in search!</string>
     <string name="no_mail_in_settings_msg">Don\'t forget to add the mail you use in packaging in settings!</string>
+    <string name="cif_search_hint">other@example.com</string>
+    <string name="pts_search_hint">Type in package name</string>
+    <string name="bts_search_hint">Type in search value</string>
+    <string name="links_search_hint">Autosearch for link</string>
+    <string name="open_link_with">Open link with</string>
     
 </resources>

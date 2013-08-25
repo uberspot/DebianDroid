@@ -78,6 +78,8 @@ public class ItemDetailFragment extends SherlockFragment {
     		fragment = new CIFFragment();
     	else if(id.equalsIgnoreCase(ContentMenu.ITEM.SUBS.toString()))
     		fragment = new SUBSFragment();
+    	else if(id.equalsIgnoreCase(ContentMenu.ITEM.LINKS.toString()))
+    		fragment = new LinksFragment();
     	else
     		fragment = new ItemDetailFragment();
     	fragment.setArguments(arguments);

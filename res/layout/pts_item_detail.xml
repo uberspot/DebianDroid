@@ -21,6 +21,7 @@
             android:layout_height="wrap_content"
             android:nextFocusUp="@id/ptsInputSearch" 
             android:nextFocusLeft="@id/ptsInputSearch"
+            android:hint="@string/pts_search_hint"
             android:layout_weight="1"
             android:ems="10"
             android:gravity="left"
