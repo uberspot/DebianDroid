@@ -18,9 +18,6 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 public class LinksFragment extends ItemDetailFragment {
-
-	private ListView listview;
-	private ListArrayAdapter adapter;
 	
 	private final static HashMap<String, String> links = new HashMap<String, String>(){{
 	     put("Debian.org", "http://debian.org");
@@ -43,12 +40,15 @@ public class LinksFragment extends ItemDetailFragment {
 		getSherlockActivity().getSupportActionBar().setTitle( getString(R.string.links) );
 		
 		EditText linkSearchInput = (EditText) rootView.findViewById(R.id.linksInputSearch);
-		listview = (ListView) rootView.findViewById(R.id.linkslistview);
-
+		
+		ListView listview = (ListView) rootView.findViewById(R.id.linkslistview);
+		final ListArrayAdapter adapter = new ListArrayAdapter(getSherlockActivity(),
+				R.layout.listchild, new ArrayList<String>(links.keySet()));
+		
 		linkSearchInput.addTextChangedListener(new TextWatcher() {
 		    @Override
 		    public void onTextChanged(CharSequence cs, int arg1, int arg2, int arg3) {
-		        // When user changed the Text
+		        // When user changes the Text
 		        adapter.getFilter().filter(cs);  
 		    }
 		    @Override
@@ -57,8 +57,6 @@ public class LinksFragment extends ItemDetailFragment {
 		    @Override public void afterTextChanged(Editable arg0) { }
 		});
 		
-		adapter = new ListArrayAdapter(getSherlockActivity(),
-				android.R.layout.simple_list_item_1, new ArrayList<String>(links.keySet()));
 		listview.setAdapter(adapter);
 
 		listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {

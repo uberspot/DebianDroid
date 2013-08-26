@@ -5,6 +5,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".MainPage" >
+    <ListView
+			    android:id="@+id/uddlistview"
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content" /> 
     
 </LinearLayout>
  
