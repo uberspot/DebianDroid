@@ -53,9 +53,6 @@ public class ItemDetailFragment extends SherlockFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
     	View rootView = inflater.inflate(R.layout.fragment_item_detail, container, false);
-        /*if (mItem != null) {
-            ((TextView) rootView.findViewById(R.id.item_detail)).setText(mItem.content);
-        }*/
         return rootView;
     }
     

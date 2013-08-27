@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 
@@ -42,7 +43,7 @@ public class LinksFragment extends ItemDetailFragment {
 		EditText linkSearchInput = (EditText) rootView.findViewById(R.id.linksInputSearch);
 		
 		ListView listview = (ListView) rootView.findViewById(R.id.linkslistview);
-		final ListArrayAdapter adapter = new ListArrayAdapter(getSherlockActivity(),
+		final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getSherlockActivity(),
 				R.layout.listchild, new ArrayList<String>(links.keySet()));
 		
 		linkSearchInput.addTextChangedListener(new TextWatcher() {

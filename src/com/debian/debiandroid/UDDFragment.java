@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 public class UDDFragment extends ItemDetailFragment {
@@ -28,7 +29,7 @@ public class UDDFragment extends ItemDetailFragment {
     	getSherlockActivity().getSupportActionBar().setTitle(getString(R.string.udd));
     	
     	ListView listview = (ListView) rootView.findViewById(R.id.uddlistview);
-		final ListArrayAdapter adapter = new ListArrayAdapter(getSherlockActivity(),
+		final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getSherlockActivity(),
 				R.layout.listchild, new ArrayList<String>(uddScripts));
 		
 		listview.setAdapter(adapter);
@@ -38,11 +39,10 @@ public class UDDFragment extends ItemDetailFragment {
 			public void onItemClick(AdapterView<?> parent, final View view,
 					int position, long id) {
 				final String item = (String) parent.getItemAtPosition(position);
-				//openLinkInExternalApp(item);
+				// start listdisplayfragment with the udd results as ArrayList<String> arguments
 			}
 		});
 		
         return rootView;
     }
-	
 }
