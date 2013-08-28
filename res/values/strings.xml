@@ -68,5 +68,10 @@
     <string name="bts_search_hint">Type in search value</string>
     <string name="links_search_hint">Autosearch for link</string>
     <string name="open_link_with">Open link with</string>
+    <string name="rcbugs">RCBugs</string>
+    <string name="overlapping_interests">Overlapping Interests</string>
+    <string name="latest_uploads">Latest Uploads</string>
+    <string name="latest">Latest </string>
+    <string name="new_maintainers">New Maintainers</string>
     
 </resources>

@@ -205,6 +205,7 @@ public class PTSFragment extends ItemDetailFragment {
 	class SearchPackageInfoTask extends AsyncTask<Void, Void, Void> {
 		private String[] pckgInfo;
 		private ProgressDialog progressDialog;
+		
 		protected void onPreExecute(){ 
 		   super.onPreExecute();
 		   progressDialog = ProgressDialog.show(getSherlockActivity(), 

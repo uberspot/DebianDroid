@@ -1,12 +1,17 @@
 package com.debian.debiandroid;
 
+import java.util.ArrayList;
+
+import com.debian.debiandroid.apiLayer.UDDCaller;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Patterns;
@@ -30,6 +35,7 @@ public class CIFFragment extends ItemDetailFragment {
 	private ImageButton searchButton;
 	private EditText mailInput;
 	private String developerMail;
+	private UDDCaller udd;
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -43,6 +49,7 @@ public class CIFFragment extends ItemDetailFragment {
     	
     	getSherlockActivity().getSupportActionBar().setTitle(getString(R.string.find_common_interests));
     	
+    	udd = new UDDCaller(getSherlockActivity());
     	searchButton = (ImageButton) rootView.findViewById(R.id.cifSearchButton);
     	mailInput = (EditText) rootView.findViewById(R.id.cifInputSearch);
     	
@@ -107,7 +114,44 @@ public class CIFFragment extends ItemDetailFragment {
 			Toast.makeText(getSherlockActivity(), 
 					getString(R.string.invalid_mail_msg) + " " + developerMail, Toast.LENGTH_SHORT).show();
 		} else {
-			//do search and display results
+			new CIFSearchTask().execute(scannedMail, developerMail);
 		}
+	}
+	
+	class CIFSearchTask extends AsyncTask<String, Void, Void> {
+		private ProgressDialog progressDialog;
+		String title="", header=""; 
+		ArrayList<String> items = new ArrayList<String>();
+		
+		protected void onPreExecute() {
+			   super.onPreExecute();
+			   progressDialog = ProgressDialog.show(getSherlockActivity(), 
+					   getString(R.string.searching), getString(R.string.searching_info) + ". " + getString(R.string.please_wait) + "...", true, false);  
+			}
+			
+			protected Void doInBackground(String... params) {
+				items.add("Packages of " + params[0] + " that " + params[1] + " is maintaining:");
+				items = udd.getOverlappingInterests(params[0], params[1]);
+				items.add("Packages of " + params[1] + " that " + params[0] + " is maintaining:");
+				items.addAll(udd.getOverlappingInterests(params[1], params[0]));
+				header =  getString(R.string.overlapping_interests);
+				title = getString(R.string.overlapping_interests);
+				
+				return null;
+			}
+			
+			protected void onPostExecute (Void result) {
+				progressDialog.dismiss();
+				ItemDetailFragment fragment = new ListDisplayFragment();
+				Bundle arguments = new Bundle();
+				arguments.putString(ListDisplayFragment.LIST_HEADER_ID, header);
+				arguments.putString(ListDisplayFragment.LIST_TITLE_ID, title);
+				arguments.putStringArrayList(ListDisplayFragment.LIST_ITEMS_ID, items);
+				
+		        fragment.setArguments(arguments);
+				
+		    	getSherlockActivity().getSupportFragmentManager().beginTransaction()
+		    	.replace(R.id.item_detail_container, fragment).addToBackStack(null).commit();
+			}
 	}
 }

@@ -203,6 +203,8 @@ class SwipeListener extends GestureDetector.SimpleOnGestureListener {
         
         @Override
         public boolean onFling(MotionEvent event1, MotionEvent event2, float velocityX, float velocityY) {
+        	if(ItemDetailFragment.isInListDisplayFrag)
+        		return false;
             try {
                 float diffY = event2.getY() - event1.getY();
                 float diffX = event2.getX() - event1.getX();

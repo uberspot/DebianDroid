@@ -26,6 +26,7 @@ public class ItemDetailFragment extends SherlockFragment {
     public static final String ARG_ITEM_ID = "item_id";
     public static String currentFragmentID = "";
     public static final int SETTINGS_ID = Menu.FIRST+1;
+    public static boolean isInListDisplayFrag = false;
 
     public ContentMenu.MenuItem mItem;
 

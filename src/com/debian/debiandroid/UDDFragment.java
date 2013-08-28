@@ -3,6 +3,14 @@ package com.debian.debiandroid;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import com.debian.debiandroid.PTSFragment.SearchPackageInfoTask;
+import com.debian.debiandroid.apiLayer.SearchCacher;
+import com.debian.debiandroid.apiLayer.UDDCaller;
+
+import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,8 +21,8 @@ import android.widget.ListView;
 
 public class UDDFragment extends ItemDetailFragment {
 	
-	private static final ArrayList<String> uddScripts = 
-			new ArrayList<String>(Arrays.asList("rcbugs", "latest uploads", "new maintainers"));
+	private ArrayList<String> uddScripts;
+	private UDDCaller udd;
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -27,6 +35,9 @@ public class UDDFragment extends ItemDetailFragment {
     	View rootView = inflater.inflate(R.layout.udd_item_detail, container, false);
   		
     	getSherlockActivity().getSupportActionBar().setTitle(getString(R.string.udd));
+    	uddScripts = new ArrayList<String>(Arrays.asList(getString(R.string.rcbugs), 
+    			getString(R.string.latest_uploads), getString(R.string.new_maintainers)));
+    	udd = new UDDCaller(getSherlockActivity());
     	
     	ListView listview = (ListView) rootView.findViewById(R.id.uddlistview);
 		final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getSherlockActivity(),
@@ -40,9 +51,53 @@ public class UDDFragment extends ItemDetailFragment {
 					int position, long id) {
 				final String item = (String) parent.getItemAtPosition(position);
 				// start listdisplayfragment with the udd results as ArrayList<String> arguments
+				new SearchInfoTask().execute(item);
 			}
 		});
 		
         return rootView;
     }
+	
+	class SearchInfoTask extends AsyncTask<String, Void, Void> {
+		private ProgressDialog progressDialog;
+		String title="", header=""; 
+		ArrayList<String> items = new ArrayList<String>();
+		
+		protected void onPreExecute() {
+			   super.onPreExecute();
+			   progressDialog = ProgressDialog.show(getSherlockActivity(), 
+					   getString(R.string.searching), getString(R.string.searching_info) + ". " + getString(R.string.please_wait) + "...", true, false);  
+			}
+			
+			protected Void doInBackground(String... params) {
+				if( params[0].equals(getString(R.string.rcbugs)) ) {
+					items = udd.getRCBugs();
+					header = getString(R.string.rcbugs) + " (" + items.size() + ")";
+					title = getString(R.string.rcbugs);
+				} else if( params[0].equals(getString(R.string.latest_uploads)) ) {
+					items = udd.getLastUploads();
+					header = items.size() + " " + getString(R.string.latest_uploads);
+					title = getString(R.string.latest_uploads);
+				} else if( params[0].equals(getString(R.string.new_maintainers)) ) {
+					items = udd.getNewMaintainers();
+					header = getString(R.string.latest) + " " + items.size() + " " + getString(R.string.new_maintainers) ;
+					title = getString(R.string.new_maintainers);
+				}
+				return null;
+			}
+			
+			protected void onPostExecute (Void result) {
+				progressDialog.dismiss();
+				ItemDetailFragment fragment = new ListDisplayFragment();
+				Bundle arguments = new Bundle();
+				arguments.putString(ListDisplayFragment.LIST_HEADER_ID, header);
+				arguments.putString(ListDisplayFragment.LIST_TITLE_ID, title);
+				arguments.putStringArrayList(ListDisplayFragment.LIST_ITEMS_ID, items);
+				
+		        fragment.setArguments(arguments);
+				
+		    	getSherlockActivity().getSupportFragmentManager().beginTransaction()
+		    	.replace(R.id.item_detail_container, fragment).addToBackStack(null).commit();
+			}
+	}
 }

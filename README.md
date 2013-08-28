@@ -17,14 +17,14 @@ Debian Android app for gsoc2013.
  3. Swipe left/right to move around menu items
  4. Opens links from other apps (e.g. browser or mail app) to http://bugs.debian.org and http://packages.qa.debian.org natively in the debiandroid app in the corresponding app 
  5. Finds overlapping debian interests between maintainers (use case 4) [in the making]
- 6. Notifies user about new mails in bug reports he made, he contributed to or in bugs he is subscribed to and about new package news to packages he maintaines or is subscribed to etc [in the making]
+ 6. Notifies user about new mails in bug reports he made, he contributed to or in bugs he is subscribed to and about new package news to packages he maintains or is subscribed to etc [in the making]
  7. Allows you to send a bug report (by redirecting you to your mail app with some preconfigured fields like from, to, subject etc) or to mark a bug as "moreinfo" [todo]
- 8. Alerts you about a bug report you wanted to send like a "bug report" reminder. Maybe with a button like "report bug in x time" [todo]
- 9. Swiping from a package you just searched in the pts menu item to the bts menu item will instantly load the searched packages bugs [in the making]
+ 8. Alerts you about a bug report you wanted to send, like a "bug report" reminder. Maybe with a button like "report bug in x time" [todo]
+ 9. Swiping from a package you just searched in the pts menu item to the bts menu item will instantly load the searched packages bugs
  10. Clicking in the pts/bts menu item on info like the maintainers name will open a browser window with info on that maintainer [todo]
  11. Clicking on a package name in the package binaries will load info on that package [todo]
- 12. Notify user if internet connection stops working and the use of 3g is deactivated. Change cache time to Long.maxvalue so that it always retrieves info from cache regardless of the 'keep in cache' time  [todo]
- 13. If "use 3g" settings is false detect if 3g is used and deactivate searching then [todo]
+ 12. Notify user if internet connection stops working and the use of 3g is deactivated. [todo]
+ 13. If "use 3g" settings is false detect if 3g is used and deactivate online searching then by settings cache to always return something [todo]
  14. Translate to other languages. Easy if all string are gathered in values/strings.xml [in the making]
  15. Widget in homescreen displays next DInstall time + remaining hours till that time
  16. Full-text search on package names like in http://packages.debian.org/search?keywords=%s

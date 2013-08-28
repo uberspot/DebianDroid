@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -20,6 +19,7 @@ public class ListDisplayFragment extends ItemDetailFragment {
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        isInListDisplayFrag = true;
     }
 	
 	@Override
@@ -47,4 +47,10 @@ public class ListDisplayFragment extends ItemDetailFragment {
 		
         return rootView;
     }
+	
+	@Override
+	public void onDestroy() {
+		isInListDisplayFrag = false;
+		super.onDestroy();
+	}
 }
