@@ -5,6 +5,7 @@ import java.util.Set;
 import com.debian.debiandroid.apiLayer.soaptools.PTSSoapCaller;
 
 import android.content.Context;
+import android.net.Uri;
 import androidStorageUtils.StorageUtils;
 
 public class PTS extends PTSSoapCaller{
@@ -36,5 +37,9 @@ public class PTS extends PTSSoapCaller{
 	
 	public static boolean isPTSHost(String host) {
 		return host.equalsIgnoreCase("packages.qa.debian.org");
+	}
+	
+	public static String PTSURIToPckgName(Uri uri) {
+		return uri.getLastPathSegment().replace(".html", "");
 	}
 }

@@ -5,6 +5,6 @@
     android:layout_height="60dp"
     android:layout_marginLeft="5dp"
     android:gravity="center_vertical"
-    android:padding="8dp"
+    android:padding="7dp"
     android:textIsSelectable="false"
     android:textSize="18sp"/>

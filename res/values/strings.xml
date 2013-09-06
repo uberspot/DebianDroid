@@ -71,7 +71,9 @@
     <string name="rcbugs">RCBugs</string>
     <string name="overlapping_interests">Overlapping Interests</string>
     <string name="latest_uploads">Latest Uploads</string>
-    <string name="latest">Latest </string>
+    <string name="latest">Latest</string>
     <string name="new_maintainers">New Maintainers</string>
+    <string name="submit_new_bug_report">Submit new bug report</string>
+    
     
 </resources>

@@ -46,6 +46,7 @@ public class PTSFragment extends ItemDetailFragment {
 	 * because the settings icon is in the +1 position */
 	public static final int SUBSCRIPTION_ID = Menu.FIRST+2;
 	public static final int REFRESH_ID = Menu.FIRST+3;
+	public static final int NEW_EMAIL_ID = Menu.FIRST+4;
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -156,6 +157,9 @@ public class PTSFragment extends ItemDetailFragment {
 		menu.add(0, REFRESH_ID, Menu.CATEGORY_ALTERNATIVE, getString(R.string.refresh))
 				.setIcon(R.drawable.refresh)
 				.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+		menu.add(0, NEW_EMAIL_ID, Menu.CATEGORY_SECONDARY, getString(R.string.submit_new_bug_report))
+				.setIcon(R.drawable.new_email)
+				.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 		
 	    super.onCreateOptionsMenu(menu, inflater);
 	}
@@ -198,10 +202,22 @@ public class PTSFragment extends ItemDetailFragment {
 			    		 	new SearchPackageInfoTask().execute();
 			    		 }
 			    		return true;
+		    	 case NEW_EMAIL_ID:
+		    		 	forwardToMailApp();
+		    		 	return true;
 	        }
 		return super.onOptionsItemSelected(item);
     }
 	
+	private void forwardToMailApp() {
+		if(SearchCacher.hasLastPckgSearch()) {
+			String pckgName = SearchCacher.getLastPckgName();
+			
+			forwardToMailApp(getSherlockActivity(), BTS.NEWBUGREPORTMAIL, BTS.getNewBugReportSubject(pckgName),
+					BTS.getNewBugReportBody(pckgName, SearchCacher.getLastPckgVersion() ));
+		 }
+	}
+
 	class SearchPackageInfoTask extends AsyncTask<Void, Void, Void> {
 		private String[] pckgInfo;
 		private ProgressDialog progressDialog;
@@ -218,6 +234,7 @@ public class PTSFragment extends ItemDetailFragment {
 			pckgInfo[0] = SearchCacher.getLastPckgName(); //Last Package Name
 			if(pckgInfo[0]!=null) {
 				pckgInfo[1] = pts.getLatestVersion(pckgInfo[0]);
+				SearchCacher.setLastPckgVersion(pckgInfo[1]);
 				pckgInfo[2] = pts.getMaintainerName(pckgInfo[0]) + "\n <" + pts.getMaintainerEmail(pckgInfo[0])+ ">";
 				pckgInfo[3] = pts.getBugCounts(pckgInfo[0]);
 				if(!pckgInfo[1].trim().equals("") && !pckgInfo[3].trim().equals("") ) {

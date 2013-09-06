@@ -21,13 +21,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.TextView.OnEditorActionListener;
 import androidStorageUtils.StorageUtils;
 
@@ -167,14 +167,23 @@ public class BTSFragment extends ItemDetailFragment {
     	bugList.setAdapter(adapter);
     	registerForContextMenu(bugList);
     	
-    	bugList.setOnChildClickListener(new OnChildClickListener() {
-            public boolean onChildClick(ExpandableListView parent, View view,
-                    int groupPosition, int childPosition, long id) {
-            	//String itemClicked = ((TextView)view).getText().toString();
-                
-                return true;
-            }
-        });
+    	bugList.setOnItemLongClickListener(new OnItemLongClickListener(){
+
+			@Override
+			public boolean onItemLongClick(AdapterView<?> parent, View childView, int flatPos, long id) {
+				if (ExpandableListView.getPackedPositionType(id) == ExpandableListView.PACKED_POSITION_TYPE_CHILD) {
+                    long packedPos = ((ExpandableListView) parent).getExpandableListPosition(flatPos);
+                    int groupPosition = ExpandableListView.getPackedPositionGroup(packedPos);
+                    int childPosition = ExpandableListView.getPackedPositionChild(packedPos);
+                    
+                    String text = ((ArrayList<String>) bugListChildItems.get(groupPosition)).get(childPosition);
+                    String subject = bugListParentItems.get(groupPosition);
+                    String bugnum = subject.replace("[", "").replaceFirst("].*$", "");
+                    forwardToMailApp(getSherlockActivity(), bugnum + "@bugs.debian.org", "Re: " + subject.replaceFirst("\\[.*\\)", ""), text.replaceAll("\n", "\n>"));
+                    return true;
+				}
+				return false;
+			}});
 	}
 	
 	public void setBugData() {

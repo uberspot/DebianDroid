@@ -1,6 +1,8 @@
 package com.debian.debiandroid;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -139,5 +141,17 @@ public class ItemDetailFragment extends SherlockFragment {
 	        default:
 	        	return super.onOptionsItemSelected(item);
         }
+    }
+    
+    public static void forwardToMailApp(Context context, String recipient, String subject, String body) {
+    	String uri = new StringBuilder("mailto:" + Uri.encode(recipient))
+		.append("?subject=" + subject)
+		.append("&body=" +  body)
+		.toString();
+
+		Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.parse(uri));
+		
+		/* Send it off to the Activity-Chooser */
+		context.startActivity(Intent.createChooser(emailIntent, "Send mail..."));
     }
 }

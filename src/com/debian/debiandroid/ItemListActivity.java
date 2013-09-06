@@ -1,6 +1,4 @@
-/* TODO: 
- * - udd ui 
- * - qr code scan/results etc,
+/* TODO:
  * - add check for internet connection in parts of ui and notify user
  * - code cleanup/comments
  * - popular links in a fragment autosearch in that http://qa.debian.org/madison.php?package=vim&table=debian&a=&c=&s=#
@@ -12,6 +10,7 @@
  * - add clear favourites button in favourites fragment or in options
  * - make widget prettier
  * - refresh button in each results page must always request fresh (not cached) info when pressed
+ * - show detailed progress in search of bts/pts and show partial results in groups of ~20 bug reports to save time in search.
  */
 
 package com.debian.debiandroid;
@@ -110,7 +109,7 @@ public class ItemListActivity extends SherlockFragmentActivity
         	          	  
         	  // Parse uri to get search parameters and forward to corresponding fragment
         	  if(PTS.isPTSHost(uri.getHost())) {
-        		  SearchCacher.setLastSearchByPTSURI(uri);
+        		  SearchCacher.setLastSearchByPckgName(PTS.PTSURIToPckgName(uri));
         		  onItemSelected(ContentMenu.ITEM.PTS.toString());
         	  }
         	  if(BTS.isBTSHost(uri.getHost())) {

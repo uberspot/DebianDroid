@@ -131,7 +131,7 @@ public class CIFFragment extends ItemDetailFragment {
 			
 			protected Void doInBackground(String... params) {
 				items.add("Packages of " + params[0] + " that " + params[1] + " is maintaining:");
-				items = udd.getOverlappingInterests(params[0], params[1]);
+				items.addAll(udd.getOverlappingInterests(params[0], params[1]));
 				items.add("Packages of " + params[1] + " that " + params[0] + " is maintaining:");
 				items.addAll(udd.getOverlappingInterests(params[1], params[0]));
 				header =  getString(R.string.overlapping_interests);

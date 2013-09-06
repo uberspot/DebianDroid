@@ -9,6 +9,7 @@ public class SearchCacher {
 	private static String lastPckgName = null;
 	private static String lastBugSearchValue = null;
 	private static String lastBugSearchOption = null;
+	private static String lastPckgVersion = null;
 	
 	/** @return the name of the package last searched */
 	public static String getLastPckgName() {
@@ -22,13 +23,15 @@ public class SearchCacher {
 	}
 	
 	public static void setLastSearchByBTSURI(Uri uri) {
-		lastPckgName = uri.getQueryParameter("package");
-		lastBugSearchValue = uri.getQueryParameter("bug");
-		lastBugSearchOption = BTS.PACKAGE;
-	}
-	
-	public static void setLastSearchByPTSURI(Uri uri) {
-		setLastSearchByPckgName(uri.getLastPathSegment().replace(".html", ""));
+		try {
+			String pckgName = BTS.BTSURIToPckgName(uri);
+			String bugnumber = BTS.BTSURIToBugNum(uri);
+			if(pckgName!=null)
+				setLastSearchByPckgName(pckgName);
+			else if(bugnumber!=null) {
+				SearchCacher.setLastBugSearch(BTS.BUGNUMBER, bugnumber);
+			}
+		} catch(UnsupportedOperationException e) { e.printStackTrace(); }
 	}
 	
 	public static boolean hasLastPckgSearch() {
@@ -57,5 +60,13 @@ public class SearchCacher {
 
 	public static boolean hasAnyLastSearch() {
 		return hasLastBugsSearch() || hasLastPckgSearch();
+	}
+
+	public static String getLastPckgVersion() {
+		return lastPckgVersion;
+	}
+
+	public static void setLastPckgVersion(String lastPckgVersion) {
+		SearchCacher.lastPckgVersion = lastPckgVersion;
 	}
 }
