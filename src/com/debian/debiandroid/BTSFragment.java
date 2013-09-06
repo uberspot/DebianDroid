@@ -29,6 +29,7 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
+import androidStorageUtils.Cacher;
 import androidStorageUtils.StorageUtils;
 
 public class BTSFragment extends ItemDetailFragment {
@@ -248,14 +249,14 @@ public class BTSFragment extends ItemDetailFragment {
 			    		return true;
 		    	 case REFRESH_ID:
 		    		 	if(SearchCacher.hasAnyLastSearch()) {
-		    		 		new SearchBugInfoTask().execute();
+		    		 		new SearchBugInfoTask().execute(true);
 		    		 	}
 			    		return true;
 	        }
 		return super.onOptionsItemSelected(item);
     }
 	
-	class SearchBugInfoTask extends AsyncTask<Void, Integer, Void> {
+	class SearchBugInfoTask extends AsyncTask<Boolean, Integer, Void> {
 		
 		private ProgressDialog progressDialog;
 		private String progressMessage = getString(R.string.searching_info) + ". " + getString(R.string.please_wait) + "...";
@@ -267,9 +268,12 @@ public class BTSFragment extends ItemDetailFragment {
 				   getString(R.string.searching), progressMessage, true, false);  
 		}
 		
-		protected Void doInBackground(Void... params) {		
+		protected Void doInBackground(Boolean... params) {
+			//If called with execute(true) set the cache to always bring fresh results
+			if(params.length!=0 && params[0]) {
+				Cacher.disableCache();
+			}
 			// search and set bug data
-
 			bugListParentItems = new ArrayList<String>();
 			bugListChildItems = new ArrayList<Object>();
 					
@@ -317,6 +321,9 @@ public class BTSFragment extends ItemDetailFragment {
 					    publishProgress(i);
 			}
 			
+			if(params.length!=0 && params[0]) {
+				Cacher.enableCache();
+			}
 			return null;
 		}  
 		@SuppressLint("NewApi")

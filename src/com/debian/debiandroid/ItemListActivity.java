@@ -9,8 +9,7 @@
  * - add extra parameters to bug search fragment with an +(add) button for more complicated searches
  * - add clear favourites button in favourites fragment or in options
  * - make widget prettier
- * - refresh button in each results page must always request fresh (not cached) info when pressed
- * - show detailed progress in search of bts/pts and show partial results in groups of ~20 bug reports to save time in search.
+ * - show partial results in groups of ~20 bug reports to save time in search.
  */
 
 package com.debian.debiandroid;

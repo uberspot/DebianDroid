@@ -31,13 +31,12 @@ public class Cacher extends StorageUtils{
 	/** The time limit in milliseconds for which to keep a file cached in memory. */
 	public static long cacheLimit = defaultCacheLimit ; //the default for now
 	
-	private boolean enabledCache;
+	private static boolean enabledCache = true;
 	
 	private static final String cacheExtension = ".cache";
 	
 	public Cacher(Context base) {
 		super(base);
-		enabledCache = true;
 	}
 
 	/** Retrieves cached string from the given filename. 
@@ -80,13 +79,12 @@ public class Cacher extends StorageUtils{
 	 * @param string
 	 */
 	public void cacheString(String fileName, String string) {
-		if(enabledCache)
-			saveObjectToInternalStorage(System.currentTimeMillis() + " " + string, fileName + cacheExtension);
+		saveObjectToInternalStorage(System.currentTimeMillis() + " " + string, fileName + cacheExtension);
 	}
 	
-	public void enableCache(){ enabledCache = true; }
+	public static void enableCache(){ enabledCache = true; }
 	
-	public void disableCache(){ enabledCache = false; }
+	public static void disableCache(){ enabledCache = false; }
 
 	public static void disableCacheTimeLimit() { cacheLimit = Long.MAX_VALUE; }
 	

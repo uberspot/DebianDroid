@@ -28,6 +28,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.TextView.OnEditorActionListener;
+import androidStorageUtils.Cacher;
 
 public class PTSFragment extends ItemDetailFragment {
 
@@ -199,7 +200,7 @@ public class PTSFragment extends ItemDetailFragment {
 			    		return true;
 		    	 case REFRESH_ID:
 			    		 if(SearchCacher.hasLastPckgSearch()) {
-			    		 	new SearchPackageInfoTask().execute();
+			    		 	new SearchPackageInfoTask().execute(true);
 			    		 }
 			    		return true;
 		    	 case NEW_EMAIL_ID:
@@ -218,7 +219,7 @@ public class PTSFragment extends ItemDetailFragment {
 		 }
 	}
 
-	class SearchPackageInfoTask extends AsyncTask<Void, Integer, Void> {
+	class SearchPackageInfoTask extends AsyncTask<Boolean, Integer, Void> {
 		private String[] pckgInfo;
 		private ProgressDialog progressDialog;
 		private String progressMessage =  getString(R.string.searching_info_about) + " " + SearchCacher.getLastPckgName() 
@@ -230,7 +231,12 @@ public class PTSFragment extends ItemDetailFragment {
 				   progressMessage, true, false);  
 		}
 		
-		protected Void doInBackground(Void... params) {
+		protected Void doInBackground(Boolean... params) {
+			//If called with execute(true) set the cache to always bring fresh results
+			if(params.length!=0 && params[0]) {
+				Cacher.disableCache();
+			}
+			
 			pckgInfo = new String[6];
 			pckgInfo[0] = SearchCacher.getLastPckgName(); //Last Package Name
 			if(pckgInfo[0]!=null) {
@@ -248,6 +254,10 @@ public class PTSFragment extends ItemDetailFragment {
 					publishProgress(6);
 					setBugData(pckgInfo[0]);
 				}
+			}
+			
+			if(params.length!=0 && params[0]) {
+				Cacher.enableCache();
 			}
 			return null;
 		}  
