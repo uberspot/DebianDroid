@@ -218,15 +218,16 @@ public class PTSFragment extends ItemDetailFragment {
 		 }
 	}
 
-	class SearchPackageInfoTask extends AsyncTask<Void, Void, Void> {
+	class SearchPackageInfoTask extends AsyncTask<Void, Integer, Void> {
 		private String[] pckgInfo;
 		private ProgressDialog progressDialog;
+		private String progressMessage =  getString(R.string.searching_info_about) + " " + SearchCacher.getLastPckgName() 
+				   + ". " + getString(R.string.please_wait) + "...";
 		
 		protected void onPreExecute(){ 
 		   super.onPreExecute();
-		   progressDialog = ProgressDialog.show(getSherlockActivity(), 
-				   getString(R.string.searching), getString(R.string.searching_info_about) + " " + SearchCacher.getLastPckgName() 
-				   + ". " + getString(R.string.please_wait) + "...", true, false);  
+		   progressDialog = ProgressDialog.show(getSherlockActivity(), getString(R.string.searching),
+				   progressMessage, true, false);  
 		}
 		
 		protected Void doInBackground(Void... params) {
@@ -234,12 +235,17 @@ public class PTSFragment extends ItemDetailFragment {
 			pckgInfo[0] = SearchCacher.getLastPckgName(); //Last Package Name
 			if(pckgInfo[0]!=null) {
 				pckgInfo[1] = pts.getLatestVersion(pckgInfo[0]);
+				publishProgress(2);
 				SearchCacher.setLastPckgVersion(pckgInfo[1]);
 				pckgInfo[2] = pts.getMaintainerName(pckgInfo[0]) + "\n <" + pts.getMaintainerEmail(pckgInfo[0])+ ">";
+				publishProgress(3);
 				pckgInfo[3] = pts.getBugCounts(pckgInfo[0]);
+				publishProgress(4);
 				if(!pckgInfo[1].trim().equals("") && !pckgInfo[3].trim().equals("") ) {
 					pckgInfo[4] = Arrays.toString(pts.getUploaderNames(pckgInfo[0]));
-					pckgInfo[5] = Arrays.toString(pts.getBinaryNames(pckgInfo[0])); 
+					publishProgress(5);
+					pckgInfo[5] = Arrays.toString(pts.getBinaryNames(pckgInfo[0]));
+					publishProgress(6);
 					setBugData(pckgInfo[0]);
 				}
 			}
@@ -269,5 +275,9 @@ public class PTSFragment extends ItemDetailFragment {
 	    		getSherlockActivity().invalidateOptionsMenu();
 			}
 	    }
+		@Override
+	    public void onProgressUpdate(Integer... args){
+            progressDialog.setMessage(progressMessage + " " + args[0] + "/" + pckgInfo.length + " info retrieved!");
+        }
     }
 }
