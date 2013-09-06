@@ -18,7 +18,7 @@ Debian Android app for gsoc2013.
  4. Opens links from other apps (e.g. browser or mail app) to http://bugs.debian.org and http://packages.qa.debian.org natively in the debiandroid app in the corresponding app 
  5. Finds overlapping debian interests between maintainers (use case 4) [in the making]
  6. Notifies user about new mails in bug reports he made, he contributed to or in bugs he is subscribed to and about new package news to packages he maintains or is subscribed to etc [in the making]
- 7. Allows you to send a bug report (by redirecting you to your mail app with some preconfigured fields like from, to, subject etc) or to mark a bug as "moreinfo" [todo]
+ 7. Allows you to send a new bug report for a package (by redirecting you to your mail app with some preconfigured fields like from, to, subject etc) or to respond to a mail in an existing bug report by long pressing on that mail and then redirecting you again to your mail app.
  8. Alerts you about a bug report you wanted to send, like a "bug report" reminder. Maybe with a button like "report bug in x time" [todo]
  9. Swiping from a package you just searched in the pts menu item to the bts menu item will instantly load the searched packages bugs
  10. Clicking in the pts/bts menu item on info like the maintainers name will open a browser window with info on that maintainer [todo]

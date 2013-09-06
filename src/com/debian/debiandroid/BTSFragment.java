@@ -186,51 +186,6 @@ public class BTSFragment extends ItemDetailFragment {
 			}});
 	}
 	
-	public void setBugData() {
-		bugListParentItems = new ArrayList<String>();
-		bugListChildItems = new ArrayList<Object>();
-				
-		ArrayList<String> bugNums = new ArrayList<String>();
-		//Do search and fill bug results table
-		if(SearchCacher.hasLastBugsSearch()) {
-			if(SearchCacher.getLastBugSearchOption().equals(BTS.BUGNUMBER))
-				bugNums.add(SearchCacher.getLastBugSearchValue());
-			else
-				bugNums = bts.getBugs(new String[]{SearchCacher.getLastBugSearchOption()}, 
-						new String[]{SearchCacher.getLastBugSearchValue()});
-        } else if(SearchCacher.hasLastPckgSearch()) {
-        	bugNums = bts.getBugs(new String[]{BTS.PACKAGE}, new String[]{SearchCacher.getLastPckgName()});
-        }
-		if(bugNums.size()<=0) {
-			bugListParentItems.add(getString(R.string.no_info_found));
-			bugListChildItems.add(new ArrayList<String>());
-		}
-		for(int i=0; i<bugNums.size(); i++) {
-			ArrayList<HashMap<String,String>> mailLog = new ArrayList<HashMap<String, String>>(2);
-				try {
-					//build array with mail log
-					mailLog = bts.getBugLog(Integer.parseInt(bugNums.get(i).trim()));
-				} catch(NumberFormatException e) { e.printStackTrace(); }
-				int mailLogSize = mailLog.size();
-				ArrayList<String> log = new ArrayList<String>(mailLogSize);
-					// Shows bugs in the format [bugNumber](mails sent for that bugnum) Subject of first mail
-					bugListParentItems.add("["+bugNums.get(i)+"]("+mailLogSize+")" 
-									+ ((mailLogSize>0)?mailLog.get(0).get("subject"):"") );
-					
-					for(HashMap<String,String> mail: mailLog) {
-						StringBuilder m = new StringBuilder();
-						m.append("Date: ").append(mail.get("date")).append("\n")
-						//.append("Subject: ").append(mail.get("subject")).append("\n")
-						.append("From: ").append(mail.get("from")).append("\n")
-						//.append("CC: ").append(mail.get("cc"))
-						.append("\n-------------\nBody: ").append(mail.get("body"));
-						
-						log.add(m.toString());
-					}
-				    bugListChildItems.add(log);
-		}
-	}
-	
 	/** Returns the position of the selected language in the given array
 	 * @param values
 	 * @return an int which is the position of the language in the values or 0 if it is not found
@@ -300,17 +255,68 @@ public class BTSFragment extends ItemDetailFragment {
 		return super.onOptionsItemSelected(item);
     }
 	
-	class SearchBugInfoTask extends AsyncTask<Void, Void, Void> {
+	class SearchBugInfoTask extends AsyncTask<Void, Integer, Void> {
+		
 		private ProgressDialog progressDialog;
+		private String progressMessage = getString(R.string.searching_info) + ". " + getString(R.string.please_wait) + "...";
+		private int bugCount = 0;
+		
 		protected void onPreExecute(){ 
 		   super.onPreExecute();
 		   progressDialog = ProgressDialog.show(getSherlockActivity(), 
-				   getString(R.string.searching), getString(R.string.searching_info) + ". " + getString(R.string.please_wait) + "...", true, false);  
+				   getString(R.string.searching), progressMessage, true, false);  
 		}
 		
 		protected Void doInBackground(Void... params) {		
 			// search and set bug data
-			setBugData();
+
+			bugListParentItems = new ArrayList<String>();
+			bugListChildItems = new ArrayList<Object>();
+					
+			ArrayList<String> bugNums = new ArrayList<String>();
+			//Do search and fill bug results table
+			if(SearchCacher.hasLastBugsSearch()) {
+				if(SearchCacher.getLastBugSearchOption().equals(BTS.BUGNUMBER))
+					bugNums.add(SearchCacher.getLastBugSearchValue());
+				else
+					bugNums = bts.getBugs(new String[]{SearchCacher.getLastBugSearchOption()}, 
+							new String[]{SearchCacher.getLastBugSearchValue()});
+	        } else if(SearchCacher.hasLastPckgSearch()) {
+	        	bugNums = bts.getBugs(new String[]{BTS.PACKAGE}, new String[]{SearchCacher.getLastPckgName()});
+	        }
+			
+			if(bugNums.size()<=0) {
+				bugListParentItems.add(getString(R.string.no_info_found));
+				bugListChildItems.add(new ArrayList<String>());
+			}
+			bugCount = bugNums.size();
+			
+			for(int i=0; i<bugNums.size(); i++) {
+				ArrayList<HashMap<String,String>> mailLog = new ArrayList<HashMap<String, String>>(2);
+					try {
+						//build array with mail log
+						mailLog = bts.getBugLog(Integer.parseInt(bugNums.get(i).trim()));
+					} catch(NumberFormatException e) { e.printStackTrace(); }
+					int mailLogSize = mailLog.size();
+					ArrayList<String> log = new ArrayList<String>(mailLogSize);
+						// Shows bugs in the format [bugNumber](mails sent for that bugnum) Subject of first mail
+						bugListParentItems.add("["+bugNums.get(i)+"]("+mailLogSize+")" 
+										+ ((mailLogSize>0)?mailLog.get(0).get("subject"):"") );
+						
+						for(HashMap<String,String> mail: mailLog) {
+							StringBuilder m = new StringBuilder();
+							m.append("Date: ").append(mail.get("date")).append("\n")
+							//.append("Subject: ").append(mail.get("subject")).append("\n")
+							.append("From: ").append(mail.get("from")).append("\n")
+							//.append("CC: ").append(mail.get("cc"))
+							.append("\n-------------\nBody: ").append(mail.get("body"));
+							
+							log.add(m.toString());
+						}
+					    bugListChildItems.add(log);
+					    publishProgress(i);
+			}
+			
 			return null;
 		}  
 		@SuppressLint("NewApi")
@@ -329,5 +335,9 @@ public class BTSFragment extends ItemDetailFragment {
 	    	
 	    	setupBugsList();
 	    }
+		@Override
+	    public void onProgressUpdate(Integer... args){
+            progressDialog.setMessage(progressMessage + " " + args[0] + "/" + bugCount + " bugs retrieved!");
+        }
     }
 }
