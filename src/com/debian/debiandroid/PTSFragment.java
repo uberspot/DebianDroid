@@ -17,6 +17,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.method.LinkMovementMethod;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -243,7 +244,10 @@ public class PTSFragment extends ItemDetailFragment {
 				pckgInfo[1] = pts.getLatestVersion(pckgInfo[0]);
 				publishProgress(2);
 				SearchCacher.setLastPckgVersion(pckgInfo[1]);
-				pckgInfo[2] = pts.getMaintainerName(pckgInfo[0]) + "\n <" + pts.getMaintainerEmail(pckgInfo[0])+ ">";
+				String maintEmail =  pts.getMaintainerEmail(pckgInfo[0]).trim();
+				pckgInfo[2] = pts.getMaintainerName(pckgInfo[0]) + "\n" + getString(R.string.packages_overview) +":\n  " + 
+				"http://qa.debian.org/developer.php?login="+ maintEmail +
+								"\n "+getString(R.string.mail) + ":\n  " + maintEmail;
 				publishProgress(3);
 				pckgInfo[3] = pts.getBugCounts(pckgInfo[0]);
 				publishProgress(4);
@@ -266,20 +270,27 @@ public class PTSFragment extends ItemDetailFragment {
 			progressDialog.dismiss();
 			if(pckgInfo[0]!=null) {
 				ptsInput.setText(pckgInfo[0]);
-				
-				setupBugsList();
-				
+				 
 				if(!pckgInfo[1].trim().equals("") && !pckgInfo[3].trim().equals("") ) {
 					ptsPckgName.setText(getString(R.string.pckg) + ": \n  "+ pckgInfo[0]);
-					ptsPckgLatestVersion.setText(getString(R.string.latest_version) + ": \n  " + pckgInfo[1]);
-					ptsPckgMaintainerInfo.setText(getString(R.string.maintainer) + ": \n  " + pckgInfo[2]);
-					ptsPckgBugCount.setText(getString(R.string.bug_count) + ": \n  " + pckgInfo[3]);
-					ptsPckgUplNames.setText(getString(R.string.uploaders) + ": \n" + pckgInfo[4]);
-			    	ptsPckgBinNames.setText(getString(R.string.binary_names) + ": \n" + pckgInfo[5]);
+					ptsPckgLatestVersion.setText(getString(R.string.latest_version) + ":\n  " + pckgInfo[1]);
+					ptsPckgMaintainerInfo.setText(getString(R.string.maintainer) + ":\n  " + pckgInfo[2]);
+		    		ptsPckgMaintainerInfo.setMovementMethod(LinkMovementMethod.getInstance());
+					ptsPckgBugCount.setText(getString(R.string.bug_count) + ":\n  " + pckgInfo[3]);
+					ptsPckgUplNames.setText(getString(R.string.uploaders) + ":\n  " + pckgInfo[4]);
+			    	ptsPckgBinNames.setText(getString(R.string.binary_names) + ":\n  " + pckgInfo[5]);
 		    	} else {
 		    		System.out.println(pckgInfo[1]+","+pckgInfo[3]+","+(!pckgInfo[1].trim().equals("") && !pckgInfo[3].trim().equals(""))+"\n"+getString(R.string.no_info_found_for) + " " + pckgInfo[0]);
 		    		ptsPckgName.setText(getString(R.string.no_info_found_for) + " " + pckgInfo[0]);
+		    		ptsPckgLatestVersion.setText("");
+		    		ptsPckgMaintainerInfo.setText("");
+		    		ptsPckgBugCount.setText("");
+		    		ptsPckgUplNames.setText("");
+		    		ptsPckgBinNames.setText("");
+		    		bugListParentItems = new ArrayList<String>();
+		    		bugListChildItems = new ArrayList<Object>();
 		    	}
+				setupBugsList();
 			}
 			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
 	    		getSherlockActivity().invalidateOptionsMenu();

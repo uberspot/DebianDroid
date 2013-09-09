@@ -70,7 +70,7 @@ public class BTSFragment extends ItemDetailFragment {
         
     	getSherlockActivity().getSupportActionBar().setTitle(getString(R.string.select_bugs));
     	
-        searchOptionSelected = StorageUtils.getInstance(context).getPreference("btsSearchOption");
+        searchOptionSelected = StorageUtils.getInstance(context).getPreference("btsSearchOption", getString(R.string.by_number));
         bugList = (ExpandableListView) rootView.findViewById(R.id.btsList);
         
         // Find the Views once in OnCreate to save time and not use findViewById later.

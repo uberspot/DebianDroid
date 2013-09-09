@@ -21,7 +21,6 @@ Debian Android app for gsoc2013.
  7. Allows you to send a new bug report for a package (by redirecting you to your mail app with some preconfigured fields like from, to, subject etc) or to respond to a mail in an existing bug report by long pressing on that mail and then redirecting you again to your mail app.
  8. Alerts you about a bug report you wanted to send, like a "bug report" reminder. Maybe with a button like "report bug in x time" [todo]
  9. Swiping from a package you just searched in the pts menu item to the bts menu item will instantly load the searched packages bugs
- 10. Clicking in the pts/bts menu item on info like the maintainers name will open a browser window with info on that maintainer [todo]
  11. Clicking on a package name in the package binaries will load info on that package [todo]
  12. Notify user if internet connection stops working and the use of 3g is deactivated. [todo]
  13. If "use 3g" settings is false detect if 3g is used and deactivate online searching then by settings cache to always return something [todo]
@@ -30,12 +29,11 @@ Debian Android app for gsoc2013.
  16. Full-text search on package names like in http://packages.debian.org/search?keywords=%s
  17. Show contents of a package like in http://packages.debian.org/sid/i386//filelist
  18. Tell which package a certain file is in: http://packages.debian.org/search?searchon=contents&keywords=&
- 19. Show Debian Developer Package Overview: http://qa.debian.org/developer.php?login=
+ 19. Show Debian Developer Package Overview: http://qa.debian.org/developer.php?login= in a native ui instead of redirecting to browser [todo]
  20. Show all versions of a source package (with arch and stuff): http://qa.debian.org/madison.php?package=%s&table=all
- 21. Show next dinstall time: http://ftp-master.debian.org/dinstall.html
- 22. Show new queue: http://ftp-master.debian.org/new.html
- 23. Show links to mailing list archives: https://lists.debian.org/debian-%s/recent
- 24. Add a alarm for wnpp (BTS; packages that are to be removed; watching for ITP bugs, etc.)
+ 21. Show new queue: http://ftp-master.debian.org/new.html
+ 22. Show links to mailing list archives: https://lists.debian.org/debian-%s/recent
+ 23. Add a alarm for wnpp (BTS; packages that are to be removed; watching for ITP bugs, etc.)
 
  
 ##Documentation

@@ -49,7 +49,7 @@ public class Cacher extends StorageUtils{
 	 * otherwise it returns null
 	 */
 	public String getCachedString(String fileName) {
-		if(!enabledCache)
+		if(!enabledCache) //might need to always bring results if 3g is not allowed
 			return null;
     	Object obj = loadObjectFromInternalStorage(fileName + cacheExtension);
     	if(obj!=null) {

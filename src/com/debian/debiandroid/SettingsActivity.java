@@ -8,9 +8,9 @@ import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceFragment;
-import android.preference.PreferenceManager;
 import android.support.v4.app.NavUtils;
 import androidStorageUtils.Cacher;
+import androidStorageUtils.StorageUtils;
 
 import com.actionbarsherlock.app.SherlockPreferenceActivity;
 import com.actionbarsherlock.view.MenuItem;
@@ -70,11 +70,11 @@ public class SettingsActivity extends SherlockPreferenceActivity {
 
 	public static void loadSettings(Context context) {
 		try {
+			StorageUtils storage = StorageUtils.getInstance(context);
+			
 			DDNotifyService.updateIntervalTime = Integer
-					.parseInt(PreferenceManager.getDefaultSharedPreferences(
-							context).getString("rinterval", "600")) * 1000; // stored seconds -> milliseconds
-			Cacher.setCacheLimitByHours(Integer.parseInt(PreferenceManager
-					.getDefaultSharedPreferences(context).getString(
+					.parseInt(storage.getPreference("rinterval", "600")) * 1000; // stored seconds -> milliseconds
+			Cacher.setCacheLimitByHours(Integer.parseInt(storage.getPreference(
 							"cachelimit", "48")));
 		} catch (NumberFormatException e) {
 			e.printStackTrace();

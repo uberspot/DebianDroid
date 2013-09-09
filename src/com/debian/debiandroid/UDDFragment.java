@@ -3,14 +3,10 @@ package com.debian.debiandroid;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import com.debian.debiandroid.PTSFragment.SearchPackageInfoTask;
-import com.debian.debiandroid.apiLayer.SearchCacher;
 import com.debian.debiandroid.apiLayer.UDDCaller;
 
-import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;

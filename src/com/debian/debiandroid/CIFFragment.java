@@ -13,7 +13,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.util.Patterns;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -27,6 +26,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
+import androidStorageUtils.StorageUtils;
 
 public class CIFFragment extends ItemDetailFragment {
 
@@ -63,8 +63,7 @@ public class CIFFragment extends ItemDetailFragment {
     	
     	qrcodeView = (ImageView) rootView.findViewById(R.id.cifQRCodeView);
     	try {
-    		developerMail = PreferenceManager.getDefaultSharedPreferences(
-    				getSherlockActivity()).getString("ddemail", "empty");
+    		developerMail = StorageUtils.getInstance(getSherlockActivity()).getPreference("ddemail", "empty");
     		if(!Patterns.EMAIL_ADDRESS.matcher(developerMail).matches())
     			Toast.makeText(getSherlockActivity(), 
     					getString(R.string.no_mail_in_settings_msg), Toast.LENGTH_SHORT).show();

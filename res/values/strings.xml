@@ -74,6 +74,7 @@
     <string name="latest">Latest</string>
     <string name="new_maintainers">New Maintainers</string>
     <string name="submit_new_bug_report">Submit new bug report</string>
-    
+    <string name="packages_overview">Packages overview</string>
+    <string name="mail">Mail</string>
     
 </resources>

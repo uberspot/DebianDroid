@@ -192,10 +192,11 @@ public class StorageUtils extends ContextWrapper {
 	
 	/** Loads a preference from the storage
 	 * @param valueName the name of the preference
+	 * @param defValue the default value to return if no preference with valueName is found
 	 * @return a string containing the preference
 	 */
-	public String getPreference(String valueName) {
-	      return PreferenceManager.getDefaultSharedPreferences(this).getString(valueName, "");
+	public String getPreference(String valueName, String defValue) {
+	      return PreferenceManager.getDefaultSharedPreferences(this).getString(valueName, defValue);
 	}
 	
 	/** Saves a preference in the storage in a given StringSet
