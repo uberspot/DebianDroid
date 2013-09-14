@@ -8,7 +8,7 @@
 	        android:key="use3g"
 	        android:title="@string/use_3g"
 	        android:summary="@string/use_3g_summary"
-	        android:defaultValue="false" />
+	        android:defaultValue="true" />
 	    <EditTextPreference
 	        android:key="ddusername"
             android:name="Developer username"

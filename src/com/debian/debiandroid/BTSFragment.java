@@ -271,7 +271,7 @@ public class BTSFragment extends ItemDetailFragment {
 		protected Void doInBackground(Boolean... params) {
 			//If called with execute(true) set the cache to always bring fresh results
 			if(params.length!=0 && params[0]) {
-				Cacher.disableCache();
+				Cacher.disableCache(); //Move to soap caller or api layer maybe
 			}
 			// search and set bug data
 			bugListParentItems = new ArrayList<String>();

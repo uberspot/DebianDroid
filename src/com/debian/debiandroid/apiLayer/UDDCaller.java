@@ -14,26 +14,23 @@ public class UDDCaller extends HTTPCaller {
 	private static final String UDD_CGI_URL = "http://udd.debian.org/cgi-bin/";
 	
 	public ArrayList<String> getLastUploads() {
-		String[] response = doQueryRequest(UDD_CGI_URL + "last-uploads.cgi?out=csv").split("\n");
-		for(String line : response) { line = line.replace(",", " "); }
+		String[] response = doQueryRequest(UDD_CGI_URL + "last-uploads.cgi?out=csv").replaceAll(",", " ").split("\n");
 		return new ArrayList<String>(Arrays.asList(response));
 	}
 	
 	public ArrayList<String> getRCBugs() {
-		String[] response = doQueryRequest(UDD_CGI_URL + "rcbugs.cgi?out=csv").split("\n");
-		for(String line : response) { line = line.replace(",", " "); }
+		String[] response = doQueryRequest(UDD_CGI_URL + "rcbugs.cgi?out=csv").replaceAll(",", " ").split("\n");
 		return new ArrayList<String>(Arrays.asList(response));
 	}
 	
 	public ArrayList<String> getNewMaintainers() {
-		String[] response = doQueryRequest(UDD_CGI_URL + "new-maintainers.cgi?out=csv").split("\n");
-		for(String line : response) { line = line.replace(",", " "); }
+		String[] response = doQueryRequest(UDD_CGI_URL + "new-maintainers.cgi?out=csv").replaceAll(",", " ").split("\n");
 		return new ArrayList<String>(Arrays.asList(response));
 	}
 	
 	public ArrayList<String> getOverlappingInterests(String devamail, String devbmail) {
 		String[] response = doQueryRequest(UDD_CGI_URL + 
-						"overlapping_interests.cgi?deva="+devamail+"&devb="+devbmail)
+						"overlapping_interests.cgi?deva="+devamail+"&devb="+devbmail).replaceAll(",", " ")
 						.split("\n");
 		return new ArrayList<String>(Arrays.asList(response));
 	}

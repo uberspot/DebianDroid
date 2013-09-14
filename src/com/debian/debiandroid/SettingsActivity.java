@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.Preference;
+import android.preference.PreferenceManager;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceFragment;
 import android.support.v4.app.NavUtils;
@@ -14,6 +15,7 @@ import androidStorageUtils.StorageUtils;
 
 import com.actionbarsherlock.app.SherlockPreferenceActivity;
 import com.actionbarsherlock.view.MenuItem;
+import com.debian.debiandroid.apiLayer.ApiTools;
 
 @SuppressLint("NewApi")
 @SuppressWarnings("deprecation")
@@ -76,6 +78,14 @@ public class SettingsActivity extends SherlockPreferenceActivity {
 					.parseInt(storage.getPreference("rinterval", "600")) * 1000; // stored seconds -> milliseconds
 			Cacher.setCacheLimitByHours(Integer.parseInt(storage.getPreference(
 							"cachelimit", "48")));
+			
+			boolean hasMobileCon = NetUtils.hasNetProviderConnection(context, NetUtils.MOBILE);
+			boolean mobileAllowed = PreferenceManager.getDefaultSharedPreferences(context).getBoolean("use3g", true);
+			if(hasMobileCon && !mobileAllowed && ApiTools.isNetEnabled()) {
+					ApiTools.disableUseOfNet();
+			} else if(!ApiTools.isNetEnabled()) {
+					ApiTools.enableUseOfNet();
+			}
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
 		}

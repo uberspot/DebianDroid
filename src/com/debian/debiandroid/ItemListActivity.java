@@ -14,16 +14,12 @@
 
 package com.debian.debiandroid;
 
-import java.util.Arrays;
 import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Iterator;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.debian.debiandroid.apiLayer.*;
-import com.debian.debiandroid.apiLayer.soaptools.BTSSoapCaller;
 import com.debian.debiandroid.content.ContentMenu;
 
 import android.app.AlarmManager;
@@ -34,7 +30,6 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.view.GestureDetectorCompat;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 

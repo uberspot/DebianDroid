@@ -23,7 +23,7 @@ Debian Android app for gsoc2013.
  9. Swiping from a package you just searched in the pts menu item to the bts menu item will instantly load the searched packages bugs
  11. Clicking on a package name in the package binaries will load info on that package [todo]
  12. Notify user if internet connection stops working and the use of 3g is deactivated. [todo]
- 13. If "use 3g" settings is false detect if 3g is used and deactivate online searching then by settings cache to always return something [todo]
+ 13. If "use 3g" settings is false detect if 3g is used and deactivate online searching then by settings cache to always return something
  14. Translate to other languages. Easy if all string are gathered in values/strings.xml [in the making]
  15. Widget in homescreen displays next DInstall time + remaining hours till that time
  16. Full-text search on package names like in http://packages.debian.org/search?keywords=%s
@@ -35,7 +35,13 @@ Debian Android app for gsoc2013.
  22. Show links to mailing list archives: https://lists.debian.org/debian-%s/recent
  23. Add a alarm for wnpp (BTS; packages that are to be removed; watching for ITP bugs, etc.)
 
- 
+##Permissions explained
+
+ 1. INTERNET - To access the debian soap api
+ 2. WRITE_EXTERNAL_STORAGE - To cache retrieved info to external storage
+ 3. WAKE_LOCK - Needed for the AlarmManager to update the widget
+ 4. ACCESS_NETWORK_STATE - To access the state of the wifi and (en)disable the use of internet if 3g usage is not enabled in settings
+
 ##Documentation
 
 ###ActionBarSherlock installation

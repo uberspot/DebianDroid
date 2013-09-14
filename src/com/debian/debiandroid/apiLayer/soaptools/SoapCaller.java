@@ -14,6 +14,7 @@ public class SoapCaller {
 	protected String NAMESPACE;
 	protected String URL;
 	protected static Cacher cacher;
+	public static boolean netEnabled = true;
 	
 	public SoapCaller(Context context) {
 		NAMESPACE = "";
@@ -40,23 +41,25 @@ public class SoapCaller {
         // continue with the normal retrieval
         String cached = cacher.getCachedString(reqFileName);
         if(cached!=null && 
-        		cacher.getTimeFromLastCache(reqFileName) <= Cacher.cacheLimit) {
+        		(!netEnabled || cacher.getTimeFromLastCache(reqFileName) <= Cacher.cacheLimit) ) {
         		return cached;
         }
-        SoapSerializationEnvelope envelope = new
-        SoapSerializationEnvelope(SoapEnvelope.VER10);
-        envelope.setOutputSoapObject(request);
-        HttpTransportSE androidHttpTransport = new HttpTransportSE(URL);
-        //androidHttpTransport.debug = true;
-        try {
-            androidHttpTransport.call(soapAction, envelope);
-            //Log.i("Debian", androidHttpTransport.requestDump);
-            //Cache new response before returning it
-            String response = envelope.bodyIn.toString();
-            cacher.cacheString(reqFileName, response);
-            return response;
-        } catch(Exception e) {
-        	e.printStackTrace();
+        if(netEnabled) {
+	        SoapSerializationEnvelope envelope = new
+	        SoapSerializationEnvelope(SoapEnvelope.VER10);
+	        envelope.setOutputSoapObject(request);
+	        HttpTransportSE androidHttpTransport = new HttpTransportSE(URL);
+	        //androidHttpTransport.debug = true;
+	        try {
+	            androidHttpTransport.call(soapAction, envelope);
+	            //Log.i("Debian", androidHttpTransport.requestDump);
+	            //Cache new response before returning it
+	            String response = envelope.bodyIn.toString();
+	            cacher.cacheString(reqFileName, response);
+	            return response;
+	        } catch(Exception e) {
+	        	e.printStackTrace();
+	        }
         }
         //if any errors occured return the cached string (or "" if no cached version exists)
         return (cached!=null)?cached:"";
