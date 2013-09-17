@@ -117,7 +117,7 @@ public class BTSFragment extends ItemDetailFragment {
 	/** Initializes the spinner view and fills it with pts search choices */
 	private void setupSpinner() {
 		spinner.setAdapter(new ArrayAdapter<String>(this.getActivity(), 
-        				android.R.layout.simple_spinner_item, spinnerValues));
+        				android.R.layout.simple_list_item_1, spinnerValues));
         
 		spinner.setSelection(getSelectedOption(spinnerValues, searchOptionSelected));
 		spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){

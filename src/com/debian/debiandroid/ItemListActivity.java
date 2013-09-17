@@ -1,5 +1,4 @@
 /* TODO:
- * - add check for internet connection in parts of ui and notify user
  * - code cleanup/comments
  * - popular links in a fragment autosearch in that http://qa.debian.org/madison.php?package=vim&table=debian&a=&c=&s=#
  * - find similar packages with "*pckgname*"

@@ -21,7 +21,7 @@ public class DDNotifyService extends Service {
 
 	public static int updateIntervalTime = 600000; // 600000 ms = 10 minutes
 	
-	private static Timer timer = new Timer();
+	private static Timer timer;
 	private final static int LOST_CONNECTION = 0, CONNECTION_RESTORED = 1;
 	private final Handler handler = new Handler() {
 		@Override
@@ -42,6 +42,7 @@ public class DDNotifyService extends Service {
 
 	@Override
 	  public void onCreate() {
+			timer = new Timer();
 		    timer.scheduleAtFixedRate(new CheckConnectivityTask(), 1000, updateIntervalTime);
 		    registerReceiver(wifiStateChangedReceiver, new IntentFilter(WifiManager.WIFI_STATE_CHANGED_ACTION));
 	  }
@@ -61,6 +62,8 @@ public class DDNotifyService extends Service {
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
+		timer.cancel();
+		timer = null;
 		unregisterReceiver(wifiStateChangedReceiver);
 	}
 

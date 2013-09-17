@@ -1,5 +1,6 @@
 package com.debian.debiandroid.apiLayer;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import com.debian.debiandroid.apiLayer.soaptools.BTSSoapCaller;
@@ -22,7 +23,7 @@ public class BTS extends BTSSoapCaller{
 	}
 
 	public boolean isSubscribedTo(String bugNumber) {
-		return btsStorage.getPreferenceSet(BTSSUBSCRIPTIONS).contains(bugNumber);
+		return btsStorage.getPreferenceSet(BTSSUBSCRIPTIONS, new HashSet<String>()).contains(bugNumber);
 	}
 
 	public boolean removeSubscriptionTo(String bugNumber) {
@@ -34,7 +35,7 @@ public class BTS extends BTSSoapCaller{
 	}
 	
 	public Set<String> getSubscriptions() {
-		return btsStorage.getPreferenceSet(BTSSUBSCRIPTIONS);
+		return btsStorage.getPreferenceSet(BTSSUBSCRIPTIONS, new HashSet<String>());
 	}
 	
 	public static boolean isBTSHost(String host) {

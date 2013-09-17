@@ -205,8 +205,19 @@ public class StorageUtils extends ContextWrapper {
 	 * @return true if it was saved successfully, false otherwise
 	 */
 	public boolean addPreferenceToSet(String valueName, String value) {
-	      Set<String> currentSet = getPreferenceSet(valueName);
+	      Set<String> currentSet = getPreferenceSet(valueName, new HashSet<String>());
 	      currentSet.add(value);
+	      return saveObjectToInternalStorage(stringSetToJsonString(currentSet), valueName);
+	}
+	
+	/** Saves a preference set in the storage in a given StringSet
+	 * @param valueName the name of the preference
+	 * @param set the set to add
+	 * @return true if it was saved successfully, false otherwise
+	 */
+	public boolean savePreferenceSet(String valueName, Set<String> set) {
+	      Set<String> currentSet = getPreferenceSet(valueName, new HashSet<String>());
+	      currentSet.addAll(set); 
 	      return saveObjectToInternalStorage(stringSetToJsonString(currentSet), valueName);
 	}
 	
@@ -214,12 +225,12 @@ public class StorageUtils extends ContextWrapper {
 	 * @param valueName the name of the preference
 	 * @return a string containing the preference
 	 */
-	public Set<String> getPreferenceSet(String valueName) {
+	public Set<String> getPreferenceSet(String valueName, Set<String> defValue) {
 		  Object setString =  loadObjectFromInternalStorage(valueName);
 		  if(setString!=null) {
 			  return jsonStringToStringSet(setString.toString());  
 		  }
-	      return new HashSet<String>();
+	      return defValue;
 	}
 	
 	/** Removes a preference in the storage from a given StringSet
@@ -228,7 +239,7 @@ public class StorageUtils extends ContextWrapper {
 	 * @return true if it was saved successfully, false otherwise
 	 */
 	public boolean removePreferenceFromSet(String valueName, String value) {
-		Set<String> currentSet = getPreferenceSet(valueName);
+		Set<String> currentSet = getPreferenceSet(valueName, new HashSet<String>());
 		currentSet.remove(value);
 		return saveObjectToInternalStorage(stringSetToJsonString(currentSet), valueName);
 	}

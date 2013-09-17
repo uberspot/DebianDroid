@@ -1,5 +1,6 @@
 package com.debian.debiandroid.apiLayer;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import com.debian.debiandroid.apiLayer.soaptools.PTSSoapCaller;
@@ -20,7 +21,7 @@ public class PTS extends PTSSoapCaller{
 	}
 
 	public boolean isSubscribedTo(String pckgName) {
-		return ptsStorage.getPreferenceSet(PTSSUBSCRIPTIONS).contains(pckgName);
+		return ptsStorage.getPreferenceSet(PTSSUBSCRIPTIONS, new HashSet<String>()).contains(pckgName);
 	}
 
 	public boolean removeSubscriptionTo(String pckgName) {
@@ -32,7 +33,7 @@ public class PTS extends PTSSoapCaller{
 	}
 	
 	public Set<String> getSubscriptions() {
-		return ptsStorage.getPreferenceSet(PTSSUBSCRIPTIONS);
+		return ptsStorage.getPreferenceSet(PTSSUBSCRIPTIONS, new HashSet<String>());
 	}
 	
 	public static boolean isPTSHost(String host) {
