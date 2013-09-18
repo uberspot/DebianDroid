@@ -9,7 +9,7 @@ import com.actionbarsherlock.view.MenuItem;
 import com.debian.debiandroid.apiLayer.BTS;
 import com.debian.debiandroid.apiLayer.PTS;
 import com.debian.debiandroid.apiLayer.SearchCacher;
-import com.debian.debiandroid.content.ContentMenu;
+import com.debian.debiandroid.content.Content;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
@@ -127,7 +127,7 @@ public class PTSFragment extends ItemDetailFragment {
 	                SearchCacher.setLastBugSearch(BTS.BUGNUMBER, itemClicked);
 	                // Move to bts fragment
 	      		  	ItemDetailFragment fragment = ItemDetailFragment.getDetailFragment(
-	      				  ContentMenu.BTS);
+	      				  Content.BTS);
 	          		getActivity().getSupportFragmentManager().beginTransaction()
 	              	.replace(R.id.item_detail_container, fragment)
 	              	.commit();

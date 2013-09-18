@@ -6,7 +6,7 @@ import java.util.Set;
 import com.debian.debiandroid.apiLayer.BTS;
 import com.debian.debiandroid.apiLayer.PTS;
 import com.debian.debiandroid.apiLayer.SearchCacher;
-import com.debian.debiandroid.content.ContentMenu;
+import com.debian.debiandroid.content.Content;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -58,7 +58,7 @@ public class SUBSFragment extends ItemDetailFragment {
                 	SearchCacher.setLastSearchByPckgName(itemClicked);
                 	// Move to pts fragment
           		  	ItemDetailFragment fragment = ItemDetailFragment.getDetailFragment(
-          				  ContentMenu.PTS);
+          				  Content.PTS);
 	          		getActivity().getSupportFragmentManager().beginTransaction()
 	              	.replace(R.id.item_detail_container, fragment)
 	              	.commit();
@@ -68,7 +68,7 @@ public class SUBSFragment extends ItemDetailFragment {
 	                	SearchCacher.setLastBugSearch(items[0], items[1]);
 	                	// Move to bts fragment
 	          		  	ItemDetailFragment fragment = ItemDetailFragment.getDetailFragment(
-	          				  ContentMenu.BTS);
+	          				  Content.BTS);
 		          		getActivity().getSupportFragmentManager().beginTransaction()
 		              	.replace(R.id.item_detail_container, fragment)
 		              	.commit();

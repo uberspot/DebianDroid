@@ -7,7 +7,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.actionbarsherlock.app.SherlockListFragment;
-import com.debian.debiandroid.content.ContentMenu;
+import com.debian.debiandroid.content.Content;
 
 /**
  * A list fragment representing a list of Items. This fragment
@@ -71,11 +71,11 @@ public class ItemListFragment extends SherlockListFragment {
         super.onCreate(savedInstanceState);
 
         // TODO: replace with a real list adapter.
-        setListAdapter(new ArrayAdapter<ContentMenu.MenuItem>(
+        setListAdapter(new ArrayAdapter<Content.ContentItem>(
                 getActivity(),
                 android.R.layout.simple_list_item_1,
                 android.R.id.text1,
-                ContentMenu.ITEMS));
+                Content.ITEMS));
     }
 
     @Override
@@ -115,7 +115,7 @@ public class ItemListFragment extends SherlockListFragment {
 
         // Notify the active callbacks interface (the activity, if the
         // fragment is attached to one) that an item has been selected.
-        mCallbacks.onItemSelected(ContentMenu.ITEMS.get(position).id);
+        mCallbacks.onItemSelected(Content.ITEMS.get(position).id);
     }
 
     @Override

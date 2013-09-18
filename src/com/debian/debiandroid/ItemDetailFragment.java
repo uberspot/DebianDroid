@@ -1,7 +1,5 @@
 package com.debian.debiandroid;
 
-import java.util.List;
-
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -16,7 +14,7 @@ import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
-import com.debian.debiandroid.content.ContentMenu;
+import com.debian.debiandroid.content.Content;
 
 /**
  * A fragment representing a single Item detail screen.
@@ -34,8 +32,6 @@ public class ItemDetailFragment extends SherlockFragment {
     public static final int SETTINGS_ID = Menu.FIRST+1;
     public static boolean isInListDisplayFrag = false;
 
-    public ContentMenu.MenuItem mItem;
-
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
@@ -49,10 +45,8 @@ public class ItemDetailFragment extends SherlockFragment {
         setRetainInstance(true);
         
         if (getArguments().containsKey(ARG_ITEM_ID)) {
-            // Load the content specified by the fragment
-            // arguments. In a real-world scenario, use a Loader
-            // to load content from a content provider.
-            mItem = ContentMenu.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
+            // Save current loaded fragments id
+            currentFragmentID = getArguments().getString(ARG_ITEM_ID);
         }
     }
 
@@ -68,21 +62,20 @@ public class ItemDetailFragment extends SherlockFragment {
      * @return 
      */
     public static ItemDetailFragment getDetailFragment(String id){
-    	currentFragmentID = id;
     	Bundle arguments = new Bundle();
         arguments.putString(ItemDetailFragment.ARG_ITEM_ID, id);
         ItemDetailFragment fragment;
-    	if(id.equalsIgnoreCase(ContentMenu.BTS))
+    	if(id.equalsIgnoreCase(Content.BTS))
     		fragment = new BTSFragment();
-    	else if(id.equalsIgnoreCase(ContentMenu.PTS))
+    	else if(id.equalsIgnoreCase(Content.PTS))
     		fragment = new PTSFragment();
-    	else if(id.equalsIgnoreCase(ContentMenu.UDD))
+    	else if(id.equalsIgnoreCase(Content.UDD))
     		fragment = new UDDFragment();
-    	else if(id.equalsIgnoreCase(ContentMenu.CIF))
+    	else if(id.equalsIgnoreCase(Content.CIF))
     		fragment = new CIFFragment();
-    	else if(id.equalsIgnoreCase(ContentMenu.SUBS))
+    	else if(id.equalsIgnoreCase(Content.SUBS))
     		fragment = new SUBSFragment();
-    	else if(id.equalsIgnoreCase(ContentMenu.LINKS))
+    	else if(id.equalsIgnoreCase(Content.LINKS))
     		fragment = new LinksFragment();
     	else
     		fragment = new ItemDetailFragment();
@@ -92,37 +85,28 @@ public class ItemDetailFragment extends SherlockFragment {
     }
 
     public static String getNextFragmentId(){
-    	int position = getPositionOfItem(currentFragmentID);
-    	if(position==-1) {
-    		return ContentMenu.PTS;
+    	if(currentFragmentID.equals("")) {
+    		return Content.PTS;
     	}
-    	if(position++!=-1 && position<ContentMenu.ITEMS.size())
-    		return ContentMenu.ITEMS.get(position).id;
+    	int position = Content.ITEMS.indexOf(new Content.ContentItem(currentFragmentID, ""));
+    	
+    	if(position++!=-1 && position<Content.ITEMS.size())
+    		return Content.ITEMS.get(position).id;
     	return currentFragmentID;
     }
     
     public static String getPreviousFragmentId(){
-    	int position = getPositionOfItem(currentFragmentID);
+    	if(currentFragmentID.equals("")) {
+    		return null;
+    	}
+    	int position = Content.ITEMS.indexOf(new Content.ContentItem(currentFragmentID, ""));
     	// return to ItemListActivity and don't show fragments anymore
-    	if(position==0 || position==-1) {
+    	if(position==0) {
     		return null;
     	}
     	if(position--!=-1 && position>=0)
-    		return ContentMenu.ITEMS.get(position).id;
+    		return Content.ITEMS.get(position).id;
     	return currentFragmentID;
-    }
-    
-    private static int getPositionOfItem(String id){
-    	if(id.equals("")) {
-    		return -1;
-    	}
-    	List<ContentMenu.MenuItem> items = ContentMenu.ITEMS;
-    	for(int i=0;i<items.size(); i++) {
-    		if(items.get(i).id.equalsIgnoreCase(id)) {
-    			return i;
-    		}
-    	} 
-    	return -1;
     }
     
     @Override

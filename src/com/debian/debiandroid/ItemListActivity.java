@@ -19,7 +19,7 @@ import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.debian.debiandroid.apiLayer.*;
-import com.debian.debiandroid.content.ContentMenu;
+import com.debian.debiandroid.content.Content;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -80,7 +80,7 @@ public class ItemListActivity extends SherlockFragmentActivity
                     .findFragmentById(R.id.item_list))
                     .setActivateOnItemClick(true);
             
-            onItemSelected(ContentMenu.PTS);
+            onItemSelected(Content.PTS);
         }
               
         new task().execute(); //temporary
@@ -103,12 +103,12 @@ public class ItemListActivity extends SherlockFragmentActivity
         	  // Parse uri to get search parameters and forward to corresponding fragment
         	  if(PTS.isPTSHost(uri.getHost())) {
         		  SearchCacher.setLastSearchByPckgName(PTS.PTSURIToPckgName(uri));
-        		  onItemSelected(ContentMenu.PTS);
+        		  onItemSelected(Content.PTS);
         	  }
         	  if(BTS.isBTSHost(uri.getHost())) {
         		  uri = Uri.parse(uri.toString().replace(';', '&'));
         		  SearchCacher.setLastSearchByBTSURI(uri);
-        		  onItemSelected(ContentMenu.BTS);
+        		  onItemSelected(Content.BTS);
         	  }
         }
     }
@@ -149,7 +149,7 @@ public class ItemListActivity extends SherlockFragmentActivity
     	if (mTwoPane) {
 	    	//Forward the qrcode scan result to the corresponding CIFFragment
 	    	ItemDetailFragment fragment = (ItemDetailFragment) getSupportFragmentManager().findFragmentById(R.id.item_detail_container);
-	    	if(ItemDetailFragment.currentFragmentID.equals(ContentMenu.CIF))
+	    	if(ItemDetailFragment.currentFragmentID.equals(Content.CIF))
 	    		fragment.onActivityResult(requestCode, resultCode, intent);
     	}
 	}
