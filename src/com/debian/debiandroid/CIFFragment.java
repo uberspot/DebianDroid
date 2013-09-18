@@ -113,6 +113,7 @@ public class CIFFragment extends ItemDetailFragment {
 			Toast.makeText(getSherlockActivity(), 
 					getString(R.string.invalid_mail_msg) + " " + developerMail, Toast.LENGTH_SHORT).show();
 		} else {
+			hideSoftKeyboard(mailInput);
 			new CIFSearchTask().execute(scannedMail, developerMail);
 		}
 	}

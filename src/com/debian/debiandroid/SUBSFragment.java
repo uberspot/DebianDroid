@@ -58,7 +58,7 @@ public class SUBSFragment extends ItemDetailFragment {
                 	SearchCacher.setLastSearchByPckgName(itemClicked);
                 	// Move to pts fragment
           		  	ItemDetailFragment fragment = ItemDetailFragment.getDetailFragment(
-          				  ContentMenu.ITEM.PTS.toString());
+          				  ContentMenu.PTS);
 	          		getActivity().getSupportFragmentManager().beginTransaction()
 	              	.replace(R.id.item_detail_container, fragment)
 	              	.commit();
@@ -68,7 +68,7 @@ public class SUBSFragment extends ItemDetailFragment {
 	                	SearchCacher.setLastBugSearch(items[0], items[1]);
 	                	// Move to bts fragment
 	          		  	ItemDetailFragment fragment = ItemDetailFragment.getDetailFragment(
-	          				  ContentMenu.ITEM.BTS.toString());
+	          				  ContentMenu.BTS);
 		          		getActivity().getSupportFragmentManager().beginTransaction()
 		              	.replace(R.id.item_detail_container, fragment)
 		              	.commit();

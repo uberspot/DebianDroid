@@ -1,5 +1,7 @@
 package com.debian.debiandroid;
 
+import java.util.List;
+
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -7,6 +9,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 
 import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.view.Menu;
@@ -68,17 +72,17 @@ public class ItemDetailFragment extends SherlockFragment {
     	Bundle arguments = new Bundle();
         arguments.putString(ItemDetailFragment.ARG_ITEM_ID, id);
         ItemDetailFragment fragment;
-    	if(id.equalsIgnoreCase(ContentMenu.ITEM.BTS.toString()))
+    	if(id.equalsIgnoreCase(ContentMenu.BTS))
     		fragment = new BTSFragment();
-    	else if(id.equalsIgnoreCase(ContentMenu.ITEM.PTS.toString()))
+    	else if(id.equalsIgnoreCase(ContentMenu.PTS))
     		fragment = new PTSFragment();
-    	else if(id.equalsIgnoreCase(ContentMenu.ITEM.UDD.toString()))
+    	else if(id.equalsIgnoreCase(ContentMenu.UDD))
     		fragment = new UDDFragment();
-    	else if(id.equalsIgnoreCase(ContentMenu.ITEM.CIF.toString()))
+    	else if(id.equalsIgnoreCase(ContentMenu.CIF))
     		fragment = new CIFFragment();
-    	else if(id.equalsIgnoreCase(ContentMenu.ITEM.SUBS.toString()))
+    	else if(id.equalsIgnoreCase(ContentMenu.SUBS))
     		fragment = new SUBSFragment();
-    	else if(id.equalsIgnoreCase(ContentMenu.ITEM.LINKS.toString()))
+    	else if(id.equalsIgnoreCase(ContentMenu.LINKS))
     		fragment = new LinksFragment();
     	else
     		fragment = new ItemDetailFragment();
@@ -90,10 +94,10 @@ public class ItemDetailFragment extends SherlockFragment {
     public static String getNextFragmentId(){
     	int position = getPositionOfItem(currentFragmentID);
     	if(position==-1) {
-    		return ContentMenu.ITEM.PTS.toString();
+    		return ContentMenu.PTS;
     	}
-    	if(position++!=-1 && position<ContentMenu.ITEM.values().length)
-    		return ContentMenu.ITEM.values()[position].toString();
+    	if(position++!=-1 && position<ContentMenu.ITEMS.size())
+    		return ContentMenu.ITEMS.get(position).id;
     	return currentFragmentID;
     }
     
@@ -104,7 +108,7 @@ public class ItemDetailFragment extends SherlockFragment {
     		return null;
     	}
     	if(position--!=-1 && position>=0)
-    		return ContentMenu.ITEM.values()[position].toString();
+    		return ContentMenu.ITEMS.get(position).id;
     	return currentFragmentID;
     }
     
@@ -112,9 +116,9 @@ public class ItemDetailFragment extends SherlockFragment {
     	if(id.equals("")) {
     		return -1;
     	}
-    	ContentMenu.ITEM[] items = ContentMenu.ITEM.values();
-    	for(int i=0;i<items.length; i++) {
-    		if(items[i].toString().equalsIgnoreCase(id)) {
+    	List<ContentMenu.MenuItem> items = ContentMenu.ITEMS;
+    	for(int i=0;i<items.size(); i++) {
+    		if(items.get(i).id.equalsIgnoreCase(id)) {
     			return i;
     		}
     	} 
@@ -131,6 +135,13 @@ public class ItemDetailFragment extends SherlockFragment {
 				.setIcon(R.drawable.settings)
 				.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 	}
+    
+    public void hideSoftKeyboard(EditText input){
+        if(getActivity().getCurrentFocus()!=null && getActivity().getCurrentFocus() instanceof EditText){
+            InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(input.getWindowToken(), 0);
+        }
+    }
     
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

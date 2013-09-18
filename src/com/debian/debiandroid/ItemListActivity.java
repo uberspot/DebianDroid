@@ -80,7 +80,7 @@ public class ItemListActivity extends SherlockFragmentActivity
                     .findFragmentById(R.id.item_list))
                     .setActivateOnItemClick(true);
             
-            onItemSelected(ContentMenu.ITEM.PTS.toString());
+            onItemSelected(ContentMenu.PTS);
         }
               
         new task().execute(); //temporary
@@ -103,12 +103,12 @@ public class ItemListActivity extends SherlockFragmentActivity
         	  // Parse uri to get search parameters and forward to corresponding fragment
         	  if(PTS.isPTSHost(uri.getHost())) {
         		  SearchCacher.setLastSearchByPckgName(PTS.PTSURIToPckgName(uri));
-        		  onItemSelected(ContentMenu.ITEM.PTS.toString());
+        		  onItemSelected(ContentMenu.PTS);
         	  }
         	  if(BTS.isBTSHost(uri.getHost())) {
         		  uri = Uri.parse(uri.toString().replace(';', '&'));
         		  SearchCacher.setLastSearchByBTSURI(uri);
-        		  onItemSelected(ContentMenu.ITEM.BTS.toString());
+        		  onItemSelected(ContentMenu.BTS);
         	  }
         }
     }
@@ -149,7 +149,7 @@ public class ItemListActivity extends SherlockFragmentActivity
     	if (mTwoPane) {
 	    	//Forward the qrcode scan result to the corresponding CIFFragment
 	    	ItemDetailFragment fragment = (ItemDetailFragment) getSupportFragmentManager().findFragmentById(R.id.item_detail_container);
-	    	if(ItemDetailFragment.currentFragmentID.equals(ContentMenu.ITEM.CIF.toString()))
+	    	if(ItemDetailFragment.currentFragmentID.equals(ContentMenu.CIF))
 	    		fragment.onActivityResult(requestCode, resultCode, intent);
     	}
 	}

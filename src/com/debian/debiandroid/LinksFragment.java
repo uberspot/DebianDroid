@@ -10,15 +10,21 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.TextView.OnEditorActionListener;
 
 public class LinksFragment extends ItemDetailFragment {
+	
+	private EditText linkSearchInput;
 	
 	private final static HashMap<String, String> links = new HashMap<String, String>(){{
 	     put("Debian.org", "http://debian.org");
@@ -40,7 +46,7 @@ public class LinksFragment extends ItemDetailFragment {
 		
 		getSherlockActivity().getSupportActionBar().setTitle( getString(R.string.links) );
 		
-		EditText linkSearchInput = (EditText) rootView.findViewById(R.id.linksInputSearch);
+		linkSearchInput = (EditText) rootView.findViewById(R.id.linksInputSearch);
 		
 		ListView listview = (ListView) rootView.findViewById(R.id.linkslistview);
 		final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getSherlockActivity(),
@@ -57,6 +63,16 @@ public class LinksFragment extends ItemDetailFragment {
 		            int arg3) { }
 		    @Override public void afterTextChanged(Editable arg0) { }
 		});
+		linkSearchInput.setOnEditorActionListener(new OnEditorActionListener() {
+  		    @Override
+  		    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+  		        if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+  		        	hideSoftKeyboard(linkSearchInput);
+  		            return true;
+  		        }
+  		        return false;
+  		    }
+  		});
 		
 		listview.setAdapter(adapter);
 
@@ -74,7 +90,7 @@ public class LinksFragment extends ItemDetailFragment {
 	private void openLinkInExternalApp(String link) {
 		Intent linkIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
 		
-		// Verify it resolves
+		// Verify the intent resolves
 		List<ResolveInfo> activities = getSherlockActivity().getPackageManager()
 												.queryIntentActivities(linkIntent, 0);  
 		

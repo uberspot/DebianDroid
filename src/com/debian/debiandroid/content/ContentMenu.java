@@ -8,21 +8,21 @@ import java.util.Map;
 /** Helper class for providing sample content for user interfaces */
 public class ContentMenu {
 
-    /** An array of sample items. */
+    /** An array of items. */
     public static List<MenuItem> ITEMS = new ArrayList<MenuItem>();
 
-    /**  A map of sample items, by ID. */
+    /**  A map of items, by ID. */
     public static Map<String, MenuItem> ITEM_MAP = new HashMap<String, MenuItem>();
 
-    public enum ITEM {PTS, BTS, UDD, SUBS, CIF, LINKS};
+    public static final String PTS="PTS", BTS="BTS", UDD="UDD", SUBS="SUBS", CIF="CIF", LINKS="LINKS";
     
     static {
-        addItem(new MenuItem(ITEM.PTS.toString(), "Package Tracking"));
-        addItem(new MenuItem(ITEM.BTS.toString(), "Bug Tracking"));
-        addItem(new MenuItem(ITEM.UDD.toString(), "UDD"));
-        addItem(new MenuItem(ITEM.SUBS.toString(), "Favourites"));
-        addItem(new MenuItem(ITEM.CIF.toString(), "Common Interest Finder"));
-        addItem(new MenuItem(ITEM.LINKS.toString(), "Useful Links"));
+        addItem(new MenuItem(PTS, "Package Tracking"));
+        addItem(new MenuItem(BTS, "Bug Tracking"));
+        addItem(new MenuItem(UDD, "UDD"));
+        addItem(new MenuItem(SUBS, "Favourites"));
+        addItem(new MenuItem(CIF, "Common Interest Finder"));
+        addItem(new MenuItem(LINKS, "Useful Links"));
     }
 
     private static void addItem(MenuItem item) {

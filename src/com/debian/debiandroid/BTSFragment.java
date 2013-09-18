@@ -264,6 +264,7 @@ public class BTSFragment extends ItemDetailFragment {
 		
 		protected void onPreExecute(){ 
 		   super.onPreExecute();
+		   hideSoftKeyboard(btsInput);
 		   progressDialog = ProgressDialog.show(getSherlockActivity(), 
 				   getString(R.string.searching), progressMessage, true, false);  
 		}

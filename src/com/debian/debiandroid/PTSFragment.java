@@ -97,7 +97,7 @@ public class PTSFragment extends ItemDetailFragment {
   		    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
 		        String input = ptsInput.getText().toString().trim();
   		        if (actionId == EditorInfo.IME_ACTION_SEARCH && input!=null && !input.trim().equals("")) {
-  		        	SearchCacher.setLastSearchByPckgName(ptsInput.getText().toString().trim());
+  		        	SearchCacher.setLastSearchByPckgName(input);
   		        	new SearchPackageInfoTask().execute();
   		            return true;
   		        }
@@ -127,7 +127,7 @@ public class PTSFragment extends ItemDetailFragment {
 	                SearchCacher.setLastBugSearch(BTS.BUGNUMBER, itemClicked);
 	                // Move to bts fragment
 	      		  	ItemDetailFragment fragment = ItemDetailFragment.getDetailFragment(
-	      				  ContentMenu.ITEM.BTS.toString());
+	      				  ContentMenu.BTS);
 	          		getActivity().getSupportFragmentManager().beginTransaction()
 	              	.replace(R.id.item_detail_container, fragment)
 	              	.commit();
@@ -228,6 +228,7 @@ public class PTSFragment extends ItemDetailFragment {
 		
 		protected void onPreExecute(){ 
 		   super.onPreExecute();
+		   hideSoftKeyboard(ptsInput);
 		   progressDialog = ProgressDialog.show(getSherlockActivity(), getString(R.string.searching),
 				   progressMessage, true, false);  
 		}
