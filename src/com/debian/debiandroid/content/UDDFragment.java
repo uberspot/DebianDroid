@@ -1,8 +1,11 @@
-package com.debian.debiandroid;
+package com.debian.debiandroid.content;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import com.debian.debiandroid.ItemDetailFragment;
+import com.debian.debiandroid.ListDisplayFragment;
+import com.debian.debiandroid.R;
 import com.debian.debiandroid.apiLayer.UDDCaller;
 
 import android.app.ProgressDialog;

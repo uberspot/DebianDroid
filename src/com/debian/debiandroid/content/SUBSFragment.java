@@ -1,12 +1,14 @@
-package com.debian.debiandroid;
+package com.debian.debiandroid.content;
 
 import java.util.ArrayList;
 import java.util.Set;
 
+import com.debian.debiandroid.DExpandableAdapter;
+import com.debian.debiandroid.ItemDetailFragment;
+import com.debian.debiandroid.R;
 import com.debian.debiandroid.apiLayer.BTS;
 import com.debian.debiandroid.apiLayer.PTS;
-import com.debian.debiandroid.apiLayer.SearchCacher;
-import com.debian.debiandroid.content.Content;
+import com.debian.debiandroid.utils.SearchCacher;
 
 import android.content.Context;
 import android.os.Bundle;

@@ -1,4 +1,6 @@
-package com.debian.debiandroid.apiLayer;
+package com.debian.debiandroid.utils;
+
+import com.debian.debiandroid.apiLayer.BTS;
 
 import android.net.Uri;
 

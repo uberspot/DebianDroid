@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.debian.debiandroid;
+package com.debian.debiandroid.utils;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
@@ -30,11 +30,11 @@ import java.util.Hashtable;
  *
  * @author dswitkin@google.com (Daniel Switkin)
  */
-final class QRCodeEncoder {
+public class QRCodeEncoder {
 
   private static final int WHITE = 0xFFFFFFFF;
   private static final int BLACK = 0xFF000000;
-	static Bitmap encodeAsBitmap(String contents, BarcodeFormat format,
+  public static Bitmap encodeAsBitmap(String contents, BarcodeFormat format,
 			int desiredWidth, int desiredHeight) throws WriterException {
 		Hashtable<EncodeHintType, String> hints = null;
 		String encoding = guessAppropriateEncoding(contents);
@@ -62,7 +62,7 @@ final class QRCodeEncoder {
 	}
 
 
-  private static String guessAppropriateEncoding(CharSequence contents) {
+  public static String guessAppropriateEncoding(CharSequence contents) {
     // Very crude at the moment
     for (int i = 0; i < contents.length(); i++) {
       if (contents.charAt(i) > 0xFF) {

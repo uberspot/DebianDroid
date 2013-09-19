@@ -4,6 +4,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import com.debian.debiandroid.apiLayer.ApiTools;
+import com.debian.debiandroid.utils.NetUtils;
 
 import android.app.Service;
 import android.content.BroadcastReceiver;

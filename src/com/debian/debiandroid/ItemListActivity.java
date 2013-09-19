@@ -20,6 +20,7 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.debian.debiandroid.apiLayer.*;
 import com.debian.debiandroid.content.Content;
+import com.debian.debiandroid.utils.SearchCacher;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;

@@ -1,8 +1,11 @@
-package com.debian.debiandroid;
+package com.debian.debiandroid.content;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import com.debian.debiandroid.ItemDetailFragment;
+import com.debian.debiandroid.R;
 
 import android.content.Intent;
 import android.content.pm.ResolveInfo;

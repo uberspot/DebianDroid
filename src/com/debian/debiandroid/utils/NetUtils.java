@@ -1,4 +1,4 @@
-package com.debian.debiandroid;
+package com.debian.debiandroid.utils;
 
 import android.content.Context;
 import android.net.ConnectivityManager;

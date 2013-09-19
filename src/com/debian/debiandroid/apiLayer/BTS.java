@@ -9,7 +9,7 @@ import android.content.Context;
 import android.net.Uri;
 import androidStorageUtils.StorageUtils;
 
-public class BTS extends BTSSoapCaller{
+public class BTS extends BTSSoapCaller implements Subscribable {
 
 	private StorageUtils btsStorage;
 
@@ -22,16 +22,16 @@ public class BTS extends BTSSoapCaller{
 		btsStorage = StorageUtils.getInstance(context);
 	}
 
-	public boolean isSubscribedTo(String bugNumber) {
-		return btsStorage.getPreferenceSet(BTSSUBSCRIPTIONS, new HashSet<String>()).contains(bugNumber);
+	public boolean isSubscribedTo(String subcriptionID) {
+		return btsStorage.getPreferenceSet(BTSSUBSCRIPTIONS, new HashSet<String>()).contains(subcriptionID);
 	}
 
-	public boolean removeSubscriptionTo(String bugNumber) {
-		return btsStorage.removePreferenceFromSet(BTSSUBSCRIPTIONS, bugNumber);
+	public boolean removeSubscriptionTo(String subcriptionID) {
+		return btsStorage.removePreferenceFromSet(BTSSUBSCRIPTIONS, subcriptionID);
 	}
 
-	public boolean addSubscriptionTo(String bugNumber) {
-		return btsStorage.addPreferenceToSet(BTSSUBSCRIPTIONS, bugNumber);
+	public boolean addSubscriptionTo(String subcriptionID) {
+		return btsStorage.addPreferenceToSet(BTSSUBSCRIPTIONS, subcriptionID);
 	}
 	
 	public Set<String> getSubscriptions() {

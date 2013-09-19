@@ -14,7 +14,13 @@ import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
+import com.debian.debiandroid.content.BTSFragment;
+import com.debian.debiandroid.content.CIFFragment;
 import com.debian.debiandroid.content.Content;
+import com.debian.debiandroid.content.LinksFragment;
+import com.debian.debiandroid.content.PTSFragment;
+import com.debian.debiandroid.content.SUBSFragment;
+import com.debian.debiandroid.content.UDDFragment;
 
 /**
  * A fragment representing a single Item detail screen.

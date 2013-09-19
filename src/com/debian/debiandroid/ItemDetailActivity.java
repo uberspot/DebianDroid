@@ -73,9 +73,11 @@ public class ItemDetailActivity extends SherlockFragmentActivity {
     
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
     	//Forward the qrcode scan result to the corresponding CIFFragment
-    	ItemDetailFragment fragment = (ItemDetailFragment) getSupportFragmentManager().findFragmentById(R.id.item_detail_container);
-    	if(ItemDetailFragment.currentFragmentID.equals(Content.CIF))
-    		fragment.onActivityResult(requestCode, resultCode, intent);
+    	if (resultCode == RESULT_OK) {
+	    	ItemDetailFragment fragment = (ItemDetailFragment) getSupportFragmentManager().findFragmentById(R.id.item_detail_container);
+	    	if(ItemDetailFragment.currentFragmentID.equals(Content.CIF))
+	    		fragment.onActivityResult(requestCode, resultCode, intent);
+    	}
 	}
     
     @Override

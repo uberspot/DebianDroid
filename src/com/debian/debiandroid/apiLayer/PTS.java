@@ -9,7 +9,7 @@ import android.content.Context;
 import android.net.Uri;
 import androidStorageUtils.StorageUtils;
 
-public class PTS extends PTSSoapCaller{
+public class PTS extends PTSSoapCaller implements Subscribable {
 
 	private StorageUtils ptsStorage;
 	
@@ -20,16 +20,16 @@ public class PTS extends PTSSoapCaller{
 		ptsStorage = StorageUtils.getInstance(context);
 	}
 
-	public boolean isSubscribedTo(String pckgName) {
-		return ptsStorage.getPreferenceSet(PTSSUBSCRIPTIONS, new HashSet<String>()).contains(pckgName);
+	public boolean isSubscribedTo(String subcriptionID) {
+		return ptsStorage.getPreferenceSet(PTSSUBSCRIPTIONS, new HashSet<String>()).contains(subcriptionID);
 	}
 
-	public boolean removeSubscriptionTo(String pckgName) {
-		return ptsStorage.removePreferenceFromSet(PTSSUBSCRIPTIONS, pckgName);
+	public boolean removeSubscriptionTo(String subcriptionID) {
+		return ptsStorage.removePreferenceFromSet(PTSSUBSCRIPTIONS, subcriptionID);
 	}
 
-	public boolean addSubscriptionTo(String pckgName) {
-		return ptsStorage.addPreferenceToSet(PTSSUBSCRIPTIONS, pckgName);
+	public boolean addSubscriptionTo(String subcriptionID) {
+		return ptsStorage.addPreferenceToSet(PTSSUBSCRIPTIONS, subcriptionID);
 	}
 	
 	public Set<String> getSubscriptions() {

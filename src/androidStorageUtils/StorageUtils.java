@@ -408,4 +408,12 @@ public class StorageUtils extends ContextWrapper {
 		}
 		return setString;
 	}
+	
+	public File getPictureDirectory(String albumName) {
+		return new File(
+				    Environment.getExternalStoragePublicDirectory(
+				        Environment.DIRECTORY_PICTURES
+				    ), albumName
+			    );
+	}
 }

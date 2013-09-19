@@ -16,6 +16,7 @@ import androidStorageUtils.StorageUtils;
 import com.actionbarsherlock.app.SherlockPreferenceActivity;
 import com.actionbarsherlock.view.MenuItem;
 import com.debian.debiandroid.apiLayer.ApiTools;
+import com.debian.debiandroid.utils.NetUtils;
 
 @SuppressLint("NewApi")
 @SuppressWarnings("deprecation")
