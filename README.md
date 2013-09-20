@@ -24,6 +24,7 @@ Debian Android app started as part of Google Summer of Code 2013.
  11. If "use 3g" settings is false detect if 3g is used and deactivate online searching then by settings cache to always return something
 
  ##TODO
+ 
  1. Show info from http://qa.debian.org/madison.php?package=vim&table=debian&a=&c=&s=#
  2. Find similar packages with "*pckgname*"
  3. Show pending packages
@@ -66,6 +67,14 @@ To add a new content fragment one should a) add the content entry to Content.jav
 The DDService runs all the time and will run several functions. It checks if connectivity is established and whether it is with wifi or mobile and adjusts the api behaviour accordingly.
 
 All code related to interacting with the Debian API (soap, rest or anything else) and to info related to the api is in the package apiLayer. 
+
+###Libraries used
+
+ 1. Joda Time for correct time handling in the widget code
+ 2. KSOAP2 for interacting with the soap api
+ 3. ZXing for QRCode reading/writing
+ 4. ActionBarSherlock for ActionBar compatibility with all versions of Android
+ 5. AndroidStorageUtils for easier interaction with the devices' storage
 
 ###ActionBarSherlock installation
 
