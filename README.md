@@ -55,7 +55,7 @@ Debian Android app started as part of Google Summer of Code 2013.
 
 ###Quick code description
 
-![DDiagram](/DDiagram.png "DebianDroid Flow Diagram")
+![DDiagram](DDiagram.png "DebianDroid Flow Diagram")
 
 The app starts by loading ItemListActivity. That activity detects if the app is running on a tablet or on a smartphone and loads the corresponding fragments. If on a tablet it will load ItemListFragment to display the content menu on the left and PTSFragment which extends ItemDetailFragment to show the pts related info on the right. ItemDetailFragment is a general fragment that all other content displaying fragments should extend. It has several methods useful for multiple fragments (like forwarding to a mail app or hiding the software keyboard) and also implements the gesture detection/swiping. 
 
