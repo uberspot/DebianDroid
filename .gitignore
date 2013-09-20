@@ -11,7 +11,7 @@
 !actionbarsherlock/
 !.settings/
 !.classpath
-!screenshot*.png
-!DebianDroid.apk*
+!*.png
+!DebianDroid.apk
 !project.properties
 actionbarsherlock/bin/

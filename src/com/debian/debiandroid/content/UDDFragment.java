@@ -6,7 +6,7 @@ import java.util.Arrays;
 import com.debian.debiandroid.ItemDetailFragment;
 import com.debian.debiandroid.ListDisplayFragment;
 import com.debian.debiandroid.R;
-import com.debian.debiandroid.apiLayer.UDDCaller;
+import com.debian.debiandroid.apiLayer.UDD;
 
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
@@ -21,7 +21,7 @@ import android.widget.ListView;
 public class UDDFragment extends ItemDetailFragment {
 	
 	private ArrayList<String> uddScripts;
-	private UDDCaller udd;
+	private UDD udd;
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -36,7 +36,7 @@ public class UDDFragment extends ItemDetailFragment {
     	getSherlockActivity().getSupportActionBar().setTitle(getString(R.string.udd));
     	uddScripts = new ArrayList<String>(Arrays.asList(getString(R.string.rcbugs), 
     			getString(R.string.latest_uploads), getString(R.string.new_maintainers)));
-    	udd = new UDDCaller(getSherlockActivity());
+    	udd = new UDD(getSherlockActivity());
     	
     	ListView listview = (ListView) rootView.findViewById(R.id.uddlistview);
 		final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getSherlockActivity(),

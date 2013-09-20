@@ -5,10 +5,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/** Helper class for providing sample content for user interfaces */
+/** Helper class for providing content for user interfaces */
 public class Content {
 
-    /** An array of items. */
+    /** An array of items to display. */
     public static List<ContentItem> ITEMS = new ArrayList<ContentItem>();
 
     /**  A map of items, by ID. */

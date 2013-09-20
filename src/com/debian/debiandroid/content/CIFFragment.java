@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import com.debian.debiandroid.ItemDetailFragment;
 import com.debian.debiandroid.ListDisplayFragment;
 import com.debian.debiandroid.R;
-import com.debian.debiandroid.apiLayer.UDDCaller;
+import com.debian.debiandroid.apiLayer.UDD;
 import com.debian.debiandroid.utils.QRCodeEncoder;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
@@ -39,7 +39,7 @@ public class CIFFragment extends ItemDetailFragment {
 	private ImageButton searchButton;
 	private EditText mailInput;
 	private String developerMail;
-	private UDDCaller udd;
+	private UDD udd;
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -53,7 +53,7 @@ public class CIFFragment extends ItemDetailFragment {
     	
     	getSherlockActivity().getSupportActionBar().setTitle(getString(R.string.find_common_interests));
     	
-    	udd = new UDDCaller(getSherlockActivity());
+    	udd = new UDD(getSherlockActivity());
     	searchButton = (ImageButton) rootView.findViewById(R.id.cifSearchButton);
     	mailInput = (EditText) rootView.findViewById(R.id.cifInputSearch);
     	

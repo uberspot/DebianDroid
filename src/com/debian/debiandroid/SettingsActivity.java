@@ -27,11 +27,13 @@ public class SettingsActivity extends SherlockPreferenceActivity {
 		super.onCreate(savedInstanceState);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		
+		// If in android 3+ use a preference fragment which is the new recommended way
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
 			getFragmentManager().beginTransaction()
 					.replace(android.R.id.content, new PreferencesFragment())
 					.commit();
 		} else {
+			// Otherwise load the preferences.xml in the Activity like in previous android versions
 			addPreferencesFromResource(R.xml.preferences);
 			findPreference("clearcache").setOnPreferenceClickListener(clearCacheListener);
 			findPreference("wupdateinterval").setOnPreferenceChangeListener(numberCheckListener);
@@ -71,6 +73,9 @@ public class SettingsActivity extends SherlockPreferenceActivity {
 		super.onDestroy();
 	}
 
+	/** Loads user settings to app. Called when settings change and users exits from 
+	 *  settings screen or when the app first starts. 
+	 *  */
 	public static void loadSettings(Context context) {
 		try {
 			StorageUtils storage = StorageUtils.getInstance(context);

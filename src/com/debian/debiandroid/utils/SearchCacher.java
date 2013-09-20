@@ -5,7 +5,9 @@ import com.debian.debiandroid.apiLayer.BTS;
 import android.net.Uri;
 
 /** Class that stores temporarily user searches 
- * so that different fragments can access them */
+ * so that fragments can access them on reload/screen orientation change
+ * of so that different fragments can access them as well without passing 
+ * everything like a parameter. */
 public class SearchCacher {
 	 
 	private static String lastPckgName = null;

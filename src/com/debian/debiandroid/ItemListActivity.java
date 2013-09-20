@@ -1,16 +1,3 @@
-/* TODO:
- * - code cleanup/comments
- * - popular links in a fragment autosearch in that http://qa.debian.org/madison.php?package=vim&table=debian&a=&c=&s=#
- * - find similar packages with "*pckgname*"
- * - show pending packages 
- * - mail font size
- * - add time limit for pts searches in case there is too much data and not enough memory in device
- * - add extra parameters to bug search fragment with an +(add) button for more complicated searches
- * - add clear favourites button in favourites fragment or in options
- * - make widget prettier
- * - show partial results in groups of ~20 bug reports to save time in search.
- */
-
 package com.debian.debiandroid;
 
 import java.util.Calendar;
