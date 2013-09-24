@@ -1,6 +1,6 @@
 #DebianDroid
 
-Debian Android app started as part of Google Summer of Code 2013.
+This Debian Android app started as part of Google Summer of Code 2013. It's an Android Application for maintainers, uploaders or developers of the Debian community. It communicates with the Debian soap and rest api and retrieves various information that can be useful when you're not in front of your workstation at home or at office. It eases a lot of operations like checking the next DInstall time, submitting a new bug report or responding to an existing one, getting info on packages and on pending bugs for those packages etc. 
 
 ##Possible use cases
 
@@ -70,10 +70,10 @@ All code related to interacting with the Debian API (soap, rest or anything else
 
 ###Libraries used
 
- 1. Joda Time for correct time handling in the widget code
- 2. KSOAP2 for interacting with the soap api
+ 1. Joda Time for correct time handling/conversion in the widget code
+ 2. KSOAP2 for interacting with the Debian pts and bts soap api
  3. ZXing for QRCode reading/writing
- 4. ActionBarSherlock for ActionBar compatibility with all versions of Android
+ 4. ActionBarSherlock for ActionBar compatibility with older versions of Android
  5. AndroidStorageUtils for easier interaction with the devices' storage
 
 ###ActionBarSherlock installation
@@ -94,6 +94,11 @@ All code related to interacting with the Debian API (soap, rest or anything else
  3. Download the zxing.zip source code
  4. Add the source from the android-integration/ subfolder to /src/com/google/zxing/integration/android/ 
  5. Add code to create/read qrcodes and clean, build and deploy project
+
+###Installation of other libs
+
+ 1. Joda time and KSOAP2 are installed by copying their .jar file to /libs/ in the project
+ 2. AndroidStorageUtils is just added as a package directly to the source code
 
 ##License
 
