@@ -1,17 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/LinearLayout01"
-    android:layout_height="100dp"
-    android:layout_width="100dp"
-    android:background="@drawable/widgetbackground"
-    android:orientation="horizontal">
-    <TextView
+    android:layout_height="110dp"
+    android:layout_width="110dp"
+    android:background="@drawable/widgetbackground" >
+    <TextView 
         android:id="@+id/widget_textview"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:textIsSelectable="false"
-        style="@android:style/TextAppearance.Small"
-        android:gravity="center_vertical|center_horizontal"
-        android:textColor="@android:color/black"
-         />
+        style="@style/WidgetTextStyle" />
 </LinearLayout>

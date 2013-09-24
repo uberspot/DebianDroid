@@ -36,8 +36,8 @@ public class DebianDroidWidgetProvider extends AppWidgetProvider {
 		DateTime now = new DateTime(DateTimeZone.UTC);
 		DateTime nextDInstall = getNextDInst().withZone(DateTimeZone.UTC);
 		long remainingMS = nextDInstall.getMillis() - now.getMillis();
-		return context.getString(R.string.next_dinstall_at) + ":\n" + nextDInstall.toString("HH:mm:ss(z)") + "\n" +
-		" " + context.getString(R.string.or_in)+" " + msToRemainingTimeStamp(remainingMS) + " " + 
+		return context.getString(R.string.next_dinstall_at) + ": " + nextDInstall.toString("HH:mm:ss (z)") + 
+		" " + context.getString(R.string.or_in) + " " + msToRemainingTimeStamp(remainingMS) + " " + 
 		context.getString(R.string.hours) + " (" + DateTimeZone.getDefault() +")";
 	}
 	

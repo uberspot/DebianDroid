@@ -17,14 +17,18 @@ public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
 	  //Acquire the lock
 	  wl.acquire();
 	 
-	  //You can do the processing here update the widget/remote views.
-	  RemoteViews remoteViews = new RemoteViews(context.getPackageName(),
-	    R.layout.ddwidget);
-	  remoteViews.setTextViewText(R.id.widget_textview, DebianDroidWidgetProvider.getWidgetText(context));
-	  ComponentName thiswidget = new ComponentName(context, DebianDroidWidgetProvider.class);
-	  AppWidgetManager manager = AppWidgetManager.getInstance(context);
-	  manager.updateAppWidget(thiswidget, remoteViews);
-	  //Release the lock
-	  wl.release();
+	  // Do the processing here and update the widget/remote views.
+	  try {
+		  RemoteViews remoteViews = new RemoteViews(context.getPackageName(),
+				  				R.layout.ddwidget);
+		  remoteViews.setTextViewText(R.id.widget_textview, 
+				  				DebianDroidWidgetProvider.getWidgetText(context));
+		  ComponentName dInstallWidget = new ComponentName(context, DebianDroidWidgetProvider.class);
+		  AppWidgetManager.getInstance(context).updateAppWidget(dInstallWidget, remoteViews);
+	  } catch(Exception e) { e.printStackTrace(); }
+	  finally {
+		  //Release the lock
+		  wl.release(); 
+	  }
 	 }
  }
