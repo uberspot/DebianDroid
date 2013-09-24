@@ -23,7 +23,7 @@ This Debian Android app started as part of Google Summer of Code 2013. It's an A
  10. Notify user if internet connection stops working and the use of 3g is deactivated.
  11. If "use 3g" settings is false detect if 3g is used and deactivate online searching then by settings cache to always return something
 
- ##TODO
+##TODO
  
  1. Show info from http://qa.debian.org/madison.php?package=vim&table=debian&a=&c=&s=#
  2. Find similar packages with "*pckgname*"
@@ -56,7 +56,7 @@ This Debian Android app started as part of Google Summer of Code 2013. It's an A
 
 ###Quick code description
 
-![DDiagram](DDiagram.png "DebianDroid Flow Diagram")
+![DDiagram](https://raw.github.com/uberspot/DebianDroid/master/DDDiagram.png "DebianDroid Flow Diagram")
 
 The app starts by loading ItemListActivity. That activity detects if the app is running on a tablet or on a smartphone and loads the corresponding fragments. If on a tablet it will load ItemListFragment to display the content menu on the left and PTSFragment which extends ItemDetailFragment to show the pts related info on the right. ItemDetailFragment is a general fragment that all other content displaying fragments should extend. It has several methods useful for multiple fragments (like forwarding to a mail app or hiding the software keyboard) and also implements the gesture detection/swiping. 
 
@@ -87,7 +87,7 @@ All code related to interacting with the Debian API (soap, rest or anything else
  7. Change all styles.xml to use as a parent theme the "@style/Theme.Sherlock.Light.DarkActionBar"
  8. Clean, build, deploy
 
- ###ZXing installation
+###ZXing installation
 
  1. Download core.jar from the official zxing site
  2. Add it to /libs and make sure it's exported along with the other libs in your projects Preferences->Java Build Path->Order and Export
