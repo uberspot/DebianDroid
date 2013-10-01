@@ -1,5 +1,6 @@
 package com.debian.debiandroid;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
@@ -106,15 +107,11 @@ public class ItemListActivity extends SherlockFragmentActivity
 		protected Void doInBackground(Void... params) {
 			
 			//new BTSSoapCaller(getApplicationContext()).getStatus(new int[]{719510});
-			//System.out.println(new UDDCaller(getApplicationContext()).getLastUploads());
-			//Log.i("Debian", );
-			
-		    /*Iterator<Integer> iterator = map.keySet().iterator();  
-		       
-		    while (iterator.hasNext()) {
-		    	int key = (Integer) iterator.next();
-		         key + " " + map.get(key));
-		    }  */
+			//System.out.println(new DFTPCaller(getApplicationContext()).getNewPackages());
+			//ArrayList<ArrayList<String>> result = new DFTP(getApplicationContext()).getDeferredPackages();
+			//for(ArrayList<String> list: result) {
+				//System.out.println(list.get(0)); 
+			//}
 			return null;
 		}  
     }

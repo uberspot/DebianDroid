@@ -21,11 +21,9 @@ public class HTTPCaller {
 		// if (fresh) cached string exists then return it, otherwise 
         // continue with the normal retrieval
 		String fileName = queryURL.substring(queryURL.lastIndexOf("/")).replace("/", "");
-		System.out.println(fileName);
 		String cached = cacher.getCachedString(fileName);
         if(cached!=null && 
         		(!netEnabled || cacher.getTimeFromLastCache(fileName) <= Cacher.cacheLimit) ) {
-        	System.out.println("returning: " + cached);
         	return cached;
         }
         if(netEnabled) {

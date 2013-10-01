@@ -1,6 +1,7 @@
 package com.debian.debiandroid.content;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import com.debian.debiandroid.ItemDetailFragment;
 import com.debian.debiandroid.ListDisplayFragment;
@@ -125,7 +126,7 @@ public class CIFFragment extends ItemDetailFragment {
 	class CIFSearchTask extends AsyncTask<String, Void, Void> {
 		private ProgressDialog progressDialog;
 		String title="", header=""; 
-		ArrayList<String> items = new ArrayList<String>();
+		ArrayList<ArrayList<String>> items = new ArrayList<ArrayList<String>>();
 		
 		protected void onPreExecute() {
 			   super.onPreExecute();
@@ -134,10 +135,17 @@ public class CIFFragment extends ItemDetailFragment {
 			}
 			
 			protected Void doInBackground(String... params) {
-				items.add("Packages of " + params[0] + " that " + params[1] + " is maintaining:");
-				items.addAll(udd.getOverlappingInterests(params[0], params[1]));
-				items.add("Packages of " + params[1] + " that " + params[0] + " is maintaining:");
-				items.addAll(udd.getOverlappingInterests(params[1], params[0]));
+				ArrayList<String> titles = new ArrayList<String>(Arrays.asList(
+						params[0] + " " + getString(R.string.maintains_following) + " " + params[1] + ":", 
+						params[1] + " " + getString(R.string.maintains_following) + " " + params[0] + ":"));
+				
+				ArrayList<String> packages = new ArrayList<String>(Arrays.asList(
+						arrayToString(udd.getOverlappingInterests(params[0], params[1])), 
+						arrayToString(udd.getOverlappingInterests(params[1], params[0]))
+						));
+				
+				items.add(titles);
+				items.add(packages);
 				header =  getString(R.string.overlapping_interests);
 				title = getString(R.string.overlapping_interests);
 				
@@ -150,12 +158,21 @@ public class CIFFragment extends ItemDetailFragment {
 				Bundle arguments = new Bundle();
 				arguments.putString(ListDisplayFragment.LIST_HEADER_ID, header);
 				arguments.putString(ListDisplayFragment.LIST_TITLE_ID, title);
-				arguments.putStringArrayList(ListDisplayFragment.LIST_ITEMS_ID, items);
+				arguments.putSerializable(ListDisplayFragment.LIST_ITEMS_ID, items);
 				
 		        fragment.setArguments(arguments);
 				
 		    	getSherlockActivity().getSupportFragmentManager().beginTransaction()
 		    	.replace(R.id.item_detail_container, fragment).addToBackStack(null).commit();
+			}
+			
+			protected String arrayToString(String[] items) {
+				StringBuilder builder = new StringBuilder();
+				for(String s : items) {
+				    builder.append(s);
+				    builder.append("\n");
+				}
+				return builder.toString();
 			}
 	}
 }

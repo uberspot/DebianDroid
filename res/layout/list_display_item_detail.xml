@@ -18,10 +18,11 @@
 			    android:textIsSelectable="false"
 			    android:textSize="18sp"/>
     
-	    <ListView
-			    android:id="@+id/listdisplaylistview"
+		<ExpandableListView
+			    android:id="@+id/listdisplayexpListView"
+		        android:layout_height="match_parent"
 			    android:layout_width="match_parent"
-			    android:layout_height="wrap_content" /> 
+			    android:groupIndicator="@null" />
     
 </LinearLayout>
  

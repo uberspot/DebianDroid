@@ -22,6 +22,7 @@ This Debian Android app started as part of Google Summer of Code 2013. It's an A
  9. Swiping from a package you just searched in the pts menu item to the bts menu item will instantly load the searched packages bugs
  10. Notify user if internet connection stops working and the use of 3g is deactivated.
  11. If "use 3g" settings is false detect if 3g is used and deactivate online searching then by settings cache to always return something
+ 12. Shows new/removals/deferred queues from https://ftp-master.debian.org/new.822 , https://ftp-master.debian.org/removals.822 and https://ftp-master.debian.org/deferred/status respectively
 
 ##TODO
  
@@ -31,11 +32,11 @@ This Debian Android app started as part of Google Summer of Code 2013. It's an A
  4. Add time limit for pts searches in case there is too much data and not enough memory in device
  5. Add extra parameters to bug search fragment with an +(add) button for more complicated searches
  6. Add clear favourites button in favourites fragment or in options
- 7. Make widget prettier
+ 7. Notifies user about new mails in bug reports he made, he contributed to or in bugs he is subscribed to and about new package news to packages he maintains or is subscribed to etc
  8. Show partial results in groups of ~20 bug reports to save time in search.
  9. Show Debian Developer Package Overview: http://qa.debian.org/developer.php?login= in a native ui instead of redirecting to browser
  10. Show all versions of a source package (with arch and stuff): http://qa.debian.org/madison.php?package=%s&table=all
- 11. Show new queue: http://ftp-master.debian.org/new.html
+ 11. Add httpsCaller and use it on dftp
  12. Add a alarm for wnpp (BTS; packages that are to be removed; watching for ITP bugs, etc.)
  13. Show links to mailing list archives: https://lists.debian.org/debian-%s/recent
  14. Tell which package a certain file is in: http://packages.debian.org/search?searchon=contents&keywords=&
@@ -43,7 +44,6 @@ This Debian Android app started as part of Google Summer of Code 2013. It's an A
  16. Full-text search on package names like in http://packages.debian.org/search?keywords=%s
  17. Translate to other languages. Easy if all string are gathered in values/strings.xml
  18. Alerts you about a bug report you wanted to send, like a "bug report" reminder. Maybe with a button like "report bug in x time"
- 19. Notifies user about new mails in bug reports he made, he contributed to or in bugs he is subscribed to and about new package news to packages he maintains or is subscribed to etc
 
 ##Permissions explained
 
@@ -62,7 +62,7 @@ The app starts by loading ItemListActivity. That activity detects if the app is 
 
 All MenuItems that should exist everywhere in the app are added in ItemDetailActivity and ItemListActivity. Every other MenuItem that should be added in a specific menu page (like in pts) should be added in the corresponding fragment. 
 
-To add a new content fragment one should a) add the content entry to Content.java and b) create a Fragment.java that extends ItemDetailFragment and add a corresponding xml in the res/layout/ for the fragments layout. 
+To add a new content fragment one should a) add the content entry to Content.java and to ItemDetailFragment.java and b) create a Fragment.java that extends ItemDetailFragment and add a corresponding xml in the res/layout/ for the fragments layout. 
 
 The DDService runs all the time and will run several functions. It checks if connectivity is established and whether it is with wifi or mobile and adjusts the api behaviour accordingly.
 

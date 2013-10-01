@@ -14,12 +14,13 @@ public class Content {
     /**  A map of items, by ID. */
     public static Map<String, ContentItem> ITEM_MAP = new HashMap<String, ContentItem>();
 
-    public static final String PTS="PTS", BTS="BTS", UDD="UDD", SUBS="SUBS", CIF="CIF", LINKS="LINKS";
+    public static final String PTS="PTS", BTS="BTS", UDD="UDD", SUBS="SUBS", CIF="CIF", LINKS="LINKS", DFTP="DFTP";
     
     static {
         addItem(new ContentItem(PTS, "Package Tracking"));
         addItem(new ContentItem(BTS, "Bug Tracking"));
         addItem(new ContentItem(UDD, "UDD"));
+        addItem(new ContentItem(DFTP, "Debian FTP"));
         addItem(new ContentItem(SUBS, "Favourites"));
         addItem(new ContentItem(CIF, "Common Interest Finder"));
         addItem(new ContentItem(LINKS, "Useful Links"));

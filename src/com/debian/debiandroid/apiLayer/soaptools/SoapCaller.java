@@ -24,7 +24,6 @@ public class SoapCaller {
 
     public String doRequest(String methodName, String soapAction, PropertyInfo[] properties) 
     					throws IllegalArgumentException {
-    	//for some reason if i use .isEmpty() i get an android api warning
     	if(methodName == null || methodName.equals("") || soapAction==null || soapAction.equals("")
     			 || URL.equals("")) { 
     		throw new IllegalArgumentException();
@@ -52,7 +51,7 @@ public class SoapCaller {
 	        //androidHttpTransport.debug = true;
 	        try {
 	            androidHttpTransport.call(soapAction, envelope);
-	            //Log.i("Debian", androidHttpTransport.requestDump);
+	            //Log.i("DebianDebug", androidHttpTransport.requestDump);
 	            //Cache new response before returning it
 	            String response = envelope.bodyIn.toString();
 	            cacher.cacheString(reqFileName, response);

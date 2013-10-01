@@ -9,9 +9,9 @@
 !assets/
 !AndroidManifest.xml
 !actionbarsherlock/
-!.settings/
 !.classpath
 !screenshots/
+
 !DebianDroid.apk*
 !project.properties
 actionbarsherlock/bin/

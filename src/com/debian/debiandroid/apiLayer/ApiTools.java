@@ -1,5 +1,8 @@
 package com.debian.debiandroid.apiLayer;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import com.debian.debiandroid.apiLayer.soaptools.SoapCaller;
 
 public class ApiTools {
@@ -16,5 +19,14 @@ public class ApiTools {
 	}
 	public static boolean isNetEnabled() {
 		return SoapCaller.netEnabled && HTTPCaller.netEnabled;
+	}
+	
+	public static String getSubstringIn(String original, String startRegex, String endRegex) {
+		Pattern pattern = Pattern.compile(startRegex + "(.*?)" + endRegex, Pattern.DOTALL);
+		Matcher matcher = pattern.matcher(original);
+		if (matcher.find()) {
+		    return matcher.group(1);
+		}
+		return "";
 	}
 }

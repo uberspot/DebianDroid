@@ -17,6 +17,7 @@ import com.actionbarsherlock.view.MenuItem;
 import com.debian.debiandroid.content.BTSFragment;
 import com.debian.debiandroid.content.CIFFragment;
 import com.debian.debiandroid.content.Content;
+import com.debian.debiandroid.content.DFTPFragment;
 import com.debian.debiandroid.content.LinksFragment;
 import com.debian.debiandroid.content.PTSFragment;
 import com.debian.debiandroid.content.SUBSFragment;
@@ -77,6 +78,8 @@ public class ItemDetailFragment extends SherlockFragment {
     		fragment = new PTSFragment();
     	else if(id.equalsIgnoreCase(Content.UDD))
     		fragment = new UDDFragment();
+    	else if(id.equalsIgnoreCase(Content.DFTP))
+    		fragment = new DFTPFragment();
     	else if(id.equalsIgnoreCase(Content.CIF))
     		fragment = new CIFFragment();
     	else if(id.equalsIgnoreCase(Content.SUBS))
