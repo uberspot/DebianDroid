@@ -34,7 +34,7 @@ public class SUBSFragment extends ItemDetailFragment {
             Bundle savedInstanceState) {
     	View rootView = inflater.inflate(R.layout.subs_item_detail, container, false);
         
-    	getSherlockActivity().getSupportActionBar().setTitle(getString(R.string.favourites));
+    	getSherlockActivity().getSupportActionBar().setTitle(getString(R.string.subscriptions));
     	
     	setupSubsList((ExpandableListView) rootView.findViewById(R.id.subscriptionlist));
     	

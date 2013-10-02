@@ -21,7 +21,7 @@ public class Content {
         addItem(new ContentItem(BTS, "Bug Tracking"));
         addItem(new ContentItem(UDD, "UDD"));
         addItem(new ContentItem(DFTP, "Debian FTP"));
-        addItem(new ContentItem(SUBS, "Favourites"));
+        addItem(new ContentItem(SUBS, "Subscriptions"));
         addItem(new ContentItem(CIF, "Common Interest Finder"));
         addItem(new ContentItem(LINKS, "Useful Links"));
     }
