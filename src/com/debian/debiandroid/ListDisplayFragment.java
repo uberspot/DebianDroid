@@ -3,9 +3,6 @@ package com.debian.debiandroid;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import com.debian.debiandroid.content.Content;
-import com.debian.debiandroid.utils.SearchCacher;
-
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -45,11 +42,6 @@ public class ListDisplayFragment extends ItemDetailFragment {
     		header.setText(args.getString(LIST_HEADER_ID));
         }
     	
-    	/*ListView listview = (ListView) rootView.findViewById(R.id.listdisplaylistview);
-		final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getSherlockActivity(),
-				android.R.layout.simple_list_item_1, listItems);
-		
-		listview.setAdapter(adapter);*/
     	if(!listItems.isEmpty())
     		setupList((ExpandableListView) rootView.findViewById(R.id.listdisplayexpListView), listItems);
 		
@@ -82,26 +74,7 @@ public class ListDisplayFragment extends ItemDetailFragment {
             public boolean onChildClick(ExpandableListView parent, View view,
                     int groupPosition, int childPosition, long id) {
             	String itemClicked = ((TextView)view).getText().toString();
-                if(groupPosition==0) {
-                	SearchCacher.setLastSearchByPckgName(itemClicked);
-                	// Move to pts fragment
-          		  	ItemDetailFragment fragment = ItemDetailFragment.getDetailFragment(
-          				  Content.PTS);
-	          		getActivity().getSupportFragmentManager().beginTransaction()
-	              	.replace(R.id.item_detail_container, fragment)
-	              	.commit();
-                } else if(groupPosition==1) {
-                	String[] items = itemClicked.split("\\|");
-                	if(items.length>1) {
-	                	SearchCacher.setLastBugSearch(items[0], items[1]);
-	                	// Move to bts fragment
-	          		  	ItemDetailFragment fragment = ItemDetailFragment.getDetailFragment(
-	          				  Content.BTS);
-		          		getActivity().getSupportFragmentManager().beginTransaction()
-		              	.replace(R.id.item_detail_container, fragment)
-		              	.commit();
-	          		}
-                }
+                
                 return true;
             }
         });

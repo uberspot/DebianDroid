@@ -1,6 +1,8 @@
 package com.debian.debiandroid.apiLayer;
 
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import android.content.Context;
 
@@ -34,7 +36,7 @@ public class DFTP extends HTTPCaller {
 			String source = ApiTools.getSubstringIn(rawInfo, "Source:", "Binary:");
 			String version = ApiTools.getSubstringIn(rawInfo, "Version:", "Architectures:");
 			String distribution = ApiTools.getSubstringIn(rawInfo, "Distribution:", "Fingerprint:"); 
-			descriptions.add(source.trim() + " " + version.trim() + " " + distribution.trim());
+			descriptions.add(source + " " + version + " " + distribution);
 			fullDesc.add(rawInfo);
 		}
 		formatted.add(descriptions);
@@ -47,9 +49,12 @@ public class DFTP extends HTTPCaller {
 		ArrayList<ArrayList<String>> formatted = new ArrayList<ArrayList<String>>();
 		ArrayList<String> descriptions = new ArrayList<String>();
 		ArrayList<String> fullDesc = new ArrayList<String>();
+		Pattern pattern = Pattern.compile("\\[(.*?)\\]\n\\s*|\\[(.*?)\\]");
+		
 		for(String rawInfo: raw) {
 			String binaries = ApiTools.getSubstringIn(rawInfo, "Binaries:", "Reason:");
-			descriptions.add(binaries.replace("\\[(.*?)\\]", "").trim());
+			Matcher matcher = pattern.matcher(binaries);
+			descriptions.add(matcher.replaceAll("\n").trim());
 			fullDesc.add(rawInfo);
 		}
 		formatted.add(descriptions);
@@ -65,7 +70,7 @@ public class DFTP extends HTTPCaller {
 		for(String rawInfo: raw) {
 			String source = ApiTools.getSubstringIn(rawInfo, "Source:", "Binary:");
 			String version = ApiTools.getSubstringIn(rawInfo, "Version:", "Distribution:");
-			descriptions.add(source.trim() + " " + version.trim());
+			descriptions.add(source + " " + version);
 			fullDesc.add(rawInfo);
 		}
 		formatted.add(descriptions);

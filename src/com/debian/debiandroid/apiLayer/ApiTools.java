@@ -22,7 +22,7 @@ public class ApiTools {
 	}
 	
 	public static String getSubstringIn(String original, String startRegex, String endRegex) {
-		Pattern pattern = Pattern.compile(startRegex + "(.*?)" + endRegex, Pattern.DOTALL);
+		Pattern pattern = Pattern.compile(startRegex + "\\s*(.*?)\\s*" + endRegex + "\\s*", Pattern.DOTALL);
 		Matcher matcher = pattern.matcher(original);
 		if (matcher.find()) {
 		    return matcher.group(1);
