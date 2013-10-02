@@ -31,7 +31,7 @@ public class DExpandableAdapter extends BaseExpandableListAdapter {
 		TextView textView = null;
 
 		if (convertView == null) {
-			convertView = inflater.inflate(R.layout.group, null);
+			convertView = inflater.inflate(R.layout.exp_list_sub_item, null);
 		}
 
 		textView = (TextView) convertView.findViewById(R.id.textView1);
@@ -44,7 +44,7 @@ public class DExpandableAdapter extends BaseExpandableListAdapter {
 	public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
 
 		if (convertView == null) {
-			convertView = inflater.inflate(R.layout.child, null);
+			convertView = inflater.inflate(R.layout.exp_list_item, null);
 		}
 
 		((TextView) convertView).setText(parentItems.get(groupPosition));

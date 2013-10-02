@@ -30,7 +30,7 @@ public class DFTPFragment extends ItemDetailFragment {
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-    	View rootView = inflater.inflate(R.layout.dftp_item_detail, container, false);
+    	View rootView = inflater.inflate(R.layout.dftp_fragment, container, false);
   		
     	getSherlockActivity().getSupportActionBar().setTitle(getString(R.string.dftp));
     	
@@ -41,7 +41,7 @@ public class DFTPFragment extends ItemDetailFragment {
     	
     	ListView listview = (ListView) rootView.findViewById(R.id.dftpListView);
 		final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getSherlockActivity(),
-				R.layout.listchild, new ArrayList<String>(dftpScripts));
+				R.layout.simple_list_child, new ArrayList<String>(dftpScripts));
 		
 		listview.setAdapter(adapter);
 

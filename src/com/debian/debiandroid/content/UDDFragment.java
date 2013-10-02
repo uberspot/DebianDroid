@@ -30,7 +30,7 @@ public class UDDFragment extends ItemDetailFragment {
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-    	View rootView = inflater.inflate(R.layout.udd_item_detail, container, false);
+    	View rootView = inflater.inflate(R.layout.udd_fragment, container, false);
   		
     	getSherlockActivity().getSupportActionBar().setTitle(getString(R.string.udd));
     	
@@ -40,7 +40,7 @@ public class UDDFragment extends ItemDetailFragment {
     	
     	ListView listview = (ListView) rootView.findViewById(R.id.uddlistview);
 		final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getSherlockActivity(),
-				R.layout.listchild, new ArrayList<String>(uddScripts));
+				R.layout.simple_list_child, new ArrayList<String>(uddScripts));
 		
 		listview.setAdapter(adapter);
 

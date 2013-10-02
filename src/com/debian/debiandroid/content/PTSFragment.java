@@ -65,10 +65,10 @@ public class PTSFragment extends ItemDetailFragment {
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-    	View rootView = inflater.inflate(R.layout.pts_item_detail, container, false);
+    	View rootView = inflater.inflate(R.layout.pts_fragment, container, false);
 
     	bugList = (ExpandableListView) rootView.findViewById(R.id.ptsBugsList);
-    	ViewGroup header = (ViewGroup)inflater.inflate(R.layout.pts_item_header, bugList, false);
+    	ViewGroup header = (ViewGroup)inflater.inflate(R.layout.pts_exp_list_header, bugList, false);
     	bugList.addHeaderView(header, null, false);
     	
     	getSherlockActivity().getSupportActionBar().setTitle(getString(R.string.search_packages));

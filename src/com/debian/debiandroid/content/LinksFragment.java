@@ -29,11 +29,19 @@ public class LinksFragment extends ItemDetailFragment {
 	
 	private EditText linkSearchInput;
 	
+	/** HashMap with <Description, Link>. The Description is later on searchable with the
+	 * ArrayAdapter filter that's why tags like "rss" or "social" are added after a - character. */
 	private final static HashMap<String, String> links = new HashMap<String, String>(){{
 	     put("Debian.org", "http://debian.org");
-	     put("Planet Debian", "http://planet.debian.org/");
-	     put("Debian News (rss)", "http://www.debian.org/News/news");
-	     put("Debian Security (rss)", "http://www.debian.org/security/dsa");
+	     put("Planet Debian - social", "http://planet.debian.org/");
+	     put("Debian News - rss", "http://www.debian.org/News/news");
+	     put("Debian Security - rss", "http://www.debian.org/security/dsa");
+	     put("Debian Twitter - social", "https://twitter.com/debian");
+	     put("Debian Google+ - social","https://plus.google.com/111711190057359692089/posts");
+	     put("Debian Identi.ca - social","https://identi.ca/debian");
+	     put("Debian irc channel list - social","https://wiki.debian.org/IRC/");
+	     put("Debian mailing lists","https://lists.debian.org/");
+	     
 	}};
 	
 	@Override
@@ -44,7 +52,7 @@ public class LinksFragment extends ItemDetailFragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View rootView = inflater.inflate(R.layout.links_item_detail, container,
+		View rootView = inflater.inflate(R.layout.links_fragment, container,
 				false);
 		
 		getSherlockActivity().getSupportActionBar().setTitle( getString(R.string.links) );
@@ -53,7 +61,7 @@ public class LinksFragment extends ItemDetailFragment {
 		
 		ListView listview = (ListView) rootView.findViewById(R.id.linkslistview);
 		final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getSherlockActivity(),
-				R.layout.listchild, new ArrayList<String>(links.keySet()));
+				R.layout.simple_list_child, new ArrayList<String>(links.keySet()));
 		
 		linkSearchInput.addTextChangedListener(new TextWatcher() {
 		    @Override

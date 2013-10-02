@@ -44,6 +44,7 @@ This Debian Android app started as part of Google Summer of Code 2013. It's an A
  16. Full-text search on package names like in http://packages.debian.org/search?keywords=%s
  17. Translate to other languages. Easy if all string are gathered in values/strings.xml
  18. Alerts you about a bug report you wanted to send, like a "bug report" reminder. Maybe with a button like "report bug in x time"
+ 19. Add hard refresh button to listDisplayFragment
 
 ##Permissions explained
 
