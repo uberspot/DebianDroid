@@ -11,7 +11,7 @@
 !actionbarsherlock/
 !.classpath
 !screenshots/
-
+!makeSig.sh
 !DebianDroid.apk*
 !project.properties
 actionbarsherlock/bin/
