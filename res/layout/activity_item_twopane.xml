@@ -23,7 +23,7 @@
 
     <fragment
         android:id="@+id/item_list"
-        android:name="com.debian.debiandroid.ItemListFragment"
+        android:name="net.debian.debiandroid.ItemListFragment"
         android:layout_width="0dp"
         android:padding="8dp"
         android:layout_height="match_parent"
