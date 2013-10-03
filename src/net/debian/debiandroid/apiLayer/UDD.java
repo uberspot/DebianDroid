@@ -1,7 +1,6 @@
 package net.debian.debiandroid.apiLayer;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import android.content.Context;
 
@@ -19,9 +18,11 @@ public class UDD extends HTTPCaller {
 		ArrayList<String> fullDesc = new ArrayList<String>();
 		for(String element: response) {
 			element = element.trim();
-			String[] details = element.split(",");
-			description.add(details[3]); 
-			fullDesc.add(element.replaceAll(",", "\n"));
+			int lastCommaPos = element.lastIndexOf(',');
+			if(lastCommaPos!=-1 && lastCommaPos+1<element.length()) {
+				description.add(element.substring(lastCommaPos+1)); 
+				fullDesc.add(element.replaceAll(",", "\n"));
+			}
 		}
 		ArrayList<ArrayList<String>> items = new ArrayList<ArrayList<String>>();
 		items.add(description);
@@ -37,8 +38,10 @@ public class UDD extends HTTPCaller {
 			element = element.trim();
 			if(element.charAt(0)!='#') {
 				String[] details = element.split(",");
-				description.add(details[0] + " " + details[1]);
-				fullDesc.add(element.replaceAll(",", "\n"));
+				if(details.length>2) {
+					description.add(details[0] + " " + details[1]);
+					fullDesc.add(element.replaceAll(",", "\n"));
+				}
 			}
 		}
 		ArrayList<ArrayList<String>> items = new ArrayList<ArrayList<String>>();
@@ -54,8 +57,10 @@ public class UDD extends HTTPCaller {
 		for(String element: response) {
 				element = element.trim();
 				String[] details = element.split(",");
-				description.add(details[1]);
-				fullDesc.add(element.replaceAll(",", "\n"));
+				if(details.length>2) {
+					description.add(details[1]);
+					fullDesc.add(element.replaceAll(",", "\n"));
+				}
 		}
 		ArrayList<ArrayList<String>> items = new ArrayList<ArrayList<String>>();
 		items.add(description);

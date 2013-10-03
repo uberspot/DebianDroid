@@ -77,6 +77,7 @@
     <string name="submit_new_bug_report">Submit new bug report</string>
     <string name="packages_overview">Packages overview</string>
     <string name="mail">Mail</string>
+    <string name="cache_cleared">Cache cleared</string>
     <string name="new_packages">New Packages</string>
     <string name="removed_packages">Removed Packages</string>
     <string name="deferred_packages">Deferred Packages</string>

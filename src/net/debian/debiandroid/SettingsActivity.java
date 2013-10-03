@@ -12,12 +12,13 @@ import android.preference.PreferenceManager;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceFragment;
 import android.support.v4.app.NavUtils;
+import android.widget.Toast;
 import androidStorageUtils.Cacher;
 import androidStorageUtils.StorageUtils;
 
 import com.actionbarsherlock.app.SherlockPreferenceActivity;
 import com.actionbarsherlock.view.MenuItem;
-import com.debian.debiandroid.R;
+import net.debian.debiandroid.R;
 
 @SuppressLint("NewApi")
 @SuppressWarnings("deprecation")
@@ -109,6 +110,7 @@ public class SettingsActivity extends SherlockPreferenceActivity {
 		@Override
 		public boolean onPreferenceClick(Preference pref) {
 			new Cacher(pref.getContext()).clearCache(); 
+			Toast.makeText(pref.getContext(), pref.getContext().getString(R.string.cache_cleared), Toast.LENGTH_SHORT).show();
 			return true;
 		}
 	};
