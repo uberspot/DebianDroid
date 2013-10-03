@@ -5,7 +5,7 @@ import net.debian.debiandroid.content.Content;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.MenuItem;
 
-import com.debian.debiandroid.R;
+import net.debian.debiandroid.R;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -47,6 +47,7 @@ public class ItemDetailActivity extends SherlockFragmentActivity {
         if (savedInstanceState == null) {
             // Create the detail fragment and add it to the activity
             // using a fragment transaction.
+
             Bundle arguments = new Bundle();
             String extra = getIntent().getStringExtra(ItemDetailFragment.ARG_ITEM_ID);
             arguments.putString(ItemDetailFragment.ARG_ITEM_ID, extra);
@@ -55,6 +56,7 @@ public class ItemDetailActivity extends SherlockFragmentActivity {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.item_detail_container, fragment)
                     .commit();
+            
         }
         
         gestureDetector = new GestureDetectorCompat(this, new SwipeListener());
@@ -86,7 +88,10 @@ public class ItemDetailActivity extends SherlockFragmentActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                NavUtils.navigateUpTo(this, new Intent(this, ItemListActivity.class));
+            	if(ItemDetailFragment.isInListDisplayFrag)
+            		getSupportFragmentManager().popBackStack();
+            	else
+            		NavUtils.navigateUpTo(this, new Intent(this, ItemListActivity.class));
                 return true;
        }
         return super.onOptionsItemSelected(item);

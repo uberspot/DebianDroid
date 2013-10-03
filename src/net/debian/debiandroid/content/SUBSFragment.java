@@ -9,7 +9,7 @@ import net.debian.debiandroid.apiLayer.BTS;
 import net.debian.debiandroid.apiLayer.PTS;
 import net.debian.debiandroid.utils.SearchCacher;
 
-import com.debian.debiandroid.R;
+import net.debian.debiandroid.R;
 
 import android.content.Context;
 import android.os.Bundle;

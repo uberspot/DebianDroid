@@ -7,7 +7,7 @@ import net.debian.debiandroid.ItemDetailFragment;
 import net.debian.debiandroid.ListDisplayFragment;
 import net.debian.debiandroid.apiLayer.UDD;
 
-import com.debian.debiandroid.R;
+import net.debian.debiandroid.R;
 
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
@@ -87,7 +87,13 @@ public class UDDFragment extends ItemDetailFragment {
 			}
 			
 			protected void onPostExecute (Void result) {
-				progressDialog.dismiss();
+				if(progressDialog!=null && progressDialog.isShowing()){
+					try {
+						progressDialog.dismiss();
+					} catch(IllegalArgumentException e) { return; }
+				} else {
+					return;
+				}
 				ItemDetailFragment fragment = new ListDisplayFragment();
 				Bundle arguments = new Bundle();
 				arguments.putString(ListDisplayFragment.LIST_HEADER_ID, header);

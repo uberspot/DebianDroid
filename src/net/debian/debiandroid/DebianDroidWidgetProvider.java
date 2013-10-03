@@ -3,8 +3,6 @@ package net.debian.debiandroid;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 
-import com.debian.debiandroid.R;
-
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;

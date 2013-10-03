@@ -6,7 +6,7 @@ import java.util.List;
 
 import net.debian.debiandroid.ItemDetailFragment;
 
-import com.debian.debiandroid.R;
+import net.debian.debiandroid.R;
 
 import android.content.Intent;
 import android.content.pm.ResolveInfo;
@@ -42,7 +42,7 @@ public class LinksFragment extends ItemDetailFragment {
 	     put("Debian Identi.ca - social","https://identi.ca/debian");
 	     put("Debian irc channel list - social","https://wiki.debian.org/IRC/");
 	     put("Debian mailing lists","https://lists.debian.org/");
-	     
+	     put("Debian on Reddit - social","http://www.reddit.com/r/debian");
 	}};
 	
 	@Override

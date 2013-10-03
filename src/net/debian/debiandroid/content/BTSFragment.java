@@ -11,7 +11,7 @@ import net.debian.debiandroid.utils.SearchCacher;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
-import com.debian.debiandroid.R;
+import net.debian.debiandroid.R;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
@@ -333,7 +333,13 @@ public class BTSFragment extends ItemDetailFragment {
 		}  
 		@SuppressLint("NewApi")
 		protected void onPostExecute (Void result) {
-			progressDialog.dismiss();
+			if(progressDialog!=null && progressDialog.isShowing()){
+				try {
+					progressDialog.dismiss();
+				} catch(IllegalArgumentException e) { return; }
+			} else {
+				return;
+			}
 			if(SearchCacher.hasLastBugsSearch()) {
 				   btsInput.setText(SearchCacher.getLastBugSearchValue());
 			       spinner.setSelection(getSelectedOption(spinnerValues, 

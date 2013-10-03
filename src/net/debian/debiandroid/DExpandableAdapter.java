@@ -2,7 +2,7 @@ package net.debian.debiandroid;
 
 import java.util.ArrayList;
 
-import com.debian.debiandroid.R;
+import net.debian.debiandroid.R;
 
 import android.view.LayoutInflater;
 import android.view.View;

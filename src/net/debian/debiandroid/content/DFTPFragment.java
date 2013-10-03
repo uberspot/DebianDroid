@@ -17,7 +17,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.debian.debiandroid.R;
+import net.debian.debiandroid.R;
 
 public class DFTPFragment extends ItemDetailFragment {
 	
@@ -88,7 +88,13 @@ public class DFTPFragment extends ItemDetailFragment {
 			}
 			
 			protected void onPostExecute (Void result) {
-				progressDialog.dismiss();
+				if(progressDialog!=null && progressDialog.isShowing()){
+					try {
+						progressDialog.dismiss();
+					} catch(IllegalArgumentException e) { return; }
+				} else {
+					return;
+				}
 				ItemDetailFragment fragment = new ListDisplayFragment();
 				
 				Bundle arguments = new Bundle();

@@ -3,7 +3,7 @@ package net.debian.debiandroid;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import com.debian.debiandroid.R;
+import net.debian.debiandroid.R;
 
 import android.content.Context;
 import android.os.Bundle;

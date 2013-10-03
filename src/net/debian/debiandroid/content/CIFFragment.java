@@ -8,7 +8,7 @@ import net.debian.debiandroid.ListDisplayFragment;
 import net.debian.debiandroid.apiLayer.UDD;
 import net.debian.debiandroid.utils.QRCodeEncoder;
 
-import com.debian.debiandroid.R;
+import net.debian.debiandroid.R;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 import com.google.zxing.integration.android.IntentIntegrator;
@@ -154,7 +154,13 @@ public class CIFFragment extends ItemDetailFragment {
 			}
 			
 			protected void onPostExecute (Void result) {
-				progressDialog.dismiss();
+				if(progressDialog!=null && progressDialog.isShowing()){
+					try {
+						progressDialog.dismiss();
+					} catch(IllegalArgumentException e) { return; }
+				} else {
+					return;
+				}
 				ItemDetailFragment fragment = new ListDisplayFragment();
 				Bundle arguments = new Bundle();
 				arguments.putString(ListDisplayFragment.LIST_HEADER_ID, header);

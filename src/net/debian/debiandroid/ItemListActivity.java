@@ -9,7 +9,6 @@ import net.debian.debiandroid.utils.SearchCacher;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
-import com.debian.debiandroid.R;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -146,6 +145,9 @@ public class ItemListActivity extends SherlockFragmentActivity
             // In two-pane mode, show the detail view in this activity by
             // adding or replacing the detail fragment using a
             // fragment transaction.
+    		if(ItemDetailFragment.isInListDisplayFrag) {
+    			getSupportFragmentManager().popBackStack();
+    		}
             ItemDetailFragment fragment = ItemDetailFragment.getDetailFragment(id);
             Bundle arguments = new Bundle();
             arguments.putString(ItemDetailFragment.ARG_ITEM_ID, id);

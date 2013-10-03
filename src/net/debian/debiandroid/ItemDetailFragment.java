@@ -22,7 +22,7 @@ import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
-import com.debian.debiandroid.R;
+import net.debian.debiandroid.R;
 
 /**
  * A fragment representing a single Item detail screen.
