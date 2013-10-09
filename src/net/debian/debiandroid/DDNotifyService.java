@@ -1,5 +1,6 @@
 package net.debian.debiandroid;
 
+import java.lang.ref.WeakReference;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -23,20 +24,34 @@ public class DDNotifyService extends Service {
 
 	public static int updateIntervalTime = 600000; // 600000 ms = 10 minutes
 	
-	private static Timer timer;
+	public static boolean isForeground;
+	
+	private static Timer timer; 
 	private final static int LOST_CONNECTION = 0, CONNECTION_RESTORED = 1;
-	private final Handler handler = new Handler() {
+	private final ddSHandler ddHandler = new ddSHandler(this);
+	private static class ddSHandler extends Handler {
+		private final WeakReference<DDNotifyService> serviceRef;
+		
+		public ddSHandler(DDNotifyService reference) {
+			serviceRef = new WeakReference<DDNotifyService>(reference);
+		}
+		
 		@Override
-		public void handleMessage(Message msg) {
-			switch (msg.what) {
-			case LOST_CONNECTION:
-				Toast.makeText(getApplication(), "Lost connectivity, switching to cache only.", Toast.LENGTH_SHORT).show();
-				break;
-			case CONNECTION_RESTORED:
-				Toast.makeText(getApplication(), "Connection restored.", Toast.LENGTH_SHORT).show();
-				break;
-			default:
-				break;
+	    public void handleMessage(Message msg) {
+			DDNotifyService service = serviceRef.get();
+			if(service!=null) {
+				switch (msg.what) {
+				case LOST_CONNECTION:
+					if(isForeground)
+						Toast.makeText(service, "Lost connectivity, switching to cache only.", Toast.LENGTH_SHORT).show();
+					break;
+				case CONNECTION_RESTORED:
+					if(isForeground)
+						Toast.makeText(service, "Connection restored.", Toast.LENGTH_SHORT).show();
+					break;
+				default:
+					break;
+				}
 			}
 			super.handleMessage(msg);
 		}
@@ -85,7 +100,7 @@ public class DDNotifyService extends Service {
 		if(!hasConnectivity) {
 			if(ApiTools.isNetEnabled()) {
 				// Notify user
-				handler.sendEmptyMessage(LOST_CONNECTION);
+				ddHandler.sendEmptyMessage(LOST_CONNECTION);
 				ApiTools.disableUseOfNet();
 			}
 		} else {
@@ -94,12 +109,12 @@ public class DDNotifyService extends Service {
 			if(hasMobileCon && !mobileAllowed) {
 				if(ApiTools.isNetEnabled()) {
 					// Notify user
-					handler.sendEmptyMessage(LOST_CONNECTION);
+					ddHandler.sendEmptyMessage(LOST_CONNECTION);
 					ApiTools.disableUseOfNet();
 				}
 			} else {
 				if(!ApiTools.isNetEnabled()) {
-					handler.sendEmptyMessage(CONNECTION_RESTORED);
+					ddHandler.sendEmptyMessage(CONNECTION_RESTORED);
 					ApiTools.enableUseOfNet();
 				}
 			}
@@ -126,4 +141,12 @@ public class DDNotifyService extends Service {
 	        }
 	    }
 	};
+	
+	public static synchronized void activityResumed() {
+		isForeground = true;
+	}
+	
+	public static synchronized void activityPaused() {
+		isForeground = false;
+	}
 }

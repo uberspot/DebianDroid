@@ -99,6 +99,18 @@ public class SettingsActivity extends SherlockPreferenceActivity {
 		}
 	}
 	
+	@Override
+    public void onPause() {
+        super.onPause();
+        DDNotifyService.activityPaused();
+    }
+    
+    @Override
+    public void onResume() {
+    	super.onResume();
+    	DDNotifyService.activityResumed();
+    }
+	
 	private static Preference.OnPreferenceChangeListener numberCheckListener = new OnPreferenceChangeListener() {
 	    @Override
 	    public boolean onPreferenceChange(Preference preference, Object newValue) {

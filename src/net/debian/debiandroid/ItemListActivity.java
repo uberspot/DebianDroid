@@ -110,6 +110,18 @@ public class ItemListActivity extends SherlockFragmentActivity
 		}  
     }
     
+    @Override
+    public void onPause() {
+        super.onPause();
+        DDNotifyService.activityPaused();
+    }
+    
+    @Override
+    public void onResume() {
+    	super.onResume();
+    	DDNotifyService.activityResumed();
+    }
+    
     @Override 
     public boolean onTouchEvent(MotionEvent event){ 
     	if (gestureDetector.onTouchEvent(event)) { 

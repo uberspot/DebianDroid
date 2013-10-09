@@ -120,7 +120,7 @@ public class BTSFragment extends ItemDetailFragment {
 	
 	/** Initializes the spinner view and fills it with pts search choices */
 	private void setupSpinner() {
-		spinner.setAdapter(new ArrayAdapter<String>(this.getActivity(), 
+		spinner.setAdapter(new ArrayAdapter<String>(getActivity(), 
         				android.R.layout.simple_list_item_1, spinnerValues));
         
 		spinner.setSelection(getSelectedOption(spinnerValues, searchOptionSelected));
@@ -181,7 +181,8 @@ public class BTSFragment extends ItemDetailFragment {
                     int groupPosition = ExpandableListView.getPackedPositionGroup(packedPos);
                     int childPosition = ExpandableListView.getPackedPositionChild(packedPos);
                     
-                    String text = ((ArrayList<String>) bugListChildItems.get(groupPosition)).get(childPosition);
+                    @SuppressWarnings("unchecked")
+					String text = ((ArrayList<String>) bugListChildItems.get(groupPosition)).get(childPosition);
                     String subject = bugListParentItems.get(groupPosition);
                     String bugnum = subject.replace("[", "").replaceFirst("].*$", "");
                     forwardToMailApp(getSherlockActivity(), bugnum + "@bugs.debian.org", "Re: " + subject.replaceFirst("\\[.*\\)", ""), text.replaceAll("\n", "\n>"));

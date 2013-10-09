@@ -36,7 +36,7 @@ This Debian Android app started as part of Google Summer of Code 2013. It's an A
  8. Show partial results in groups of ~20 bug reports to save time in search.
  9. Show Debian Developer Package Overview: http://qa.debian.org/developer.php?login= in a native ui instead of redirecting to browser
  10. Show all versions of a source package (with arch and stuff): http://qa.debian.org/madison.php?package=%s&table=all
- 11. Add httpsCaller and use it on dftp
+ 11. Get somehow list subscriptions for a mail and compare them to find common ones between two developers (add to cif) so that they don't have to cc unnecessarily in mails to lists.
  12. Add a alarm for wnpp (BTS; packages that are to be removed; watching for ITP bugs, etc.)
  13. Show links to mailing list archives: https://lists.debian.org/debian-%s/recent
  14. Tell which package a certain file is in: http://packages.debian.org/search?searchon=contents&keywords=&

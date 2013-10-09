@@ -42,6 +42,7 @@ import org.json.JSONObject;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 
@@ -415,5 +416,27 @@ public class StorageUtils extends ContextWrapper {
 				        Environment.DIRECTORY_PICTURES
 				    ), albumName
 			    );
+	}
+	
+	/** Saves a bitmap as png in the pictures directory of the device
+	 * @param albumName 
+	 * @param fileName the filename of the image without the extension
+	 * @param img 
+	 * @return true if it was saved successfully, false otherwise
+	 */
+	public boolean saveBitmapAsPNG(String albumName, String fileName, Bitmap img) {
+		try {
+			File dir = new File(getPictureDirectory(albumName), fileName);
+			if (!dir.exists())
+				dir.mkdirs();
+			File file = new File(dir, fileName + ".png");
+			FileOutputStream out = new FileOutputStream(file);
+			img.compress(Bitmap.CompressFormat.PNG, 90, out);
+			out.close();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 }

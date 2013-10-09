@@ -72,7 +72,7 @@ public class ItemListFragment extends SherlockListFragment {
 
         // TODO: replace with a real list adapter.
         setListAdapter(new ArrayAdapter<Content.ContentItem>(
-                getActivity(),
+        		getActivity(),
                 android.R.layout.simple_list_item_1,
                 android.R.id.text1,
                 Content.ITEMS));

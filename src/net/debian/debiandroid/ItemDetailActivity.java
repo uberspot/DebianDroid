@@ -123,6 +123,18 @@ public class ItemDetailActivity extends SherlockFragmentActivity {
     	super.onDestroy();
     }
     
+    @Override
+    public void onPause() {
+        super.onPause();
+        DDNotifyService.activityPaused();
+    }
+    
+    @Override
+    public void onResume() {
+    	super.onResume();
+    	DDNotifyService.activityResumed();
+    }
+    
     class SwipeListener extends GestureDetector.SimpleOnGestureListener {
     	
     	private static final int SWIPE_THRESHOLD = 100;
