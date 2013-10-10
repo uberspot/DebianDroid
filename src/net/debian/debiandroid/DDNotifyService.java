@@ -43,11 +43,11 @@ public class DDNotifyService extends Service {
 				switch (msg.what) {
 				case LOST_CONNECTION:
 					if(isForeground)
-						Toast.makeText(service, "Lost connectivity, switching to cache only.", Toast.LENGTH_SHORT).show();
+						Toast.makeText(service, service.getString(R.string.lost_connectivity), Toast.LENGTH_SHORT).show();
 					break;
 				case CONNECTION_RESTORED:
 					if(isForeground)
-						Toast.makeText(service, "Connection restored.", Toast.LENGTH_SHORT).show();
+						Toast.makeText(service, service.getString(R.string.connection_restored), Toast.LENGTH_SHORT).show();
 					break;
 				default:
 					break;

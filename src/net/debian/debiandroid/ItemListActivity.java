@@ -106,6 +106,8 @@ public class ItemListActivity extends SherlockFragmentActivity
 		@Override
 		protected Void doInBackground(Void... params) {
 			
+			//System.out.println(new PTS(getApplicationContext()).getSimilarPckgNames("vim"));
+			
 			return null;
 		}  
     }
