@@ -84,4 +84,6 @@
     <string name="lost_connectivity">Lost connectivity, switching to cache only</string>
     <string name="deferred_packages">Deferred Packages</string>
     <string name="maintains_following">maintains following packages used as dependencies by</string>
+    <string name="similar_pckgs">Search similar pckgs</string>
+    <string name="similar_pckgs_summary">When searching for package info search for similar package names first</string>
 </resources>

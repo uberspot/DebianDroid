@@ -9,6 +9,11 @@
 	        android:title="@string/use_3g"
 	        android:summary="@string/use_3g_summary"
 	        android:defaultValue="true" />
+	    <CheckBoxPreference
+	        android:key="searchSimilarPckgs"
+	        android:title="@string/similar_pckgs"
+	        android:summary="@string/similar_pckgs_summary"
+	        android:defaultValue="true" />
 	    <EditTextPreference
 	        android:key="ddusername"
             android:name="Developer username"
