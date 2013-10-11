@@ -55,20 +55,36 @@ public class PTS extends PTSSoapCaller implements Subscribable {
 	}
 	
 	public ArrayList<String> getSimilarPckgNames(String pckgName) {
-		// try parse the string to a JSON object
         try {
         	ArrayList<String> pckgNames = new ArrayList<String>();
         	JSONObject json = new JSONObject(httpCaller.doQueryRequest(PTSPCKGNAMESEARCHURL + pckgName));
         	JSONObject results;
         	if(json.has("results")) {
-        		results = json.getJSONObject("results");
-        		if(results.has("exact"))
-        			pckgNames.add(results.getJSONObject("exact").getString("name"));
-        		if(results.has("other")) {
-        			JSONArray other = results.getJSONArray("other");
-        			for(int i=0; i<other.length(); i++) {
-        				pckgNames.add(other.getJSONObject(i).getString("name"));
-        			}
+        		results = json.optJSONObject("results");
+        		if(results!=null) {
+	        		if(results.has("exact")) {
+	        			JSONObject exact = results.optJSONObject("exact");
+	        			if(exact!=null) {
+		        			String exactValue = exact.optString("name");
+		        			if(exactValue!=null) {
+		        				pckgNames.add(exactValue);
+		        			}
+	        			}
+	        		}
+	        		if(results.has("other")) {
+	        			JSONArray otherArray = results.optJSONArray("other");
+	        			if(otherArray!=null) {
+		        			for(int i=0; i<otherArray.length(); i++) {
+		        				JSONObject other = otherArray.optJSONObject(i);
+		        				if(other!=null) {
+			        				String otherValue = other.optString("name");
+			        				if(otherValue!=null) {
+			        					pckgNames.add(otherValue);
+			        				}
+		        				}
+		        			}
+	        			}
+	        		}
         		}
         	}
         	return pckgNames;
