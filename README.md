@@ -23,11 +23,12 @@ This Debian Android app started as part of Google Summer of Code 2013. It's an A
  10. Notify user if internet connection stops working and the use of 3g is deactivated.
  11. If "use 3g" settings is false detect if 3g is used and deactivate online searching then by settings cache to always return something
  12. Shows new/removals/deferred queues from https://ftp-master.debian.org/new.822 , https://ftp-master.debian.org/removals.822 and https://ftp-master.debian.org/deferred/status respectively
+ 13. Allows searching for packages with similar names based on http://sources.debian.net/api/search/vim/ (doc: http://sources.debian.net/doc/api/). 
 
 ##TODO
  
  1. Show info from http://qa.debian.org/madison.php?package=vim&table=debian&a=&c=&s=#
- 2. Find similar packages with "*pckgname*"
+ 2. Add hard refresh button to listDisplayFragment
  3. Show pending packages
  4. Add time limit for pts searches in case there is too much data and not enough memory in device
  5. Add extra parameters to bug search fragment with an +(add) button for more complicated searches
@@ -44,7 +45,6 @@ This Debian Android app started as part of Google Summer of Code 2013. It's an A
  16. Full-text search on package names like in http://packages.debian.org/search?keywords=%s
  17. Translate to other languages. Easy if all string are gathered in values/strings.xml
  18. Alerts you about a bug report you wanted to send, like a "bug report" reminder. Maybe with a button like "report bug in x time"
- 19. Add hard refresh button to listDisplayFragment
 
 ##Permissions explained
 

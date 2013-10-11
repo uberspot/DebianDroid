@@ -32,7 +32,9 @@ public class LinksFragment extends ItemDetailFragment {
 	
 	/** HashMap with <Description, Link>. The Description is later on searchable with the
 	 * ArrayAdapter filter that's why tags like "rss" or "social" are added after a - character. */
-	private final static HashMap<String, String> links = new HashMap<String, String>(){{
+	private final static HashMap<String, String> links = new HashMap<String, String>(){
+		private static final long serialVersionUID = 5237952374216701176L;
+	{
 	     put("Debian.org", "http://debian.org");
 	     put("Planet Debian - social", "http://planet.debian.org/");
 	     put("Debian News - rss", "http://www.debian.org/News/news");

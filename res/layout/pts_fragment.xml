@@ -39,11 +39,27 @@
             android:gravity="right"
             android:src="@drawable/searcharrow" />
     </LinearLayout>
-
+	
+    <TextView 
+	    android:id="@+id/ptsEmptyTextView"
+	    style="?android:attr/textAppearanceMedium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/no_info_found"
+        android:visibility="gone"
+        android:padding="10dp"
+        android:textIsSelectable="true"  />
+    
+    <ListView
+		    android:id="@+id/ptsPckgList"
+		    android:visibility="gone"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content" /> 
+			    
     <ExpandableListView
         android:id="@+id/ptsBugsList"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:groupIndicator="@null" />
 
 </LinearLayout>
