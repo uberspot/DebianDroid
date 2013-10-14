@@ -76,6 +76,7 @@ All code related to interacting with the Debian API (soap, rest or anything else
  3. ZXing for QRCode reading/writing
  4. ActionBarSherlock for ActionBar compatibility with older versions of Android
  5. AndroidStorageUtils for easier interaction with the devices' storage
+ 6. ckChangeLog for displaying a changelog in every new release
 
 ###ActionBarSherlock installation
 
@@ -100,6 +101,7 @@ All code related to interacting with the Debian API (soap, rest or anything else
 
  1. Joda time and KSOAP2 are installed by copying their .jar file to /libs/ in the project
  2. AndroidStorageUtils is just added as a package directly to the source code
+ 3. Check README.md in ckChangeLog directory for installation instructions
 
 ##License
 

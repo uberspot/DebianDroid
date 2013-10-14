@@ -10,6 +10,8 @@ import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 
+import de.cketti.library.changelog.ChangeLog;
+
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -80,6 +82,11 @@ public class ItemListActivity extends SherlockFragmentActivity
         // Start service that auto updates subscribed packages and notifies user
         PendingIntent pintent = PendingIntent.getService(this, 0, new Intent(this, DDNotifyService.class), 0);
 
+        ChangeLog cl = new ChangeLog(this);
+        if (cl.isFirstRun()) {
+        	cl.getLogDialog().show();
+        }
+        
         AlarmManager alarm = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
         // Start service again every 300 seconds
         alarm.setRepeating(AlarmManager.RTC_WAKEUP, Calendar.getInstance().getTimeInMillis(), 300*1000, pintent);

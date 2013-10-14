@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<changelog>
+  <release version="1.3" versioncode="4" >
+      <change>Added search for similar package names (activated in settings) feature</change>
+      <change>Fixed service to display info only when app is in foreground</change>
+  </release>
+  <release version="1.2" versioncode="3">
+      <change>Fixed orientation change crash</change>
+      <change>Fixed a bug where you had to press twice back if you viewed details from udd or dftp</change>
+      <change>Fixed other minor bugs that crashed the app</change>
+      <change>Re-published the app again because I renamed the main package to net.debian.debiandroid after a request</change>
+  </release>
+</changelog>
