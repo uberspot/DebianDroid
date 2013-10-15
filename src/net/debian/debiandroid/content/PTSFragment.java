@@ -243,7 +243,9 @@ public class PTSFragment extends ItemDetailFragment {
 		protected void onPreExecute(){ 
 		   super.onPreExecute();
 		   hideSoftKeyboard(ptsInput);
-		   ptsPckgList.setVisibility(View.GONE);
+		   if(ptsPckgList!=null) {
+			   ptsPckgList.setVisibility(View.GONE);
+		   }
 		   progressDialog = ProgressDialog.show(getSherlockActivity(), getString(R.string.searching),
 				   progressMessage, true, false);  
 		}
@@ -347,13 +349,15 @@ public class PTSFragment extends ItemDetailFragment {
 		private ArrayList<String> pckgNames = null;
 		
 		private ProgressDialog progressDialog;
-		private String progressMessage =  getString(R.string.searching_info_about) + " " + SearchCacher.getLastPckgName() 
+		private String progressMessage =  getString(R.string.searching_info)
 				   + ". " + getString(R.string.please_wait) + "...";
 		
 		protected void onPreExecute(){ 
 		   super.onPreExecute();
 		   hideSoftKeyboard(ptsInput);
-		   ptsBugList.setVisibility(View.GONE);
+		   if(ptsBugList!=null) {
+			   ptsBugList.setVisibility(View.GONE);
+		   }
 		   progressDialog = ProgressDialog.show(getSherlockActivity(), getString(R.string.searching),
 				   progressMessage, true, false);  
 		}

@@ -74,7 +74,7 @@ public class ItemListActivity extends SherlockFragmentActivity
             onItemSelected(Content.PTS);
         }
               
-        new task().execute(); //temporary
+        //new task().execute(); //temporary
         
         // Load stored settings before starting service
         SettingsActivity.loadSettings(getApplicationContext());
@@ -82,6 +82,7 @@ public class ItemListActivity extends SherlockFragmentActivity
         // Start service that auto updates subscribed packages and notifies user
         PendingIntent pintent = PendingIntent.getService(this, 0, new Intent(this, DDNotifyService.class), 0);
 
+        // Show changelog if it's the first time a new version loads
         ChangeLog cl = new ChangeLog(this);
         if (cl.isFirstRun()) {
         	cl.getLogDialog().show();

@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <changelog>
+    <release version="1.4" versioncode="55" >
+      <change>Fix crash in PTS menu item</change>
+      <change>Add ckChangeLog to show changes on first load of updated app</change>
+  </release>
   <release version="1.3" versioncode="4" >
       <change>Added search for similar package names (activated in settings) feature</change>
       <change>Fixed service to display info only when app is in foreground</change>
