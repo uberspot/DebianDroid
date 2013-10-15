@@ -66,21 +66,21 @@ public class UDDFragment extends ItemDetailFragment {
 		protected void onPreExecute() {
 			   super.onPreExecute();
 			   progressDialog = ProgressDialog.show(getSherlockActivity(), 
-					   getString(R.string.searching), getString(R.string.searching_info) + ". " + getString(R.string.please_wait) + "...", true, false);  
+					   getString(R.string.searching), getString(R.string.searching_info_please_wait), true, false);  
 			}
 			
 			protected Void doInBackground(String... params) {
 				if( params[0].equals(getString(R.string.rcbugs)) ) {
 					items = udd.getRCBugs();
-					header = getString(R.string.rcbugs) + " (" + items.get(0).size() + ")";
+					header = getString(R.string.rcbugs_withnum, items.get(0).size());
 					title = getString(R.string.rcbugs);
 				} else if( params[0].equals(getString(R.string.latest_uploads)) ) {
 					items = udd.getLastUploads();
-					header = items.get(0).size() + " " + getString(R.string.latest_uploads);
+					header = getString(R.string.latest_uploads_withnum, items.get(0).size());
 					title = getString(R.string.latest_uploads);
 				} else if( params[0].equals(getString(R.string.new_maintainers)) ) {
 					items = udd.getNewMaintainers();
-					header = getString(R.string.latest) + " " + items.get(0).size() + " " + getString(R.string.new_maintainers) ;
+					header = getString(R.string.latest_new_maintainers, items.get(0).size());
 					title = getString(R.string.new_maintainers);
 				}
 				return null;

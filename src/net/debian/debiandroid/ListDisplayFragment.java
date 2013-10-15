@@ -75,7 +75,7 @@ public class ListDisplayFragment extends ItemDetailFragment {
     		
             public boolean onChildClick(ExpandableListView parent, View view,
                     int groupPosition, int childPosition, long id) {
-            	String itemClicked = ((TextView)view).getText().toString();
+            	//String itemClicked = ((TextView)view).getText().toString();
                 
                 return true;
             }

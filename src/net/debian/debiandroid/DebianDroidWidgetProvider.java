@@ -36,9 +36,8 @@ public class DebianDroidWidgetProvider extends AppWidgetProvider {
 		DateTime now = new DateTime(DateTimeZone.UTC);
 		DateTime nextDInstall = getNextDInst().withZone(DateTimeZone.UTC);
 		long remainingMS = nextDInstall.getMillis() - now.getMillis();
-		return context.getString(R.string.next_dinstall_at) + ": " + nextDInstall.toString("HH:mm:ss (z)") + 
-		" " + context.getString(R.string.or_in) + " " + msToRemainingTimeStamp(remainingMS) + " " + 
-		context.getString(R.string.hours) + " (" + DateTimeZone.getDefault() +")";
+		return context.getString(R.string.widget_text, nextDInstall.toString("HH:mm:ss (z)"), 
+				msToRemainingTimeStamp(remainingMS), DateTimeZone.getDefault());
 	}
 	
 	private static String msToRemainingTimeStamp(long nextMS) {
@@ -80,7 +79,7 @@ public class DebianDroidWidgetProvider extends AppWidgetProvider {
 		  AlarmManager am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
 		  Intent intent = new Intent(context, AlarmManagerBroadcastReceiver.class);
 		  PendingIntent pi = PendingIntent.getBroadcast(context, 0, intent, 0);
-		  //After after widgetUpdateInterval seconds
+		  //After widgetUpdateInterval seconds
 		  int upInterval = widgetUpdateInterval;
 		  try {
 			  upInterval = Integer.parseInt(StorageUtils.getInstance(context).getPreference(wUpdateIntervalKey, ""+widgetUpdateInterval));

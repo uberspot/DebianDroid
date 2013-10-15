@@ -67,21 +67,21 @@ public class DFTPFragment extends ItemDetailFragment {
 		protected void onPreExecute() {
 			   super.onPreExecute();
 			   progressDialog = ProgressDialog.show(getSherlockActivity(), 
-					   getString(R.string.searching), getString(R.string.searching_info) + ". " + getString(R.string.please_wait) + "...", true, false);  
+					   getString(R.string.searching), getString(R.string.searching_info_please_wait), true, false);  
 			}
 			
 			protected Void doInBackground(String... params) {
 				if( params[0].equals(getString(R.string.new_packages)) ) {
 					items = dftp.getNewPackages();
-					header = items.get(0).size() + " " + getString(R.string.new_packages);
+					header = getString(R.string.new_packages_withnum, items.get(0).size());
 					title = getString(R.string.new_packages);
 				} else if( params[0].equals(getString(R.string.removed_packages)) ) {
 					items = dftp.getRemovedPackages();
-					header = items.get(0).size() + " " + getString(R.string.removed_packages);
+					header = getString(R.string.removed_packages_withnum, items.get(0).size());
 					title = getString(R.string.removed_packages);
 				} else if( params[0].equals(getString(R.string.deferred_packages)) ) {
 					items = dftp.getDeferredPackages();
-					header = items.get(0).size() + " " + getString(R.string.deferred_packages) ;
+					header = getString(R.string.deferred_packages_withnum, items.get(0).size()) ;
 					title = getString(R.string.deferred_packages);
 				}
 				return null;

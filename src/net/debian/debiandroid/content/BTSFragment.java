@@ -264,7 +264,7 @@ public class BTSFragment extends ItemDetailFragment {
 	class SearchBugInfoTask extends AsyncTask<Boolean, Integer, Void> {
 		
 		private ProgressDialog progressDialog;
-		private String progressMessage = getString(R.string.searching_info) + ". " + getString(R.string.please_wait) + "...";
+		private String progressMessage = getString(R.string.searching_info_please_wait);
 		private int bugCount = 0;
 		
 		protected void onPreExecute(){ 
@@ -314,14 +314,8 @@ public class BTSFragment extends ItemDetailFragment {
 										+ ((mailLogSize>0)?mailLog.get(0).get("subject"):"") );
 						
 						for(HashMap<String,String> mail: mailLog) {
-							StringBuilder m = new StringBuilder();
-							m.append("Date: ").append(mail.get("date")).append("\n")
-							//.append("Subject: ").append(mail.get("subject")).append("\n")
-							.append("From: ").append(mail.get("from")).append("\n")
-							//.append("CC: ").append(mail.get("cc"))
-							.append("\n-------------\nBody: ").append(mail.get("body"));
-							
-							log.add(m.toString());
+							log.add(getString(R.string.bug_mail_format, mail.get("date"), 
+									mail.get("from"), mail.get("body")));
 						}
 					    bugListChildItems.add(log);
 					    publishProgress(i);
@@ -356,7 +350,7 @@ public class BTSFragment extends ItemDetailFragment {
 	    }
 		@Override
 	    public void onProgressUpdate(Integer... args){
-            progressDialog.setMessage(progressMessage + " " + args[0] + "/" + bugCount + " bugs retrieved!");
+            progressDialog.setMessage(progressMessage + getString(R.string.bugs_retrieved, args[0] + "/" + bugCount));
         }
     }
 }

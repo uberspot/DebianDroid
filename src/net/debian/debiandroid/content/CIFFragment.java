@@ -112,12 +112,13 @@ public class CIFFragment extends ItemDetailFragment {
 	}
 	
 	private void doCIFSearch(String scannedMail) {
+		developerMail = StorageUtils.getInstance(getSherlockActivity()).getPreference("ddemail", "empty");
 		if(!Patterns.EMAIL_ADDRESS.matcher(scannedMail).matches() ) {
 			Toast.makeText(getSherlockActivity(), 
-					getString(R.string.invalid_mail_msg) + " " + scannedMail, Toast.LENGTH_SHORT).show();
+					getString(R.string.invalid_mail_msg, scannedMail), Toast.LENGTH_SHORT).show();
 		} else if (!Patterns.EMAIL_ADDRESS.matcher(developerMail).matches() ){
 			Toast.makeText(getSherlockActivity(), 
-					getString(R.string.invalid_mail_msg) + " " + developerMail, Toast.LENGTH_SHORT).show();
+					getString(R.string.invalid_mail_msg, developerMail), Toast.LENGTH_SHORT).show();
 		} else {
 			hideSoftKeyboard(mailInput);
 			new CIFSearchTask().execute(scannedMail, developerMail);
@@ -132,13 +133,13 @@ public class CIFFragment extends ItemDetailFragment {
 		protected void onPreExecute() {
 			   super.onPreExecute();
 			   progressDialog = ProgressDialog.show(getSherlockActivity(), 
-					   getString(R.string.searching), getString(R.string.searching_info) + ". " + getString(R.string.please_wait) + "...", true, false);  
+					   getString(R.string.searching), getString(R.string.searching_info_please_wait), true, false);  
 			}
 			
 			protected Void doInBackground(String... params) {
 				ArrayList<String> titles = new ArrayList<String>(Arrays.asList(
-						params[0] + " " + getString(R.string.maintains_following) + " " + params[1] + ":", 
-						params[1] + " " + getString(R.string.maintains_following) + " " + params[0] + ":"));
+						getString(R.string.maintains_following, params[0], params[1]),
+						getString(R.string.maintains_following, params[1], params[0])));
 				
 				ArrayList<String> packages = new ArrayList<String>(Arrays.asList(
 						arrayToString(udd.getOverlappingInterests(params[0], params[1])), 
@@ -147,7 +148,7 @@ public class CIFFragment extends ItemDetailFragment {
 				
 				items.add(titles);
 				items.add(packages);
-				header =  getString(R.string.overlapping_interests);
+				header = getString(R.string.overlapping_interests);
 				title = getString(R.string.overlapping_interests);
 				
 				return null;

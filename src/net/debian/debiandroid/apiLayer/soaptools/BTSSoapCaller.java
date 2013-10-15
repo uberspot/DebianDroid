@@ -148,7 +148,7 @@ public class BTSSoapCaller extends SoapCaller{
 	private HashMap<String, String> parseLogMail(String log) {
 		HashMap<String, String> logMail = new HashMap<String, String>();
 		int indexOfBodyEnd = log.indexOf("; msg_num");
-		logMail.put("body", log.substring(0, indexOfBodyEnd));
+		logMail.put("body", log.substring(0, indexOfBodyEnd).trim());
 		String[] lines = log.substring(indexOfBodyEnd).split("\n");
 		for(String line: lines) {
 			line = line.trim();

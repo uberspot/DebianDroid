@@ -145,14 +145,14 @@ public class PTSFragment extends ItemDetailFragment {
 		BTS bts = new BTS(getSherlockActivity().getApplicationContext());
 		
 		ArrayList<String> bugs = bts.getBugs(new String[]{BTS.PACKAGE}, new String[]{pkgName});
-		bugListParentItems.add(getString(R.string.all_bugs) + " (" + bugs.size() + ")");
+		bugListParentItems.add(getString(R.string.all_bugs, bugs.size()));
 	    bugListChildItems.add(bugs);
 	}
 	
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		//Add subscription icon
-		MenuItem subMenuItem = menu.add(0, SUBSCRIPTION_ID, Menu.CATEGORY_SECONDARY, "(Un)Subscribe");
+		MenuItem subMenuItem = menu.add(0, SUBSCRIPTION_ID, Menu.CATEGORY_SECONDARY, "");
 		subMenuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 	 	setSubscriptionIcon(subMenuItem, SearchCacher.getLastPckgName());
 		
@@ -232,13 +232,12 @@ public class PTSFragment extends ItemDetailFragment {
 	}
 
 	class SearchPackageInfoTask extends AsyncTask<Boolean, Integer, Void> {
-		private String pckgName, pckgVersion, pckgBugCount;
-		private StringBuffer pckgInfo;
+		private String pckgName, pckgVersion, pckgBugCount, 
+			pckgMaintName, pckgMaintMail, pckgUploaders, pckgBinNames;
 		private final static int pckgInfoCount = 6;
 		
 		private ProgressDialog progressDialog;
-		private String progressMessage =  getString(R.string.searching_info_about) + " " + SearchCacher.getLastPckgName() 
-				   + ". " + getString(R.string.please_wait) + "...";
+		private String progressMessage =  getString(R.string.searching_info_about, SearchCacher.getLastPckgName());
 		
 		protected void onPreExecute(){ 
 		   super.onPreExecute();
@@ -256,50 +255,27 @@ public class PTSFragment extends ItemDetailFragment {
 				Cacher.disableCache();
 			}
 			pckgName = SearchCacher.getLastPckgName(); //Last Package Name
-			pckgInfo = new StringBuffer(getString(R.string.pckg));
-			pckgInfo.append(": \n");
-			pckgInfo.append(pckgName);
-			pckgInfo.append("\n\n");
 			
 			if(pckgName!=null) {
 				
-				pckgVersion = pts.getLatestVersion(pckgName).trim();
-				pckgInfo.append(getString(R.string.latest_version));
-				pckgInfo.append(":\n  ");
-				pckgInfo.append(pckgVersion);
-				pckgInfo.append("\n\n");
+				pckgVersion = pts.getLatestVersion(pckgName);
 				publishProgress(2);
 				SearchCacher.setLastPckgVersion(pckgVersion);
-				String maintEmail =  pts.getMaintainerEmail(pckgName).trim();
-
-				pckgInfo.append(getString(R.string.maintainer));
-				pckgInfo.append(":\n  ");
-				//set Maintainer Info								
-				pckgInfo.append(pts.getMaintainerName(pckgName));pckgInfo.append("\n\n");
-				pckgInfo.append(getString(R.string.packages_overview));pckgInfo.append(":\n  ");
-				pckgInfo.append("http://qa.debian.org/developer.php?login=");
-				pckgInfo.append(maintEmail);pckgInfo.append("\n\n");pckgInfo.append(getString(R.string.mail));
-				pckgInfo.append(":\n  ");pckgInfo.append(maintEmail);
 				
-				pckgInfo.append("\n\n");
+				//set Maintainer Info
+				pckgMaintMail =  pts.getMaintainerEmail(pckgName);
+				pckgMaintName = pts.getMaintainerName(pckgName);
 				publishProgress(3);
+
 				pckgBugCount = pts.getBugCounts(pckgName).trim();
-				pckgInfo.append(getString(R.string.bug_count));
-				pckgInfo.append(":\n  ");
-				pckgInfo.append(pckgBugCount);
-				pckgInfo.append("\n\n");
 				publishProgress(4);
+				
 				if(!pckgVersion.equals("") && !pckgBugCount.equals("") ) {
-					pckgInfo.append(getString(R.string.uploaders));
-					pckgInfo.append(":\n  ");
 					//Set Uploader Names
-					pckgInfo.append(Arrays.toString(pts.getUploaderNames(pckgName)).trim());
-					pckgInfo.append("\n\n");
+					pckgUploaders = Arrays.toString(pts.getUploaderNames(pckgName)).trim();
 					publishProgress(5);
-					pckgInfo.append(getString(R.string.binary_names));
-					pckgInfo.append(":\n  ");
 					//Set Binary Names
-					pckgInfo.append(Arrays.toString(pts.getBinaryNames(pckgName)).trim());
+					pckgBinNames = Arrays.toString(pts.getBinaryNames(pckgName)).trim();
 					publishProgress(6);
 					setBugData(pckgName);
 				}
@@ -323,7 +299,8 @@ public class PTSFragment extends ItemDetailFragment {
 				ptsInput.setText(pckgName);
 				 
 				if(!pckgVersion.equals("") && !pckgBugCount.equals("") ) {
-					ptsPckgInfo.setText(pckgInfo.toString());
+					ptsPckgInfo.setText(getString(R.string.pckg_info_format, pckgName, pckgVersion, 
+							pckgMaintName, pckgMaintMail, pckgBugCount, pckgUploaders, pckgBinNames));
 					ptsPckgInfo.setMovementMethod(LinkMovementMethod.getInstance());
 					emptyTextView.setVisibility(View.GONE);
 		    	} else {
@@ -341,7 +318,7 @@ public class PTSFragment extends ItemDetailFragment {
 	    }
 		@Override
 	    public void onProgressUpdate(Integer... args){
-            progressDialog.setMessage(progressMessage + " " + args[0] + "/" + pckgInfoCount + " info retrieved!");
+            progressDialog.setMessage(progressMessage + getString(R.string.info_retrieved, args[0] + "/" + pckgInfoCount));
         }
     }
 	
@@ -349,8 +326,7 @@ public class PTSFragment extends ItemDetailFragment {
 		private ArrayList<String> pckgNames = null;
 		
 		private ProgressDialog progressDialog;
-		private String progressMessage =  getString(R.string.searching_info)
-				   + ". " + getString(R.string.please_wait) + "...";
+		private String progressMessage =  getString(R.string.searching_info_please_wait);
 		
 		protected void onPreExecute(){ 
 		   super.onPreExecute();

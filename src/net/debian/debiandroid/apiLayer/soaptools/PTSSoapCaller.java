@@ -23,7 +23,7 @@ public class PTSSoapCaller extends SoapCaller{
     public String getLatestVersion(String packageName) {
     	PropertyInfo[] properties = convertToSourceProperty(packageName);
         try {
-			return doRequest("latest_version", "latest_version", properties).toString();
+			return doRequest("latest_version", "latest_version", properties).toString().trim();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -43,7 +43,7 @@ public class PTSSoapCaller extends SoapCaller{
     public String getMaintainerName(String packageName) {
     	PropertyInfo[] properties = convertToSourceProperty(packageName);
         try {
-			return doRequest("maintainer_name", "maintainer_name", properties).toString();
+			return doRequest("maintainer_name", "maintainer_name", properties).toString().trim();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -53,7 +53,7 @@ public class PTSSoapCaller extends SoapCaller{
     public String getMaintainerEmail(String packageName) {
     	PropertyInfo[] properties = convertToSourceProperty(packageName);
         try {
-			return doRequest("maintainer_email", "maintainer_email", properties).toString();
+			return doRequest("maintainer_email", "maintainer_email", properties).toString().trim();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
