@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:xliff="rn:oasis:names:tc:xliff:document:1.2">
 
     <string name="app_name">DebianDroid</string>
+    
+    <!-- Content Titles -->
     <string name="title_item_detail">Item Detail</string>
-    <string name="search_packages">Search Package</string>
+    <string name="search_packages">Search Packages</string>
     <string name="select_bugs">Select bugs</string>
     <string name="search">Search</string>
     <string name="find_common_interests">Find Common Interests</string>
@@ -12,13 +14,92 @@
     <string name="udd">UDD</string>
     <string name="dftp">Debian FTP</string>
     <string name="links">Links</string>
+    
+    <!-- Common strings -->
+    
+    <string name="refresh">Refresh</string>
+    <string name="subscribe">Subscribe</string>
+    <string name="unsubscribe">Unsubscribe</string>
+    <string name="searching">Searching&#8230;</string>
+    <string name="searching_info_about">Searching info about <xliff:g id="name" example="somesearchvalue" >%1$s</xliff:g>. Please wait&#8230;</string>
+    <string name="searching_info_please_wait">Searching info. Please wait&#8230; </string>
+    <string name="no_info_found_for">No information found for</string>
+    <string name="no_info_found">No information found</string>
+    
+    <!-- PTS strings -->
+    
+    <string name="pckg_info_format">Package: \n
+        <xliff:g id="pckgName" example="vim" >%1$s</xliff:g>\n\nLatest version:\n  
+        <xliff:g id="pckgVersion" example="1.2.34" >%2$s</xliff:g>\n\nMaintainer:\n  
+        <xliff:g id="pckgMaintName" example="John" >%3$s</xliff:g>\n\nPackages overview:\n  
+        http://qa.debian.org/developer.php?login=<xliff:g id="pckgMaintMail" example="somemail" >%4$s</xliff:g>\n\nMail:\n  
+        <xliff:g id="pckgMaintMail" example="somemail" >%4$s</xliff:g>\n\nBug count:\n  
+        <xliff:g id="pckgBugCount" example="40" >%5$s</xliff:g>\n\nUploaders:\n  
+        <xliff:g id="pckgUploaders" example="uploaderNames" >%6$s</xliff:g>\n\nBinary names:\n  
+        <xliff:g id="pckgBinNames" example="binNames" >%7$s</xliff:g>
+        </string>
+    <string name="all_bugs">All Bugs (<xliff:g id="number" example="10" >%1$s</xliff:g>)</string>
+    <string name="pts_search_hint">Type in package name</string>
+    <string name="submit_new_bug_report">Submit new bug report</string>
+    <string name="info_retrieved"><xliff:g id="number" example="10" >%1$s</xliff:g> info retrieved!</string>
+    
+    <!-- BTS strings -->
+    
+    <string name="by_number">by number</string>
+    <string name="in_package">in package</string>
+    <string name="in_pckgs_maint_by">in pckgs maintained by</string>
+    <string name="submitted_by">submitted by</string>
+    <string name="with_status">with status</string>
+    <string name="with_mail_from">with mail from</string>
+    <string name="bts_search_hint">Type in search value</string>
+    <string name="bugs_retrieved"><xliff:g id="number" example="10" >%1$s</xliff:g> bugs retrieved!</string>
+    <string name="bug_mail_format">Date: <xliff:g id="date" example="somedate">%1$s</xliff:g>\nFrom: <xliff:g id="from" example="mailaddress">%2$s</xliff:g>\n-------------\nBody: <xliff:g id="body" example="bodytext">%3$s</xliff:g></string>
+
+    <!-- CIF strings -->
+    
     <string name="QRCode">QRCode</string>
     <string name="scan_qrcode">Scan a QRCode</string>
+    <string name="or_type_other_persons_email_directly">or type other persons email directly</string>
+    <string name="invalid_mail_msg">Invalid mail address <xliff:g id="mail" example="bla@bla.bla">%1$s</xliff:g> in search!</string>
+    <string name="no_mail_in_settings_msg">Don\'t forget to add the mail you use in packaging in settings!</string>
+    <string name="cif_search_hint">other@example.com</string>
+    <string name="overlapping_interests">Overlapping Interests</string>
+    <string name="maintains_following"><xliff:g id="firstmaint" example="john">%1$s</xliff:g> maintains following packages used as dependencies by <xliff:g id="secondmaint" example="jack" >%2$s</xliff:g>:</string>
+    
+    <!-- SUBS strings -->
+    
+    <string name="subscribed_packages">Subscribed Packages</string>
+    <string name="subscribed_bugs">Subscribed Bugs</string>
+    
+    <!-- UDD strings -->
+    
+    <string name="rcbugs">RCBugs</string>
+    <string name="rcbugs_withnum">RCBugs (<xliff:g id="number" example="10">%1$s</xliff:g>)</string>
+    <string name="latest_uploads">Latest Uploads</string>
+    <string name="latest_uploads_withnum"><xliff:g id="number" example="10">%1$s</xliff:g> Latest Uploads</string>
+    <string name="latest_new_maintainers">Latest  <xliff:g id="number" example="10">%1$s</xliff:g> new maintainers</string>
+    <string name="new_maintainers">New Maintainers</string>
+    
+    <!-- DFTP strings -->
+    
+    <string name="new_packages">New Packages</string>
+    <string name="new_packages_withnum"><xliff:g id="number" example="10">%1$s</xliff:g> new packages</string>
+    <string name="removed_packages">Removed Packages</string>
+    <string name="removed_packages_withnum"><xliff:g id="number" example="10">%1$s</xliff:g> removed packages</string>
+    <string name="deferred_packages">Deferred Packages</string>
+    <string name="deferred_packages_withnum"><xliff:g id="number" example="10">%1$s</xliff:g> deferred packages</string>
+    
+    <!-- LINKS strings -->
+    
+    <string name="links_search_hint">Autosearch for link</string>
+    <string name="open_link_with">Open link with</string>
+    
+    <!-- SETTINGS strings -->
+    
     <string name="general_settings">General Settings</string>
     <string name="cache_settings">Cache Settings</string>
     <string name="use_3g">Use 3G</string>
     <string name="use_3g_summary">Tick to use 3G as well to download data or untick to use only wifi</string>
-    <string name="scanforqrcode">Scan for QRCode</string>
     <string name="maint_username">Maintainer username</string>
     <string name="refresh_interval">Auto-refresh interval</string>
     <string name="cache_limit">Cache time limit</string>
@@ -27,63 +108,23 @@
     <string name="cache_limit_sum">How many hours to keep retrieved info in cache</string>
     <string name="clear_cache">Clear cache now</string>
     <string name="clear_cache_sum">Clear all cached info now</string>
-    <string name="refresh">Refresh</string>
-    <string name="subscribe">Subscribe</string>
-    <string name="unsubscribe">Unsubscribe</string>
-    <string name="by_number">by number</string>
-    <string name="in_package">in package</string>
-    <string name="in_pckgs_maint_by">in pckgs maintained by</string>
-    <string name="submitted_by">submitted by</string>
-    <string name="with_status">with status</string>
-    <string name="with_mail_from">with mail from</string>
-    <string name="subscribed_packages">Subscribed Packages</string>
-    <string name="subscribed_bugs">Subscribed Bugs</string>
-    <string name="all_bugs">All Bugs</string>
-    <string name="searching">Searching</string>
-    <string name="searching_info_about">Searching info about</string>
-    <string name="searching_info">Searching info</string>
-    <string name="please_wait">Please wait</string>
-    <string name="pckg">Package</string>
-    <string name="latest_version">Latest version</string>
-    <string name="maintainer">Maintainer</string>
-    <string name="bug_count">Bug count</string>
-    <string name="uploaders">Uploaders</string>
-    <string name="binary_names">Binary names</string>
-    <string name="no_info_found_for">No information found for</string>
-    <string name="no_info_found">No information found</string>
     <string name="widget_settings">Widget_settings</string>
-    <string name="widget_tz_summ">Choose the timezone of the time displayed in the DInstall info widget</string>
-    <string name="debiandroid_widget">DebianDroid Widget</string>
-    <string name="next_dinstall_at">Next DInstall at</string>
-    <string name="or_in">or in</string>
-    <string name="hours">hours</string>
     <string name="maint_email_sum">The email of the debian maintainer of this device</string>
     <string name="maint_email">Maintainer email</string>
     <string name="widget_update_sum">Time (in seconds) between updates of countdown in dinstall widget</string>
-    <string name="or_type_other_persons_email_directly">or type other persons email directly</string>
-    <string name="widget_interval">Widget update interval</string>
-    <string name="invalid_mail_msg">Invalid mail address in search!</string>
-    <string name="no_mail_in_settings_msg">Don\'t forget to add the mail you use in packaging in settings!</string>
-    <string name="cif_search_hint">other@example.com</string>
-    <string name="pts_search_hint">Type in package name</string>
-    <string name="bts_search_hint">Type in search value</string>
-    <string name="links_search_hint">Autosearch for link</string>
-    <string name="open_link_with">Open link with</string>
-    <string name="rcbugs">RCBugs</string>
-    <string name="overlapping_interests">Overlapping Interests</string>
-    <string name="latest_uploads">Latest Uploads</string>
-    <string name="latest">Latest</string>
-    <string name="new_maintainers">New Maintainers</string>
-    <string name="submit_new_bug_report">Submit new bug report</string>
-    <string name="packages_overview">Packages overview</string>
-    <string name="mail">Mail</string>
-    <string name="cache_cleared">Cache cleared</string>
-    <string name="new_packages">New Packages</string>
-    <string name="connection_restored">Connection restored</string>
-    <string name="removed_packages">Removed Packages</string>
-    <string name="lost_connectivity">Lost connectivity, switching to cache only</string>
-    <string name="deferred_packages">Deferred Packages</string>
-    <string name="maintains_following">maintains following packages used as dependencies by</string>
     <string name="similar_pckgs">Search similar pckgs</string>
     <string name="similar_pckgs_summary">When searching for package info search for similar package names first</string>
+    <string name="widget_interval">Widget update interval</string>
+    <string name="cache_cleared">Cache cleared</string>
+    
+    <!-- Widget strings -->
+    
+    <string name="debiandroid_widget">DebianDroid Widget</string>
+    <string name="widget_text">Next DInstall at: <xliff:g id="timeutc" example="HH:mm:ss">%1$s</xliff:g> or in <xliff:g id="timelocal" example="HH:mm:ss">%2$s</xliff:g> (<xliff:g id="timezonelocal" example="SomeTimezone">%3$s</xliff:g>)</string>
+    
+    <!-- Service strings -->
+    
+    <string name="connection_restored">Connection restored.</string>
+    <string name="lost_connectivity">Lost connectivity, switching to cache only.</string>
+
 </resources>
