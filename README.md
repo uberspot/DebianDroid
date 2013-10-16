@@ -24,6 +24,7 @@ This Debian Android app started as part of Google Summer of Code 2013. It's an A
  11. If "use 3g" settings is false detect if 3g is used and deactivate online searching then by settings cache to always return something
  12. Shows new/removals/deferred queues from https://ftp-master.debian.org/new.822 , https://ftp-master.debian.org/removals.822 and https://ftp-master.debian.org/deferred/status respectively
  13. Allows searching for packages with similar names based on http://sources.debian.net/api/search/vim/ (doc: http://sources.debian.net/doc/api/). 
+ 14. Translated to Greek
 
 ##TODO
  
@@ -43,7 +44,7 @@ This Debian Android app started as part of Google Summer of Code 2013. It's an A
  14. Tell which package a certain file is in: http://packages.debian.org/search?searchon=contents&keywords=&
  15. Show contents of a package like in http://packages.debian.org/sid/i386//filelist
  16. Full-text search on package names like in http://packages.debian.org/search?keywords=%s
- 17. Translate to other languages. Easy if all string are gathered in values/strings.xml
+ 17. Translate to other languages. https://www.transifex.com/projects/p/debiandroid/
  18. Alerts you about a bug report you wanted to send, like a "bug report" reminder. Maybe with a button like "report bug in x time"
 
 ##Permissions explained
