@@ -21,22 +21,22 @@
     <string name="subscribe">Subscribe</string>
     <string name="unsubscribe">Unsubscribe</string>
     <string name="searching">Searching&#8230;</string>
-    <string name="searching_info_about">Searching info about <xliff:g id="name" example="somesearchvalue" >%1$s</xliff:g>. Please wait&#8230;</string>
-    <string name="searching_info_please_wait">Searching info. Please wait&#8230; </string>
+    <string name="searching_info_about">Searching info about <xliff:g id="name" example="somesearchvalue" >%1$s</xliff:g>. Please wait<xliff:g>&#8230;</xliff:g></string>
+    <string name="searching_info_please_wait">Searching info. Please wait<xliff:g>&#8230;</xliff:g> </string>
     <string name="no_info_found_for">No information found for</string>
     <string name="no_info_found">No information found</string>
     
     <!-- PTS strings -->
     
-    <string name="pckg_info_format">Package: \n
-        <xliff:g id="pckgName" example="vim" >%1$s</xliff:g>\n\nLatest version:\n  
-        <xliff:g id="pckgVersion" example="1.2.34" >%2$s</xliff:g>\n\nMaintainer:\n  
-        <xliff:g id="pckgMaintName" example="John" >%3$s</xliff:g>\n\nPackages overview:\n  
-        http://qa.debian.org/developer.php?login=<xliff:g id="pckgMaintMail" example="somemail" >%4$s</xliff:g>\n\nMail:\n  
-        <xliff:g id="pckgMaintMail" example="somemail" >%4$s</xliff:g>\n\nBug count:\n  
-        <xliff:g id="pckgBugCount" example="40" >%5$s</xliff:g>\n\nUploaders:\n  
-        <xliff:g id="pckgUploaders" example="uploaderNames" >%6$s</xliff:g>\n\nBinary names:\n  
-        <xliff:g id="pckgBinNames" example="binNames" >%7$s</xliff:g>
+    <string name="pckg_info_format">Package:
+        <xliff:g id="pckgName" example="vim">\n  %1$s\n\n</xliff:g>Latest version:
+        <xliff:g id="pckgVersion" example="1.2.34">\n  %2$s\n\n</xliff:g>Maintainer:
+        <xliff:g id="pckgMaintName" example="John">\n  %3$s\n\n</xliff:g>Packages overview:
+        <xliff:g id="pckgMaintMail" example="somemail">\n  http://qa.debian.org/developer.php?login=%4$s\n\n</xliff:g>Mail:
+        <xliff:g id="pckgMaintMail" example="somemail">\n  %4$s\n\n</xliff:g>Bug count:
+        <xliff:g id="pckgBugCount" example="40">\n  %5$s\n\n</xliff:g>Uploaders:
+        <xliff:g id="pckgUploaders" example="uploaderNames">\n  %6$s\n\n</xliff:g>Binary names:
+        <xliff:g id="pckgBinNames" example="binNames">\n  %7$s</xliff:g>
         </string>
     <string name="all_bugs">All Bugs (<xliff:g id="number" example="10" >%1$s</xliff:g>)</string>
     <string name="pts_search_hint">Type in package name</string>
@@ -53,7 +53,7 @@
     <string name="with_mail_from">with mail from</string>
     <string name="bts_search_hint">Type in search value</string>
     <string name="bugs_retrieved"><xliff:g id="number" example="10" >%1$s</xliff:g> bugs retrieved!</string>
-    <string name="bug_mail_format">Date: <xliff:g id="date" example="somedate">%1$s</xliff:g>\nFrom: <xliff:g id="from" example="mailaddress">%2$s</xliff:g>\n-------------\nBody: <xliff:g id="body" example="bodytext">%3$s</xliff:g></string>
+    <string name="bug_mail_format">Date: <xliff:g id="date" example="somedate">%1$s\n</xliff:g>From<xliff:g id="from" example="mailaddress">: %2$s\n-------------\n</xliff:g>Body<xliff:g id="body" example="bodytext">: %3$s</xliff:g></string>
 
     <!-- CIF strings -->
     
@@ -99,7 +99,7 @@
     <string name="general_settings">General Settings</string>
     <string name="cache_settings">Cache Settings</string>
     <string name="use_3g">Use 3G</string>
-    <string name="use_3g_summary">Tick to use 3G as well to download data or untick to use only wifi</string>
+    <string name="use_3g_summary">Tick to use 3G as well to download data or untick to use only WiFi</string>
     <string name="maint_username">Maintainer username</string>
     <string name="refresh_interval">Auto-refresh interval</string>
     <string name="cache_limit">Cache time limit</string>
@@ -108,7 +108,7 @@
     <string name="cache_limit_sum">How many hours to keep retrieved info in cache</string>
     <string name="clear_cache">Clear cache now</string>
     <string name="clear_cache_sum">Clear all cached info now</string>
-    <string name="widget_settings">Widget_settings</string>
+    <string name="widget_settings">Widget settings</string>
     <string name="maint_email_sum">The email of the debian maintainer of this device</string>
     <string name="maint_email">Maintainer email</string>
     <string name="widget_update_sum">Time (in seconds) between updates of countdown in dinstall widget</string>
