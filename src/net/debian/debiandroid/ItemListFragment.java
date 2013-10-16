@@ -70,7 +70,6 @@ public class ItemListFragment extends SherlockListFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // TODO: replace with a real list adapter.
         setListAdapter(new ArrayAdapter<Content.ContentItem>(
         		getActivity(),
                 android.R.layout.simple_list_item_1,

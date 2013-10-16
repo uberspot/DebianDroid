@@ -55,7 +55,10 @@ public class ItemListActivity extends SherlockFragmentActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_list);
-
+        
+        // Initialize content menu elements
+        Content.initializeItems(getApplicationContext());
+        
         gestureDetector = new GestureDetectorCompat(this, new SwipeListener());
         
         if (findViewById(R.id.item_detail_container) != null) {

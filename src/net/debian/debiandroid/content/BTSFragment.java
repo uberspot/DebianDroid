@@ -72,7 +72,7 @@ public class BTSFragment extends ItemDetailFragment {
             Bundle savedInstanceState) {
     	View rootView = inflater.inflate(R.layout.bts_fragment, container, false);	
         
-    	getSherlockActivity().getSupportActionBar().setTitle(getString(R.string.select_bugs));
+    	getSherlockActivity().getSupportActionBar().setTitle(getString(R.string.search_bugs));
     	
         searchOptionSelected = StorageUtils.getInstance(context).getPreference("btsSearchOption", getString(R.string.by_number));
         bugList = (ExpandableListView) rootView.findViewById(R.id.btsList);

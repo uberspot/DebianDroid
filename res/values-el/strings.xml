@@ -7,14 +7,14 @@
   
   <string name="title_item_detail">Λεπτομέρειες αντικειμένου</string>
   <string name="search_packages">Αναζήτηση πακέτων</string>
-  <string name="select_bugs">Eπιλογή bugs</string>
+  <string name="search_bugs">Αναζήτηση bugs</string>
   <string name="search">Αναζήτηση</string>
   <string name="find_common_interests">Βρείτε κοινά ενδιαφέροντα</string>
   <string name="settings">Ρυθμίσεις</string>
   <string name="subscriptions">Aγαπημένα</string>
   <string name="udd">UDD</string>
   <string name="dftp">Debian FTP</string>
-  <string name="links">Σύνδεσμοι</string>
+  <string name="links">Χρήσιμοι Σύνδεσμοι</string>
   
   <!--Common strings-->
   
@@ -22,26 +22,26 @@
   <string name="subscribe">Εγγραφή</string>
   <string name="unsubscribe">Απεγγραφή</string>
   <string name="searching">Αναζήτηση<xliff:g>&#8230;</xliff:g> </string>
-  <string name="searching_info_about">Αναζήτηση πληροφοριών για <xliff:g id="name" example="somesearchvalue">%1$s</xliff:g>. Παρακαλώ αναμένετε<xliff:g>&#8230;</xliff:g> </string>
+  <string name="searching_info_about">Αναζήτηση πληροφοριών για <xliff:g id="name" example="somesearchvalue" >%1$s</xliff:g>. Παρακαλώ αναμένετε<xliff:g>&#8230;</xliff:g> </string>
   <string name="searching_info_please_wait">Aναζήτηση πληροφοριών. Παρακαλώ αναμένετε<xliff:g>&#8230;</xliff:g> </string>
   <string name="no_info_found_for">Δεν βρέθηκαν πληροφορίες για</string>
   <string name="no_info_found">Δεν βρέθηκαν πληροφορίες</string>
   
   <!--PTS strings-->
   <string name="pckg_info_format">Πακέτο:
-        <xliff:g id="pckgName" example="vim">\n  %1$s\n\n</xliff:g>Τελευταία έκδοση:
-        <xliff:g id="pckgVersion" example="1.2.34">\n  %2$s\n\n</xliff:g>Συντηρητής:
-        <xliff:g id="pckgMaintName" example="John">\n  %3$s\n\n</xliff:g>Επίβλεψη πακέτων:
-        <xliff:g id="pckgMaintMail" example="somemail">\n  http://qa.debian.org/developer.php?login=%4$s\n\n</xliff:g>Mail:
-        <xliff:g id="pckgMaintMail" example="somemail">\n  %4$s\n\n</xliff:g>Bug count:
-        <xliff:g id="pckgBugCount" example="40">\n  %5$s\n\n</xliff:g>Uploaders:
-        <xliff:g id="pckgUploaders" example="uploaderNames">\n  %6$s\n\n</xliff:g>Binary names:
-        <xliff:g id="pckgBinNames" example="binNames">\n  %7$s</xliff:g>
+        <xliff:g id="pckgName" example="vim" >\n  %1$s\n\n</xliff:g>Τελευταία έκδοση:
+        <xliff:g id="pckgVersion" example="1.2.34" >\n  %2$s\n\n</xliff:g>Συντηρητής:
+        <xliff:g id="pckgMaintName" example="John" >\n  %3$s\n\n</xliff:g>Επίβλεψη πακέτων:
+        <xliff:g id="pckgMaintMail" example="somemail" >\n  http://qa.debian.org/developer.php?login=%4$s\n\n</xliff:g>Mail:
+        <xliff:g id="pckgMaintMail" example="somemail" >\n  %4$s\n\n</xliff:g>Bug count:
+        <xliff:g id="pckgBugCount" example="40" >\n  %5$s\n\n</xliff:g>Uploaders:
+        <xliff:g id="pckgUploaders" example="uploaderNames" >\n  %6$s\n\n</xliff:g>Binary names:
+        <xliff:g id="pckgBinNames" example="binNames" >\n  %7$s</xliff:g>
   </string>
-  <string name="all_bugs">Όλα τα Bugs (<xliff:g id="number" example="10">%1$s</xliff:g>)</string>
+  <string name="all_bugs">Όλα τα Bugs (<xliff:g id="number" example="10" >%1$s</xliff:g>)</string>
   <string name="pts_search_hint">Πληκτρολογήστε όνομα πακέτου</string>
   <string name="submit_new_bug_report">Αποστολή νέας αναφοράς bug</string>
-  <string name="info_retrieved"><xliff:g id="number" example="10">%1$s</xliff:g> πληροφορίες λήφθηκαν!</string>
+  <string name="info_retrieved"><xliff:g id="number" example="10" >%1$s</xliff:g> πληροφορίες λήφθηκαν!</string>
   
   <!--BTS strings-->
   
@@ -53,7 +53,7 @@
   <string name="with_mail_from">με mail απο τον</string>
   <string name="bts_search_hint">Παράμετρος αναζήτησης</string>
   <string name="bugs_retrieved"><xliff:g id="number" example="10">%1$s</xliff:g> bugs λήφθηκαν!</string>
-  <string name="bug_mail_format">Ημερομηνία: <xliff:g id="date" example="somedate">%1$s\n</xliff:g>Από<xliff:g id="from" example="mailaddress">: %2$s\n-------------\n</xliff:g>Κείμενο<xliff:g id="body" example="bodytext">: %3$s</xliff:g></string>
+  <string name="bug_mail_format">Ημερομηνία: <xliff:g id="date" example="somedate" >%1$s\n</xliff:g>Από<xliff:g id="from" example="mailaddress">: %2$s\n-------------\n</xliff:g>Κείμενο<xliff:g id="body" example="bodytext">: %3$s</xliff:g></string>
   
   <!--CIF strings-->
   
