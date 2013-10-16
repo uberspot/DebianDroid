@@ -1,0 +1,130 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources xmlns:xliff="rn:oasis:names:tc:xliff:document:1.2">
+    
+  <string name="app_name">DebianDroid</string>
+  
+  <!--Content Titles-->
+  
+  <string name="title_item_detail">Λεπτομέρειες αντικειμένου</string>
+  <string name="search_packages">Αναζήτηση πακέτων</string>
+  <string name="select_bugs">Eπιλογή bugs</string>
+  <string name="search">Αναζήτηση</string>
+  <string name="find_common_interests">Βρείτε κοινά ενδιαφέροντα</string>
+  <string name="settings">Ρυθμίσεις</string>
+  <string name="subscriptions">Aγαπημένα</string>
+  <string name="udd">UDD</string>
+  <string name="dftp">Debian FTP</string>
+  <string name="links">Σύνδεσμοι</string>
+  
+  <!--Common strings-->
+  
+  <string name="refresh">Ανανέωση</string>
+  <string name="subscribe">Εγγραφή</string>
+  <string name="unsubscribe">Απεγγραφή</string>
+  <string name="searching">Αναζήτηση<xliff:g>&#8230;</xliff:g> </string>
+  <string name="searching_info_about">Αναζήτηση πληροφοριών για <xliff:g id="name" example="somesearchvalue">%1$s</xliff:g>. Παρακαλώ αναμένετε<xliff:g>&#8230;</xliff:g> </string>
+  <string name="searching_info_please_wait">Aναζήτηση πληροφοριών. Παρακαλώ αναμένετε<xliff:g>&#8230;</xliff:g> </string>
+  <string name="no_info_found_for">Δεν βρέθηκαν πληροφορίες για</string>
+  <string name="no_info_found">Δεν βρέθηκαν πληροφορίες</string>
+  
+  <!--PTS strings-->
+  <string name="pckg_info_format">Πακέτο:
+        <xliff:g id="pckgName" example="vim">\n  %1$s\n\n</xliff:g>Τελευταία έκδοση:
+        <xliff:g id="pckgVersion" example="1.2.34">\n  %2$s\n\n</xliff:g>Συντηρητής:
+        <xliff:g id="pckgMaintName" example="John">\n  %3$s\n\n</xliff:g>Επίβλεψη πακέτων:
+        <xliff:g id="pckgMaintMail" example="somemail">\n  http://qa.debian.org/developer.php?login=%4$s\n\n</xliff:g>Mail:
+        <xliff:g id="pckgMaintMail" example="somemail">\n  %4$s\n\n</xliff:g>Bug count:
+        <xliff:g id="pckgBugCount" example="40">\n  %5$s\n\n</xliff:g>Uploaders:
+        <xliff:g id="pckgUploaders" example="uploaderNames">\n  %6$s\n\n</xliff:g>Binary names:
+        <xliff:g id="pckgBinNames" example="binNames">\n  %7$s</xliff:g>
+  </string>
+  <string name="all_bugs">Όλα τα Bugs (<xliff:g id="number" example="10">%1$s</xliff:g>)</string>
+  <string name="pts_search_hint">Πληκτρολογήστε όνομα πακέτου</string>
+  <string name="submit_new_bug_report">Αποστολή νέας αναφοράς bug</string>
+  <string name="info_retrieved"><xliff:g id="number" example="10">%1$s</xliff:g> πληροφορίες λήφθηκαν!</string>
+  
+  <!--BTS strings-->
+  
+  <string name="by_number">κατά αριθμό</string>
+  <string name="in_package">στο πακέτο</string>
+  <string name="in_pckgs_maint_by">στα πακέτα που συντηρούνται από τον</string>
+  <string name="submitted_by">σταλμένα από τον</string>
+  <string name="with_status">με status</string>
+  <string name="with_mail_from">με mail απο τον</string>
+  <string name="bts_search_hint">Παράμετρος αναζήτησης</string>
+  <string name="bugs_retrieved"><xliff:g id="number" example="10">%1$s</xliff:g> bugs λήφθηκαν!</string>
+  <string name="bug_mail_format">Ημερομηνία: <xliff:g id="date" example="somedate">%1$s\n</xliff:g>Από<xliff:g id="from" example="mailaddress">: %2$s\n-------------\n</xliff:g>Κείμενο<xliff:g id="body" example="bodytext">: %3$s</xliff:g></string>
+  
+  <!--CIF strings-->
+  
+  <string name="QRCode">QRCode</string>
+  <string name="scan_qrcode">Σκανάρισμα ενός QRCode</string>
+  <string name="or_type_other_persons_email_directly">ή πληκτρολογήστε το email του άλλου κατευθείαν</string>
+  <string name="invalid_mail_msg">Μη έγκυρη διεύθυνση email <xliff:g id="mail" example="bla@bla.bla">%1$s</xliff:g> κατά την αναζήτηση!</string>
+  <string name="no_mail_in_settings_msg">Mην ξεχνάτε να προσθέσετε το mail που χρησιμοποιείτε για το packaging στις ρυθμίσεις!</string>
+  <string name="cif_search_hint">other@example.com</string>
+  <string name="overlapping_interests">Επικαλυπτόμενα ενδιαφέροντα</string>
+  <string name="maintains_following"><xliff:g id="firstmaint" example="john">%1$s</xliff:g> συντηρεί τα ακόλουθα πακέτα που χρησιμοποιεί σαν εξαρτήσεις ο <xliff:g id="secondmaint" example="jack">%2$s</xliff:g>:</string>
+  
+  <!--SUBS strings-->
+ 
+  <string name="subscribed_packages">Αγαπημένα Πακέτα</string>
+  <string name="subscribed_bugs">Αγαπημένα Bugs</string>
+  
+  <!--UDD strings-->
+  
+  <string name="rcbugs">RCBugs</string>
+  <string name="rcbugs_withnum">RCBugs (<xliff:g id="number" example="10">%1$s</xliff:g>)</string>
+  <string name="latest_uploads">Τελευταία Uploads</string>
+  <string name="latest_uploads_withnum"><xliff:g id="number" example="10">%1$s</xliff:g> Τελευταία Uploads</string>
+  <string name="latest_new_maintainers">Τελευταίοι <xliff:g id="number" example="10">%1$s</xliff:g> νέοι maintainers</string>
+  <string name="new_maintainers">Νέοι Maintainers</string>
+  
+  <!--DFTP strings-->
+ 
+  <string name="new_packages">Νέα Πακέτα</string>
+  <string name="new_packages_withnum"><xliff:g id="number" example="10">%1$s</xliff:g> νέα πακέτα</string>
+  <string name="removed_packages">Αφαιρεμένα Πακέτα</string>
+  <string name="removed_packages_withnum"><xliff:g id="number" example="10">%1$s</xliff:g> αφαιρεμένα πακέτα</string>
+  <string name="deferred_packages">Αναβεβλημένα Πακέτα</string>
+  <string name="deferred_packages_withnum"><xliff:g id="number" example="10">%1$s</xliff:g> αναβεβλημένα πακέτα</string>
+  
+  <!--LINKS strings-->
+  
+  <string name="links_search_hint">Αναζήτηση για σύνδεσμο</string>
+  <string name="open_link_with">Άνοιγμα συνδέσμου με</string>
+  
+  <!--SETTINGS strings-->
+  
+  <string name="general_settings">Γενικές ρυθμίσεις</string>
+  <string name="cache_settings">Ρυθμίσεις cache</string>
+  <string name="use_3g">Χρήση 3G</string>
+  <string name="use_3g_summary">Επιλογή για χρήση και 3G για λήψη δεδομένων ή απο-επιλογή για χρήση μόνο WiFi</string>
+  <string name="maint_username">Ψευδώνυμο maintainer</string>
+  <string name="refresh_interval">Διάστημα μεταξύ αυτόματης ανανέωσης</string>
+  <string name="cache_limit">Χρονικό όριο λήξης cache</string>
+  <string name="maint_username_sum">Ψευδώνυμο του Debian maintainer</string>
+  <string name="refresh_interval_sum">Διάστημα (σε δευτερόλεπτα) μεταξύ ελέγχων για νέα δεδομένα πακέτων η bugs.</string>
+  <string name="cache_limit_sum">Πόσες ώρες να κρατηθούν οι κατεβασμένες πληροφορίες στην cache</string>
+  <string name="clear_cache">Καθαρισμός της cache τώρα</string>
+  <string name="clear_cache_sum">Καθαρισμός όλων των cached πληροφοριών τώρα</string>
+  <string name="widget_settings">Ρυθμίσεις widget</string>
+  <string name="maint_email_sum">Το email του Debian maintainer της συσκευής αυτής</string>
+  <string name="maint_email">Email του maintainer</string>
+  <string name="widget_update_sum">Διάστημα (σε δευτερόλεπτα) μεταξύ ενημερώσεων του χρόνου στο dinstall widget</string>
+  <string name="similar_pckgs">Aναζήτηση όμοιων πακέτων</string>
+  <string name="similar_pckgs_summary">Κατά την αναζήτηση πληροφοριών για πακέτα ψάξε για παρόμοια ονόματα πακέτων πρώτα</string>
+  <string name="widget_interval">Διάστημα ενημέρωσης widget</string>
+  <string name="cache_cleared">Καθαρίστηκε η cache</string>
+  
+  <!--Widget strings-->
+  
+  <string name="debiandroid_widget">DebianDroid Widget</string>
+  <string name="widget_text">Επόμενο DInstall στις: <xliff:g id="timeutc" example="HH:mm:ss">%1$s</xliff:g> ή στις <xliff:g id="timelocal" example="HH:mm:ss">%2$s</xliff:g> (<xliff:g id="timezonelocal" example="SomeTimezone">%3$s</xliff:g>)</string>
+  
+  <!--Service strings-->
+  
+  <string name="connection_restored">Σύνδεση επαναφέρθηκε</string>
+  <string name="lost_connectivity">Σύνδεση χάθηκε, αλλαγή σε χρήση μόνο της cache.</string>
+  
+</resources>

@@ -20,8 +20,8 @@
     <string name="refresh">Refresh</string>
     <string name="subscribe">Subscribe</string>
     <string name="unsubscribe">Unsubscribe</string>
-    <string name="searching">Searching&#8230;</string>
-    <string name="searching_info_about">Searching info about <xliff:g id="name" example="somesearchvalue" >%1$s</xliff:g>. Please wait<xliff:g>&#8230;</xliff:g></string>
+    <string name="searching">Searching<xliff:g>&#8230;</xliff:g> </string>
+    <string name="searching_info_about">Searching info about <xliff:g id="name" example="somesearchvalue" >%1$s</xliff:g>. Please wait<xliff:g>&#8230;</xliff:g> </string>
     <string name="searching_info_please_wait">Searching info. Please wait<xliff:g>&#8230;</xliff:g> </string>
     <string name="no_info_found_for">No information found for</string>
     <string name="no_info_found">No information found</string>
@@ -37,7 +37,7 @@
         <xliff:g id="pckgBugCount" example="40">\n  %5$s\n\n</xliff:g>Uploaders:
         <xliff:g id="pckgUploaders" example="uploaderNames">\n  %6$s\n\n</xliff:g>Binary names:
         <xliff:g id="pckgBinNames" example="binNames">\n  %7$s</xliff:g>
-        </string>
+    </string>
     <string name="all_bugs">All Bugs (<xliff:g id="number" example="10" >%1$s</xliff:g>)</string>
     <string name="pts_search_hint">Type in package name</string>
     <string name="submit_new_bug_report">Submit new bug report</string>
