@@ -1,0 +1,6 @@
+[submodule "external/ckChangeLog"]
+	path = external/ckChangeLog
+	url = git@github.com:cketti/ckChangeLog.git
+[submodule "external/actionbarsherlock"]
+	path = external/actionbarsherlock
+	url = git@github.com:JakeWharton/ActionBarSherlock.git

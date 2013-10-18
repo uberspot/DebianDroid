@@ -5,14 +5,13 @@
 !libs/
 !LICENSE
 !.gitignore
+!.gitmodules
 !ic_launcher-web.png
 !assets/
 !AndroidManifest.xml
-!ckChangeLog/
-!actionbarsherlock/
+!external/
 !.classpath
 !screenshots/
 !makeSig.sh
 !DebianDroid.apk*
 !project.properties
-actionbarsherlock/bin/
