@@ -53,7 +53,7 @@ public class CIFFragment extends ItemDetailFragment {
             Bundle savedInstanceState) {
     	View rootView = inflater.inflate(R.layout.cif_fragment, container, false);
     	
-    	getSherlockActivity().getSupportActionBar().setTitle(getString(R.string.find_common_interests));
+    	getSherlockActivity().getSupportActionBar().setTitle(R.string.find_common_interests);
     	
     	udd = new UDD(getSherlockActivity());
     	searchButton = (ImageButton) rootView.findViewById(R.id.cifSearchButton);

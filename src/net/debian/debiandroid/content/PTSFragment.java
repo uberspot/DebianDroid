@@ -72,7 +72,7 @@ public class PTSFragment extends ItemDetailFragment {
             Bundle savedInstanceState) {
     	View rootView = inflater.inflate(R.layout.pts_fragment, container, false);
 
-    	getSherlockActivity().getSupportActionBar().setTitle(getString(R.string.search_packages));
+    	getSherlockActivity().getSupportActionBar().setTitle(R.string.search_packages);
     	
     	ptsPckgList = (ListView) rootView.findViewById(R.id.ptsPckgList);
     	
@@ -156,10 +156,10 @@ public class PTSFragment extends ItemDetailFragment {
 		subMenuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 	 	setSubscriptionIcon(subMenuItem, SearchCacher.getLastPckgName());
 		
-		menu.add(0, REFRESH_ID, Menu.CATEGORY_ALTERNATIVE, getString(R.string.refresh))
+		menu.add(0, REFRESH_ID, Menu.CATEGORY_ALTERNATIVE, R.string.refresh)
 				.setIcon(R.drawable.refresh)
 				.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-		menu.add(0, NEW_EMAIL_ID, Menu.CATEGORY_SECONDARY, getString(R.string.submit_new_bug_report))
+		menu.add(0, NEW_EMAIL_ID, Menu.CATEGORY_SECONDARY, R.string.submit_new_bug_report)
 				.setIcon(R.drawable.new_email)
 				.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 		
@@ -175,10 +175,10 @@ public class PTSFragment extends ItemDetailFragment {
 	public void setSubscriptionIcon(MenuItem subMenuItem, String pckgName) {
 		if(pckgName!=null && pts.isSubscribedTo(pckgName)) {
 			subMenuItem.setIcon(R.drawable.subscribed);
-			subMenuItem.setTitle(getString(R.string.unsubscribe));
+			subMenuItem.setTitle(R.string.unsubscribe);
 		} else {
 			subMenuItem.setIcon(R.drawable.unsubscribed);
-			subMenuItem.setTitle(getString(R.string.subscribe));
+			subMenuItem.setTitle(R.string.subscribe);
 		}
 	}
 	
@@ -190,11 +190,11 @@ public class PTSFragment extends ItemDetailFragment {
 		    		 	if(pckgName!=null) {
 				    		if(pts.isSubscribedTo(pckgName)) {
 				    			item.setIcon(R.drawable.unsubscribed);
-				    			item.setTitle(getString(R.string.subscribe));
+				    			item.setTitle(R.string.subscribe);
 				    			pts.removeSubscriptionTo(pckgName);
 				    		} else {
 				    			item.setIcon(R.drawable.subscribed);
-				    			item.setTitle(getString(R.string.unsubscribe));
+				    			item.setTitle(R.string.unsubscribe);
 				    			pts.addSubscriptionTo(pckgName);
 				    		}
 				    	}

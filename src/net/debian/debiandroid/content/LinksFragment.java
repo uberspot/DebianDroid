@@ -58,7 +58,7 @@ public class LinksFragment extends ItemDetailFragment {
 		View rootView = inflater.inflate(R.layout.links_fragment, container,
 				false);
 		
-		getSherlockActivity().getSupportActionBar().setTitle( getString(R.string.links) );
+		getSherlockActivity().getSupportActionBar().setTitle( R.string.links );
 		
 		linkSearchInput = (EditText) rootView.findViewById(R.id.linksInputSearch);
 		

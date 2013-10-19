@@ -68,8 +68,8 @@
     
     <!-- SUBS strings -->
     
-    <string name="subscribed_packages">Subscribed Packages</string>
-    <string name="subscribed_bugs">Subscribed Bugs</string>
+    <string name="subscribed_packages">Subscribed Packages (<xliff:g id="number" example="10">%1$s</xliff:g>)</string>
+    <string name="subscribed_bugs">Subscribed Bugs (<xliff:g id="number" example="10">%1$s</xliff:g>)</string>
     
     <!-- UDD strings -->
     

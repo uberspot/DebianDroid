@@ -122,7 +122,7 @@ public class SettingsActivity extends SherlockPreferenceActivity {
 		@Override
 		public boolean onPreferenceClick(Preference pref) {
 			new Cacher(pref.getContext()).clearCache(); 
-			Toast.makeText(pref.getContext(), pref.getContext().getString(R.string.cache_cleared), Toast.LENGTH_SHORT).show();
+			Toast.makeText(pref.getContext(), R.string.cache_cleared, Toast.LENGTH_SHORT).show();
 			return true;
 		}
 	};

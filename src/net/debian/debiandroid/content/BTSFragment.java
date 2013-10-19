@@ -72,7 +72,7 @@ public class BTSFragment extends ItemDetailFragment {
             Bundle savedInstanceState) {
     	View rootView = inflater.inflate(R.layout.bts_fragment, container, false);	
         
-    	getSherlockActivity().getSupportActionBar().setTitle(getString(R.string.search_bugs));
+    	getSherlockActivity().getSupportActionBar().setTitle(R.string.search_bugs);
     	
         searchOptionSelected = StorageUtils.getInstance(context).getPreference("btsSearchOption", getString(R.string.by_number));
         bugList = (ExpandableListView) rootView.findViewById(R.id.btsList);
@@ -207,11 +207,11 @@ public class BTSFragment extends ItemDetailFragment {
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		//Add subscription icon
-		MenuItem subMenuItem = menu.add(0, SUBSCRIPTION_ID, Menu.CATEGORY_SECONDARY, "(Un)Subscribe");
+		MenuItem subMenuItem = menu.add(0, SUBSCRIPTION_ID, Menu.CATEGORY_SECONDARY, "");
 		subMenuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 		setSubscriptionIcon(subMenuItem);
 		
-		menu.add(0, REFRESH_ID, Menu.CATEGORY_ALTERNATIVE, getString(R.string.refresh))
+		menu.add(0, REFRESH_ID, Menu.CATEGORY_ALTERNATIVE, R.string.refresh)
 				.setIcon(R.drawable.refresh)
 				.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 		
@@ -229,10 +229,10 @@ public class BTSFragment extends ItemDetailFragment {
 		 		SearchCacher.getLastBugSearchOption() + "|" + SearchCacher.getLastBugSearchValue();
 		if(SearchCacher.hasLastBugsSearch() && bts.isSubscribedTo(subscription)) {
 			subMenuItem.setIcon(R.drawable.subscribed);
-			subMenuItem.setTitle(getString(R.string.unsubscribe));
+			subMenuItem.setTitle(R.string.unsubscribe);
 		} else {
 			subMenuItem.setIcon(R.drawable.unsubscribed);
-			subMenuItem.setTitle(getString(R.string.subscribe));
+			subMenuItem.setTitle(R.string.subscribe);
 		}
 	}
 	
@@ -244,11 +244,11 @@ public class BTSFragment extends ItemDetailFragment {
 		    		 		SearchCacher.getLastBugSearchOption() + "|" + SearchCacher.getLastBugSearchValue();
 			    		if(bts.isSubscribedTo(subscription)) {
 			    			item.setIcon(R.drawable.unsubscribed);
-			    			item.setTitle(getString(R.string.subscribe));
+			    			item.setTitle(R.string.subscribe);
 			    			bts.removeSubscriptionTo(subscription);
 			    		} else {
 			    			item.setIcon(R.drawable.subscribed);
-			    			item.setTitle(getString(R.string.unsubscribe));
+			    			item.setTitle(R.string.unsubscribe);
 			    			bts.addSubscriptionTo(subscription);
 			    		}
 			    		return true;

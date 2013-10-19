@@ -33,7 +33,7 @@ public class UDDFragment extends ItemDetailFragment {
             Bundle savedInstanceState) {
     	View rootView = inflater.inflate(R.layout.udd_fragment, container, false);
   		
-    	getSherlockActivity().getSupportActionBar().setTitle(getString(R.string.udd));
+    	getSherlockActivity().getSupportActionBar().setTitle(R.string.udd);
     	
     	ArrayList<String> uddScripts = new ArrayList<String>(Arrays.asList(getString(R.string.rcbugs), 
     			getString(R.string.latest_uploads), getString(R.string.new_maintainers)));

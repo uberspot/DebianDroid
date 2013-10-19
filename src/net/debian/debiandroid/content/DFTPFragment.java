@@ -33,7 +33,7 @@ public class DFTPFragment extends ItemDetailFragment {
             Bundle savedInstanceState) {
     	View rootView = inflater.inflate(R.layout.dftp_fragment, container, false);
   		
-    	getSherlockActivity().getSupportActionBar().setTitle(getString(R.string.dftp));
+    	getSherlockActivity().getSupportActionBar().setTitle(R.string.dftp);
     	
     	ArrayList<String> dftpScripts = new ArrayList<String>(Arrays.asList(getString(R.string.new_packages), 
     			getString(R.string.removed_packages), getString(R.string.deferred_packages)));
