@@ -1,5 +1,7 @@
 package net.debian.debiandroid;
 
+import net.debian.debiandroid.broadcastreceivers.AlarmManagerBroadcastReceiver;
+
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 

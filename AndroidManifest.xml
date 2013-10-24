@@ -24,15 +24,13 @@
 		    <meta-data android:name="android.appwidget.provider"
 		               android:resource="@xml/ddwidget_info" />
 		</receiver>
-		<receiver android:name="net.debian.debiandroid.AlarmManagerBroadcastReceiver"/>
+		<receiver android:name="net.debian.debiandroid.broadcastreceivers.AlarmManagerBroadcastReceiver"/>
         <activity
             android:name="net.debian.debiandroid.ItemListActivity"
             android:label="@string/app_name" 
-            android:configChanges="orientation|keyboardHidden" 
-            >
+            android:configChanges="orientation|keyboardHidden" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
             <intent-filter>
@@ -64,6 +62,14 @@
                 android:value=".ItemListActivity" />
         </activity>
         <service android:name="net.debian.debiandroid.DDNotifyService" android:exported="false" />
+        <receiver
+            android:name="net.debian.debiandroid.broadcastreceivers.NetworkChangeReceiver"
+            android:label="NetworkChangeReceiver" >
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                <action android:name="android.net.wifi.WIFI_STATE_CHANGED" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

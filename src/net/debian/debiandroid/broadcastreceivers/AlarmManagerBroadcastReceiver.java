@@ -1,5 +1,6 @@
-package net.debian.debiandroid;
+package net.debian.debiandroid.broadcastreceivers;
 
+import net.debian.debiandroid.DebianDroidWidgetProvider;
 import net.debian.debiandroid.R;
 
 import android.appwidget.AppWidgetManager;

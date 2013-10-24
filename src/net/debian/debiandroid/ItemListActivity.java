@@ -83,18 +83,18 @@ public class ItemListActivity extends SherlockFragmentActivity
         SettingsActivity.loadSettings(getApplicationContext());
         
         // Start service that auto updates subscribed packages and notifies user
-        PendingIntent pintent = PendingIntent.getService(this, 0, new Intent(this, DDNotifyService.class), 0);
-
+        /*PendingIntent pintent = PendingIntent.getService(this, 0, new Intent(this, DDNotifyService.class), 0);
+        AlarmManager alarm = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+        // Start service again every 300 seconds
+        alarm.setRepeating(AlarmManager.RTC_WAKEUP, Calendar.getInstance().getTimeInMillis(), 300*1000, pintent);
+        */
+        
         // Show changelog if it's the first time a new version loads
         ChangeLog cl = new ChangeLog(this);
         if (cl.isFirstRun()) {
         	cl.getLogDialog().show();
         }
-        
-        AlarmManager alarm = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
-        // Start service again every 300 seconds
-        alarm.setRepeating(AlarmManager.RTC_WAKEUP, Calendar.getInstance().getTimeInMillis(), 300*1000, pintent);
-        
+
         // Check if app opened links to bugs.debian.org or packages.qa.debian.org 
         Intent intent = getIntent();
         if (Intent.ACTION_VIEW.equals(intent.getAction())) {

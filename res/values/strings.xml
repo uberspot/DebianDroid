@@ -120,7 +120,7 @@
     <!-- Widget strings -->
     
     <string name="debiandroid_widget">DebianDroid Widget</string>
-    <string name="widget_text">Next DInstall at: <xliff:g id="timeutc" example="HH:mm:ss">%1$s</xliff:g> or in <xliff:g id="timelocal" example="HH:mm:ss">%2$s</xliff:g> (<xliff:g id="timezonelocal" example="SomeTimezone">%3$s</xliff:g>)</string>
+    <string name="widget_text">Next DInstall at: <xliff:g id="timeutc" example="HH:mm:ss">%1$s</xliff:g> or in <xliff:g id="timelocal" example="HH:mm:ss">%2$s</xliff:g> hours (<xliff:g id="timezonelocal" example="SomeTimezone">%3$s</xliff:g>)</string>
     
     <!-- Service strings -->
     

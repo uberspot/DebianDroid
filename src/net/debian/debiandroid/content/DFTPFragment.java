@@ -10,6 +10,8 @@ import net.debian.debiandroid.apiLayer.DFTP;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +21,7 @@ import android.widget.ListView;
 
 import net.debian.debiandroid.R;
 
-public class DFTPFragment extends ItemDetailFragment {
+public class DFTPFragment extends ItemDetailFragment implements Handler.Callback {
 	
 	private DFTP dftp;
 	
@@ -107,5 +109,11 @@ public class DFTPFragment extends ItemDetailFragment {
 		    	getSherlockActivity().getSupportFragmentManager().beginTransaction()
 		    	.replace(R.id.item_detail_container, fragment).addToBackStack(null).commit();
 			}
+	}
+
+	@Override
+	public boolean handleMessage(Message msg) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }
