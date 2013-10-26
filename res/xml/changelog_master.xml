@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <changelog>
-    <release version="1.4" versioncode="55" >
+  <release version="1.5" versioncode="6" >
+      <change>Various minor fixes + code cleanup</change>
+      <change>Added Greek translation</change>
+      <change>Added Hard Refresh button in UDD, DFTP and in Common Interests. When pressed it ignores cache and always fetches fresh results</change>
+  </release>
+  <release version="1.4" versioncode="5" >
       <change>Fix crash in PTS menu item</change>
       <change>Add ckChangeLog to show changes on first load of updated app</change>
   </release>
