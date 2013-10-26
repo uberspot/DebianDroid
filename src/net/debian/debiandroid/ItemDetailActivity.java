@@ -75,11 +75,12 @@ public class ItemDetailActivity extends SherlockFragmentActivity {
         return gestureDetector.onTouchEvent(ev);
     } 
     
+    @Override 
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
     	//Forward the qrcode scan result to the corresponding CIFFragment
     	if (resultCode == RESULT_OK) {
 	    	ItemDetailFragment fragment = (ItemDetailFragment) getSupportFragmentManager().findFragmentById(R.id.item_detail_container);
-	    	if(ItemDetailFragment.currentFragmentID.equals(Content.CIF))
+	    	if(fragment != null && fragment.isAdded() && ItemDetailFragment.currentFragID.equals(Content.CIF))
 	    		fragment.onActivityResult(requestCode, resultCode, intent);
     	}
 	}
@@ -119,7 +120,7 @@ public class ItemDetailActivity extends SherlockFragmentActivity {
     
     @Override
     public void onDestroy() {
-    	ItemDetailFragment.currentFragmentID = "";
+    	ItemDetailFragment.currentFragID = "";
     	super.onDestroy();
     }
     
@@ -176,6 +177,4 @@ public class ItemDetailActivity extends SherlockFragmentActivity {
             return false;
         }
     }
-
-
 }

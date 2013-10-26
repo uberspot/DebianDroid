@@ -36,7 +36,7 @@ public class ItemDetailFragment extends SherlockFragment {
      * represents.
      */
     public static final String ARG_ITEM_ID = "item_id";
-    public static String currentFragmentID = "";
+    public static String currentFragID = "";
     public static final int SETTINGS_ID = Menu.FIRST+1;
     public static boolean isInListDisplayFrag = false;
 
@@ -54,7 +54,7 @@ public class ItemDetailFragment extends SherlockFragment {
         
         if (getArguments().containsKey(ARG_ITEM_ID)) {
             // Save current loaded fragments id
-            currentFragmentID = getArguments().getString(ARG_ITEM_ID);
+            currentFragID = getArguments().getString(ARG_ITEM_ID);
         }
     }
 
@@ -95,28 +95,28 @@ public class ItemDetailFragment extends SherlockFragment {
     }
 
     public static String getNextFragmentId(){
-    	if(currentFragmentID.equals("")) {
+    	if(currentFragID.equals("")) {
     		return Content.PTS;
     	}
-    	int position = Content.ITEMS.indexOf(new Content.ContentItem(currentFragmentID, ""));
+    	int position = Content.ITEMS.indexOf(new Content.ContentItem(currentFragID, ""));
     	
     	if(position++!=-1 && position<Content.ITEMS.size())
     		return Content.ITEMS.get(position).id;
-    	return currentFragmentID;
+    	return currentFragID;
     }
     
     public static String getPreviousFragmentId(){
-    	if(currentFragmentID.equals("")) {
+    	if(currentFragID.equals("")) {
     		return null;
     	}
-    	int position = Content.ITEMS.indexOf(new Content.ContentItem(currentFragmentID, ""));
+    	int position = Content.ITEMS.indexOf(new Content.ContentItem(currentFragID, ""));
     	// return to ItemListActivity and don't show fragments anymore
     	if(position==0) {
     		return null;
     	}
     	if(position--!=-1 && position>=0)
     		return Content.ITEMS.get(position).id;
-    	return currentFragmentID;
+    	return currentFragID;
     }
     
     @Override

@@ -39,7 +39,6 @@ import androidStorageUtils.StorageUtils;
 public class BTSFragment extends ItemDetailFragment {
 	
 	private Spinner spinner;
-	private ImageButton searchButton;
 	private String searchOptionSelected;
 	private EditText btsInput;
 	private ExpandableListView bugList;
@@ -71,7 +70,8 @@ public class BTSFragment extends ItemDetailFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
     	View rootView = inflater.inflate(R.layout.bts_fragment, container, false);	
-        
+    	
+    	setHasOptionsMenu(true);
     	getSherlockActivity().getSupportActionBar().setTitle(R.string.search_bugs);
     	
         searchOptionSelected = StorageUtils.getInstance(context).getPreference("btsSearchOption", getString(R.string.by_number));
@@ -86,7 +86,7 @@ public class BTSFragment extends ItemDetailFragment {
   				getString(R.string.with_status) }; 
   		setupSpinner();
   		
-  		searchButton = (ImageButton) rootView.findViewById(R.id.btsSearchButton);
+  		ImageButton searchButton = (ImageButton) rootView.findViewById(R.id.btsSearchButton);
   		searchButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
             	String input = btsInput.getText().toString().trim();
@@ -123,7 +123,7 @@ public class BTSFragment extends ItemDetailFragment {
 		spinner.setAdapter(new ArrayAdapter<String>(getActivity(), 
         				android.R.layout.simple_list_item_1, spinnerValues));
         
-		spinner.setSelection(getSelectedOption(spinnerValues, searchOptionSelected));
+		spinner.setSelection(getSelectedOption(searchOptionSelected));
 		spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
 		        public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 		        	searchOptionSelected = (String) parent.getItemAtPosition(pos);
@@ -196,9 +196,9 @@ public class BTSFragment extends ItemDetailFragment {
 	 * @param values
 	 * @return an int which is the position of the language in the values or 0 if it is not found
 	 */
-	private int getSelectedOption(String[] values, String selection) {
-		for(int i=0; i<values.length; i++){
-				if(values[i].equalsIgnoreCase(selection))
+	private int getSelectedOption(String selection) {
+		for(int i=0; i < spinnerValues.length; i++){
+				if(spinnerValues[i].equalsIgnoreCase( selection ))
 					return i;
 		}
 		return 0;
@@ -277,7 +277,7 @@ public class BTSFragment extends ItemDetailFragment {
 		protected Void doInBackground(Boolean... params) {
 			//If called with execute(true) set the cache to always bring fresh results
 			if(params.length!=0 && params[0]) {
-				Cacher.disableCache(); //Move to soap caller or api layer maybe
+				Cacher.disableCache();
 			}
 			// search and set bug data
 			bugListParentItems = new ArrayList<String>();
@@ -337,7 +337,7 @@ public class BTSFragment extends ItemDetailFragment {
 			}
 			if(SearchCacher.hasLastBugsSearch()) {
 				   btsInput.setText(SearchCacher.getLastBugSearchValue());
-			       spinner.setSelection(getSelectedOption(spinnerValues, 
+			       spinner.setSelection(getSelectedOption(
 			    			BTSParamToSpinnerOption(SearchCacher.getLastBugSearchOption())));
 			}
 			// If in android 3+ update the action bar menu so that 

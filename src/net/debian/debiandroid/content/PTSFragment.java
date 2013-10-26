@@ -72,6 +72,7 @@ public class PTSFragment extends ItemDetailFragment {
             Bundle savedInstanceState) {
     	View rootView = inflater.inflate(R.layout.pts_fragment, container, false);
 
+    	setHasOptionsMenu(true);
     	getSherlockActivity().getSupportActionBar().setTitle(R.string.search_packages);
     	
     	ptsPckgList = (ListView) rootView.findViewById(R.id.ptsPckgList);
