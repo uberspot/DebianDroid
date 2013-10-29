@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import net.debian.debiandroid.ItemDetailFragment;
+import net.debian.debiandroid.ItemFragment;
 
 import net.debian.debiandroid.R;
 
@@ -26,7 +26,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
-public class LinksFragment extends ItemDetailFragment {
+public class LinksFragment extends ItemFragment {
 	
 	private EditText linkSearchInput;
 	

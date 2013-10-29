@@ -13,7 +13,7 @@ import com.actionbarsherlock.app.SherlockListFragment;
  * A list fragment representing a list of Items. This fragment
  * also supports tablet devices by allowing list items to be given an
  * 'activated' state upon selection. This helps indicate which item is
- * currently being viewed in a {@link ItemDetailFragment}.
+ * currently being viewed in a {@link ItemFragment}.
  * <p>
  * Activities containing this fragment MUST implement the {@link Callbacks}
  * interface.

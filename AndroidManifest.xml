@@ -61,7 +61,9 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ItemListActivity" />
         </activity>
-        <service android:name="net.debian.debiandroid.DDNotifyService" android:exported="false" />
+        <service android:name="net.debian.debiandroid.DDNotifyService" 
+                 android:exported="false" 
+                 android:enabled="false"/>
         <receiver
             android:name="net.debian.debiandroid.broadcastreceivers.NetworkChangeReceiver"
             android:label="NetworkChangeReceiver" >

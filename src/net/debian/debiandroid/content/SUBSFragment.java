@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Set;
 
 import net.debian.debiandroid.DExpandableAdapter;
-import net.debian.debiandroid.ItemDetailFragment;
+import net.debian.debiandroid.ItemFragment;
 import net.debian.debiandroid.apiLayer.BTS;
 import net.debian.debiandroid.apiLayer.PTS;
 import net.debian.debiandroid.utils.SearchCacher;
@@ -20,7 +20,7 @@ import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.TextView;
 
-public class SUBSFragment extends ItemDetailFragment {
+public class SUBSFragment extends ItemFragment {
 
 	 private ArrayList<String> parentItems;
 	 private ArrayList<Object> childItems;
@@ -60,21 +60,13 @@ public class SUBSFragment extends ItemDetailFragment {
                 if(groupPosition==0) {
                 	SearchCacher.setLastSearchByPckgName(itemClicked);
                 	// Move to pts fragment
-          		  	ItemDetailFragment fragment = ItemDetailFragment.getDetailFragment(
-          				  Content.PTS);
-	          		getActivity().getSupportFragmentManager().beginTransaction()
-	              	.replace(R.id.item_detail_container, fragment)
-	              	.commit();
+	          		ItemFragment.moveToFragment(getActivity().getSupportFragmentManager(), Content.PTS, null);
                 } else if(groupPosition==1) {
                 	String[] items = itemClicked.split("\\|");
                 	if(items.length>1) {
 	                	SearchCacher.setLastBugSearch(items[0], items[1]);
 	                	// Move to bts fragment
-	          		  	ItemDetailFragment fragment = ItemDetailFragment.getDetailFragment(
-	          				  Content.BTS);
-		          		getActivity().getSupportFragmentManager().beginTransaction()
-		              	.replace(R.id.item_detail_container, fragment)
-		              	.commit();
+	                	ItemFragment.moveToFragment(getActivity().getSupportFragmentManager(), Content.BTS, null);
 	          		}
                 }
                 return true;

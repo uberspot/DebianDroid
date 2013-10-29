@@ -3,9 +3,13 @@ package net.debian.debiandroid.content;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import net.debian.debiandroid.ItemDetailFragment;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
+
+import net.debian.debiandroid.ItemFragment;
 import net.debian.debiandroid.ListDisplayFragment;
+import net.debian.debiandroid.apiLayer.BTS;
 import net.debian.debiandroid.apiLayer.UDD;
+import net.debian.debiandroid.utils.SearchCacher;
 
 import net.debian.debiandroid.R;
 
@@ -25,7 +29,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import androidStorageUtils.Cacher;
 
-public class UDDFragment extends ItemDetailFragment {
+public class UDDFragment extends ItemFragment {
 	
 	private String itemSelected;
 	
@@ -39,16 +43,42 @@ public class UDDFragment extends ItemDetailFragment {
 	private BroadcastReceiver mUpdateUIReceiver = new BroadcastReceiver() {
 	    @Override
 	    public void onReceive(Context context, Intent intent) {
-	    	if(currentFragID.equals(Content.UDD)) {
-		    	// Pop listdisplayfragment from backstack
-				if(ItemDetailFragment.isInListDisplayFrag) {
-					getSherlockActivity().getSupportFragmentManager().popBackStack();
+	    	if(currentFragID.equals(Content.UDD)) {	
+	    		if(ItemFragment.isInListDisplayFrag) {
+	    			SherlockFragmentActivity sa = getSherlockActivity();
+					if(sa != null) {
+						// Process the received action
+						String action = intent.getStringExtra(ListDisplayFragment.LIST_ACTION);
+						if(action.equals(ListDisplayFragment.REFRESH_ACTION)) {
+							// Pop listdisplayfragment from backstack
+							sa.getSupportFragmentManager().popBackStack();
+							itemSelected = intent.getStringExtra(ListDisplayFragment.LIST_TITLE_ID);
+							new SearchInfoTask().execute(true);
+						}
+						if(action.equals(ListDisplayFragment.ITEM_CLICK_ACTION)) {
+							itemSelected = intent.getStringExtra(ListDisplayFragment.LIST_TITLE_ID);
+							String itemClicked = intent.getStringExtra(ListDisplayFragment.ITEM_CLICKED);
+							if(itemSelected.equals(context.getString(R.string.rcbugs))) {
+								// Pop listdisplayfragment from backstack
+								sa.getSupportFragmentManager().popBackStack();
+								// get PckgName and BugNum from title and move to bts fragment to display it
+								String pckgName = UDD.getPckgNameFromRCBugTitle(itemClicked);
+								String bugNum = UDD.getBugNumFromRCBugTitle(itemClicked);
+								SearchCacher.setLastSearchByPckgName(pckgName);
+								SearchCacher.setLastBugSearch(BTS.BUGNUMBER, bugNum);
+								moveToFragment(sa.getSupportFragmentManager(), Content.BTS, null);
+							} else if (itemSelected.equals(context.getString(R.string.latest_uploads))){
+								// Pop listdisplayfragment from backstack
+								sa.getSupportFragmentManager().popBackStack();
+								//get PckgName from title and move to pts fragment to display it
+								String pckgName = UDD.getPckgNameFromUploadsTitle(itemClicked);
+								SearchCacher.setLastSearchByPckgName(pckgName);
+					          	moveToFragment(sa.getSupportFragmentManager(), Content.PTS, null);
+							}
+						}
+					}
 				}
-				String action = intent.getStringExtra(ListDisplayFragment.LIST_ACTION);
-				if(action.equals(ListDisplayFragment.REFRESH_ACTION)) {
-					itemSelected = intent.getStringExtra(ListDisplayFragment.LIST_TITLE_ID);
-					new SearchInfoTask().execute(true);
-				}
+				
 			}
 	    }
 	};
@@ -142,13 +172,8 @@ public class UDDFragment extends ItemDetailFragment {
 				} else {
 					return;
 				}
-				ItemDetailFragment fragment = new ListDisplayFragment();
 				
-				if(arguments != null)
-					fragment.setArguments(arguments);
-				
-		    	getSherlockActivity().getSupportFragmentManager().beginTransaction()
-		    	.replace(R.id.item_detail_container, fragment).addToBackStack(null).commit();
+				ListDisplayFragment.loadAndShow(getSherlockActivity().getSupportFragmentManager(), arguments);
 			}
 	}
 }

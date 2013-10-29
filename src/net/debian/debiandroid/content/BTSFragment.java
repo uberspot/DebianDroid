@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import net.debian.debiandroid.DExpandableAdapter;
-import net.debian.debiandroid.ItemDetailFragment;
+import net.debian.debiandroid.ItemFragment;
 import net.debian.debiandroid.apiLayer.BTS;
 import net.debian.debiandroid.utils.SearchCacher;
 
@@ -36,7 +36,7 @@ import android.widget.TextView.OnEditorActionListener;
 import androidStorageUtils.Cacher;
 import androidStorageUtils.StorageUtils;
 
-public class BTSFragment extends ItemDetailFragment {
+public class BTSFragment extends ItemFragment {
 	
 	private Spinner spinner;
 	private String searchOptionSelected;

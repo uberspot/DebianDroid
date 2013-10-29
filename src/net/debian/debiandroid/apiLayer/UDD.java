@@ -73,4 +73,22 @@ public class UDD extends HTTPCaller {
 						"overlapping_interests.cgi?deva="+devamail+"&devb="+devbmail).trim().replaceAll(",", " ")
 						.split("\n");
 	}
+	
+	public static String getBugNumFromRCBugTitle(String title) {
+		if(title!=null && title.length()!=0)
+			return title.split(" ")[0];
+		return title;
+	}
+	
+	public static String getPckgNameFromRCBugTitle(String title) {
+		if(title!=null && title.length()!=0 && title.contains(" "))
+			return title.split(" ")[1];
+		return title;
+	}
+	
+	public static String getPckgNameFromUploadsTitle(String title) {
+		if(title!=null && title.length()!=0)
+			return title.split(" ")[0];
+		return title;
+	}
 }

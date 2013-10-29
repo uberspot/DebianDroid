@@ -9,6 +9,7 @@ import net.debian.debiandroid.R;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.NavUtils;
 import android.support.v4.view.GestureDetectorCompat;
 import android.view.GestureDetector;
@@ -21,7 +22,7 @@ import android.view.MotionEvent;
  * in a {@link ItemListActivity}.
  * <p>
  * This activity is mostly just a 'shell' activity containing nothing
- * more than a {@link ItemDetailFragment}.
+ * more than a {@link ItemFragment}.
  */
 public class ItemDetailActivity extends SherlockFragmentActivity {
 
@@ -49,9 +50,9 @@ public class ItemDetailActivity extends SherlockFragmentActivity {
             // using a fragment transaction.
 
             Bundle arguments = new Bundle();
-            String extra = getIntent().getStringExtra(ItemDetailFragment.ARG_ITEM_ID);
-            arguments.putString(ItemDetailFragment.ARG_ITEM_ID, extra);
-            ItemDetailFragment fragment = ItemDetailFragment.getDetailFragment(extra);
+            String extra = getIntent().getStringExtra(ItemFragment.ARG_ITEM_ID);
+            arguments.putString(ItemFragment.ARG_ITEM_ID, extra);
+            ItemFragment fragment = ItemFragment.getDetailFragment(extra);
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.item_detail_container, fragment)
@@ -79,8 +80,8 @@ public class ItemDetailActivity extends SherlockFragmentActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
     	//Forward the qrcode scan result to the corresponding CIFFragment
     	if (resultCode == RESULT_OK) {
-	    	ItemDetailFragment fragment = (ItemDetailFragment) getSupportFragmentManager().findFragmentById(R.id.item_detail_container);
-	    	if(fragment != null && fragment.isAdded() && ItemDetailFragment.currentFragID.equals(Content.CIF))
+	    	ItemFragment fragment = (ItemFragment) getSupportFragmentManager().findFragmentById(R.id.item_detail_container);
+	    	if(fragment != null && fragment.isAdded() && ItemFragment.currentFragID.equals(Content.CIF))
 	    		fragment.onActivityResult(requestCode, resultCode, intent);
     	}
 	}
@@ -89,38 +90,21 @@ public class ItemDetailActivity extends SherlockFragmentActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-            	if(ItemDetailFragment.isInListDisplayFrag)
-            		getSupportFragmentManager().popBackStack();
-            	else
+            	if(ItemFragment.isInListDisplayFrag) {
+					FragmentManager fm = getSupportFragmentManager();
+					if(fm != null) {
+						fm.popBackStack();
+					}
+				} else
             		NavUtils.navigateUpTo(this, new Intent(this, ItemListActivity.class));
                 return true;
        }
         return super.onOptionsItemSelected(item);
     } 
     
-    public void swipeRight(){
-    	String fragmentID = ItemDetailFragment.getPreviousFragmentId();
-    	if(fragmentID==null) {
-    		finish();
-    	} else {
-	    	ItemDetailFragment fragment = ItemDetailFragment.getDetailFragment(fragmentID);
-	    	getSupportFragmentManager().beginTransaction()
-	    	.replace(R.id.item_detail_container, fragment)
-	    	.commit();
-    	}
-    }
-    
-    public void swipeLeft(){
-    	ItemDetailFragment fragment = ItemDetailFragment.getDetailFragment(
-    			ItemDetailFragment.getNextFragmentId());
-    	getSupportFragmentManager().beginTransaction()
-    	.replace(R.id.item_detail_container, fragment)
-    	.commit();
-    }
-    
     @Override
     public void onDestroy() {
-    	ItemDetailFragment.currentFragID = "";
+    	ItemFragment.currentFragID = "";
     	super.onDestroy();
     }
     
@@ -148,7 +132,7 @@ public class ItemDetailActivity extends SherlockFragmentActivity {
         
         @Override
         public boolean onFling(MotionEvent event1, MotionEvent event2, float velocityX, float velocityY) {
-        	if(ItemDetailFragment.isInListDisplayFrag)
+        	if(ItemFragment.isInListDisplayFrag)
         		return false;
             try {
                 float diffY = event2.getY() - event1.getY();
@@ -156,9 +140,19 @@ public class ItemDetailActivity extends SherlockFragmentActivity {
                 if (Math.abs(diffX) > Math.abs(diffY)) {
                     if (Math.abs(diffX) > SWIPE_THRESHOLD && Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
                         if (diffX > 0) {
-                            swipeRight();
+                        	// Swipe right
+                        	String fragmentID = ItemFragment.getPreviousFragmentId();
+                        	if(fragmentID==null) {
+                        		finish();
+                        	} else {
+                        		ItemFragment.moveToFragment(
+                        				getSupportFragmentManager(), 
+                        				fragmentID, null);
+                        	}
                         } else {
-                        	swipeLeft();
+                        	// Swipe left
+                        	ItemFragment.moveToFragment(getSupportFragmentManager(), 
+                        			ItemFragment.getNextFragmentId(), null);
                         }
                         return true;
                     }

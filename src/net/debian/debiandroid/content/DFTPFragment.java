@@ -3,9 +3,12 @@ package net.debian.debiandroid.content;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import net.debian.debiandroid.ItemDetailFragment;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
+
+import net.debian.debiandroid.ItemFragment;
 import net.debian.debiandroid.ListDisplayFragment;
 import net.debian.debiandroid.apiLayer.DFTP;
+import net.debian.debiandroid.utils.SearchCacher;
 
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
@@ -25,7 +28,7 @@ import androidStorageUtils.Cacher;
 
 import net.debian.debiandroid.R;
 
-public class DFTPFragment extends ItemDetailFragment {
+public class DFTPFragment extends ItemFragment {
 	
 	private String itemSelected;
 	
@@ -39,17 +42,35 @@ public class DFTPFragment extends ItemDetailFragment {
 	private BroadcastReceiver mUpdateUIReceiver = new BroadcastReceiver() {
 	    @Override
 	    public void onReceive(Context context, Intent intent) {
-	    	if(currentFragID.equals(Content.DFTP)) {
-		    	// Pop listdisplayfragment from backstack
-				if(ItemDetailFragment.isInListDisplayFrag) {
-					getSherlockActivity().getSupportFragmentManager().popBackStack();
+	    	if(currentFragID.equals(Content.DFTP)) {	
+	    		if(ItemFragment.isInListDisplayFrag) {
+	    			SherlockFragmentActivity sa = getSherlockActivity();
+					if(sa != null) {
+						// Process the received action
+						String action = intent.getStringExtra(ListDisplayFragment.LIST_ACTION);
+						if(action.equals(ListDisplayFragment.REFRESH_ACTION)) {
+							// Pop listdisplayfragment from backstack
+							sa.getSupportFragmentManager().popBackStack();
+							itemSelected = intent.getStringExtra(ListDisplayFragment.LIST_TITLE_ID);
+							new SearchInfoTask().execute(true);
+						}
+						if(action.equals(ListDisplayFragment.ITEM_CLICK_ACTION)) {
+							itemSelected = intent.getStringExtra(ListDisplayFragment.LIST_TITLE_ID);
+							String itemClicked = intent.getStringExtra(ListDisplayFragment.ITEM_CLICKED);
+							if(itemSelected.equals(context.getString(R.string.new_packages)) ||
+									itemSelected.equals(context.getString(R.string.deferred_packages))){
+								// Pop listdisplayfragment from backstack
+								sa.getSupportFragmentManager().popBackStack();
+								//get PckgName from title and move to pts fragment to display it
+								String pckgName = DFTP.getPckgNameFromTitle(itemClicked);
+								SearchCacher.setLastSearchByPckgName(pckgName);
+					          	moveToFragment(sa.getSupportFragmentManager(), Content.PTS, null);
+							}
+						}
+					}
 				}
-				String action = intent.getStringExtra(ListDisplayFragment.LIST_ACTION);
-				if(action.equals(ListDisplayFragment.REFRESH_ACTION)) {
-					itemSelected = intent.getStringExtra(ListDisplayFragment.LIST_TITLE_ID);
-					new SearchInfoTask().execute(true);
-				}
-	    	}
+				
+			}
 	    }
 	};
 	
@@ -145,15 +166,8 @@ public class DFTPFragment extends ItemDetailFragment {
 			} else {
 				return;
 			}
-			ItemDetailFragment fragment = new ListDisplayFragment();
 			
-			if(arguments != null)
-				fragment.setArguments(arguments);
-
-			getSherlockActivity().getSupportFragmentManager()
-					.beginTransaction()
-					.replace(R.id.item_detail_container, fragment)
-					.addToBackStack(null).commit();
+			ListDisplayFragment.loadAndShow(getSherlockActivity().getSupportFragmentManager(), arguments);
 		}
 	}
 }

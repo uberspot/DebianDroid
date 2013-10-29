@@ -20,6 +20,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GestureDetectorCompat;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -35,7 +36,7 @@ import android.view.MotionEvent;
  * <p>
  * The activity makes heavy use of fragments. The list of items is a
  * {@link ItemListFragment} and the item details
- * (if present) is a {@link ItemDetailFragment}.
+ * (if present) is a {@link ItemFragment}.
  * <p>
  * This activity also implements the required
  * {@link ItemListFragment.Callbacks} interface
@@ -154,8 +155,8 @@ public class ItemListActivity extends SherlockFragmentActivity
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
     	if (mTwoPane) {
 	    	//Forward the qrcode scan result to the corresponding CIFFragment
-	    	ItemDetailFragment fragment = (ItemDetailFragment) getSupportFragmentManager().findFragmentById(R.id.item_detail_container);
-	    	if(fragment != null && fragment.isAdded() && ItemDetailFragment.currentFragID.equals(Content.CIF))
+	    	ItemFragment fragment = (ItemFragment) getSupportFragmentManager().findFragmentById(R.id.item_detail_container);
+	    	if(fragment != null && fragment.isAdded() && ItemFragment.currentFragID.equals(Content.CIF))
 	    		fragment.onActivityResult(requestCode, resultCode, intent);
     	}
 	}
@@ -172,23 +173,27 @@ public class ItemListActivity extends SherlockFragmentActivity
             // In two-pane mode, show the detail view in this activity by
             // adding or replacing the detail fragment using a
             // fragment transaction.
-    		if(ItemDetailFragment.isInListDisplayFrag) {
-    			getSupportFragmentManager().popBackStack();
-    		}
+    		if(ItemFragment.isInListDisplayFrag) {
+				FragmentManager fm = getSupportFragmentManager();
+				if(fm != null) {
+					fm.popBackStack();
+				}
+			}
     		
-            ItemDetailFragment fragment = ItemDetailFragment.getDetailFragment(id);
+    		ItemFragment fragment = ItemFragment.getDetailFragment(id);
             Bundle arguments = new Bundle();
-            arguments.putString(ItemDetailFragment.ARG_ITEM_ID, id);
+            arguments.putString(ItemFragment.ARG_ITEM_ID, id);
         	fragment.setArguments(arguments);
         	
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.item_detail_container, fragment)
                     .commit();
+            
         } else {
             // In single-pane mode, simply start the detail activity
             // for the selected item ID.
             Intent detailIntent = new Intent(this, ItemDetailActivity.class);
-            detailIntent.putExtra(ItemDetailFragment.ARG_ITEM_ID, id);
+            detailIntent.putExtra(ItemFragment.ARG_ITEM_ID, id);
             startActivity(detailIntent);
         }
     }
@@ -205,7 +210,7 @@ class SwipeListener extends GestureDetector.SimpleOnGestureListener {
         
         @Override
         public boolean onFling(MotionEvent event1, MotionEvent event2, float velocityX, float velocityY) {
-        	if(ItemDetailFragment.isInListDisplayFrag)
+        	if(ItemFragment.isInListDisplayFrag)
         		return false;
             try {
                 float diffY = event2.getY() - event1.getY();
@@ -214,12 +219,12 @@ class SwipeListener extends GestureDetector.SimpleOnGestureListener {
                     if (Math.abs(diffX) > SWIPE_THRESHOLD && Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
                         if (diffX > 0) {
                         	// Swipe right
-                        	String fragmentID = ItemDetailFragment.getPreviousFragmentId();
+                        	String fragmentID = ItemFragment.getPreviousFragmentId();
                         	if(fragmentID!=null)
                         		onItemSelected(fragmentID);
                         } else {
                         	// Swipe left
-                        	String fragmentID = ItemDetailFragment.getNextFragmentId();
+                        	String fragmentID = ItemFragment.getNextFragmentId();
                         	if(fragmentID!=null)
                         		onItemSelected(fragmentID);
                         }
@@ -244,7 +249,7 @@ class SwipeListener extends GestureDetector.SimpleOnGestureListener {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		if (!mTwoPane) {
-		    ItemDetailFragment.getSettingsMenuItem(menu);
+		    ItemFragment.getSettingsMenuItem(menu);
 		    return true;
 		}
 	    return false;
@@ -254,7 +259,7 @@ class SwipeListener extends GestureDetector.SimpleOnGestureListener {
     public boolean onOptionsItemSelected(MenuItem item) {
 		if (!mTwoPane) {
 	    	 switch(item.getItemId()){
-		    	 case ItemDetailFragment.SETTINGS_ID: 
+		    	 case ItemFragment.SETTINGS_ID: 
 		    		 startActivity(new Intent(this, SettingsActivity.class));
 		        	return true;
 	        }

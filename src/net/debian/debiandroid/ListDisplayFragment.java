@@ -12,13 +12,15 @@ import net.debian.debiandroid.R;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.content.LocalBroadcastManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
-import android.widget.ExpandableListView.OnChildClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 
 /**
  * A fragment that displays some items in an expandable list.
@@ -56,7 +58,7 @@ import android.widget.ExpandableListView.OnChildClickListener;
 	};
  * 
  */
-public class ListDisplayFragment extends ItemDetailFragment {
+public class ListDisplayFragment extends ItemFragment {
 	
 	public static final int REFRESH_ID = Menu.FIRST+2;
 	
@@ -64,7 +66,11 @@ public class ListDisplayFragment extends ItemDetailFragment {
 							   LIST_HEADER_ID = "listHeaderID",
 							   LIST_TITLE_ID = "listTitleID",
 							   REFRESH_ACTION = "refresh",
+							   ITEM_CLICKED = "item",
+							   ITEM_CLICK_ACTION = "itemClick",
 							   LIST_ACTION = "listAction";
+	
+	private ArrayList<String> parentItems; 
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -93,9 +99,10 @@ public class ListDisplayFragment extends ItemDetailFragment {
     		header.setText(args.getString(LIST_HEADER_ID));
         }
     	
-    	if(!listItems.isEmpty())
-    		setupList((ExpandableListView) rootView.findViewById(R.id.listdisplayexpListView), listItems);
-		
+    	ExpandableListView view = (ExpandableListView) rootView.findViewById(R.id.listdisplayexpListView); 
+    	if(!listItems.isEmpty() && view !=null) {
+    		setupList(view, listItems);
+    	}
         return rootView;
     }
 	
@@ -132,7 +139,7 @@ public class ListDisplayFragment extends ItemDetailFragment {
     	expandableList.setDividerHeight(2);
     	expandableList.setClickable(true);
     	
-    	ArrayList<String> parentItems = listItems.get(0);
+    	parentItems = listItems.get(0);
     	ArrayList<Object> childItems = new ArrayList<Object>();
     	for(String detail : listItems.get(1)) {
     		childItems.add(new ArrayList<String>(Arrays.asList(detail)));
@@ -142,15 +149,44 @@ public class ListDisplayFragment extends ItemDetailFragment {
     	adapter.setInflater((LayoutInflater) getSherlockActivity()
     						.getSystemService(Context.LAYOUT_INFLATER_SERVICE));
     	expandableList.setAdapter(adapter);
+    	
     	registerForContextMenu(expandableList);
-    	expandableList.setOnChildClickListener(new OnChildClickListener() {
-    		
-            public boolean onChildClick(ExpandableListView parent, View view,
-                    int groupPosition, int childPosition, long id) {
-            	// String itemClicked = ((TextView)view).getText().toString();
-                // TODO: if bug or package is selected forward to corresponding fragment via callbacks
-                return true;
-            }
-        });
+    	
+    	expandableList.setOnItemLongClickListener(new OnItemLongClickListener(){
+
+			@Override
+			public boolean onItemLongClick(AdapterView<?> parent, View childView, int flatPos, long id) {
+				if (ExpandableListView.getPackedPositionType(id) == ExpandableListView.PACKED_POSITION_TYPE_CHILD) {
+                    long packedPos = ((ExpandableListView) parent).getExpandableListPosition(flatPos);
+                    int groupPosition = ExpandableListView.getPackedPositionGroup(packedPos);
+                    
+                    String itemClicked = parentItems.get(groupPosition);
+                    
+                    // If bug or package is selected forward to corresponding fragment via callbacks
+                	if(itemClicked!=null && itemClicked.length()!=0) {
+    	            	Intent i = new Intent(LIST_ACTION);
+    		    		i.putExtra(LIST_ACTION, ITEM_CLICK_ACTION);
+    		    		i.putExtra(ListDisplayFragment.LIST_TITLE_ID, 
+   		    				 getSherlockActivity().getSupportActionBar().getTitle().toString());
+    		    		i.putExtra(ITEM_CLICKED, itemClicked);
+    		    		LocalBroadcastManager.getInstance(getSherlockActivity()).sendBroadcast(i);
+    		    		return true;
+    	    		}
+                	
+                    return true;
+				}
+				return false;
+			}});
+    	
+	}
+
+	public static void loadAndShow(FragmentManager fm, Bundle arguments) {
+		ItemFragment fragment = new ListDisplayFragment();
+		if(arguments != null)
+			fragment.setArguments(arguments);
+
+		fm.beginTransaction()
+		  .replace(R.id.item_detail_container, fragment)
+		  .addToBackStack(null).commit();
 	}
 }

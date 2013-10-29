@@ -12,6 +12,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +31,7 @@ import net.debian.debiandroid.R;
  * in two-pane mode (on tablets) or a {@link ItemDetailActivity}
  * on handsets.
  */
-public class ItemDetailFragment extends SherlockFragment {
+public class ItemFragment extends SherlockFragment {
     /**
      * The fragment argument representing the item ID that this fragment
      * represents.
@@ -44,7 +45,7 @@ public class ItemDetailFragment extends SherlockFragment {
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public ItemDetailFragment() {
+    public ItemFragment() {
     }
 
     @Override
@@ -69,10 +70,10 @@ public class ItemDetailFragment extends SherlockFragment {
      * @param id a string containing the ContentMenu.Item describing the fragment to be returned
      * @return 
      */
-    public static ItemDetailFragment getDetailFragment(String id){
+    public static ItemFragment getDetailFragment(String id){
     	Bundle arguments = new Bundle();
-        arguments.putString(ItemDetailFragment.ARG_ITEM_ID, id);
-        ItemDetailFragment fragment;
+        arguments.putString(ItemFragment.ARG_ITEM_ID, id);
+        ItemFragment fragment;
     	if(id.equalsIgnoreCase(Content.BTS))
     		fragment = new BTSFragment();
     	else if(id.equalsIgnoreCase(Content.PTS))
@@ -88,7 +89,7 @@ public class ItemDetailFragment extends SherlockFragment {
     	else if(id.equalsIgnoreCase(Content.LINKS))
     		fragment = new LinksFragment();
     	else
-    		fragment = new ItemDetailFragment();
+    		fragment = new ItemFragment();
     	fragment.setArguments(arguments);
     	fragment.setHasOptionsMenu(true);
     	return fragment;
@@ -158,5 +159,14 @@ public class ItemDetailFragment extends SherlockFragment {
 		
 		/* Send it off to the Activity-Chooser */
 		context.startActivity(Intent.createChooser(emailIntent, "Send mail..."));
+    }
+    
+    public static void moveToFragment(FragmentManager fm, String fragID, Bundle arguments) {
+    	ItemFragment fragment = getDetailFragment( fragID);
+    	if(arguments!=null) {
+    		fragment.setArguments(arguments);
+    	}
+    	fm.beginTransaction().replace(R.id.item_detail_container, fragment)
+        	.commit();
     }
 }

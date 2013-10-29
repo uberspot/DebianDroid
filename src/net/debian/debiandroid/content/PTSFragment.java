@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import net.debian.debiandroid.DExpandableAdapter;
-import net.debian.debiandroid.ItemDetailFragment;
+import net.debian.debiandroid.ItemFragment;
 import net.debian.debiandroid.apiLayer.BTS;
 import net.debian.debiandroid.apiLayer.PTS;
 import net.debian.debiandroid.utils.SearchCacher;
@@ -38,7 +38,7 @@ import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.TextView.OnEditorActionListener;
 import androidStorageUtils.Cacher;
 
-public class PTSFragment extends ItemDetailFragment {
+public class PTSFragment extends ItemFragment {
 
 	private EditText ptsInput;
 	private PTS pts;
@@ -128,11 +128,7 @@ public class PTSFragment extends ItemDetailFragment {
 	                //save search by bug num
 	                SearchCacher.setLastBugSearch(BTS.BUGNUMBER, itemClicked);
 	                // Move to bts fragment
-	      		  	ItemDetailFragment fragment = ItemDetailFragment.getDetailFragment(
-	      				  Content.BTS);
-	          		getActivity().getSupportFragmentManager().beginTransaction()
-	              	.replace(R.id.item_detail_container, fragment)
-	              	.commit();
+	          		ItemFragment.moveToFragment(getActivity().getSupportFragmentManager(), Content.BTS, null);
             	}
                 return true;
             }
