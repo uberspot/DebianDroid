@@ -29,9 +29,9 @@ This Debian Android app started as part of Google Summer of Code 2013. It's an A
 ##TODO
  
  1. Show info from http://qa.debian.org/madison.php?package=vim&table=debian&a=&c=&s=#
- 2. Add hard refresh button to listDisplayFragment
+ 2. Add option to autocollapse everything and leave only one group expanded in all expandable lists
  3. Show pending packages
- 4. Add time limit for pts searches in case there is too much data and not enough memory in device
+ 4. Add buildd log info (? https://buildd.debian.org/ ?)
  5. Add extra parameters to bug search fragment with an +(add) button for more complicated searches
  6. Add clear favourites button in favourites fragment or in options
  7. Notifies user about new mails in bug reports he made, he contributed to or in bugs he is subscribed to and about new package news to packages he maintains or is subscribed to etc
@@ -46,7 +46,6 @@ This Debian Android app started as part of Google Summer of Code 2013. It's an A
  16. Full-text search on package names like in http://packages.debian.org/search?keywords=%s
  17. Translate to other languages. https://www.transifex.com/projects/p/debiandroid/
  18. Alerts you about a bug report you wanted to send, like a "bug report" reminder. Maybe with a button like "report bug in x time"
- 19. Add buildd log info (? https://buildd.debian.org/ ?)
 
 ##Permissions explained
 

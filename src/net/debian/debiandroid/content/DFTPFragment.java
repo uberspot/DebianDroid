@@ -64,7 +64,7 @@ public class DFTPFragment extends ItemFragment {
 								//get PckgName from title and move to pts fragment to display it
 								String pckgName = DFTP.getPckgNameFromTitle(itemClicked);
 								SearchCacher.setLastSearchByPckgName(pckgName);
-					          	moveToFragment(sa.getSupportFragmentManager(), Content.PTS, null);
+					          	moveToFragment(sa.getSupportFragmentManager(), Content.PTS, null, true);
 							}
 						}
 					}

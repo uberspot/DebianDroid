@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -161,12 +162,24 @@ public class ItemFragment extends SherlockFragment {
 		context.startActivity(Intent.createChooser(emailIntent, "Send mail..."));
     }
     
-    public static void moveToFragment(FragmentManager fm, String fragID, Bundle arguments) {
-    	ItemFragment fragment = getDetailFragment( fragID);
-    	if(arguments!=null) {
-    		fragment.setArguments(arguments);
+    public static void moveToFragment(FragmentManager fm, String fragID, Bundle arguments, boolean goesLeft) {
+    	if( !fragID.equals(currentFragID) ) {
+	    	ItemFragment fragment = getDetailFragment( fragID);
+	    	if(arguments!=null) {
+	    		fragment.setArguments(arguments);
+	    	}
+	    	FragmentTransaction ft = fm.beginTransaction();
+	    	if(goesLeft) {
+	    		ft.setCustomAnimations(
+	    				R.anim.push_left_in, R.anim.push_left_out,
+	                    R.anim.push_right_in, R.anim.push_right_out);
+	    	} else {
+	    		ft.setCustomAnimations(
+	                    R.anim.push_right_in, R.anim.push_right_out,
+	                    R.anim.push_left_in, R.anim.push_left_out);
+	    	}
+	    	ft.replace(R.id.item_detail_container, fragment)
+	        	.commit();
     	}
-    	fm.beginTransaction().replace(R.id.item_detail_container, fragment)
-        	.commit();
     }
 }

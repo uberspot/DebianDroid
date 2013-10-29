@@ -128,7 +128,7 @@ public class PTSFragment extends ItemFragment {
 	                //save search by bug num
 	                SearchCacher.setLastBugSearch(BTS.BUGNUMBER, itemClicked);
 	                // Move to bts fragment
-	          		ItemFragment.moveToFragment(getActivity().getSupportFragmentManager(), Content.BTS, null);
+	          		ItemFragment.moveToFragment(getActivity().getSupportFragmentManager(), Content.BTS, null, false);
             	}
                 return true;
             }

@@ -147,12 +147,12 @@ public class ItemDetailActivity extends SherlockFragmentActivity {
                         	} else {
                         		ItemFragment.moveToFragment(
                         				getSupportFragmentManager(), 
-                        				fragmentID, null);
+                        				fragmentID, null, false);
                         	}
                         } else {
                         	// Swipe left
                         	ItemFragment.moveToFragment(getSupportFragmentManager(), 
-                        			ItemFragment.getNextFragmentId(), null);
+                        			ItemFragment.getNextFragmentId(), null, true);
                         }
                         return true;
                     }

@@ -60,13 +60,13 @@ public class SUBSFragment extends ItemFragment {
                 if(groupPosition==0) {
                 	SearchCacher.setLastSearchByPckgName(itemClicked);
                 	// Move to pts fragment
-	          		ItemFragment.moveToFragment(getActivity().getSupportFragmentManager(), Content.PTS, null);
+	          		ItemFragment.moveToFragment(getActivity().getSupportFragmentManager(), Content.PTS, null, true);
                 } else if(groupPosition==1) {
                 	String[] items = itemClicked.split("\\|");
                 	if(items.length>1) {
 	                	SearchCacher.setLastBugSearch(items[0], items[1]);
 	                	// Move to bts fragment
-	                	ItemFragment.moveToFragment(getActivity().getSupportFragmentManager(), Content.BTS, null);
+	                	ItemFragment.moveToFragment(getActivity().getSupportFragmentManager(), Content.BTS, null, true);
 	          		}
                 }
                 return true;

@@ -66,14 +66,14 @@ public class UDDFragment extends ItemFragment {
 								String bugNum = UDD.getBugNumFromRCBugTitle(itemClicked);
 								SearchCacher.setLastSearchByPckgName(pckgName);
 								SearchCacher.setLastBugSearch(BTS.BUGNUMBER, bugNum);
-								moveToFragment(sa.getSupportFragmentManager(), Content.BTS, null);
+								moveToFragment(sa.getSupportFragmentManager(), Content.BTS, null, true);
 							} else if (itemSelected.equals(context.getString(R.string.latest_uploads))){
 								// Pop listdisplayfragment from backstack
 								sa.getSupportFragmentManager().popBackStack();
 								//get PckgName from title and move to pts fragment to display it
 								String pckgName = UDD.getPckgNameFromUploadsTitle(itemClicked);
 								SearchCacher.setLastSearchByPckgName(pckgName);
-					          	moveToFragment(sa.getSupportFragmentManager(), Content.PTS, null);
+					          	moveToFragment(sa.getSupportFragmentManager(), Content.PTS, null, true);
 							}
 						}
 					}

@@ -52,6 +52,7 @@ public class ItemListActivity extends SherlockFragmentActivity
      * device.
      */
     private boolean mTwoPane;
+    private static boolean goesLeft;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +77,7 @@ public class ItemListActivity extends SherlockFragmentActivity
                     .findFragmentById(R.id.item_list))
                     .setActivateOnItemClick(true);
             
+            goesLeft = false;
             onItemSelected(Content.PTS);
         }
               
@@ -180,15 +182,9 @@ public class ItemListActivity extends SherlockFragmentActivity
 				}
 			}
     		
-    		ItemFragment fragment = ItemFragment.getDetailFragment(id);
             Bundle arguments = new Bundle();
             arguments.putString(ItemFragment.ARG_ITEM_ID, id);
-        	fragment.setArguments(arguments);
-        	
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.item_detail_container, fragment)
-                    .commit();
-            
+            ItemFragment.moveToFragment(getSupportFragmentManager(), id, arguments, goesLeft);
         } else {
             // In single-pane mode, simply start the detail activity
             // for the selected item ID.
@@ -196,6 +192,7 @@ public class ItemListActivity extends SherlockFragmentActivity
             detailIntent.putExtra(ItemFragment.ARG_ITEM_ID, id);
             startActivity(detailIntent);
         }
+    	goesLeft = false;
     }
     
 class SwipeListener extends GestureDetector.SimpleOnGestureListener {
@@ -220,13 +217,17 @@ class SwipeListener extends GestureDetector.SimpleOnGestureListener {
                         if (diffX > 0) {
                         	// Swipe right
                         	String fragmentID = ItemFragment.getPreviousFragmentId();
-                        	if(fragmentID!=null)
+                        	if(fragmentID!=null) {
+                        		goesLeft = false;
                         		onItemSelected(fragmentID);
+                        	}
                         } else {
                         	// Swipe left
                         	String fragmentID = ItemFragment.getNextFragmentId();
-                        	if(fragmentID!=null)
+                        	if(fragmentID!=null) {
+                        		goesLeft = true;
                         		onItemSelected(fragmentID);
+                        	}
                         }
                         return true;
                     }
