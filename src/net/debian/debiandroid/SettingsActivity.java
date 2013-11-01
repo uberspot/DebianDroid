@@ -12,27 +12,38 @@ import android.preference.PreferenceManager;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceFragment;
 import android.support.v4.app.NavUtils;
-import android.widget.Toast;
 import androidStorageUtils.Cacher;
 import androidStorageUtils.StorageUtils;
 
 import com.actionbarsherlock.app.SherlockPreferenceActivity;
 import com.actionbarsherlock.view.MenuItem;
+import com.michaelflisar.messagebar.MessageBar;
+import com.michaelflisar.messagebar.messages.TextMessage;
+
 import net.debian.debiandroid.R;
 
 @SuppressLint("NewApi")
 @SuppressWarnings("deprecation")
 public class SettingsActivity extends SherlockPreferenceActivity {
-
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-		
+				
 		// If in android 3+ use a preference fragment which is the new recommended way
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
 			getFragmentManager().beginTransaction()
-					.replace(android.R.id.content, new PreferencesFragment())
+					.replace(android.R.id.content, new PreferenceFragment() {
+						@Override
+						public void onCreate(final Bundle savedInstanceState) {
+							super.onCreate(savedInstanceState);
+							addPreferencesFromResource(R.xml.preferences);
+							findPreference("clearcache").setOnPreferenceClickListener(clearCacheListener);
+							findPreference("wupdateinterval").setOnPreferenceChangeListener(numberCheckListener);
+							findPreference("cachelimit").setOnPreferenceChangeListener(numberCheckListener);
+						}
+					})
 					.commit();
 		} else {
 			// Otherwise load the preferences.xml in the Activity like in previous android versions
@@ -42,18 +53,7 @@ public class SettingsActivity extends SherlockPreferenceActivity {
 			findPreference("cachelimit").setOnPreferenceChangeListener(numberCheckListener);
 		}
 	}
-
-	public static class PreferencesFragment extends PreferenceFragment {
-		@Override
-		public void onCreate(final Bundle savedInstanceState) {
-			super.onCreate(savedInstanceState);
-			addPreferencesFromResource(R.xml.preferences);
-			findPreference("clearcache").setOnPreferenceClickListener(clearCacheListener);
-			findPreference("wupdateinterval").setOnPreferenceChangeListener(numberCheckListener);
-			findPreference("cachelimit").setOnPreferenceChangeListener(numberCheckListener);
-		}
-	}
-
+	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
@@ -111,18 +111,19 @@ public class SettingsActivity extends SherlockPreferenceActivity {
     	DDNotifyService.activityResumed();
     }
 	
-	private static Preference.OnPreferenceChangeListener numberCheckListener = new OnPreferenceChangeListener() {
+	private Preference.OnPreferenceChangeListener numberCheckListener = new OnPreferenceChangeListener() {
 	    @Override
 	    public boolean onPreferenceChange(Preference preference, Object newValue) {
 	    	return !newValue.toString().equals("")  &&  newValue.toString().matches("\\d*");
 	    }
 	};
 	
-	private static Preference.OnPreferenceClickListener clearCacheListener = new Preference.OnPreferenceClickListener() {
+	private Preference.OnPreferenceClickListener clearCacheListener = new Preference.OnPreferenceClickListener() {
 		@Override
 		public boolean onPreferenceClick(Preference pref) {
-			new Cacher(pref.getContext()).clearCache(); 
-			Toast.makeText(pref.getContext(), R.string.cache_cleared, Toast.LENGTH_SHORT).show();
+			new Cacher(pref.getContext()).clearCache();
+			new MessageBar(SettingsActivity.this, true)
+				.show(new TextMessage(pref.getContext().getString(R.string.cache_cleared)));
 			return true;
 		}
 	};

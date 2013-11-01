@@ -4,3 +4,6 @@
 [submodule "external/actionbarsherlock"]
 	path = external/actionbarsherlock
 	url = git@github.com:JakeWharton/ActionBarSherlock.git
+[submodule "external/MessageBar"]
+	path = external/MessageBar
+	url = git@github.com:MichaelFlisar/MessageBar.git

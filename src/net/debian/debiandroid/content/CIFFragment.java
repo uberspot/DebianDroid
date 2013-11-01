@@ -15,6 +15,8 @@ import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+import com.michaelflisar.messagebar.MessageBar;
+import com.michaelflisar.messagebar.messages.TextMessage;
 
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
@@ -37,7 +39,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
-import android.widget.Toast;
 import androidStorageUtils.Cacher;
 import androidStorageUtils.StorageUtils;
 
@@ -45,6 +46,7 @@ public class CIFFragment extends ItemFragment {
 
 	private EditText mailInput;
 	private String developerMail, scannedMail;
+	private MessageBar messageBar = new MessageBar(getSherlockActivity(), true);
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -96,8 +98,7 @@ public class CIFFragment extends ItemFragment {
     	try {
     		developerMail = StorageUtils.getInstance(getSherlockActivity()).getPreference("ddemail", "empty");
     		if(!Patterns.EMAIL_ADDRESS.matcher(developerMail).matches())
-    			Toast.makeText(getSherlockActivity(), 
-    					getString(R.string.no_mail_in_settings_msg), Toast.LENGTH_SHORT).show();
+    			messageBar.show(new TextMessage(getString(R.string.no_mail_in_settings_msg)));
     		
     	    Bitmap bm = QRCodeEncoder.encodeAsBitmap(developerMail, BarcodeFormat.QR_CODE, 250, 250);
     	    if(bm != null) {
@@ -142,12 +143,11 @@ public class CIFFragment extends ItemFragment {
 	
 	private void doCIFSearch() {
 		developerMail = StorageUtils.getInstance(getSherlockActivity()).getPreference("ddemail", "empty");
+		
 		if(!Patterns.EMAIL_ADDRESS.matcher(scannedMail).matches() ) {
-			Toast.makeText(getSherlockActivity(), 
-					getString(R.string.invalid_mail_msg, scannedMail), Toast.LENGTH_SHORT).show();
+			messageBar.show(new TextMessage(getString(R.string.invalid_mail_msg, scannedMail)));
 		} else if (!Patterns.EMAIL_ADDRESS.matcher(developerMail).matches() ){
-			Toast.makeText(getSherlockActivity(), 
-					getString(R.string.invalid_mail_msg, developerMail), Toast.LENGTH_SHORT).show();
+			messageBar.show(new TextMessage(getString(R.string.invalid_mail_msg, developerMail)));
 		} else {
 			hideSoftKeyboard(mailInput);
 			new CIFSearchTask().execute();
