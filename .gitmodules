@@ -7,3 +7,6 @@
 [submodule "external/MessageBar"]
 	path = external/MessageBar
 	url = git@github.com:MichaelFlisar/MessageBar.git
+[submodule "external/Volley"]
+	path = external/Volley
+	url = https://android.googlesource.com/platform/frameworks/volley
