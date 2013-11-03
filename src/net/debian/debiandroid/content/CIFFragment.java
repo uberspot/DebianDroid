@@ -39,14 +39,14 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
-import androidStorageUtils.Cacher;
-import androidStorageUtils.StorageUtils;
+import com.uberspot.storageutils.Cacher;
+import com.uberspot.storageutils.StorageUtils;
 
 public class CIFFragment extends ItemFragment {
 
 	private EditText mailInput;
 	private String developerMail, scannedMail;
-	private MessageBar messageBar = new MessageBar(getSherlockActivity(), true);
+	private MessageBar messageBar;
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -82,6 +82,8 @@ public class CIFFragment extends ItemFragment {
     	View rootView = inflater.inflate(R.layout.cif_fragment, container, false);
     	
     	getSherlockActivity().getSupportActionBar().setTitle(R.string.find_common_interests);
+    	
+    	messageBar = new MessageBar(getSherlockActivity(), true);
     	
     	ImageButton searchButton = (ImageButton) rootView.findViewById(R.id.cifSearchButton);
     	mailInput = (EditText) rootView.findViewById(R.id.cifInputSearch);

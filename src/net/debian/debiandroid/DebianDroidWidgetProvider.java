@@ -5,6 +5,8 @@ import net.debian.debiandroid.broadcastreceivers.AlarmManagerBroadcastReceiver;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 
+import com.uberspot.storageutils.StorageUtils;
+
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
@@ -12,7 +14,6 @@ import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
 import android.widget.RemoteViews;
-import androidStorageUtils.StorageUtils;
 
 /*** Class that gets called when it's time to update the widgets info. 
  * The update period is defined in xml/ddwidget_info.xml

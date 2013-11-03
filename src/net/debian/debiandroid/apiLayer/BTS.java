@@ -8,7 +8,7 @@ import net.debian.debiandroid.apiLayer.soaptools.BTSSoapCaller;
 
 import android.content.Context;
 import android.net.Uri;
-import androidStorageUtils.StorageUtils;
+import com.uberspot.storageutils.StorageUtils;
 
 public class BTS extends BTSSoapCaller implements Subscribable {
 

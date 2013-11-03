@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <changelog>
+  <release version="1.67" versioncode="9" >
+      <change>Added support for android kitkat (4.4)</change>
+      <change>Added messageBar to display some messages instead of toast</change>
+      <change>Updated ksoap2 library to latest version</change>
+  </release>
   <release version="1.6" versioncode="7" >
       <change>Added some transition animations</change>
       <change>Long clicking on item descriptions in udd, dftp items like new/deferred packages etc will now automatically show pckg or bug info in the corresponding menu item</change>

@@ -7,7 +7,7 @@ import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 
 import android.content.Context;
-import androidStorageUtils.Cacher;
+import com.uberspot.storageutils.Cacher;
 
 public class SoapCaller {
 	

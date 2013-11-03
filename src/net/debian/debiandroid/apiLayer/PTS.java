@@ -13,7 +13,7 @@ import net.debian.debiandroid.apiLayer.soaptools.PTSSoapCaller;
 
 import android.content.Context;
 import android.net.Uri;
-import androidStorageUtils.StorageUtils;
+import com.uberspot.storageutils.StorageUtils;
 
 public class PTS extends PTSSoapCaller implements Subscribable {
 

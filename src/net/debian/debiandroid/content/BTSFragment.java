@@ -33,8 +33,8 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
-import androidStorageUtils.Cacher;
-import androidStorageUtils.StorageUtils;
+import com.uberspot.storageutils.Cacher;
+import com.uberspot.storageutils.StorageUtils;
 
 public class BTSFragment extends ItemFragment {
 	

@@ -6,7 +6,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import android.content.Context;
-import androidStorageUtils.Cacher;
+import com.uberspot.storageutils.Cacher;
 
 public class HTTPCaller {
 

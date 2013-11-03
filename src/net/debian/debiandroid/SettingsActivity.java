@@ -12,8 +12,9 @@ import android.preference.PreferenceManager;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceFragment;
 import android.support.v4.app.NavUtils;
-import androidStorageUtils.Cacher;
-import androidStorageUtils.StorageUtils;
+
+import com.uberspot.storageutils.Cacher;
+import com.uberspot.storageutils.StorageUtils;
 
 import com.actionbarsherlock.app.SherlockPreferenceActivity;
 import com.actionbarsherlock.view.MenuItem;
