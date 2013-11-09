@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="net.debian.debiandroid"
-    android:versionCode="10"
-    android:versionName="1.68" >
+    android:versionCode="11"
+    android:versionName="1.69" >
 
     <uses-sdk
         android:minSdkVersion="8"
@@ -36,7 +36,8 @@
 		<receiver android:name="net.debian.debiandroid.broadcastreceivers.AlarmManagerBroadcastReceiver"/>
         <activity
             android:name="net.debian.debiandroid.ItemListActivity"
-            android:label="@string/app_name" 
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -55,6 +56,7 @@
         <activity
             android:name="net.debian.debiandroid.ItemDetailActivity"
             android:label="@string/title_item_detail"
+            android:screenOrientation="portrait"
             android:parentActivityName="net.debian.debiandroid.ItemListActivity"
             android:configChanges="orientation|keyboardHidden">
             <meta-data
@@ -64,6 +66,7 @@
         <activity
             android:name="net.debian.debiandroid.SettingsActivity"
             android:label="@string/settings"
+            android:screenOrientation="portrait"    
             android:configChanges="orientation|keyboardHidden" 
             android:parentActivityName="net.debian.debiandroid.SettingsActivity" >
             <meta-data
