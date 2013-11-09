@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="rn:oasis:names:tc:xliff:document:1.2">
+
+    <string name="app_name">DebianDroid</string>
+    
+    <!-- Content Titles -->
+    <string name="title_item_detail">Détails de l\'article</string>
+    <string name="search_packages">Recherche les paquets</string>
+    <string name="search_bugs">Recherche des bogues</string>
+    <string name="search">Recherche</string>
+    <string name="find_common_interests">Trouve des intérêts communs</string>
+    <string name="settings">Paramètres</string>
+    <string name="subscriptions">Abonnements</string>
+    <string name="udd">UDD</string>
+    <string name="dftp">FTP Debian</string>
+    <string name="links">Liens utiles</string>
+    
+    <!-- Common strings -->
+    <string name="refresh">Rafraîchir</string>
+    <string name="subscribe">Abonne-toi</string>
+    <string name="unsubscribe">Désabonne-toi</string>
+    <string name="searching">Recherche en cours <xliff:g>&#8230;</xliff:g> </string>
+    <string name="searching_info_about">Recherche d\'infos en cours sur <xliff:g id="name" example="somesearchvalue" >%1$s</xliff:g>. Attends STP<xliff:g>&#8230;</xliff:g> </string>
+    <string name="searching_info_please_wait">Recherche d\'infos en cours. Attends STP<xliff:g>&#8230;</xliff:g> </string>
+    <string name="no_info_found_for">Aucune information trouvée pour </string>
+    <string name="no_info_found">Aucune information trouvée</string>
+    
+    <!-- PTS strings -->
+    
+    <string name="pckg_info_format">Paquet:
+        <xliff:g id="pckgName" example="vim">\n  %1$s\n\n</xliff:g>Dernière version:
+        <xliff:g id="pckgVersion" example="1.2.34">\n  %2$s\n\n</xliff:g>Mainteneur:
+        <xliff:g id="pckgMaintName" example="John">\n  %3$s\n\n</xliff:g>Aperçu des paquets:
+        <xliff:g id="pckgMaintMail" example="somemail">\n  http://qa.debian.org/developer.php?login=%4$s\n\n</xliff:g>Adresse courriel:
+        <xliff:g id="pckgMaintMail" example="somemail">\n  %4$s\n\n</xliff:g>Comptage des bogues:
+        <xliff:g id="pckgBugCount" example="40">\n  %5$s\n\n</xliff:g>Téléverseurs:
+        <xliff:g id="pckgUploaders" example="uploaderNames">\n  %6$s\n\n</xliff:g>Noms des binaires:
+        <xliff:g id="pckgBinNames" example="binNames">\n  %7$s</xliff:g>
+    </string>
+    <string name="all_bugs">Tous les bogues (<xliff:g id="number" example="10">%1$s</xliff:g>)</string>
+    <string name="pts_search_hint">Tape le nom du paquet</string>
+    <string name="submit_new_bug_report">Soumets un nouveau rapport de bogue</string>
+    <string name="info_retrieved"><xliff:g id="number" example="10">%1$s</xliff:g> info récupérée !</string>
+    
+    <!-- BTS strings -->
+    
+    <string name="by_number">par numéro</string>
+    <string name="in_package">dans le paquet</string>
+    <string name="in_pckgs_maint_by">dans des paquets maintenus par</string>
+    <string name="submitted_by">soumis par</string>
+    <string name="with_status">avec statut</string>
+    <string name="with_mail_from">avec courrier de</string>
+    <string name="bts_search_hint">Tape  la valeur de le recherche</string>
+    <string name="bugs_retrieved"><xliff:g id="number" example="10">%1$s</xliff:g> bogues récupérées !</string>
+    <string name="bug_mail_format">Date: <xliff:g id="date" example="somedate">%1$s\n</xliff:g>From<xliff:g id="from" example="mailaddress">: %2$s\n-------------\n</xliff:g>Body<xliff:g id="body" example="bodytext">: %3$s</xliff:g></string>
+
+    <!--CIF strings-->
+
+    <string name="QRCode">Code QR</string>
+    <string name="scan_qrcode">Balayer un code QR</string>
+    <string name="or_type_other_persons_email_directly">ou taper directement les adresses courriel d\'autres personnes</string>
+    <string name="invalid_mail_msg">Adresse courriel Invalide <xliff:g id="mail" example="bla@bla.bla">%1$s</xliff:g> dans la recherche !</string>
+    <string name="no_mail_in_settings_msg">N\'oublie pas d\'ajouter l\'adresse de courriel que tu utilises pour le paquetage dans les paramètres.</string>
+    <string name="cif_search_hint">autre@example.com</string>
+    <string name="overlapping_interests">Intérêts que se recoupent</string>
+    <string name="maintains_following"><xliff:g id="firstmaint" example="Jean">%1$s</xliff:g> maintient les paquets suivants utilisés en dépendances par <xliff:g id="secondmaint" example="Jacques">%2$s</xliff:g>:</string>
+
+    <!--SUBS strings-->
+
+    <string name="subscribed_packages">Abonnements au paquets (<xliff:g id="number" example="10">%1$s</xliff:g>)</string>
+    <string name="subscribed_bugs">Abonnements aux bogues (<xliff:g id="number" example="10">%1$s</xliff:g>)</string>
+
+    <!--UDD strings-->
+
+    <string name="rcbugs">Bogues critiques</string>
+    <string name="rcbugs_withnum">Bogues critiques (<xliff:g id="number" example="10">%1$s</xliff:g>)</string>
+    <string name="latest_uploads">Derniers téléversements</string>
+    <string name="latest_uploads_withnum"><xliff:g id="number" example="10">%1$s</xliff:g> Derniers téléversements</string>
+    <string name="latest_new_maintainers">Les plus récents   <xliff:g id="number" example="10">%1$s</xliff:g> nouveaux mainteneurs</string>
+    <string name="new_maintainers">Nouveaux mainteneurs</string>
+
+    <!-- LINKS strings -->
+    
+    <string name="links_search_hint">Recherche automatique pour le lien</string>
+    <string name="open_link_with">Ouvrir le lien avec</string>
+    
+    <!--DFTP strings-->
+    <string name="new_packages">Nouveaux paquets</string>
+    <string name="new_packages_withnum"><xliff:g id="number" example="10">%1$s</xliff:g> nouveaux paquets</string>
+    <string name="removed_packages">Paquets enlevés</string>
+    <string name="removed_packages_withnum"><xliff:g id="number" example="10">%1$s</xliff:g> paquets enlevés</string>
+    <string name="deferred_packages">Paquets différés</string>
+    <string name="deferred_packages_withnum"><xliff:g id="number" example="10">%1$s</xliff:g> paquets différés</string>
+    
+    <!--SETTINGS strings-->
+    <string name="general_settings">Paramètres généraux</string>
+    <string name="cache_settings">Paramètres de cache</string>
+    <string name="use_3g">Utilise le 3G</string>
+    <string name="use_3g_summary">Cocher pour utiliser aussi le 3G pour télécharger des données ou décocher pour utiliser seulement le Wi-Fi</string>
+    <string name="maint_username">Nom d\'utilisateur du mainteneur</string>
+    <string name="refresh_interval">Intervalle de rafraîchissement automatique</string>
+    <string name="cache_limit">Limite de période de cache</string>
+    <string name="maint_username_sum">Nom d\'utilisateur du mainteneur Debian</string>
+    <string name="refresh_interval_sum">Intervalle (en secondes) entre les vérifications des nouvelles données de paquets / bogues.</string>
+    <string name="cache_limit_sum">Garder dans le cache les infos récupérées pour combien d\'heures</string>
+    <string name="clear_cache">Vider le cache maintenant</string>
+    <string name="clear_cache_sum">Vider toutes les infos dans le cache maintenant</string>
+    <string name="widget_settings">Paramètres du widget</string>
+    <string name="maint_email_sum">L\'adresse courriel du mainteneur Debian de ce dispositif</string>
+    <string name="maint_email">Adresse courriel du mainteneur</string>
+    <string name="widget_update_sum">Temps (en secondes) entre les mises à jour du compte à rebours dans le widget dinstall</string>
+    <string name="similar_pckgs">Recherche des paquets similaires</string>
+    <string name="similar_pckgs_summary">Durant la recherche des infos de paquet, rechercher les noms des paquets similaires en premier</string>
+    <string name="widget_interval">Intervalle de mise à jour du widget</string>
+    <string name="cache_cleared">Le cache est vidé</string>
+    <!--Widget strings-->
+    <string name="debiandroid_widget">Widget DebianDroid</string>
+    <string name="widget_text">Prochain DInstall à : <xliff:g id="timeutc" example="HH:mm:ss">%1$s</xliff:g> ou dans <xliff:g id="timelocal" example="HH:mm:ss">%2$s</xliff:g> heures (<xliff:g id="timezonelocal" example="Fuseau horaire">%3$s</xliff:g>)</string>
+    
+    <!-- Service strings -->
+    
+    <string name="connection_restored">Connexion rétablie</string>
+    <string name="lost_connectivity">Connectivité perdue, passage en mode cache seulement.</string>
+
+</resources>
