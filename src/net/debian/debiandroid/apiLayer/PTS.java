@@ -23,6 +23,7 @@ public class PTS extends PTSSoapCaller implements Subscribable {
 	public static final String PTSSUBSCRIPTIONS = "PTSSubscriptions";
 	
 	private static final String PTSPCKGNAMESEARCHURL = "http://sources.debian.net/api/search/";
+	private static final String PTSMADISONSEARCHURL = "http://qa.debian.org/madison.php?table=all&package=";
 	
 	public PTS(Context context) {
 		super(context);
@@ -92,5 +93,17 @@ public class PTS extends PTSSoapCaller implements Subscribable {
             e.printStackTrace();
         }
 		return new ArrayList<String>();
+	}
+	
+	public ArrayList<String> getMadisonInfo(String pckgName) {
+    	ArrayList<String> madisonInfo = new ArrayList<String>();
+    	String htmlPage = httpCaller.doQueryRequest(PTSMADISONSEARCHURL + pckgName);
+    	String madisonSubstring = ApiTools.getSubstringIn(htmlPage, "<h2>dak ls</h2>[\\r\\n]+<pre>", "</pre>[\\r\\n]+<p>");
+    	String[] lines = madisonSubstring.split("\n|\r\n");
+    	for(String line: lines) {
+    		line = line.trim().replaceAll("^" + pckgName + " \\| ", "").replaceAll(" \\| ", "\n");
+    		madisonInfo.add(line);
+    	}
+    	return madisonInfo;
 	}
 }

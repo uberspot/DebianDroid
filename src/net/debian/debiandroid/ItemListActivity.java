@@ -81,9 +81,9 @@ public class ItemListActivity extends SherlockFragmentActivity
             onItemSelected(Content.PTS);
         }
               
-        //new task().execute(); //temporary
+        //new task().execute(); //temporary used for testing api methods
         
-        // Load stored settings before starting service
+        // Load stored settings
         SettingsActivity.loadSettings(getApplicationContext());
         
         // Start service that auto updates subscribed packages and notifies user
@@ -121,7 +121,7 @@ public class ItemListActivity extends SherlockFragmentActivity
 		@Override
 		protected Void doInBackground(Void... params) {
 			
-			//System.out.println(new PTS(getApplicationContext()).getSimilarPckgNames("vim"));
+			System.out.println(new PTS(getApplicationContext()).getMadisonInfo("vim"));
 			
 			return null;
 		}  

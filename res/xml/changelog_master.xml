@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <changelog>
-  <release version="1.68" versioncode="10" >
+  <release version="1.69" versioncode="11" >
       <change>Added french translation</change>
+      <change>Limited to only portrait orientation for now to avoid crashes on orientation changes</change>
   </release>
   <release version="1.67" versioncode="9" >
       <change>Added support for android kitkat (4.4)</change>
