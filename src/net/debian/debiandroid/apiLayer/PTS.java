@@ -101,7 +101,7 @@ public class PTS extends PTSSoapCaller implements Subscribable {
     	String madisonSubstring = ApiTools.getSubstringIn(htmlPage, "<h2>dak ls</h2>[\\r\\n]+<pre>", "</pre>[\\r\\n]+<p>");
     	String[] lines = madisonSubstring.split("\n|\r\n");
     	for(String line: lines) {
-    		line = line.trim().replaceAll("^" + pckgName + " \\| ", "").replaceAll(" \\| ", "\n");
+    		line = line.trim().replaceAll("^" + pckgName + " \\| ", "").replaceAll(" \\| ", "\n  ");
     		madisonInfo.add(line);
     	}
     	return madisonInfo;

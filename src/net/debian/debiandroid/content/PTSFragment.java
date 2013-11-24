@@ -3,7 +3,6 @@ package net.debian.debiandroid.content;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import net.debian.debiandroid.DExpandableAdapter;
 import net.debian.debiandroid.ItemFragment;
 import net.debian.debiandroid.apiLayer.BTS;
 import net.debian.debiandroid.apiLayer.PTS;
@@ -16,7 +15,6 @@ import net.debian.debiandroid.R;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -30,11 +28,9 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ExpandableListView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.TextView.OnEditorActionListener;
 import com.uberspot.storageutils.Cacher;
 
@@ -42,12 +38,11 @@ public class PTSFragment extends ItemFragment {
 
 	private EditText ptsInput;
 	private PTS pts;
-	private ExpandableListView ptsBugList;
+	private ListView ptsMadisonList;
 	private TextView ptsPckgInfo, emptyTextView;
 	private ListView ptsPckgList;
 	
-	private ArrayList<String> bugListParentItems;
-	private ArrayList<Object> bugListChildItems;
+	private ArrayList<String> ptsMadisonInfo;
 	
 	/** ID for the (un)subscribe menu item. It starts from +2 
 	 * because the settings icon is in the +1 position */
@@ -63,8 +58,7 @@ public class PTSFragment extends ItemFragment {
         	new SearchPackageInfoTask().execute();
         }
         
-        bugListParentItems = new ArrayList<String>();
-		bugListChildItems = new ArrayList<Object>();
+        ptsMadisonInfo = new ArrayList<String>();
     }
 	
 	@Override
@@ -77,9 +71,9 @@ public class PTSFragment extends ItemFragment {
     	
     	ptsPckgList = (ListView) rootView.findViewById(R.id.ptsPckgList);
     	
-    	ptsBugList = (ExpandableListView) rootView.findViewById(R.id.ptsBugsList);
-    	ViewGroup header = (ViewGroup)inflater.inflate(R.layout.pts_exp_list_header, ptsBugList, false);
-    	ptsBugList.addHeaderView(header, null, false);
+    	ptsMadisonList = (ListView) rootView.findViewById(R.id.ptsMadisonList);
+    	ViewGroup header = (ViewGroup)inflater.inflate(R.layout.pts_exp_list_header, ptsMadisonList, false);
+    	ptsMadisonList.addHeaderView(header, null, false);
     	
     	ImageButton searchButton = (ImageButton) rootView.findViewById(R.id.ptsSearchButton);
     	ptsInput = (EditText) rootView.findViewById(R.id.ptsInputSearch);
@@ -110,40 +104,17 @@ public class PTSFragment extends ItemFragment {
         return rootView;
     }
 	
-	public void setupBugsList() {    	
-		ptsBugList.setDividerHeight(1);
-		ptsBugList.setClickable(true);
+	public void setupMadisonInfoList() {    	
+		ptsMadisonList.setDividerHeight(1);
+		ptsMadisonList.setClickable(false);
     	
-    	final DExpandableAdapter adapter = new DExpandableAdapter(bugListParentItems, bugListChildItems);
-    	adapter.setInflater((LayoutInflater) getSherlockActivity()
-    						.getSystemService(Context.LAYOUT_INFLATER_SERVICE));
-    	ptsBugList.setAdapter(adapter);
-    	registerForContextMenu(ptsBugList);
+    	ptsMadisonList.setAdapter(new ArrayAdapter<String>(
+        		getSherlockActivity(),
+                android.R.layout.simple_list_item_1,
+                android.R.id.text1,
+                ptsMadisonInfo));
     	
-    	ptsBugList.setOnChildClickListener(new OnChildClickListener() {
-            public boolean onChildClick(ExpandableListView parent, View view,
-                    int groupPosition, int childPosition, long id) {
-            	String itemClicked = ((TextView)view).getText().toString().trim();
-            	if(!"".equals(itemClicked)) {
-	                //save search by bug num
-	                SearchCacher.setLastBugSearch(BTS.BUGNUMBER, itemClicked);
-	                // Move to bts fragment
-	          		ItemFragment.moveToFragment(getActivity().getSupportFragmentManager(), Content.BTS, null, false);
-            	}
-                return true;
-            }
-        });
-	}
-	
-	public void setBugData(String pkgName) {
-		bugListParentItems = new ArrayList<String>();
-		bugListChildItems = new ArrayList<Object>();
-		
-		BTS bts = new BTS(getSherlockActivity().getApplicationContext());
-		
-		ArrayList<String> bugs = bts.getBugs(new String[]{BTS.PACKAGE}, new String[]{pkgName});
-		bugListParentItems.add(getString(R.string.all_bugs, bugs.size()));
-	    bugListChildItems.add(bugs);
+    	registerForContextMenu(ptsMadisonList);
 	}
 	
 	@Override
@@ -231,7 +202,7 @@ public class PTSFragment extends ItemFragment {
 	class SearchPackageInfoTask extends AsyncTask<Boolean, Integer, Void> {
 		private String pckgName, pckgVersion, pckgBugCount, 
 			pckgMaintName, pckgMaintMail, pckgUploaders, pckgBinNames;
-		private final static int pckgInfoCount = 6;
+		private final static int pckgInfoCount = 7;
 		
 		private ProgressDialog progressDialog;
 		private String progressMessage =  getString(R.string.searching_info_about, SearchCacher.getLastPckgName());
@@ -274,7 +245,8 @@ public class PTSFragment extends ItemFragment {
 					//Set Binary Names
 					pckgBinNames = Arrays.toString(pts.getBinaryNames(pckgName)).trim();
 					publishProgress(6);
-					setBugData(pckgName);
+					ptsMadisonInfo = pts.getMadisonInfo(pckgName);
+					publishProgress(7);
 				}
 			}
 			
@@ -302,12 +274,11 @@ public class PTSFragment extends ItemFragment {
 					emptyTextView.setVisibility(View.GONE);
 		    	} else {
 		    		emptyTextView.setVisibility(View.VISIBLE);
-		    		bugListParentItems = new ArrayList<String>();
-		    		bugListChildItems = new ArrayList<Object>();
+		    		ptsMadisonInfo = new ArrayList<String>();
 		    		ptsPckgInfo.setText("");
 		    	}
-				setupBugsList();
-				ptsBugList.setVisibility(View.VISIBLE);
+				setupMadisonInfoList();
+				ptsMadisonList.setVisibility(View.VISIBLE);
 			}
 			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
 	    		getSherlockActivity().invalidateOptionsMenu();
@@ -328,8 +299,8 @@ public class PTSFragment extends ItemFragment {
 		protected void onPreExecute(){ 
 		   super.onPreExecute();
 		   hideSoftKeyboard(ptsInput);
-		   if(ptsBugList!=null) {
-			   ptsBugList.setVisibility(View.GONE);
+		   if(ptsMadisonList!=null) {
+			   ptsMadisonList.setVisibility(View.GONE);
 		   }
 		   progressDialog = ProgressDialog.show(getSherlockActivity(), getString(R.string.searching),
 				   progressMessage, true, false);  
