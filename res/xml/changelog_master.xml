@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <changelog>
+  <release version="1.7" versioncode="12" >
+      <change>Updated french translation</change>
+      <change>Added Madison Info for each package in Search Packages"tab</change>
+  </release>
   <release version="1.69" versioncode="11" >
       <change>Added french translation</change>
       <change>Limited to only portrait orientation for now to avoid crashes on orientation changes</change>
