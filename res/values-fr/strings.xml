@@ -5,7 +5,7 @@
     
     <!-- Content Titles -->
     <string name="title_item_detail">Détails de l\'article</string>
-    <string name="search_packages">Recherche les paquets</string>
+    <string name="search_packages">Recherche des paquets</string>
     <string name="search_bugs">Recherche des bogues</string>
     <string name="search">Recherche</string>
     <string name="find_common_interests">Trouve des intérêts communs</string>
@@ -35,21 +35,21 @@
         <xliff:g id="pckgMaintMail" example="somemail">\n  %4$s\n\n</xliff:g>Comptage des bogues:
         <xliff:g id="pckgBugCount" example="40">\n  %5$s\n\n</xliff:g>Téléverseurs:
         <xliff:g id="pckgUploaders" example="uploaderNames">\n  %6$s\n\n</xliff:g>Noms des binaires:
-        <xliff:g id="pckgBinNames" example="binNames">\n  %7$s</xliff:g>
+        <xliff:g id="pckgBinNames" example="binNames">\n  %7$s\n\n</xliff:g>DAK LS:
     </string>
     <string name="all_bugs">Tous les bogues (<xliff:g id="number" example="10">%1$s</xliff:g>)</string>
     <string name="pts_search_hint">Tape le nom du paquet</string>
     <string name="submit_new_bug_report">Soumets un nouveau rapport de bogue</string>
-    <string name="info_retrieved"><xliff:g id="number" example="10">%1$s</xliff:g> info récupérée !</string>
+    <string name="info_retrieved"><xliff:g id="number" example="10">%1$s</xliff:g> infos récupérées !</string>
     
     <!-- BTS strings -->
     
     <string name="by_number">par numéro</string>
     <string name="in_package">dans le paquet</string>
-    <string name="in_pckgs_maint_by">dans des paquets maintenus par</string>
+    <string name="in_pckgs_maint_by">dans les paquets maintenus par</string>
     <string name="submitted_by">soumis par</string>
     <string name="with_status">avec statut</string>
-    <string name="with_mail_from">avec courrier de</string>
+    <string name="with_mail_from">avec courriel de</string>
     <string name="bts_search_hint">Tape  la valeur de le recherche</string>
     <string name="bugs_retrieved"><xliff:g id="number" example="10">%1$s</xliff:g> bogues récupérées !</string>
     <string name="bug_mail_format">Date: <xliff:g id="date" example="somedate">%1$s\n</xliff:g>From<xliff:g id="from" example="mailaddress">: %2$s\n-------------\n</xliff:g>Body<xliff:g id="body" example="bodytext">: %3$s</xliff:g></string>
@@ -57,8 +57,8 @@
     <!--CIF strings-->
 
     <string name="QRCode">Code QR</string>
-    <string name="scan_qrcode">Balayer un code QR</string>
-    <string name="or_type_other_persons_email_directly">ou taper directement les adresses courriel d\'autres personnes</string>
+    <string name="scan_qrcode">Numérise un code QR</string>
+    <string name="or_type_other_persons_email_directly">ou tape directement les adresses courriel d\'autres personnes</string>
     <string name="invalid_mail_msg">Adresse courriel Invalide <xliff:g id="mail" example="bla@bla.bla">%1$s</xliff:g> dans la recherche !</string>
     <string name="no_mail_in_settings_msg">N\'oublie pas d\'ajouter l\'adresse de courriel que tu utilises pour le paquetage dans les paramètres.</string>
     <string name="cif_search_hint">autre@example.com</string>
@@ -76,12 +76,12 @@
     <string name="rcbugs_withnum">Bogues critiques (<xliff:g id="number" example="10">%1$s</xliff:g>)</string>
     <string name="latest_uploads">Derniers téléversements</string>
     <string name="latest_uploads_withnum"><xliff:g id="number" example="10">%1$s</xliff:g> Derniers téléversements</string>
-    <string name="latest_new_maintainers">Les plus récents   <xliff:g id="number" example="10">%1$s</xliff:g> nouveaux mainteneurs</string>
+    <string name="latest_new_maintainers">Les plus récents   <xliff:g id="number" example="10">%1$s</xliff:g> nouveaux mainteneurs les plus récents</string>
     <string name="new_maintainers">Nouveaux mainteneurs</string>
 
     <!-- LINKS strings -->
     
-    <string name="links_search_hint">Recherche automatique pour le lien</string>
+    <string name="links_search_hint">Recherche automatique du lien</string>
     <string name="open_link_with">Ouvrir le lien avec</string>
     
     <!--DFTP strings-->
@@ -96,21 +96,21 @@
     <string name="general_settings">Paramètres généraux</string>
     <string name="cache_settings">Paramètres de cache</string>
     <string name="use_3g">Utilise le 3G</string>
-    <string name="use_3g_summary">Cocher pour utiliser aussi le 3G pour télécharger des données ou décocher pour utiliser seulement le Wi-Fi</string>
+    <string name="use_3g_summary">Coche pour utiliser aussi le 3G pour télécharger des données ou décoche pour utiliser seulement le Wi-Fi</string>
     <string name="maint_username">Nom d\'utilisateur du mainteneur</string>
     <string name="refresh_interval">Intervalle de rafraîchissement automatique</string>
     <string name="cache_limit">Limite de période de cache</string>
     <string name="maint_username_sum">Nom d\'utilisateur du mainteneur Debian</string>
-    <string name="refresh_interval_sum">Intervalle (en secondes) entre les vérifications des nouvelles données de paquets / bogues.</string>
-    <string name="cache_limit_sum">Garder dans le cache les infos récupérées pour combien d\'heures</string>
-    <string name="clear_cache">Vider le cache maintenant</string>
-    <string name="clear_cache_sum">Vider toutes les infos dans le cache maintenant</string>
+    <string name="refresh_interval_sum">Intervalle (en secondes) entre les vérifications des nouvelles données de paquets/bogues.</string>
+    <string name="cache_limit_sum">Garde dans le cache les infos récupérées pour ce nombre d\'heures</string>
+    <string name="clear_cache">Vide le cache maintenant</string>
+    <string name="clear_cache_sum">Vide toutes les infos dans le cache maintenant</string>
     <string name="widget_settings">Paramètres du widget</string>
-    <string name="maint_email_sum">L\'adresse courriel du mainteneur Debian de ce dispositif</string>
+    <string name="maint_email_sum">L\'adresse courriel du mainteneur Debian de cet appareil</string>
     <string name="maint_email">Adresse courriel du mainteneur</string>
     <string name="widget_update_sum">Temps (en secondes) entre les mises à jour du compte à rebours dans le widget dinstall</string>
     <string name="similar_pckgs">Recherche des paquets similaires</string>
-    <string name="similar_pckgs_summary">Durant la recherche des infos de paquet, rechercher les noms des paquets similaires en premier</string>
+    <string name="similar_pckgs_summary">Durant la recherche des infos de paquet, recherche les noms des paquets similaires en premier</string>
     <string name="widget_interval">Intervalle de mise à jour du widget</string>
     <string name="cache_cleared">Le cache est vidé</string>
     <!--Widget strings-->

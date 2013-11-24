@@ -36,7 +36,7 @@
         <xliff:g id="pckgMaintMail" example="somemail">\n  %4$s\n\n</xliff:g>Bug count:
         <xliff:g id="pckgBugCount" example="40">\n  %5$s\n\n</xliff:g>Uploaders:
         <xliff:g id="pckgUploaders" example="uploaderNames">\n  %6$s\n\n</xliff:g>Binary names:
-        <xliff:g id="pckgBinNames" example="binNames">\n  %7$s</xliff:g>
+        <xliff:g id="pckgBinNames" example="binNames">\n  %7$s\n\n</xliff:g>DAK LS:
     </string>
     <string name="all_bugs">All Bugs (<xliff:g id="number" example="10" >%1$s</xliff:g>)</string>
     <string name="pts_search_hint">Type in package name</string>
