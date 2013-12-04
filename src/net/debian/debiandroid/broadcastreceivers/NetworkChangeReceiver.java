@@ -15,7 +15,7 @@ public class NetworkChangeReceiver extends BroadcastReceiver{
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		handleConnectivityChange(context);
-	}
+	} 
 
 	public static void handleConnectivityChange(Context context) {
 		// Check if wifi not enabled and 3g not allowed

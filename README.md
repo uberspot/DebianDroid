@@ -24,14 +24,15 @@ This Debian Android app started as part of Google Summer of Code 2013. It's an A
  11. If "use 3g" settings is deactivated detect if 3g is used and deactivate online searching by setting cache to always return something or null if there isn't any related info cached.
  12. Shows new/removals/deferred queues from https://ftp-master.debian.org/new.822 , https://ftp-master.debian.org/removals.822 and https://ftp-master.debian.org/deferred/status respectively
  13. Allows searching for packages with similar names based on http://sources.debian.net/api/search/vim/ (doc: http://sources.debian.net/doc/api/). 
- 14. Translated to Greek
+ 14. Languages translated to: Greek, French
+ 15. Shows info about packages from http://qa.debian.org/madison.php?package=vim&table=debian&a=&c=&s=#
 
 ##TODO
  
- 1. Show info from http://qa.debian.org/madison.php?package=vim&table=debian&a=&c=&s=#
+ 1. Add buildd log info (? https://buildd.debian.org/ ?)
  2. Add option to autocollapse everything and leave only one group expanded in all expandable lists
  3. Show pending packages
- 4. Add buildd log info (? https://buildd.debian.org/ ?)
+ 4. Alerts you about a bug report you wanted to send, like a "bug report" reminder. Maybe with a button like "report bug in x time"
  5. Add extra parameters to bug search fragment with an +(add) button for more complicated searches
  6. Add clear favourites button in favourites fragment or in options
  7. Notifies user about new mails in bug reports he made, he contributed to or in bugs he is subscribed to and about new package news to packages he maintains or is subscribed to etc
@@ -45,7 +46,6 @@ This Debian Android app started as part of Google Summer of Code 2013. It's an A
  15. Show contents of a package like in http://packages.debian.org/sid/i386//filelist
  16. Full-text search on package names like in http://packages.debian.org/search?keywords=%s
  17. Translate to other languages. https://www.transifex.com/projects/p/debiandroid/
- 18. Alerts you about a bug report you wanted to send, like a "bug report" reminder. Maybe with a button like "report bug in x time"
 
 ##Permissions explained
 

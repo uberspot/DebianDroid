@@ -2,7 +2,7 @@
 <changelog>
   <release version="1.7" versioncode="12" >
       <change>Updated french translation</change>
-      <change>Added Madison Info for each package in Search Packages"tab</change>
+      <change>Added Madison Info for each package in Search Packages" tab</change>
   </release>
   <release version="1.69" versioncode="11" >
       <change>Added french translation</change>
