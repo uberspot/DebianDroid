@@ -99,7 +99,12 @@ public class ListDisplayFragment extends ItemFragment {
     		header.setText(args.getString(LIST_HEADER_ID));
         }
     	
-    	ExpandableListView view = (ExpandableListView) rootView.findViewById(R.id.listdisplayexpListView); 
+    	ExpandableListView view = (ExpandableListView) rootView.findViewById(R.id.listdisplayexpListView);
+    	
+    	// Add autocollapsing of list if enabled
+        if(SettingsActivity.isAutoCollapseEnabled(getSherlockActivity()))
+        	view.setOnGroupExpandListener(new AutoGroupCollapseListener(view));
+    	
     	if(!listItems.isEmpty() && view !=null) {
     		setupList(view, listItems);
     	}

@@ -14,6 +14,11 @@
 	        android:title="@string/similar_pckgs"
 	        android:summary="@string/similar_pckgs_summary"
 	        android:defaultValue="true" />
+	    <CheckBoxPreference
+	        android:key="autoCollapseLists"
+	        android:title="@string/auto_collapse"
+	        android:summary="@string/auto_collapse_summary"
+	        android:defaultValue="true" />
 	    <EditTextPreference
 	        android:key="ddusername"
             android:name="Developer username"

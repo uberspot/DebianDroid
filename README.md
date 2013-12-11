@@ -26,26 +26,23 @@ This Debian Android app started as part of Google Summer of Code 2013. It's an A
  13. Allows searching for packages with similar names based on http://sources.debian.net/api/search/vim/ (doc: http://sources.debian.net/doc/api/). 
  14. Languages translated to: Greek, French
  15. Shows info about packages from http://qa.debian.org/madison.php?package=vim&table=debian&a=&c=&s=#
+ 16. Add option to autocollapse everything and leave only one group expanded in all expandable lists
 
 ##TODO
  
  1. Add buildd log info (? https://buildd.debian.org/ ?)
- 2. Add option to autocollapse everything and leave only one group expanded in all expandable lists
- 3. Show pending packages
+ 2. Tell which package a certain file is in: http://packages.debian.org/search?searchon=contents&keywords=&
+ 3. Show links to mailing list archives: https://lists.debian.org/debian-%s/recent
  4. Alerts you about a bug report you wanted to send, like a "bug report" reminder. Maybe with a button like "report bug in x time"
  5. Add extra parameters to bug search fragment with an +(add) button for more complicated searches
  6. Add clear favourites button in favourites fragment or in options
  7. Notifies user about new mails in bug reports he made, he contributed to or in bugs he is subscribed to and about new package news to packages he maintains or is subscribed to etc
  8. Show partial results in groups of ~20 bug reports to save time in search.
  9. Show Debian Developer Package Overview: http://qa.debian.org/developer.php?login= in a native ui instead of redirecting to browser
- 10. Show all versions of a source package (with arch and stuff): http://qa.debian.org/madison.php?package=%s&table=all
+ 10. Show contents of a package like in http://packages.debian.org/sid/i386//filelist
  11. Get somehow list subscriptions for a mail and compare them to find common ones between two developers (add to cif) so that they don't have to cc unnecessarily in mails to lists.
  12. Add a alarm for wnpp (BTS; packages that are to be removed; watching for ITP bugs, etc.)
- 13. Show links to mailing list archives: https://lists.debian.org/debian-%s/recent
- 14. Tell which package a certain file is in: http://packages.debian.org/search?searchon=contents&keywords=&
- 15. Show contents of a package like in http://packages.debian.org/sid/i386//filelist
- 16. Full-text search on package names like in http://packages.debian.org/search?keywords=%s
- 17. Translate to other languages. https://www.transifex.com/projects/p/debiandroid/
+ 13. Translate to other languages. https://www.transifex.com/projects/p/debiandroid/ 
 
 ##Permissions explained
 

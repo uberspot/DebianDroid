@@ -3,8 +3,10 @@ package net.debian.debiandroid.content;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import net.debian.debiandroid.AutoGroupCollapseListener;
 import net.debian.debiandroid.DExpandableAdapter;
 import net.debian.debiandroid.ItemFragment;
+import net.debian.debiandroid.SettingsActivity;
 import net.debian.debiandroid.apiLayer.BTS;
 import net.debian.debiandroid.utils.SearchCacher;
 
@@ -76,6 +78,10 @@ public class BTSFragment extends ItemFragment {
     	
         searchOptionSelected = StorageUtils.getInstance(context).getPreference("btsSearchOption", getString(R.string.by_number));
         bugList = (ExpandableListView) rootView.findViewById(R.id.btsList);
+        
+        // Add autocollapsing of list if enabled
+        if(SettingsActivity.isAutoCollapseEnabled(getSherlockActivity()))
+        	bugList.setOnGroupExpandListener(new AutoGroupCollapseListener(bugList));
         
         // Find the Views once in OnCreate to save time and not use findViewById later.
   		spinner = (Spinner) rootView.findViewById(R.id.btsSpinner);

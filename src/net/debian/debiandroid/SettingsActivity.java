@@ -100,6 +100,10 @@ public class SettingsActivity extends SherlockPreferenceActivity {
 		}
 	}
 	
+	public static boolean isAutoCollapseEnabled(Context context) {
+		return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("autoCollapseLists", true);
+	}
+	
 	@Override
     public void onPause() {
         super.onPause();

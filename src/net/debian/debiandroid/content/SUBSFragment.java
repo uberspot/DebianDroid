@@ -3,8 +3,10 @@ package net.debian.debiandroid.content;
 import java.util.ArrayList;
 import java.util.Set;
 
+import net.debian.debiandroid.AutoGroupCollapseListener;
 import net.debian.debiandroid.DExpandableAdapter;
 import net.debian.debiandroid.ItemFragment;
+import net.debian.debiandroid.SettingsActivity;
 import net.debian.debiandroid.apiLayer.BTS;
 import net.debian.debiandroid.apiLayer.PTS;
 import net.debian.debiandroid.utils.SearchCacher;
@@ -52,6 +54,11 @@ public class SUBSFragment extends ItemFragment {
     						.getSystemService(Context.LAYOUT_INFLATER_SERVICE));
     	expandableList.setAdapter(adapter);
     	registerForContextMenu(expandableList);
+    	
+    	// Add autocollapsing of list if enabled
+        if(SettingsActivity.isAutoCollapseEnabled(getSherlockActivity()))
+        	expandableList.setOnGroupExpandListener(new AutoGroupCollapseListener(expandableList));
+    	
     	expandableList.setOnChildClickListener(new OnChildClickListener() {
     		
             public boolean onChildClick(ExpandableListView parent, View view,
