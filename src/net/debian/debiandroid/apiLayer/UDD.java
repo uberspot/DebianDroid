@@ -36,9 +36,9 @@ public class UDD extends HTTPCaller {
 		ArrayList<String> fullDesc = new ArrayList<String>();
 		for(String element: response) {
 			element = element.trim();
-			if(element.charAt(0)!='#') {
+			if(element.length() > 0 && element.charAt(0)!='#') {
 				String[] details = element.split(",");
-				if(details.length>2) {
+				if(details.length > 2) {
 					description.add(details[0] + " " + details[1]);
 					fullDesc.add(element.replaceAll(",", "\n"));
 				}
