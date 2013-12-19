@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <changelog>
+  <release version="1.72" versioncode="13" >
+      <change>Fix crash in rcbugs retrieval</change>
+      <change>Added option to autocollapse groups in expandable lists and only keep one open</change>
+  </release>
   <release version="1.7" versioncode="12" >
       <change>Updated french translation</change>
       <change>Added Madison Info for each package in Search Packages tab</change>
