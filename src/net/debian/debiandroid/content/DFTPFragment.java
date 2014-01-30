@@ -56,7 +56,7 @@ public class DFTPFragment extends ItemFragment {
 						}
 						if(action.equals(ListDisplayFragment.ITEM_CLICK_ACTION)) {
 							itemSelected = intent.getStringExtra(ListDisplayFragment.LIST_TITLE_ID);
-							String itemClicked = intent.getStringExtra(ListDisplayFragment.ITEM_CLICKED);
+							String itemClicked = intent.getStringExtra(ListDisplayFragment.ITEM_CLICKED).trim();
 							if(itemSelected.equals(context.getString(R.string.new_packages)) ||
 									itemSelected.equals(context.getString(R.string.deferred_packages))){
 								// Pop listdisplayfragment from backstack

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="net.debian.debiandroid"
-    android:versionCode="13"
-    android:versionName="1.72" >
+    android:versionCode="16"
+    android:versionName="1.732"
+    android:installLocation="auto" >
 
     <uses-sdk
         android:minSdkVersion="8"
@@ -77,8 +78,7 @@
                  android:exported="false" 
                  android:enabled="false"/>
         <receiver
-            android:name="net.debian.debiandroid.broadcastreceivers.NetworkChangeReceiver"
-            android:label="NetworkChangeReceiver" >
+            android:name="net.debian.debiandroid.broadcastreceivers.NetworkChangeReceiver" >
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
                 <action android:name="android.net.wifi.WIFI_STATE_CHANGED" />

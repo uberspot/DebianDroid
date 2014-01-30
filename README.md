@@ -43,6 +43,7 @@ This Debian Android app started as part of Google Summer of Code 2013. It's an A
  11. Get somehow list subscriptions for a mail and compare them to find common ones between two developers (add to cif) so that they don't have to cc unnecessarily in mails to lists.
  12. Add a alarm for wnpp (BTS; packages that are to be removed; watching for ITP bugs, etc.)
  13. Translate to other languages. https://www.transifex.com/projects/p/debiandroid/ 
+ 14. Add http://udd.debian.org/dmd.cgi
 
 ##Permissions explained
 

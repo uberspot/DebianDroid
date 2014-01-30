@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <changelog>
-  <release version="1.72" versioncode="13" >
+  <release version="1.732" versioncode="16">
+      <change>Fix crash in DFTP in certain cases of network failure</change>
+  </release>
+  <release version="1.722" versioncode="15">
+      <change>Fix crash in various moments because of faulty build</change>
       <change>Fix crash in rcbugs retrieval</change>
       <change>Added option to autocollapse groups in expandable lists and only keep one open</change>
   </release>

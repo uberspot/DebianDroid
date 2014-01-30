@@ -99,6 +99,8 @@
   <string name="general_settings">Γενικές ρυθμίσεις</string>
   <string name="cache_settings">Ρυθμίσεις cache</string>
   <string name="use_3g">Χρήση 3G</string>
+  <string name="auto_collapse">Αυτόματη σμίκρυνση λιστών</string>
+  <string name="auto_collapse_summary">Επιλέξτε για αυτόματη σμίκρυνση λιστών ώστε να διατηρείται μόνο μια ομάδα/υποκατηγορία ανοιχτή κάθε φορά.</string>
   <string name="use_3g_summary">Επιλογή για χρήση και 3G για λήψη δεδομένων ή απο-επιλογή για χρήση μόνο WiFi</string>
   <string name="maint_username">Ψευδώνυμο maintainer</string>
   <string name="refresh_interval">Διάστημα μεταξύ αυτόματης ανανέωσης</string>

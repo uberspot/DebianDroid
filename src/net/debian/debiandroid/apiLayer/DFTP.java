@@ -79,7 +79,7 @@ public class DFTP extends HTTPCaller {
 	}
 
 	public static String getPckgNameFromTitle(String title) {
-		if(title!=null && title.length()!=0)
+		if(title != null && (title = title.trim()).length() != 0 && title.contains(" "))
 			return title.split(" ")[0];
 		return title;
 	}
