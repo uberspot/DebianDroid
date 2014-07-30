@@ -35,10 +35,10 @@ public class LinksFragment extends ItemFragment {
 	private final static HashMap<String, String> links = new HashMap<String, String>(){
 		private static final long serialVersionUID = 5237952374216701176L;
 	{
-	     put("Debian.org", "http://debian.org");
+	     put("Debian.org", "https://www.debian.org");
 	     put("Planet Debian - social", "http://planet.debian.org/");
-	     put("Debian News - rss", "http://www.debian.org/News/news");
-	     put("Debian Security - rss", "http://www.debian.org/security/dsa");
+	     put("Debian News - rss", "https://www.debian.org/News/news");
+	     put("Debian Security - rss", "https://www.debian.org/security/dsa");
 	     put("Debian Twitter - social", "https://twitter.com/debian");
 	     put("Debian Google+ - social","https://plus.google.com/111711190057359692089/posts");
 	     put("Debian Identi.ca - social","https://identi.ca/debian");

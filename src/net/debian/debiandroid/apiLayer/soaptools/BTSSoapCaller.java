@@ -13,7 +13,7 @@ public class BTSSoapCaller extends SoapCaller{
     public BTSSoapCaller(Context context) {
     	super(context);
     	NAMESPACE = "Debbugs/SOAP";
-    	URL = "http://bugs.debian.org/cgi-bin/soap.cgi";
+    	URL = "https://bugs.debian.org/cgi-bin/soap.cgi";
     }
     
     /** Key values for 'key' parameter in getBugs method*/

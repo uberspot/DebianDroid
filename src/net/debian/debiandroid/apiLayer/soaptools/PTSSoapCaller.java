@@ -8,7 +8,7 @@ public class PTSSoapCaller extends SoapCaller{
 
     public PTSSoapCaller(Context context) {
     	super(context);
-    	URL = "http://packages.qa.debian.org/cgi-bin/soap-alpha.cgi";
+    	URL = "https://packages.qa.debian.org/cgi-bin/soap-alpha.cgi";
     }
     
     public String getSOAPAPIVersion() {

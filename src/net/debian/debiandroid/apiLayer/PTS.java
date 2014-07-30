@@ -23,7 +23,7 @@ public class PTS extends PTSSoapCaller implements Subscribable {
 	public static final String PTSSUBSCRIPTIONS = "PTSSubscriptions";
 	
 	private static final String PTSPCKGNAMESEARCHURL = "http://sources.debian.net/api/search/";
-	private static final String PTSMADISONSEARCHURL = "http://qa.debian.org/madison.php?table=all&package=";
+	private static final String PTSMADISONSEARCHURL = "https://qa.debian.org/madison.php?table=all&package=";
 	
 	public PTS(Context context) {
 		super(context);
