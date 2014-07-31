@@ -10,7 +10,7 @@ public class UDD extends HTTPCaller {
 		super(context);
 	}
 		
-	private static final String UDD_CGI_URL = "https://udds.debian.org/cgi-bin/";
+	private static final String UDD_CGI_URL = "https://udd.debian.org/cgi-bin/";
 	
 	public ArrayList<ArrayList<String>> getLastUploads() {
 		String[] response = doQueryRequest(UDD_CGI_URL + "last-uploads.cgi?out=csv").split("\n");
