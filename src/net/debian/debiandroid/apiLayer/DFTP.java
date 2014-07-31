@@ -12,9 +12,9 @@ public class DFTP extends HTTPCaller {
 		super(context);
 	}
 
-	private static final String NEW_PACKAGES_URL = "http://ftp-master.debian.org/new.822";
-	private static final String REMOVALS_URL = "http://ftp-master.debian.org/removals.822";
-	private static final String DEFERRED_URL = "http://ftp-master.debian.org/deferred/status";
+	private static final String NEW_PACKAGES_URL = "https://ftp-master.debian.org/new.822";
+	private static final String REMOVALS_URL = "https://ftp-master.debian.org/removals.822";
+	private static final String DEFERRED_URL = "https://ftp-master.debian.org/deferred/status";
 	
 	public String[] getRawNewPackages() {
 		return doQueryRequest(NEW_PACKAGES_URL).split("\n\n");
