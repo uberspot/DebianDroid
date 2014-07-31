@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <changelog>
+  <release version="1.733" versioncode="17">
+      <change>Change http scheme to https on some services (thx to Guillaume Delacour)</change>
+  </release>
   <release version="1.732" versioncode="16">
       <change>Fix crash in DFTP in certain cases of network failure</change>
   </release>
