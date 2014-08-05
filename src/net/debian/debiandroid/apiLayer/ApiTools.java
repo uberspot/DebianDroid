@@ -7,7 +7,7 @@ import net.debian.debiandroid.apiLayer.soaptools.SoapCaller;
 
 
 public class ApiTools {
-	
+
 	public static void enableUseOfNet() {
 		// Activate searches via api
 		SoapCaller.netEnabled = true;
@@ -21,13 +21,13 @@ public class ApiTools {
 	public static boolean isNetEnabled() {
 		return SoapCaller.netEnabled && HTTPCaller.netEnabled;
 	}
-	
+
 	public static String getSubstringIn(String original, String startRegex, String endRegex) {
-		Pattern pattern = Pattern.compile(startRegex + "\\s*(.*?)\\s*" + endRegex + "\\s*", Pattern.DOTALL);
-		Matcher matcher = pattern.matcher(original);
-		if (matcher.find()) {
-		    return matcher.group(1);
-		}
-		return "";
+        Pattern pattern = Pattern.compile(startRegex + "\\s*(.*?)\\s*" + endRegex + "\\s*", Pattern.DOTALL);
+        Matcher matcher = pattern.matcher(original);
+        if (matcher.find()) {
+            return matcher.group(1);
+        }
+        return "";
 	}
 }

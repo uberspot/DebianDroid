@@ -8,30 +8,27 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.Preference;
-import android.preference.PreferenceManager;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceFragment;
+import android.preference.PreferenceManager;
 import android.support.v4.app.NavUtils;
-
-import com.uberspot.storageutils.Cacher;
-import com.uberspot.storageutils.StorageUtils;
 
 import com.actionbarsherlock.app.SherlockPreferenceActivity;
 import com.actionbarsherlock.view.MenuItem;
 import com.michaelflisar.messagebar.MessageBar;
 import com.michaelflisar.messagebar.messages.TextMessage;
-
-import net.debian.debiandroid.R;
+import com.uberspot.storageutils.Cacher;
+import com.uberspot.storageutils.StorageUtils;
 
 @SuppressLint("NewApi")
 @SuppressWarnings("deprecation")
 public class SettingsActivity extends SherlockPreferenceActivity {
-	
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-				
+
 		// If in android 3+ use a preference fragment which is the new recommended way
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
 			getFragmentManager().beginTransaction()
@@ -54,7 +51,7 @@ public class SettingsActivity extends SherlockPreferenceActivity {
 			findPreference("cachelimit").setOnPreferenceChangeListener(numberCheckListener);
 		}
 	}
-	
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
@@ -76,53 +73,54 @@ public class SettingsActivity extends SherlockPreferenceActivity {
 		super.onDestroy();
 	}
 
-	/** Loads user settings to app. Called when settings change and users exits from 
-	 *  settings screen or when the app first starts. 
+	/** Loads user settings to app. Called when settings change and users exits from
+	 *  settings screen or when the app first starts.
 	 *  */
 	public static void loadSettings(Context context) {
 		try {
 			StorageUtils storage = StorageUtils.getInstance(context);
-			
+
 			DDNotifyService.updateIntervalTime = Integer
 					.parseInt(storage.getPreference("rinterval", "600")) * 1000; // stored seconds -> milliseconds
 			Cacher.setCacheLimitByHours(Integer.parseInt(storage.getPreference(
 							"cachelimit", "48")));
-			
+
 			boolean hasMobileCon = NetUtils.hasNetProviderConnection(context, NetUtils.MOBILE);
-			boolean mobileAllowed = PreferenceManager.getDefaultSharedPreferences(context).getBoolean("use3g", true);
-			if(hasMobileCon && !mobileAllowed && ApiTools.isNetEnabled()) {
-					ApiTools.disableUseOfNet();
-			} else if(!ApiTools.isNetEnabled()) {
-					ApiTools.enableUseOfNet();
-			}
+            boolean mobileAllowed = PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
+                    "use3g", true);
+            if (hasMobileCon && !mobileAllowed && ApiTools.isNetEnabled()) {
+                ApiTools.disableUseOfNet();
+            } else if (!ApiTools.isNetEnabled()) {
+                ApiTools.enableUseOfNet();
+            }
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static boolean isAutoCollapseEnabled(Context context) {
 		return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("autoCollapseLists", true);
 	}
-	
+
 	@Override
     public void onPause() {
         super.onPause();
         DDNotifyService.activityPaused();
     }
-    
+
     @Override
     public void onResume() {
     	super.onResume();
     	DDNotifyService.activityResumed();
     }
-	
+
 	private Preference.OnPreferenceChangeListener numberCheckListener = new OnPreferenceChangeListener() {
 	    @Override
 	    public boolean onPreferenceChange(Preference preference, Object newValue) {
 	    	return !newValue.toString().equals("")  &&  newValue.toString().matches("\\d*");
 	    }
 	};
-	
+
 	private Preference.OnPreferenceClickListener clearCacheListener = new Preference.OnPreferenceClickListener() {
 		@Override
 		public boolean onPreferenceClick(Preference pref) {

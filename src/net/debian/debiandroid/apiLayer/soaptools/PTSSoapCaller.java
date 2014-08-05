@@ -10,13 +10,13 @@ public class PTSSoapCaller extends SoapCaller{
     	super(context);
     	URL = "https://packages.qa.debian.org/cgi-bin/soap-alpha.cgi";
     }
-    
+
     public String getSOAPAPIVersion() {
         try {
-			return doRequest("version", "version", null).toString();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+            return doRequest("version", "version", null).toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return "";
     }
 
@@ -29,7 +29,7 @@ public class PTSSoapCaller extends SoapCaller{
 		}
         return "";
     }
-    
+
     public String versions(String packageName) {
     	PropertyInfo[] properties = convertToSourceProperty(packageName);
         try {
@@ -39,7 +39,7 @@ public class PTSSoapCaller extends SoapCaller{
 		}
         return "";
     }
-    
+
     public String getMaintainerName(String packageName) {
     	PropertyInfo[] properties = convertToSourceProperty(packageName);
         try {
@@ -49,7 +49,7 @@ public class PTSSoapCaller extends SoapCaller{
 		}
         return "";
     }
-    
+
     public String getMaintainerEmail(String packageName) {
     	PropertyInfo[] properties = convertToSourceProperty(packageName);
         try {
@@ -59,19 +59,19 @@ public class PTSSoapCaller extends SoapCaller{
 		}
         return "";
     }
-    
+
     public String[] getBinaryNames(String packageName) {
-    	PropertyInfo[] properties = convertToSourceProperty(packageName);
+        PropertyInfo[] properties = convertToSourceProperty(packageName);
         try {
-        	String response = doRequest("binary_names", "binary_names", properties).toString();
-        	return response.trim().replace("binary_namesResponse{", "")
-        	.replaceAll("^.{5,12}=|;.{5,12}=|;.{1,8}$", " ").trim().split(" ");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-        return new String[]{};
+            String response = doRequest("binary_names", "binary_names", properties).toString();
+            return response.trim().replace("binary_namesResponse{", "")
+                    .replaceAll("^.{5,12}=|;.{5,12}=|;.{1,8}$", " ").trim().split(" ");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new String[] {};
     }
-    
+
     public String getLintianSummary(String packageName) {
     	PropertyInfo[] properties = convertToSourceProperty(packageName);
         try {
@@ -82,7 +82,7 @@ public class PTSSoapCaller extends SoapCaller{
 		}
         return "";
     }
-    
+
     public String[] getUploaderNames(String packageName) {
     	PropertyInfo[] properties = convertToSourceProperty(packageName);
         try {
@@ -94,7 +94,7 @@ public class PTSSoapCaller extends SoapCaller{
 		}
         return new String[]{};
     }
-    
+
     public String getBugCounts(String packageName) {
     	PropertyInfo[] properties = convertToSourceProperty(packageName);
         try {
