@@ -9,6 +9,7 @@ import net.debian.debiandroid.ListDisplayFragment;
 import net.debian.debiandroid.R;
 import net.debian.debiandroid.apiLayer.UDD;
 import net.debian.debiandroid.utils.QRCodeEncoder;
+import net.debian.debiandroid.utils.UIUtils;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -36,8 +37,6 @@ import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
-import com.michaelflisar.messagebar.MessageBar;
-import com.michaelflisar.messagebar.messages.TextMessage;
 import com.uberspot.storageutils.Cacher;
 import com.uberspot.storageutils.StorageUtils;
 
@@ -45,7 +44,6 @@ public class CIFFragment extends ItemFragment {
 
     private EditText mailInput;
     private String developerMail, scannedMail;
-    private MessageBar messageBar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -82,8 +80,6 @@ public class CIFFragment extends ItemFragment {
 
         getSherlockActivity().getSupportActionBar().setTitle(R.string.find_common_interests);
 
-        messageBar = new MessageBar(getSherlockActivity(), true);
-
         ImageButton searchButton = (ImageButton) rootView.findViewById(R.id.cifSearchButton);
         mailInput = (EditText) rootView.findViewById(R.id.cifInputSearch);
 
@@ -101,7 +97,7 @@ public class CIFFragment extends ItemFragment {
         try {
             developerMail = StorageUtils.getInstance(getSherlockActivity()).getPreference("ddemail", "empty");
             if (!Patterns.EMAIL_ADDRESS.matcher(developerMail).matches()) {
-                messageBar.show(new TextMessage(getString(R.string.no_mail_in_settings_msg)));
+                UIUtils.showToast(getActivity(), getString(R.string.no_mail_in_settings_msg));
             }
 
             Bitmap bm = QRCodeEncoder.encodeAsBitmap(developerMail, BarcodeFormat.QR_CODE, 250, 250);
@@ -153,9 +149,9 @@ public class CIFFragment extends ItemFragment {
         developerMail = StorageUtils.getInstance(getSherlockActivity()).getPreference("ddemail", "empty");
 
         if (!Patterns.EMAIL_ADDRESS.matcher(scannedMail).matches()) {
-            messageBar.show(new TextMessage(getString(R.string.invalid_mail_msg, scannedMail)));
+            UIUtils.showToast(getActivity(), getString(R.string.invalid_mail_msg, scannedMail));
         } else if (!Patterns.EMAIL_ADDRESS.matcher(developerMail).matches()) {
-            messageBar.show(new TextMessage(getString(R.string.invalid_mail_msg, developerMail)));
+            UIUtils.showToast(getActivity(), getString(R.string.invalid_mail_msg, developerMail));
         } else {
             hideSoftKeyboard(mailInput);
             new CIFSearchTask().execute();

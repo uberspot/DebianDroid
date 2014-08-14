@@ -7,9 +7,6 @@
 [submodule "external/Volley"]
 	path = external/Volley
 	url = https://android.googlesource.com/platform/frameworks/volley
-[submodule "external/messagebar"]
-	path = external/messagebar
-	url = https://github.com/MichaelFlisar/MessageBar.git
 [submodule "external/storageutils"]
 	path = external/storageutils
 	url = https://github.com/uberspot/AndroidStorageUtils.git

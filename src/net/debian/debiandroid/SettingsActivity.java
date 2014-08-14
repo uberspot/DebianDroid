@@ -2,6 +2,7 @@ package net.debian.debiandroid;
 
 import net.debian.debiandroid.apiLayer.ApiTools;
 import net.debian.debiandroid.utils.NetUtils;
+import net.debian.debiandroid.utils.UIUtils;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -15,8 +16,6 @@ import android.support.v4.app.NavUtils;
 
 import com.actionbarsherlock.app.SherlockPreferenceActivity;
 import com.actionbarsherlock.view.MenuItem;
-import com.michaelflisar.messagebar.MessageBar;
-import com.michaelflisar.messagebar.messages.TextMessage;
 import com.uberspot.storageutils.Cacher;
 import com.uberspot.storageutils.StorageUtils;
 
@@ -125,8 +124,7 @@ public class SettingsActivity extends SherlockPreferenceActivity {
 		@Override
 		public boolean onPreferenceClick(Preference pref) {
 			new Cacher(pref.getContext()).clearCache();
-			new MessageBar(SettingsActivity.this, true)
-				.show(new TextMessage(pref.getContext().getString(R.string.cache_cleared)));
+			UIUtils.showToast(pref.getContext(), getString(R.string.cache_cleared));
 			return true;
 		}
 	};
