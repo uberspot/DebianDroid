@@ -11,7 +11,6 @@ import net.debian.debiandroid.contentfragments.SUBSFragment;
 import net.debian.debiandroid.contentfragments.UDDFragment;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -41,6 +40,7 @@ public class ItemFragment extends SherlockFragment {
     public static final String ARG_ITEM_ID = "item_id";
     public static String currentFragID = "";
     public static final int SETTINGS_ID = Menu.FIRST + 1;
+    /** If set to true the currently displayed fragment is a {@link ListDisplayFragment} */
     public static boolean isInListDisplayFrag = false;
 
     /**
@@ -130,7 +130,7 @@ public class ItemFragment extends SherlockFragment {
     }
 
     public static void getSettingsMenuItem(Menu menu) {
-        menu.add(0, SETTINGS_ID, Menu.CATEGORY_CONTAINER, "Settings").setIcon(R.drawable.settings)
+        menu.add(0, SETTINGS_ID, Menu.CATEGORY_CONTAINER, R.string.settings).setIcon(R.drawable.settings)
                 .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
     }
 
@@ -153,24 +153,14 @@ public class ItemFragment extends SherlockFragment {
         }
     }
 
-    public static void forwardToMailApp(Context context, String recipient, String subject, String body) {
-        String uri = new StringBuilder("mailto:" + Uri.encode(recipient)).append("?subject=" + subject)
-                .append("&body=" + body).toString();
-
-        Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.parse(uri));
-
-        /* Send it off to the Activity-Chooser */
-        context.startActivity(Intent.createChooser(emailIntent, "Send mail..."));
-    }
-
-    public static void moveToFragment(FragmentManager fm, String fragID, Bundle arguments, boolean goesLeft) {
+    public static void moveToFragment(FragmentManager fm, String fragID, Bundle arguments, boolean animateToLeft) {
         if (!fragID.equals(currentFragID)) {
             ItemFragment fragment = getDetailFragment(fragID);
             if (arguments != null) {
                 fragment.setArguments(arguments);
             }
             FragmentTransaction ft = fm.beginTransaction();
-            if (goesLeft) {
+            if (animateToLeft) {
                 ft.setCustomAnimations(R.anim.push_left_in, R.anim.push_left_out, R.anim.push_right_in,
                         R.anim.push_right_out);
             } else {

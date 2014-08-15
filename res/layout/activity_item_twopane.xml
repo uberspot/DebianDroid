@@ -2,8 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="16dp"
-    android:layout_marginRight="16dp"
+    android:layout_marginLeft="12dp"
+    android:layout_marginRight="12dp"
     android:baselineAligned="false"
     android:divider="?android:attr/dividerHorizontal"
     android:orientation="horizontal"
@@ -16,18 +16,15 @@
     res/values-sw600dp/refs.xml for an example of layout aliases
     that replace the single-pane version of the layout with
     this two-pane version.
-
-    For more on layout aliases, see:
-    http://developer.android.com/training/multiscreen/screensizes.html#TaskUseAliasFilters
     -->
 
     <fragment
         android:id="@+id/item_list"
         android:name="net.debian.debiandroid.ItemListFragment"
         android:layout_width="0dp"
-        android:padding="8dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
+        android:padding="8dp"
         tools:layout="@android:layout/list_content" />
 
     <FrameLayout

@@ -3,71 +3,75 @@
     android:id="@+id/tablelayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".MainPage" >
-    <LinearLayout 
+    android:orientation="vertical" >
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical" >
-		    <ImageView
-		        android:id="@+id/cifQRCodeView"
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-				android:contentDescription="@string/QRCode"
-				android:padding="10dp" />
-			 <Button
-			        android:id="@+id/cifScanQRButton"
-			        android:layout_width="match_parent"
-			        android:layout_height="wrap_content"
-			        android:gravity="center_vertical|center_horizontal"
-			        android:text="@string/scan_qrcode"
-			        android:layout_marginLeft="10dp"
-			        android:layout_marginRight="10dp"
-			        android:drawableLeft="@drawable/search"
-			        style="@style/ButtonTextSmall"
-			        android:background="@drawable/btn_red" />
-			 <TextView 
-				    android:id="@+id/cifTextView"
-				    android:layout_width="fill_parent"
-				    android:layout_height="wrap_content"
-				    android:layout_margin="5dp"
-				    android:text="@string/or_type_other_persons_email_directly"
-				    android:gravity="center_vertical|center_horizontal"
-				    style="@android:style/TextAppearance.Medium"
-				    android:padding="5dp"
-				    android:textIsSelectable="false"/>
-			 <LinearLayout
-			        android:layout_width="match_parent"
-			        android:layout_height="wrap_content"
-			        android:orientation="horizontal"
-			        android:focusable="true" 
-			        android:focusableInTouchMode="true"
-			        android:padding="8dp" >
-			
-			        <EditText
-			            android:id="@+id/cifInputSearch"
-			            android:nextFocusUp="@id/cifInputSearch" 
-			            android:nextFocusLeft="@id/cifInputSearch"
-			            android:layout_width="wrap_content"
-			            android:layout_height="wrap_content"
-			            android:layout_weight="1"
-			            android:hint="@string/cif_search_hint"
-			            android:ems="10"
-			            android:gravity="left"
-			            android:imeOptions="actionSearch"
-			            android:inputType="textEmailAddress" >
-			        </EditText>
-			
-			        <ImageButton
-			            android:id="@+id/cifSearchButton"
-			            android:layout_width="wrap_content"
-			            android:layout_height="wrap_content"
-			            android:layout_weight="1"
-			            android:background="@null"
-			            android:contentDescription="@string/search"
-			            android:gravity="right"
-			            android:src="@drawable/searcharrow" />
-			    </LinearLayout>
-	 </LinearLayout>
+
+        <ImageView
+            android:id="@+id/cifQRCodeView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/QRCode"
+            android:padding="10dp" />
+
+        <Button
+            android:id="@+id/cifScanQRButton"
+            style="@style/ButtonTextSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/btn_red"
+            android:drawableLeft="@drawable/search"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="@string/scan_qrcode" />
+
+        <TextView
+            android:id="@+id/cifTextView"
+            style="@android:style/TextAppearance.Medium"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:gravity="center_vertical|center_horizontal"
+            android:padding="5dp"
+            android:text="@string/or_type_other_persons_email_directly"
+            android:textIsSelectable="false" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:orientation="horizontal"
+            android:padding="8dp" >
+
+            <EditText
+                android:id="@+id/cifInputSearch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:gravity="left"
+                android:hint="@string/cif_search_hint"
+                android:imeOptions="actionSearch"
+                android:inputType="textEmailAddress"
+                android:nextFocusLeft="@id/cifInputSearch"
+                android:nextFocusUp="@id/cifInputSearch" >
+            </EditText>
+
+            <ImageButton
+                android:id="@+id/cifSearchButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@null"
+                android:contentDescription="@string/search"
+                android:gravity="right"
+                android:src="@drawable/searcharrow" />
+        </LinearLayout>
+    </LinearLayout>
+
 </ScrollView>
- 

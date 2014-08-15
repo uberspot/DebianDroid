@@ -39,10 +39,7 @@ public class ItemDetailActivity extends SherlockFragmentActivity {
         // (e.g. when rotating the screen from portrait to landscape).
         // In this case, the fragment will automatically be re-added
         // to its container so we don't need to manually add it.
-        // For more information, see the Fragments API guide at:
-        //
-        // http://developer.android.com/guide/components/fragments.html
-        //
+
         if (savedInstanceState == null) {
             // Create the detail fragment and add it to the activity
             // using a fragment transaction.
@@ -122,8 +119,8 @@ public class ItemDetailActivity extends SherlockFragmentActivity {
 
     class SwipeListener extends GestureDetector.SimpleOnGestureListener {
 
-        private static final int SWIPE_THRESHOLD = 100;
-        private static final int SWIPE_VELOCITY_THRESHOLD = 100;
+        private static final int SWIPE_THRESHOLD = 80;
+        private static final int SWIPE_VELOCITY_THRESHOLD = 80;
 
         @Override
         public boolean onDown(MotionEvent event) {

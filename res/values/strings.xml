@@ -128,5 +128,6 @@
     
     <string name="connection_restored">Connection restored.</string>
     <string name="lost_connectivity">Lost connectivity, switching to cache only.</string>
+    <string name="send_mail">Send mail...</string>
 
 </resources>

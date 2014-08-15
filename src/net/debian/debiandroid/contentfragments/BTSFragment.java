@@ -11,6 +11,7 @@ import net.debian.debiandroid.R;
 import net.debian.debiandroid.SettingsActivity;
 import net.debian.debiandroid.apiLayer.BTS;
 import net.debian.debiandroid.utils.SearchCacher;
+import net.debian.debiandroid.utils.UIUtils;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -128,7 +129,7 @@ public class BTSFragment extends ItemFragment {
         spinner.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1,
                 spinnerValues));
 
-        spinner.setSelection(getSelectedOption(searchOptionSelected));
+        spinner.setSelection(UIUtils.getValuePosition(spinnerValues, searchOptionSelected));
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
@@ -198,26 +199,13 @@ public class BTSFragment extends ItemFragment {
                             .get(childPosition);
                     String subject = bugListParentItems.get(groupPosition);
                     String bugnum = subject.replace("[", "").replaceFirst("].*$", "");
-                    forwardToMailApp(getSherlockActivity(), bugnum + "@bugs.debian.org",
+                    UIUtils.forwardToMailApp(getSherlockActivity(), bugnum + "@bugs.debian.org",
                             "Re: " + subject.replaceFirst("\\[.*\\)", ""), text.replaceAll("\n", "\n>"));
                     return true;
                 }
                 return false;
             }
         });
-    }
-
-    /** Returns the position of the selected language in the given array
-     * @param values
-     * @return an int which is the position of the language in the values or 0 if it is not found
-     */
-    private int getSelectedOption(String selection) {
-        for (int i = 0; i < spinnerValues.length; i++) {
-            if (spinnerValues[i].equalsIgnoreCase(selection)) {
-                return i;
-            }
-        }
-        return 0;
     }
 
     @Override
@@ -362,7 +350,8 @@ public class BTSFragment extends ItemFragment {
             }
             if (SearchCacher.hasLastBugsSearch()) {
                 btsInput.setText(SearchCacher.getLastBugSearchValue());
-                spinner.setSelection(getSelectedOption(BTSParamToSpinnerOption(SearchCacher
+                spinner.setSelection(
+                        UIUtils.getValuePosition(spinnerValues, BTSParamToSpinnerOption(SearchCacher
                         .getLastBugSearchOption())));
             }
             // If in android 3+ update the action bar menu so that

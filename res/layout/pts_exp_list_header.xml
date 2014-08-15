@@ -5,14 +5,14 @@
     android:layout_height="wrap_content"
     android:orientation="vertical" >
 
-    <TextView
+    <TextView 
         android:id="@+id/ptsPckgInfo"
         style="?android:attr/textAppearanceMedium"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:linksClickable="true" 
         android:autoLink="web|email"
+        android:linksClickable="true"
+        android:padding="10dp"
         android:textIsSelectable="true" />
 
 </LinearLayout>

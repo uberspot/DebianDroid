@@ -45,7 +45,7 @@ public class ItemListActivity extends SherlockFragmentActivity implements ItemLi
      * device.
      */
     private boolean mTwoPane;
-    private static boolean goesLeft;
+    private static boolean animateToLeft;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +69,7 @@ public class ItemListActivity extends SherlockFragmentActivity implements ItemLi
             ((ItemListFragment) getSupportFragmentManager().findFragmentById(R.id.item_list))
                     .setActivateOnItemClick(true);
 
-            goesLeft = false;
+            animateToLeft = false;
             onItemSelected(Content.PTS);
         }
 
@@ -179,7 +179,7 @@ public class ItemListActivity extends SherlockFragmentActivity implements ItemLi
 
             Bundle arguments = new Bundle();
             arguments.putString(ItemFragment.ARG_ITEM_ID, id);
-            ItemFragment.moveToFragment(getSupportFragmentManager(), id, arguments, goesLeft);
+            ItemFragment.moveToFragment(getSupportFragmentManager(), id, arguments, animateToLeft);
         } else {
             // In single-pane mode, simply start the detail activity
             // for the selected item ID.
@@ -187,13 +187,13 @@ public class ItemListActivity extends SherlockFragmentActivity implements ItemLi
             detailIntent.putExtra(ItemFragment.ARG_ITEM_ID, id);
             startActivity(detailIntent);
         }
-        goesLeft = false;
+        animateToLeft = false;
     }
 
     class SwipeListener extends GestureDetector.SimpleOnGestureListener {
 
-        private static final int SWIPE_THRESHOLD = 100;
-        private static final int SWIPE_VELOCITY_THRESHOLD = 100;
+        private static final int SWIPE_THRESHOLD = 80;
+        private static final int SWIPE_VELOCITY_THRESHOLD = 80;
 
         @Override
         public boolean onDown(MotionEvent event) {
@@ -214,14 +214,14 @@ public class ItemListActivity extends SherlockFragmentActivity implements ItemLi
                             // Swipe right
                             String fragmentID = ItemFragment.getPreviousFragmentId();
                             if (fragmentID != null) {
-                                goesLeft = false;
+                                animateToLeft = false;
                                 onItemSelected(fragmentID);
                             }
                         } else {
                             // Swipe left
                             String fragmentID = ItemFragment.getNextFragmentId();
                             if (fragmentID != null) {
-                                goesLeft = true;
+                                animateToLeft = true;
                                 onItemSelected(fragmentID);
                             }
                         }

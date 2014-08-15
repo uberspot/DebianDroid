@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/LinearLayout01"
-    android:layout_height="110dp"
     android:layout_width="110dp"
+    android:layout_height="110dp"
     android:background="@drawable/widgetbackground" >
-    <TextView 
+
+    <TextView
         android:id="@+id/widget_textview"
+        style="@style/WidgetTextStyle"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        style="@style/WidgetTextStyle" />
+        android:layout_height="fill_parent" />
+
 </LinearLayout>

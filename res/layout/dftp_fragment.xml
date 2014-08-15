@@ -3,12 +3,11 @@
     android:id="@+id/tablelayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".MainPage" >
+    android:orientation="vertical" >
+
     <ListView
-			    android:id="@+id/dftpListView"
-			    android:layout_width="match_parent"
-			    android:layout_height="wrap_content" /> 
-    
+        android:id="@+id/dftpListView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
 </LinearLayout>
- 

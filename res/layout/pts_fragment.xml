@@ -3,30 +3,29 @@
     android:id="@+id/tablelayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    tools:context=".MainPage" >
+    android:orientation="vertical" >
 
     <LinearLayout
         android:id="@+id/horizontalLayout1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:orientation="horizontal"
-        android:focusable="true" 
-		android:focusableInTouchMode="true"
         android:padding="8dp" >
 
         <EditText
             android:id="@+id/ptsInputSearch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:nextFocusUp="@id/ptsInputSearch" 
-            android:nextFocusLeft="@id/ptsInputSearch"
-            android:hint="@string/pts_search_hint"
             android:layout_weight="1"
             android:ems="10"
             android:gravity="left"
+            android:hint="@string/pts_search_hint"
             android:imeOptions="actionSearch"
-            android:inputType="textAutoComplete" >
+            android:inputType="textAutoComplete"
+            android:nextFocusLeft="@id/ptsInputSearch"
+            android:nextFocusUp="@id/ptsInputSearch" >
         </EditText>
 
         <ImageButton
@@ -39,23 +38,23 @@
             android:gravity="right"
             android:src="@drawable/searcharrow" />
     </LinearLayout>
-	
-    <TextView 
-	    android:id="@+id/ptsEmptyTextView"
-	    style="?android:attr/textAppearanceMedium"
+
+    <TextView
+        android:id="@+id/ptsEmptyTextView"
+        style="?android:attr/textAppearanceMedium"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/no_info_found"
-        android:visibility="gone"
         android:padding="10dp"
-        android:textIsSelectable="true"  />
-    
+        android:text="@string/no_info_found"
+        android:textIsSelectable="true"
+        android:visibility="gone" />
+
     <ListView
-		    android:id="@+id/ptsPckgList"
-		    android:visibility="gone"
-		    android:layout_width="match_parent"
-		    android:layout_height="wrap_content" /> 
-			    
+        android:id="@+id/ptsPckgList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+
     <ListView
         android:id="@+id/ptsMadisonList"
         android:layout_width="match_parent"

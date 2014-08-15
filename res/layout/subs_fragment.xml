@@ -6,12 +6,11 @@
     android:orientation="vertical"
     android:padding="8dp"
     tools:context=".MainPage" >
-    
+
     <ExpandableListView
-	    android:id="@+id/subscriptionlist"
+        android:id="@+id/subscriptionlist"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-	    android:layout_width="match_parent"
-	    android:groupIndicator="@null" />  
-    
+        android:groupIndicator="@null" />
+
 </LinearLayout>
- 

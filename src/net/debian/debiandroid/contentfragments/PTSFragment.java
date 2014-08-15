@@ -9,6 +9,7 @@ import net.debian.debiandroid.R;
 import net.debian.debiandroid.apiLayer.BTS;
 import net.debian.debiandroid.apiLayer.PTS;
 import net.debian.debiandroid.utils.SearchCacher;
+import net.debian.debiandroid.utils.UIUtils;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
@@ -123,8 +124,8 @@ public class PTSFragment extends ItemFragment {
         subMenuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
         setSubscriptionIcon(subMenuItem, SearchCacher.getLastPckgName());
 
-        menu.add(0, REFRESH_ID, Menu.CATEGORY_ALTERNATIVE, R.string.refresh).setIcon(R.drawable.refresh)
-                .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+        menu.add(0, REFRESH_ID, Menu.CATEGORY_ALTERNATIVE, R.string.refresh)
+                .setIcon(R.drawable.refresh).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
         menu.add(0, NEW_EMAIL_ID, Menu.CATEGORY_SECONDARY, R.string.submit_new_bug_report)
                 .setIcon(R.drawable.new_email).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
@@ -180,7 +181,7 @@ public class PTSFragment extends ItemFragment {
         if (SearchCacher.hasLastPckgSearch()) {
             String pckgName = SearchCacher.getLastPckgName();
 
-            forwardToMailApp(getSherlockActivity(), BTS.NEWBUGREPORTMAIL,
+            UIUtils.forwardToMailApp(getSherlockActivity(), BTS.NEWBUGREPORTMAIL,
                     BTS.getNewBugReportSubject(pckgName),
                     BTS.getNewBugReportBody(pckgName, SearchCacher.getLastPckgVersion()));
         }
