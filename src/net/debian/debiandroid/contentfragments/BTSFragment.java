@@ -273,7 +273,7 @@ public class BTSFragment extends ItemFragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            hideSoftKeyboard(btsInput);
+            UIUtils.hideSoftKeyboard(getActivity(), btsInput);
             progressDialog = ProgressDialog.show(getSherlockActivity(), getString(R.string.searching),
                     progressMessage, true, false);
         }

@@ -6,11 +6,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import net.debian.debiandroid.ItemFragment;
 import net.debian.debiandroid.R;
 import android.content.Context;
+import android.os.Bundle;
 
 /** Helper class for providing content for user interfaces */
-public class Content {
+public class ContentHelper {
 
     /** An array of items to display. */
     public static List<ContentItem> ITEMS = new ArrayList<ContentItem>();
@@ -83,5 +85,62 @@ public class Content {
         addItem(new ContentItem(SUBS, context.getString(R.string.subscriptions)));
         addItem(new ContentItem(CIF, context.getString(R.string.find_common_interests)));
         addItem(new ContentItem(LINKS, context.getString(R.string.links)));
+    }
+
+    public static String getNextFragmentId() {
+        if (ItemFragment.currentFragID.equals("")) {
+            return PTS;
+        }
+        int position = ITEMS.indexOf(new ContentItem(ItemFragment.currentFragID, ""));
+    
+        if ((position++ != -1) && (position < ITEMS.size())) {
+            return ITEMS.get(position).id;
+        }
+        return ItemFragment.currentFragID;
+    }
+
+    public static String getPreviousFragmentId() {
+        if (ItemFragment.currentFragID.equals("")) {
+            return null;
+        }
+        int position = ITEMS.indexOf(new ContentItem(ItemFragment.currentFragID, ""));
+        // return to ItemListActivity and don't show fragments anymore
+        if (position == 0) {
+            return null;
+        }
+        if ((position-- != -1) && (position >= 0)) {
+            return ITEMS.get(position).id;
+        }
+        return ItemFragment.currentFragID;
+    }
+
+    /** Returns the appropriate ItemDetailFragment implementation based on the given id
+     * @param id a string containing the ContentMenu.Item describing the fragment to be returned
+     * @return
+     */
+    public static ItemFragment getDetailFragment(String id) {
+        Bundle arguments = new Bundle();
+        arguments.putString(ItemFragment.ARG_ITEM_ID, id);
+        ItemFragment fragment;
+        if (id.equalsIgnoreCase(BTS)) {
+            fragment = new BTSFragment();
+        } else if (id.equalsIgnoreCase(PTS)) {
+            fragment = new PTSFragment();
+        } else if (id.equalsIgnoreCase(UDD)) {
+            fragment = new UDDFragment();
+        } else if (id.equalsIgnoreCase(DFTP)) {
+            fragment = new DFTPFragment();
+        } else if (id.equalsIgnoreCase(CIF)) {
+            fragment = new CIFFragment();
+        } else if (id.equalsIgnoreCase(SUBS)) {
+            fragment = new SUBSFragment();
+        } else if (id.equalsIgnoreCase(LINKS)) {
+            fragment = new LinksFragment();
+        } else {
+            fragment = new ItemFragment();
+        }
+        fragment.setArguments(arguments);
+        fragment.setHasOptionsMenu(true);
+        return fragment;
     }
 }

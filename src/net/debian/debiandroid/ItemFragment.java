@@ -1,24 +1,12 @@
 
 package net.debian.debiandroid;
 
-import net.debian.debiandroid.contentfragments.BTSFragment;
-import net.debian.debiandroid.contentfragments.CIFFragment;
-import net.debian.debiandroid.contentfragments.Content;
-import net.debian.debiandroid.contentfragments.DFTPFragment;
-import net.debian.debiandroid.contentfragments.LinksFragment;
-import net.debian.debiandroid.contentfragments.PTSFragment;
-import net.debian.debiandroid.contentfragments.SUBSFragment;
-import net.debian.debiandroid.contentfragments.UDDFragment;
-import android.content.Context;
+import net.debian.debiandroid.utils.UIUtils;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
 
 import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.view.Menu;
@@ -67,79 +55,9 @@ public class ItemFragment extends SherlockFragment {
         return rootView;
     }
 
-    /** Returns the appropriate ItemDetailFragment implementation based on the given id
-     * @param id a string containing the ContentMenu.Item describing the fragment to be returned
-     * @return
-     */
-    public static ItemFragment getDetailFragment(String id) {
-        Bundle arguments = new Bundle();
-        arguments.putString(ItemFragment.ARG_ITEM_ID, id);
-        ItemFragment fragment;
-        if (id.equalsIgnoreCase(Content.BTS)) {
-            fragment = new BTSFragment();
-        } else if (id.equalsIgnoreCase(Content.PTS)) {
-            fragment = new PTSFragment();
-        } else if (id.equalsIgnoreCase(Content.UDD)) {
-            fragment = new UDDFragment();
-        } else if (id.equalsIgnoreCase(Content.DFTP)) {
-            fragment = new DFTPFragment();
-        } else if (id.equalsIgnoreCase(Content.CIF)) {
-            fragment = new CIFFragment();
-        } else if (id.equalsIgnoreCase(Content.SUBS)) {
-            fragment = new SUBSFragment();
-        } else if (id.equalsIgnoreCase(Content.LINKS)) {
-            fragment = new LinksFragment();
-        } else {
-            fragment = new ItemFragment();
-        }
-        fragment.setArguments(arguments);
-        fragment.setHasOptionsMenu(true);
-        return fragment;
-    }
-
-    public static String getNextFragmentId() {
-        if (currentFragID.equals("")) {
-            return Content.PTS;
-        }
-        int position = Content.ITEMS.indexOf(new Content.ContentItem(currentFragID, ""));
-
-        if ((position++ != -1) && (position < Content.ITEMS.size())) {
-            return Content.ITEMS.get(position).id;
-        }
-        return currentFragID;
-    }
-
-    public static String getPreviousFragmentId() {
-        if (currentFragID.equals("")) {
-            return null;
-        }
-        int position = Content.ITEMS.indexOf(new Content.ContentItem(currentFragID, ""));
-        // return to ItemListActivity and don't show fragments anymore
-        if (position == 0) {
-            return null;
-        }
-        if ((position-- != -1) && (position >= 0)) {
-            return Content.ITEMS.get(position).id;
-        }
-        return currentFragID;
-    }
-
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        getSettingsMenuItem(menu);
-    }
-
-    public static void getSettingsMenuItem(Menu menu) {
-        menu.add(0, SETTINGS_ID, Menu.CATEGORY_CONTAINER, R.string.settings).setIcon(R.drawable.settings)
-                .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-    }
-
-    public void hideSoftKeyboard(EditText input) {
-        if ((getActivity().getCurrentFocus() != null) && (getActivity().getCurrentFocus() instanceof EditText)) {
-            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(
-                    Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(input.getWindowToken(), 0);
-        }
+        UIUtils.addSettingsMenuItem(menu);
     }
 
     @Override
@@ -150,24 +68,6 @@ public class ItemFragment extends SherlockFragment {
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
-        }
-    }
-
-    public static void moveToFragment(FragmentManager fm, String fragID, Bundle arguments, boolean animateToLeft) {
-        if (!fragID.equals(currentFragID)) {
-            ItemFragment fragment = getDetailFragment(fragID);
-            if (arguments != null) {
-                fragment.setArguments(arguments);
-            }
-            FragmentTransaction ft = fm.beginTransaction();
-            if (animateToLeft) {
-                ft.setCustomAnimations(R.anim.push_left_in, R.anim.push_left_out, R.anim.push_right_in,
-                        R.anim.push_right_out);
-            } else {
-                ft.setCustomAnimations(R.anim.push_right_in, R.anim.push_right_out, R.anim.push_left_in,
-                        R.anim.push_left_out);
-            }
-            ft.replace(R.id.item_detail_container, fragment).commit();
         }
     }
 }

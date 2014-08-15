@@ -3,9 +3,10 @@ package net.debian.debiandroid;
 
 import net.debian.debiandroid.apiLayer.BTS;
 import net.debian.debiandroid.apiLayer.PTS;
-import net.debian.debiandroid.contentfragments.Content;
+import net.debian.debiandroid.contentfragments.ContentHelper;
 import net.debian.debiandroid.utils.SearchCacher;
 import net.debian.debiandroid.utils.SwipeDetector;
+import net.debian.debiandroid.utils.UIUtils;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -53,7 +54,7 @@ public class ItemListActivity extends SherlockFragmentActivity implements ItemLi
         setContentView(R.layout.activity_item_list);
 
         // Initialize content menu elements
-        Content.initializeItems(getApplicationContext());
+        ContentHelper.initializeItems(getApplicationContext());
 
         gestureDetector = new GestureDetectorCompat(this, new ListSwipeListener());
 
@@ -70,7 +71,7 @@ public class ItemListActivity extends SherlockFragmentActivity implements ItemLi
                     .setActivateOnItemClick(true);
 
             animateToLeft = false;
-            onItemSelected(Content.PTS);
+            onItemSelected(ContentHelper.PTS);
         }
 
         //new task().execute(); //temporary used for testing api methods
@@ -99,12 +100,12 @@ public class ItemListActivity extends SherlockFragmentActivity implements ItemLi
             // Parse uri to get search parameters and forward to corresponding fragment
             if (PTS.isPTSHost(uri.getHost())) {
                 SearchCacher.setLastSearchByPckgName(PTS.PTSURIToPckgName(uri));
-                onItemSelected(Content.PTS);
+                onItemSelected(ContentHelper.PTS);
             }
             if (BTS.isBTSHost(uri.getHost())) {
                 uri = Uri.parse(uri.toString().replace(';', '&'));
                 SearchCacher.setLastSearchByBTSURI(uri);
-                onItemSelected(Content.BTS);
+                onItemSelected(ContentHelper.BTS);
             }
         }
     }
@@ -152,7 +153,7 @@ public class ItemListActivity extends SherlockFragmentActivity implements ItemLi
             //Forward the qrcode scan result to the corresponding CIFFragment
             ItemFragment fragment = (ItemFragment) getSupportFragmentManager().findFragmentById(
                     R.id.item_detail_container);
-            if ((fragment != null) && fragment.isAdded() && ItemFragment.currentFragID.equals(Content.CIF)) {
+            if ((fragment != null) && fragment.isAdded() && ItemFragment.currentFragID.equals(ContentHelper.CIF)) {
                 fragment.onActivityResult(requestCode, resultCode, intent);
             }
         }
@@ -179,7 +180,7 @@ public class ItemListActivity extends SherlockFragmentActivity implements ItemLi
 
             Bundle arguments = new Bundle();
             arguments.putString(ItemFragment.ARG_ITEM_ID, id);
-            ItemFragment.moveToFragment(getSupportFragmentManager(), id, arguments, animateToLeft);
+            UIUtils.loadFragment(getSupportFragmentManager(), id, arguments, animateToLeft);
         } else {
             // In single-pane mode, simply start the detail activity
             // for the selected item ID.
@@ -195,7 +196,7 @@ public class ItemListActivity extends SherlockFragmentActivity implements ItemLi
         @Override
         public boolean onSwipeRight() {
             super.onSwipeRight();
-            String fragmentID = ItemFragment.getPreviousFragmentId();
+            String fragmentID = ContentHelper.getPreviousFragmentId();
             if (fragmentID != null) {
                 animateToLeft = false;
                 onItemSelected(fragmentID);
@@ -206,7 +207,7 @@ public class ItemListActivity extends SherlockFragmentActivity implements ItemLi
         @Override
         public boolean onSwipeLeft() {
             super.onSwipeLeft();
-            String fragmentID = ItemFragment.getNextFragmentId();
+            String fragmentID = ContentHelper.getNextFragmentId();
             if (fragmentID != null) {
                 animateToLeft = true;
                 onItemSelected(fragmentID);
@@ -227,7 +228,7 @@ public class ItemListActivity extends SherlockFragmentActivity implements ItemLi
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         if (!mTwoPane) {
-            ItemFragment.getSettingsMenuItem(menu);
+            UIUtils.addSettingsMenuItem(menu);
             return true;
         }
         return false;

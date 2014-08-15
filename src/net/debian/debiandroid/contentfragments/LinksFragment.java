@@ -7,6 +7,7 @@ import java.util.List;
 
 import net.debian.debiandroid.ItemFragment;
 import net.debian.debiandroid.R;
+import net.debian.debiandroid.utils.UIUtils;
 import android.content.Intent;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
@@ -86,7 +87,7 @@ public class LinksFragment extends ItemFragment {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    hideSoftKeyboard(linkSearchInput);
+                    UIUtils.hideSoftKeyboard(getActivity(), linkSearchInput);
                     return true;
                 }
                 return false;

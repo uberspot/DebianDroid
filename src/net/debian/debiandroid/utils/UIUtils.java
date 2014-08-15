@@ -1,11 +1,23 @@
 package net.debian.debiandroid.utils;
 
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
+
+import net.debian.debiandroid.ItemFragment;
 import net.debian.debiandroid.R;
+import net.debian.debiandroid.R.drawable;
+import net.debian.debiandroid.R.string;
+import net.debian.debiandroid.contentfragments.ContentHelper;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.Toast;
-
 
 public class UIUtils {
 
@@ -35,5 +47,36 @@ public class UIUtils {
             }
         }
         return 0;
+    }
+
+    public static void hideSoftKeyboard(Activity activity, EditText input) {
+        if ((activity.getCurrentFocus() != null) && (activity.getCurrentFocus() instanceof EditText)) {
+            InputMethodManager imm = (InputMethodManager) activity.getSystemService(
+                    Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(input.getWindowToken(), 0);
+        }
+    }
+
+    public static void loadFragment(FragmentManager fm, String fragID, Bundle arguments, boolean animateToLeft) {
+        if (!fragID.equals(ItemFragment.currentFragID)) {
+            ItemFragment fragment = ContentHelper.getDetailFragment(fragID);
+            if (arguments != null) {
+                fragment.setArguments(arguments);
+            }
+            FragmentTransaction ft = fm.beginTransaction();
+            if (animateToLeft) {
+                ft.setCustomAnimations(R.anim.push_left_in, R.anim.push_left_out, R.anim.push_right_in,
+                        R.anim.push_right_out);
+            } else {
+                ft.setCustomAnimations(R.anim.push_right_in, R.anim.push_right_out, R.anim.push_left_in,
+                        R.anim.push_left_out);
+            }
+            ft.replace(R.id.item_detail_container, fragment).commit();
+        }
+    }
+
+    public static void addSettingsMenuItem(Menu menu) {
+        menu.add(0, ItemFragment.SETTINGS_ID, Menu.CATEGORY_CONTAINER, R.string.settings).setIcon(R.drawable.settings)
+                .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
     }
 }

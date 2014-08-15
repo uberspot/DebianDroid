@@ -211,7 +211,7 @@ public class PTSFragment extends ItemFragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            hideSoftKeyboard(ptsInput);
+            UIUtils.hideSoftKeyboard(getActivity(), ptsInput);
             if (ptsPckgList != null) {
                 ptsPckgList.setVisibility(View.GONE);
             }
@@ -309,7 +309,7 @@ public class PTSFragment extends ItemFragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            hideSoftKeyboard(ptsInput);
+            UIUtils.hideSoftKeyboard(getActivity(), ptsInput);
             if (ptsMadisonList != null) {
                 ptsMadisonList.setVisibility(View.GONE);
             }

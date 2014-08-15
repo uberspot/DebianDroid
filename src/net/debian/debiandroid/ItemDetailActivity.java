@@ -1,8 +1,9 @@
 
 package net.debian.debiandroid;
 
-import net.debian.debiandroid.contentfragments.Content;
+import net.debian.debiandroid.contentfragments.ContentHelper;
 import net.debian.debiandroid.utils.SwipeDetector;
+import net.debian.debiandroid.utils.UIUtils;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -47,7 +48,7 @@ public class ItemDetailActivity extends SherlockFragmentActivity {
             Bundle arguments = new Bundle();
             String extra = getIntent().getStringExtra(ItemFragment.ARG_ITEM_ID);
             arguments.putString(ItemFragment.ARG_ITEM_ID, extra);
-            ItemFragment fragment = ItemFragment.getDetailFragment(extra);
+            ItemFragment fragment = ContentHelper.getDetailFragment(extra);
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction().add(R.id.item_detail_container, fragment).commit();
 
@@ -76,7 +77,7 @@ public class ItemDetailActivity extends SherlockFragmentActivity {
         if (resultCode == RESULT_OK) {
             ItemFragment fragment = (ItemFragment) getSupportFragmentManager().findFragmentById(
                     R.id.item_detail_container);
-            if ((fragment != null) && fragment.isAdded() && ItemFragment.currentFragID.equals(Content.CIF)) {
+            if ((fragment != null) && fragment.isAdded() && ItemFragment.currentFragID.equals(ContentHelper.CIF)) {
                 fragment.onActivityResult(requestCode, resultCode, intent);
             }
         }
@@ -122,11 +123,11 @@ public class ItemDetailActivity extends SherlockFragmentActivity {
         @Override
         public boolean onSwipeRight() {
             super.onSwipeRight();
-            String fragmentID = ItemFragment.getPreviousFragmentId();
+            String fragmentID = ContentHelper.getPreviousFragmentId();
             if (fragmentID == null) {
                 finish();
             } else {
-                ItemFragment.moveToFragment(getSupportFragmentManager(), fragmentID, null,
+                UIUtils.loadFragment(getSupportFragmentManager(), fragmentID, null,
                         false);
             }
             return true;
@@ -135,8 +136,8 @@ public class ItemDetailActivity extends SherlockFragmentActivity {
         @Override
         public boolean onSwipeLeft() {
             super.onSwipeLeft();
-            ItemFragment.moveToFragment(getSupportFragmentManager(),
-                    ItemFragment.getNextFragmentId(), null, true);
+            UIUtils.loadFragment(getSupportFragmentManager(),
+                    ContentHelper.getNextFragmentId(), null, true);
             return true;
         }
 

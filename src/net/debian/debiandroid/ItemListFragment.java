@@ -1,6 +1,6 @@
 package net.debian.debiandroid;
 
-import net.debian.debiandroid.contentfragments.Content;
+import net.debian.debiandroid.contentfragments.ContentHelper;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
@@ -70,11 +70,11 @@ public class ItemListFragment extends SherlockListFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setListAdapter(new ArrayAdapter<Content.ContentItem>(
+        setListAdapter(new ArrayAdapter<ContentHelper.ContentItem>(
         		getActivity(),
                 android.R.layout.simple_list_item_1,
                 android.R.id.text1,
-                Content.ITEMS));
+                ContentHelper.ITEMS));
     }
 
     @Override
@@ -114,7 +114,7 @@ public class ItemListFragment extends SherlockListFragment {
 
         // Notify the active callbacks interface (the activity, if the
         // fragment is attached to one) that an item has been selected.
-        mCallbacks.onItemSelected(Content.ITEMS.get(position).id);
+        mCallbacks.onItemSelected(ContentHelper.ITEMS.get(position).id);
     }
 
     @Override

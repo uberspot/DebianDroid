@@ -9,6 +9,7 @@ import net.debian.debiandroid.ListDisplayFragment;
 import net.debian.debiandroid.R;
 import net.debian.debiandroid.apiLayer.DFTP;
 import net.debian.debiandroid.utils.SearchCacher;
+import net.debian.debiandroid.utils.UIUtils;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -42,7 +43,7 @@ public class DFTPFragment extends ItemFragment {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            if (currentFragID.equals(Content.DFTP)) {
+            if (currentFragID.equals(ContentHelper.DFTP)) {
                 if (ItemFragment.isInListDisplayFrag) {
                     SherlockFragmentActivity sa = getSherlockActivity();
                     if (sa != null) {
@@ -65,7 +66,7 @@ public class DFTPFragment extends ItemFragment {
                                 //get PckgName from title and move to pts fragment to display it
                                 String pckgName = DFTP.getPckgNameFromTitle(itemClicked);
                                 SearchCacher.setLastSearchByPckgName(pckgName);
-                                moveToFragment(sa.getSupportFragmentManager(), Content.PTS, null, true);
+                                UIUtils.loadFragment(sa.getSupportFragmentManager(), ContentHelper.PTS, null, true);
                             }
                         }
                     }

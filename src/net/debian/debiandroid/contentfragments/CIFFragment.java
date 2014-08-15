@@ -56,7 +56,7 @@ public class CIFFragment extends ItemFragment {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            if (currentFragID.equals(Content.CIF)) {
+            if (currentFragID.equals(ContentHelper.CIF)) {
                 if (ItemFragment.isInListDisplayFrag) {
                     SherlockFragmentActivity sa = getSherlockActivity();
                     if (sa != null) {
@@ -153,7 +153,7 @@ public class CIFFragment extends ItemFragment {
         } else if (!Patterns.EMAIL_ADDRESS.matcher(developerMail).matches()) {
             UIUtils.showToast(getActivity(), getString(R.string.invalid_mail_msg, developerMail));
         } else {
-            hideSoftKeyboard(mailInput);
+            UIUtils.hideSoftKeyboard(getActivity(), mailInput);
             new CIFSearchTask().execute();
         }
     }

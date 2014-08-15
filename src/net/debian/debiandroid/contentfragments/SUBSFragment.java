@@ -12,6 +12,7 @@ import net.debian.debiandroid.SettingsActivity;
 import net.debian.debiandroid.apiLayer.BTS;
 import net.debian.debiandroid.apiLayer.PTS;
 import net.debian.debiandroid.utils.SearchCacher;
+import net.debian.debiandroid.utils.UIUtils;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -67,14 +68,14 @@ public class SUBSFragment extends ItemFragment {
                 if (groupPosition == 0) {
                     SearchCacher.setLastSearchByPckgName(itemClicked);
                     // Move to pts fragment
-                    ItemFragment.moveToFragment(getActivity().getSupportFragmentManager(), Content.PTS, null,
+                    UIUtils.loadFragment(getActivity().getSupportFragmentManager(), ContentHelper.PTS, null,
                             true);
                 } else if (groupPosition == 1) {
                     String[] items = itemClicked.split("\\|");
                     if (items.length > 1) {
                         SearchCacher.setLastBugSearch(items[0], items[1]);
                         // Move to bts fragment
-                        ItemFragment.moveToFragment(getActivity().getSupportFragmentManager(), Content.BTS,
+                        UIUtils.loadFragment(getActivity().getSupportFragmentManager(), ContentHelper.BTS,
                                 null, true);
                     }
                 }
