@@ -2,12 +2,12 @@
 package net.debian.debiandroid;
 
 import net.debian.debiandroid.contentfragments.Content;
+import net.debian.debiandroid.utils.SwipeDetector;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.NavUtils;
 import android.support.v4.view.GestureDetectorCompat;
-import android.view.GestureDetector;
 import android.view.MotionEvent;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
@@ -53,7 +53,7 @@ public class ItemDetailActivity extends SherlockFragmentActivity {
 
         }
 
-        gestureDetector = new GestureDetectorCompat(this, new SwipeListener());
+        gestureDetector = new GestureDetectorCompat(this, new DetailSwipeListener());
     }
 
     @Override
@@ -117,13 +117,26 @@ public class ItemDetailActivity extends SherlockFragmentActivity {
         DDNotifyService.activityResumed();
     }
 
-    class SwipeListener extends GestureDetector.SimpleOnGestureListener {
-
-        private static final int SWIPE_THRESHOLD = 80;
-        private static final int SWIPE_VELOCITY_THRESHOLD = 80;
+    class DetailSwipeListener extends SwipeDetector {
 
         @Override
-        public boolean onDown(MotionEvent event) {
+        public boolean onSwipeRight() {
+            super.onSwipeRight();
+            String fragmentID = ItemFragment.getPreviousFragmentId();
+            if (fragmentID == null) {
+                finish();
+            } else {
+                ItemFragment.moveToFragment(getSupportFragmentManager(), fragmentID, null,
+                        false);
+            }
+            return true;
+        }
+
+        @Override
+        public boolean onSwipeLeft() {
+            super.onSwipeLeft();
+            ItemFragment.moveToFragment(getSupportFragmentManager(),
+                    ItemFragment.getNextFragmentId(), null, true);
             return true;
         }
 
@@ -132,40 +145,8 @@ public class ItemDetailActivity extends SherlockFragmentActivity {
             if (ItemFragment.isInListDisplayFrag) {
                 return false;
             }
-            try {
-                float diffY = event2.getY() - event1.getY();
-                float diffX = event2.getX() - event1.getX();
-                if (Math.abs(diffX) > Math.abs(diffY)) {
-                    if ((Math.abs(diffX) > SWIPE_THRESHOLD) && (Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD)) {
-                        if (diffX > 0) {
-                            // Swipe right
-                            String fragmentID = ItemFragment.getPreviousFragmentId();
-                            if (fragmentID == null) {
-                                finish();
-                            } else {
-                                ItemFragment.moveToFragment(getSupportFragmentManager(), fragmentID, null,
-                                        false);
-                            }
-                        } else {
-                            // Swipe left
-                            ItemFragment.moveToFragment(getSupportFragmentManager(),
-                                    ItemFragment.getNextFragmentId(), null, true);
-                        }
-                        return true;
-                    }
-                } else {
-                    if ((Math.abs(diffY) > SWIPE_THRESHOLD) && (Math.abs(velocityY) > SWIPE_VELOCITY_THRESHOLD)) {
-                        if (diffY > 0) {
-                            //Bottom swipe
-                        } else {
-                            //Top swipe
-                        }
-                    }
-                }
-            } catch (Exception exception) {
-                exception.printStackTrace();
-            }
-            return false;
+
+            return super.onFling(event1, event2, velocityX, velocityY);
         }
     }
 }

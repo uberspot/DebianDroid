@@ -5,13 +5,13 @@ import net.debian.debiandroid.apiLayer.BTS;
 import net.debian.debiandroid.apiLayer.PTS;
 import net.debian.debiandroid.contentfragments.Content;
 import net.debian.debiandroid.utils.SearchCacher;
+import net.debian.debiandroid.utils.SwipeDetector;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GestureDetectorCompat;
-import android.view.GestureDetector;
 import android.view.MotionEvent;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
@@ -55,7 +55,7 @@ public class ItemListActivity extends SherlockFragmentActivity implements ItemLi
         // Initialize content menu elements
         Content.initializeItems(getApplicationContext());
 
-        gestureDetector = new GestureDetectorCompat(this, new SwipeListener());
+        gestureDetector = new GestureDetectorCompat(this, new ListSwipeListener());
 
         if (findViewById(R.id.item_detail_container) != null) {
             // The detail container view will be present only in the
@@ -190,13 +190,27 @@ public class ItemListActivity extends SherlockFragmentActivity implements ItemLi
         animateToLeft = false;
     }
 
-    class SwipeListener extends GestureDetector.SimpleOnGestureListener {
-
-        private static final int SWIPE_THRESHOLD = 80;
-        private static final int SWIPE_VELOCITY_THRESHOLD = 80;
+    class ListSwipeListener extends SwipeDetector {
 
         @Override
-        public boolean onDown(MotionEvent event) {
+        public boolean onSwipeRight() {
+            super.onSwipeRight();
+            String fragmentID = ItemFragment.getPreviousFragmentId();
+            if (fragmentID != null) {
+                animateToLeft = false;
+                onItemSelected(fragmentID);
+            }
+            return true;
+        }
+
+        @Override
+        public boolean onSwipeLeft() {
+            super.onSwipeLeft();
+            String fragmentID = ItemFragment.getNextFragmentId();
+            if (fragmentID != null) {
+                animateToLeft = true;
+                onItemSelected(fragmentID);
+            }
             return true;
         }
 
@@ -205,41 +219,8 @@ public class ItemListActivity extends SherlockFragmentActivity implements ItemLi
             if (ItemFragment.isInListDisplayFrag) {
                 return false;
             }
-            try {
-                float diffY = event2.getY() - event1.getY();
-                float diffX = event2.getX() - event1.getX();
-                if (Math.abs(diffX) > Math.abs(diffY)) {
-                    if ((Math.abs(diffX) > SWIPE_THRESHOLD) && (Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD)) {
-                        if (diffX > 0) {
-                            // Swipe right
-                            String fragmentID = ItemFragment.getPreviousFragmentId();
-                            if (fragmentID != null) {
-                                animateToLeft = false;
-                                onItemSelected(fragmentID);
-                            }
-                        } else {
-                            // Swipe left
-                            String fragmentID = ItemFragment.getNextFragmentId();
-                            if (fragmentID != null) {
-                                animateToLeft = true;
-                                onItemSelected(fragmentID);
-                            }
-                        }
-                        return true;
-                    }
-                } else {
-                    if ((Math.abs(diffY) > SWIPE_THRESHOLD) && (Math.abs(velocityY) > SWIPE_VELOCITY_THRESHOLD)) {
-                        if (diffY > 0) {
-                            //Bottom swipe
-                        } else {
-                            //Top swipe
-                        }
-                    }
-                }
-            } catch (Exception exception) {
-                exception.printStackTrace();
-            }
-            return false;
+
+            return super.onFling(event1, event2, velocityX, velocityY);
         }
     }
 
