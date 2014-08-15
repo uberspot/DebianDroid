@@ -1,5 +1,5 @@
 
-package net.debian.debiandroid.content;
+package net.debian.debiandroid.contentfragments;
 
 import java.util.ArrayList;
 import java.util.Set;

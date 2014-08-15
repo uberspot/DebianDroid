@@ -3,7 +3,7 @@ package net.debian.debiandroid;
 
 import net.debian.debiandroid.apiLayer.BTS;
 import net.debian.debiandroid.apiLayer.PTS;
-import net.debian.debiandroid.content.Content;
+import net.debian.debiandroid.contentfragments.Content;
 import net.debian.debiandroid.utils.SearchCacher;
 import android.content.Intent;
 import android.net.Uri;

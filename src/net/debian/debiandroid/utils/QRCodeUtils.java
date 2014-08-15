@@ -30,7 +30,7 @@ import com.google.zxing.common.BitMatrix;
  *
  * @author dswitkin@google.com (Daniel Switkin)
  */
-public class QRCodeEncoder {
+public class QRCodeUtils {
 
     private static final int WHITE = 0xFFFFFFFF;
     private static final int BLACK = 0xFF000000;

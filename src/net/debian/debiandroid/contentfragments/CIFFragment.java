@@ -1,5 +1,5 @@
 
-package net.debian.debiandroid.content;
+package net.debian.debiandroid.contentfragments;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -8,7 +8,7 @@ import net.debian.debiandroid.ItemFragment;
 import net.debian.debiandroid.ListDisplayFragment;
 import net.debian.debiandroid.R;
 import net.debian.debiandroid.apiLayer.UDD;
-import net.debian.debiandroid.utils.QRCodeEncoder;
+import net.debian.debiandroid.utils.QRCodeUtils;
 import net.debian.debiandroid.utils.UIUtils;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
@@ -100,7 +100,7 @@ public class CIFFragment extends ItemFragment {
                 UIUtils.showToast(getActivity(), getString(R.string.no_mail_in_settings_msg));
             }
 
-            Bitmap bm = QRCodeEncoder.encodeAsBitmap(developerMail, BarcodeFormat.QR_CODE, 250, 250);
+            Bitmap bm = QRCodeUtils.encodeAsBitmap(developerMail, BarcodeFormat.QR_CODE, 250, 250);
             if (bm != null) {
                 qrcodeView.setImageBitmap(bm);
             }

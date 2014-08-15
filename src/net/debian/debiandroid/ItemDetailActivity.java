@@ -1,7 +1,7 @@
 
 package net.debian.debiandroid;
 
-import net.debian.debiandroid.content.Content;
+import net.debian.debiandroid.contentfragments.Content;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;

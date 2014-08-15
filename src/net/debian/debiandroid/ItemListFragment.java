@@ -1,6 +1,6 @@
 package net.debian.debiandroid;
 
-import net.debian.debiandroid.content.Content;
+import net.debian.debiandroid.contentfragments.Content;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;

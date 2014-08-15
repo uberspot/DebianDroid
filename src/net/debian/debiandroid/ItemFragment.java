@@ -1,14 +1,14 @@
 
 package net.debian.debiandroid;
 
-import net.debian.debiandroid.content.BTSFragment;
-import net.debian.debiandroid.content.CIFFragment;
-import net.debian.debiandroid.content.Content;
-import net.debian.debiandroid.content.DFTPFragment;
-import net.debian.debiandroid.content.LinksFragment;
-import net.debian.debiandroid.content.PTSFragment;
-import net.debian.debiandroid.content.SUBSFragment;
-import net.debian.debiandroid.content.UDDFragment;
+import net.debian.debiandroid.contentfragments.BTSFragment;
+import net.debian.debiandroid.contentfragments.CIFFragment;
+import net.debian.debiandroid.contentfragments.Content;
+import net.debian.debiandroid.contentfragments.DFTPFragment;
+import net.debian.debiandroid.contentfragments.LinksFragment;
+import net.debian.debiandroid.contentfragments.PTSFragment;
+import net.debian.debiandroid.contentfragments.SUBSFragment;
+import net.debian.debiandroid.contentfragments.UDDFragment;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
