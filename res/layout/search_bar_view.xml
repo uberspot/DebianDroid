@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="horizontal"
+    android:weightSum="3"
+    android:padding="8dp" >
+
+    <EditText
+        android:id="@+id/inputSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:ems="10"
+        android:gravity="left"
+        android:imeOptions="actionSearch"
+        android:inputType="textAutoComplete"
+        android:nextFocusLeft="@id/inputSearch"
+        android:nextFocusUp="@id/inputSearch" >
+    </EditText>
+
+    <ImageButton
+        android:id="@+id/searchButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@null"
+        android:contentDescription="@string/search"
+        android:gravity="right"
+        android:src="@drawable/searcharrow" />
+
+</merge>

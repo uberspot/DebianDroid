@@ -40,38 +40,11 @@
             android:text="@string/or_type_other_persons_email_directly"
             android:textIsSelectable="false" />
 
-        <LinearLayout
+        <net.debian.debiandroid.view.SearchBarView
+            android:id="@+id/cifSearchBarView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:orientation="horizontal"
-            android:padding="8dp" >
-
-            <EditText
-                android:id="@+id/cifInputSearch"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ems="10"
-                android:gravity="left"
-                android:hint="@string/cif_search_hint"
-                android:imeOptions="actionSearch"
-                android:inputType="textEmailAddress"
-                android:nextFocusLeft="@id/cifInputSearch"
-                android:nextFocusUp="@id/cifInputSearch" >
-            </EditText>
-
-            <ImageButton
-                android:id="@+id/cifSearchButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@null"
-                android:contentDescription="@string/search"
-                android:gravity="right"
-                android:src="@drawable/searcharrow" />
-        </LinearLayout>
+            android:layout_height="wrap_content" />
+        
     </LinearLayout>
 
 </ScrollView>

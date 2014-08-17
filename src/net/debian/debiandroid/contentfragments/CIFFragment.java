@@ -10,6 +10,8 @@ import net.debian.debiandroid.R;
 import net.debian.debiandroid.apiLayer.UDD;
 import net.debian.debiandroid.utils.QRCodeUtils;
 import net.debian.debiandroid.utils.UIUtils;
+import net.debian.debiandroid.view.SearchBarView;
+import net.debian.debiandroid.view.SearchBarView.OnSearchActionListener;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -19,18 +21,13 @@ import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
+import android.text.InputType;
 import android.util.Patterns;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.TextView.OnEditorActionListener;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.google.zxing.BarcodeFormat;
@@ -42,7 +39,7 @@ import com.uberspot.storageutils.StorageUtils;
 
 public class CIFFragment extends ItemFragment {
 
-    private EditText mailInput;
+    private SearchBarView searchBar;
     private String developerMail, scannedMail;
 
     @Override
@@ -80,8 +77,8 @@ public class CIFFragment extends ItemFragment {
 
         getSherlockActivity().getSupportActionBar().setTitle(R.string.find_common_interests);
 
-        ImageButton searchButton = (ImageButton) rootView.findViewById(R.id.cifSearchButton);
-        mailInput = (EditText) rootView.findViewById(R.id.cifInputSearch);
+        searchBar = (SearchBarView) rootView.findViewById(R.id.cifSearchBarView);
+        searchBar.setHintAndType(R.string.cif_search_hint, InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
 
         Button qrScanButton = (Button) rootView.findViewById(R.id.cifScanQRButton);
         qrScanButton.setOnClickListener(new View.OnClickListener() {
@@ -107,31 +104,13 @@ public class CIFFragment extends ItemFragment {
         } catch (WriterException e) {
         }
 
-        searchButton.setOnClickListener(new View.OnClickListener() {
+        searchBar.setOnSearchActionListener(new OnSearchActionListener() {
 
             @Override
-            public void onClick(View v) {
-                String input = mailInput.getText().toString().trim();
-                if ((input != null) && !input.equals("")) {
-                    scannedMail = input;
-                    doCIFSearch();
-                }
-            }
-        });
-
-        mailInput.setOnEditorActionListener(new OnEditorActionListener() {
-
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                String input = mailInput.getText().toString().trim();
-                if ((actionId == EditorInfo.IME_ACTION_SEARCH) && (input != null) && !input.equals("")) {
-                    scannedMail = input;
-                    doCIFSearch();
-                    return true;
-                }
-                return false;
-            }
-        });
+            public void onSearchAction(String searchInput) {
+                scannedMail = searchInput;
+                doCIFSearch();
+            }});
 
         return rootView;
     }
@@ -153,7 +132,7 @@ public class CIFFragment extends ItemFragment {
         } else if (!Patterns.EMAIL_ADDRESS.matcher(developerMail).matches()) {
             UIUtils.showToast(getActivity(), getString(R.string.invalid_mail_msg, developerMail));
         } else {
-            UIUtils.hideSoftKeyboard(getActivity(), mailInput);
+            UIUtils.hideSoftKeyboard(getActivity(), searchBar.getInputSearchText());
             new CIFSearchTask().execute();
         }
     }

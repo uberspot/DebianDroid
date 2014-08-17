@@ -14,7 +14,6 @@
         android:prompt="@string/search_bugs" />
 
     <LinearLayout
-        android:id="@+id/horizontalLayout1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:focusable="true"
