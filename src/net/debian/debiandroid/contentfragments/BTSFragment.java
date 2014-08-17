@@ -20,6 +20,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,12 +35,11 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.uberspot.storageutils.Cacher;
-import com.uberspot.storageutils.StorageUtils;
 
 public class BTSFragment extends ItemFragment {
 
     private Spinner spinner;
-    private String searchOptionSelected;
+    private int searchOptionSelected;
     private SearchBarView btsSearchBar;
     private ExpandableListView bugList;
 
@@ -73,8 +73,8 @@ public class BTSFragment extends ItemFragment {
         setHasOptionsMenu(true);
         getSherlockActivity().getSupportActionBar().setTitle(R.string.search_bugs);
 
-        searchOptionSelected = StorageUtils.getInstance(context).getPreference("btsSearchOption",
-                getString(R.string.by_number));
+        searchOptionSelected = PreferenceManager.getDefaultSharedPreferences(context)
+                .getInt("btsSearchOptionPos", 0);
         bugList = (ExpandableListView) rootView.findViewById(R.id.btsList);
 
         // Add autocollapsing of list if enabled
@@ -88,10 +88,6 @@ public class BTSFragment extends ItemFragment {
                 getString(R.string.in_pckgs_maint_by), getString(R.string.submitted_by),
                 getString(R.string.with_status) };
         setupSpinner();
-
-        /**android:hint="@string/bts_search_hint"
-            android:imeOptions="actionSearch"
-            android:inputType="textAutoComplete"*/
 
         btsSearchBar = (SearchBarView) rootView.findViewById(R.id.btsSearchBarView);
         btsSearchBar.setHintAndType(R.string.bts_search_hint, InputType.TYPE_TEXT_FLAG_AUTO_COMPLETE);
@@ -112,17 +108,20 @@ public class BTSFragment extends ItemFragment {
 
     /** Initializes the spinner view and fills it with pts search choices */
     private void setupSpinner() {
-        spinner.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1,
+        spinner.setAdapter(new ArrayAdapter<String>(getActivity(), R.layout.simple_spinner_list_child,
                 spinnerValues));
 
-        spinner.setSelection(UIUtils.getValuePosition(spinnerValues, searchOptionSelected));
+        spinner.setSelection(searchOptionSelected);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-                searchOptionSelected = (String) parent.getItemAtPosition(pos);
+                searchOptionSelected = pos;
+                // modify input type in searchBar
+                btsSearchBar.setInputType(optionSelectedToInputType(pos));
                 //Save change in preferences with storageutils
-                StorageUtils.getInstance(context).savePreference("btsSearchOption", searchOptionSelected);
+                PreferenceManager.getDefaultSharedPreferences(context).edit()
+                    .putInt("btsSearchOptionPos", searchOptionSelected).commit();
             }
 
             @Override
@@ -131,19 +130,39 @@ public class BTSFragment extends ItemFragment {
         });
     }
 
-    private String optionSelectedToBTSParam(String option) {
-        if (searchOptionSelected.equals(getString(R.string.in_package))) {
+    /**
+     *
+     * @param option based on the positions in spinnerValues
+     * @return
+     */
+    private static String optionSelectedToBTSParam(int option) {
+        if (option == 1) {
             return BTS.PACKAGE;
-        } else if (searchOptionSelected.equals(getString(R.string.in_pckgs_maint_by))) {
+        } else if (option == 2) {
             return BTS.MAINT;
-        } else if (searchOptionSelected.equals(getString(R.string.submitted_by))) {
+        } else if (option == 3) {
             return BTS.SUBMITTER;
-        } else if (searchOptionSelected.equals(getString(R.string.with_status))) {
+        } else if (option == 4) {
             return BTS.STATUS;
-        } else if (searchOptionSelected.equals(getString(R.string.by_number))) {
+        } else if (option == 0) {
             return BTS.BUGNUMBER;
         }
         return "";
+    }
+
+    private static int optionSelectedToInputType(int option) {
+        if (option == 1) {
+            return InputType.TYPE_TEXT_FLAG_AUTO_COMPLETE;
+        } else if (option == 2) {
+            return InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS;
+        } else if (option == 3) {
+            return InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS;
+        } else if (option == 4) {
+            return InputType.TYPE_TEXT_FLAG_AUTO_COMPLETE;
+        } else if (option == 0) {
+            return InputType.TYPE_CLASS_NUMBER;
+        }
+        return InputType.TYPE_TEXT_FLAG_AUTO_COMPLETE;
     }
 
     private String BTSParamToSpinnerOption(String param) {
@@ -253,13 +272,13 @@ public class BTSFragment extends ItemFragment {
     class SearchBugInfoTask extends AsyncTask<Boolean, Integer, Void> {
 
         private ProgressDialog progressDialog;
-        private String progressMessage = getString(R.string.searching_info_please_wait);
+        private String progressMessage;
         private int bugCount = 0;
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            UIUtils.hideSoftKeyboard(getActivity(), btsSearchBar.getInputEditText());
+            progressMessage = getString(R.string.searching_info_please_wait);
             progressDialog = ProgressDialog.show(getSherlockActivity(), getString(R.string.searching),
                     progressMessage, true, false);
         }
@@ -345,6 +364,7 @@ public class BTSFragment extends ItemFragment {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
                 getSherlockActivity().invalidateOptionsMenu();
             }
+            UIUtils.hideSoftKeyboard(getActivity(), btsSearchBar.getInputEditText());
 
             setupBugsList();
         }

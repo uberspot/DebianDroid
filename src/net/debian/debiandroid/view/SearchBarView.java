@@ -80,9 +80,12 @@ public class SearchBarView extends LinearLayout {
 
     public void setHintAndType(int hintTextId, int inputType) {
         inputSearch.setHint(hintTextId);
-        inputSearch.setInputType(hintTextId);
+        setInputType(inputType);
     }
 
+    public void setInputType(int inputType) {
+        inputSearch.setInputType(inputType);
+    }
 
     public interface OnSearchActionListener {
         /**

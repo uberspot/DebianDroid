@@ -3,7 +3,8 @@
     android:id="@+id/textView1"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:gravity="center_vertical|center_horizontal"
-    android:padding="10dp"
-    android:textIsSelectable="false"
+    android:gravity="center_vertical|left"
+    android:paddingLeft="8dp"
+    android:paddingTop="3dp"
+    android:paddingBottom="3dp"
     android:textSize="18sp" />

@@ -189,16 +189,16 @@ public class PTSFragment extends ItemFragment {
         private final static int pckgInfoCount = 7;
 
         private ProgressDialog progressDialog;
-        private String progressMessage = getString(R.string.searching_info_about,
-                SearchCacher.getLastPckgName());
+        private String progressMessage;
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            UIUtils.hideSoftKeyboard(getActivity(), ptsSearchBar.getInputEditText());
             if (ptsPckgList != null) {
                 ptsPckgList.setVisibility(View.GONE);
             }
+            progressMessage = getString(R.string.searching_info_about,
+                    SearchCacher.getLastPckgName());
             progressDialog = ProgressDialog.show(getSherlockActivity(), getString(R.string.searching),
                     progressMessage, true, false);
         }
@@ -271,6 +271,7 @@ public class PTSFragment extends ItemFragment {
                 setupMadisonInfoList();
                 ptsMadisonList.setVisibility(View.VISIBLE);
             }
+            UIUtils.hideSoftKeyboard(getActivity(), ptsSearchBar.getInputEditText());
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
                 getSherlockActivity().invalidateOptionsMenu();
             }
@@ -288,15 +289,15 @@ public class PTSFragment extends ItemFragment {
         private ArrayList<String> pckgNames = null;
 
         private ProgressDialog progressDialog;
-        private String progressMessage = getString(R.string.searching_info_please_wait);
+        private String progressMessage;
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            UIUtils.hideSoftKeyboard(getActivity(), ptsSearchBar.getInputEditText());
             if (ptsMadisonList != null) {
                 ptsMadisonList.setVisibility(View.GONE);
             }
+            progressMessage = getString(R.string.searching_info_please_wait);
             progressDialog = ProgressDialog.show(getSherlockActivity(), getString(R.string.searching),
                     progressMessage, true, false);
         }
@@ -344,6 +345,7 @@ public class PTSFragment extends ItemFragment {
                     });
                 }
             }
+            UIUtils.hideSoftKeyboard(getActivity(), ptsSearchBar.getInputEditText());
         }
     }
 }
