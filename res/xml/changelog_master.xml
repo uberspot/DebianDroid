@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <changelog>
+  <release version="1.742" versioncode="19">
+      <change>Modify the input type of the bug search field based on search type</change>
+  </release>
   <release version="1.74" versioncode="18">
       <change>Updated ksoap2, joda time and zxing libs and cleaned code quite a bit</change>
   </release>
