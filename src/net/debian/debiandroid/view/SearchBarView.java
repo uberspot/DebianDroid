@@ -70,7 +70,7 @@ public class SearchBarView extends LinearLayout {
     }
 
 
-    public EditText getInputSearchText() {
+    public EditText getInputEditText() {
         return inputSearch;
     }
 

@@ -12,26 +12,23 @@ import net.debian.debiandroid.SettingsActivity;
 import net.debian.debiandroid.apiLayer.BTS;
 import net.debian.debiandroid.utils.SearchCacher;
 import net.debian.debiandroid.utils.UIUtils;
+import net.debian.debiandroid.view.SearchBarView;
+import net.debian.debiandroid.view.SearchBarView.OnSearchActionListener;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.KeyEvent;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ExpandableListView;
-import android.widget.ImageButton;
 import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.TextView.OnEditorActionListener;
 
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
@@ -43,7 +40,7 @@ public class BTSFragment extends ItemFragment {
 
     private Spinner spinner;
     private String searchOptionSelected;
-    private EditText btsInput;
+    private SearchBarView btsSearchBar;
     private ExpandableListView bugList;
 
     private BTS bts;
@@ -92,32 +89,21 @@ public class BTSFragment extends ItemFragment {
                 getString(R.string.with_status) };
         setupSpinner();
 
-        ImageButton searchButton = (ImageButton) rootView.findViewById(R.id.btsSearchButton);
-        searchButton.setOnClickListener(new View.OnClickListener() {
+        /**android:hint="@string/bts_search_hint"
+            android:imeOptions="actionSearch"
+            android:inputType="textAutoComplete"*/
+
+        btsSearchBar = (SearchBarView) rootView.findViewById(R.id.btsSearchBarView);
+        btsSearchBar.setHintAndType(R.string.bts_search_hint, InputType.TYPE_TEXT_FLAG_AUTO_COMPLETE);
+
+        btsSearchBar.setOnSearchActionListener(new OnSearchActionListener() {
 
             @Override
-            public void onClick(View v) {
-                String input = btsInput.getText().toString().trim();
-                if ((input != null) && !input.trim().equals("")) {
-                    SearchCacher.setLastBugSearch(optionSelectedToBTSParam(searchOptionSelected), btsInput
-                            .getText().toString());
+            public void onSearchAction(String searchInput) {
+                if ((searchInput != null) && !searchInput.trim().equals("")) {
+                    SearchCacher.setLastBugSearch(optionSelectedToBTSParam(searchOptionSelected), searchInput);
                     new SearchBugInfoTask().execute();
                 }
-            }
-        });
-
-        btsInput = (EditText) rootView.findViewById(R.id.btsInputSearch);
-        btsInput.setOnEditorActionListener(new OnEditorActionListener() {
-
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                String input = btsInput.getText().toString().trim();
-                if ((actionId == EditorInfo.IME_ACTION_SEARCH) && (input != null) && !input.trim().equals("")) {
-                    SearchCacher.setLastBugSearch(optionSelectedToBTSParam(searchOptionSelected), input);
-                    new SearchBugInfoTask().execute();
-                    return true;
-                }
-                return false;
             }
         });
 
@@ -273,7 +259,7 @@ public class BTSFragment extends ItemFragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            UIUtils.hideSoftKeyboard(getActivity(), btsInput);
+            UIUtils.hideSoftKeyboard(getActivity(), btsSearchBar.getInputEditText());
             progressDialog = ProgressDialog.show(getSherlockActivity(), getString(R.string.searching),
                     progressMessage, true, false);
         }
@@ -349,7 +335,7 @@ public class BTSFragment extends ItemFragment {
                 return;
             }
             if (SearchCacher.hasLastBugsSearch()) {
-                btsInput.setText(SearchCacher.getLastBugSearchValue());
+                btsSearchBar.getInputEditText().setText(SearchCacher.getLastBugSearchValue());
                 spinner.setSelection(
                         UIUtils.getValuePosition(spinnerValues, BTSParamToSpinnerOption(SearchCacher
                         .getLastBugSearchOption())));

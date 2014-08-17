@@ -10,25 +10,23 @@ import net.debian.debiandroid.apiLayer.BTS;
 import net.debian.debiandroid.apiLayer.PTS;
 import net.debian.debiandroid.utils.SearchCacher;
 import net.debian.debiandroid.utils.UIUtils;
+import net.debian.debiandroid.view.SearchBarView;
+import net.debian.debiandroid.view.SearchBarView.OnSearchActionListener;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.text.InputType;
 import android.text.method.LinkMovementMethod;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.TextView.OnEditorActionListener;
 
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
@@ -37,7 +35,7 @@ import com.uberspot.storageutils.Cacher;
 
 public class PTSFragment extends ItemFragment {
 
-    private EditText ptsInput;
+    private SearchBarView ptsSearchBar;
     private PTS pts;
     private ListView ptsMadisonList;
     private TextView ptsPckgInfo, emptyTextView;
@@ -75,34 +73,20 @@ public class PTSFragment extends ItemFragment {
         ViewGroup header = (ViewGroup) inflater.inflate(R.layout.pts_exp_list_header, ptsMadisonList, false);
         ptsMadisonList.addHeaderView(header, null, false);
 
-        ImageButton searchButton = (ImageButton) rootView.findViewById(R.id.ptsSearchButton);
-        ptsInput = (EditText) rootView.findViewById(R.id.ptsInputSearch);
+        ptsSearchBar = (SearchBarView) rootView.findViewById(R.id.ptsSearchBarView);
+        ptsSearchBar.setHintAndType(R.string.pts_search_hint, InputType.TYPE_TEXT_FLAG_AUTO_COMPLETE);
+
         ptsPckgInfo = (TextView) rootView.findViewById(R.id.ptsPckgInfo);
         emptyTextView = (TextView) rootView.findViewById(R.id.ptsEmptyTextView);
 
-        searchButton.setOnClickListener(new View.OnClickListener() {
+        ptsSearchBar.setOnSearchActionListener(new OnSearchActionListener() {
 
             @Override
-            public void onClick(View v) {
-                String input = ptsInput.getText().toString().trim();
-                if ((input != null) && !input.equals("")) {
-                    searchPckg(input);
+            public void onSearchAction(String searchInput) {
+                if ((searchInput != null) && !searchInput.equals("")) {
+                    searchPckg(searchInput);
                 }
-            }
-        });
-
-        ptsInput.setOnEditorActionListener(new OnEditorActionListener() {
-
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                String input = ptsInput.getText().toString().trim();
-                if ((actionId == EditorInfo.IME_ACTION_SEARCH) && (input != null) && !input.equals("")) {
-                    searchPckg(input);
-                    return true;
-                }
-                return false;
-            }
-        });
+            }});
 
         return rootView;
     }
@@ -211,7 +195,7 @@ public class PTSFragment extends ItemFragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            UIUtils.hideSoftKeyboard(getActivity(), ptsInput);
+            UIUtils.hideSoftKeyboard(getActivity(), ptsSearchBar.getInputEditText());
             if (ptsPckgList != null) {
                 ptsPckgList.setVisibility(View.GONE);
             }
@@ -272,7 +256,7 @@ public class PTSFragment extends ItemFragment {
                 return;
             }
             if (pckgName != null) {
-                ptsInput.setText(pckgName);
+                ptsSearchBar.getInputEditText().setText(pckgName);
 
                 if (!pckgVersion.equals("") && !pckgBugCount.equals("")) {
                     ptsPckgInfo.setText(getString(R.string.pckg_info_format, pckgName, pckgVersion,
@@ -309,7 +293,7 @@ public class PTSFragment extends ItemFragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            UIUtils.hideSoftKeyboard(getActivity(), ptsInput);
+            UIUtils.hideSoftKeyboard(getActivity(), ptsSearchBar.getInputEditText());
             if (ptsMadisonList != null) {
                 ptsMadisonList.setVisibility(View.GONE);
             }

@@ -39,7 +39,7 @@ import com.uberspot.storageutils.StorageUtils;
 
 public class CIFFragment extends ItemFragment {
 
-    private SearchBarView searchBar;
+    private SearchBarView cifSearchBar;
     private String developerMail, scannedMail;
 
     @Override
@@ -77,8 +77,8 @@ public class CIFFragment extends ItemFragment {
 
         getSherlockActivity().getSupportActionBar().setTitle(R.string.find_common_interests);
 
-        searchBar = (SearchBarView) rootView.findViewById(R.id.cifSearchBarView);
-        searchBar.setHintAndType(R.string.cif_search_hint, InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+        cifSearchBar = (SearchBarView) rootView.findViewById(R.id.cifSearchBarView);
+        cifSearchBar.setHintAndType(R.string.cif_search_hint, InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
 
         Button qrScanButton = (Button) rootView.findViewById(R.id.cifScanQRButton);
         qrScanButton.setOnClickListener(new View.OnClickListener() {
@@ -104,13 +104,13 @@ public class CIFFragment extends ItemFragment {
         } catch (WriterException e) {
         }
 
-        searchBar.setOnSearchActionListener(new OnSearchActionListener() {
+        cifSearchBar.setOnSearchActionListener(new OnSearchActionListener() {
 
             @Override
             public void onSearchAction(String searchInput) {
-                scannedMail = searchInput;
-                doCIFSearch();
-            }});
+                doCIFSearch(searchInput);
+            }
+        });
 
         return rootView;
     }
@@ -119,21 +119,24 @@ public class CIFFragment extends ItemFragment {
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
         IntentResult scanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
         if ((scanResult != null) && (scanResult.getContents() != null)) {
-            scannedMail = scanResult.getContents();
-            doCIFSearch();
+            doCIFSearch(scanResult.getContents());
         }
     }
 
-    private void doCIFSearch() {
-        developerMail = StorageUtils.getInstance(getSherlockActivity()).getPreference("ddemail", "empty");
+    private void doCIFSearch(String searchInput) {
+        if ((searchInput != null) && !searchInput.equals("")) {
+            scannedMail = searchInput;
 
-        if (!Patterns.EMAIL_ADDRESS.matcher(scannedMail).matches()) {
-            UIUtils.showToast(getActivity(), getString(R.string.invalid_mail_msg, scannedMail));
-        } else if (!Patterns.EMAIL_ADDRESS.matcher(developerMail).matches()) {
-            UIUtils.showToast(getActivity(), getString(R.string.invalid_mail_msg, developerMail));
-        } else {
-            UIUtils.hideSoftKeyboard(getActivity(), searchBar.getInputSearchText());
-            new CIFSearchTask().execute();
+            developerMail = StorageUtils.getInstance(getSherlockActivity()).getPreference("ddemail", "empty");
+
+            if (!Patterns.EMAIL_ADDRESS.matcher(scannedMail).matches()) {
+                UIUtils.showToast(getActivity(), getString(R.string.invalid_mail_msg, scannedMail));
+            } else if (!Patterns.EMAIL_ADDRESS.matcher(developerMail).matches()) {
+                UIUtils.showToast(getActivity(), getString(R.string.invalid_mail_msg, developerMail));
+            } else {
+                UIUtils.hideSoftKeyboard(getActivity(), cifSearchBar.getInputEditText());
+                new CIFSearchTask().execute();
+            }
         }
     }
 
