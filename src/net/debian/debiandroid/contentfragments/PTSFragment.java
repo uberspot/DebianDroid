@@ -222,15 +222,17 @@ public class PTSFragment extends ItemFragment {
                 pckgMaintName = pts.getMaintainerName(pckgName);
                 publishProgress(3);
 
-                pckgBugCount = pts.getBugCounts(pckgName).trim();
+                pckgBugCount = pts.getBugCounts(pckgName);
                 publishProgress(4);
 
                 if (!pckgVersion.equals("") && !pckgBugCount.equals("")) {
                     //Set Uploader Names
-                    pckgUploaders = Arrays.toString(pts.getUploaderNames(pckgName)).trim();
+                    pckgUploaders = Arrays.toString(pts.getUploaderNames(pckgName))
+                                    .replaceAll("^\\[|\\]$", "");
                     publishProgress(5);
                     //Set Binary Names
-                    pckgBinNames = Arrays.toString(pts.getBinaryNames(pckgName)).trim();
+                    pckgBinNames = Arrays.toString(pts.getBinaryNames(pckgName))
+                                    .replaceAll("^\\[|\\]$", "");
                     publishProgress(6);
                     ptsMadisonInfo = pts.getMadisonInfo(pckgName);
                     publishProgress(7);

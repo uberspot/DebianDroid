@@ -1,3 +1,4 @@
+
 package net.debian.debiandroid.apiLayer;
 
 import java.util.ArrayList;
@@ -8,26 +9,27 @@ import android.content.Context;
 
 public class DFTP extends HTTPCaller {
 
-	public DFTP(Context context) {
-		super(context);
-	}
+    public DFTP(Context context) {
+        super(context);
+    }
 
-	private static final String NEW_PACKAGES_URL = "https://ftp-master.debian.org/new.822";
-	private static final String REMOVALS_URL = "https://ftp-master.debian.org/removals.822";
-	private static final String DEFERRED_URL = "https://ftp-master.debian.org/deferred/status";
+    private static final String NEW_PACKAGES_URL = "https://ftp-master.debian.org/new.822";
+    private static final String REMOVALS_URL = "https://ftp-master.debian.org/removals.822";
+    private static final String DEFERRED_URL = "https://ftp-master.debian.org/deferred/status";
 
-	public String[] getRawNewPackages() {
-		return doQueryRequest(NEW_PACKAGES_URL).split("\n\n");
-	}
+    public String[] getRawNewPackages() {
+        return doQueryRequest(NEW_PACKAGES_URL).split("\n\n");
+    }
 
-	public String[] getRawRemovedPackages() {
-		return doQueryRequest(REMOVALS_URL).split("\n\n");
-	}
+    public String[] getRawRemovedPackages() {
+        return doQueryRequest(REMOVALS_URL).split("\n\n");
+    }
 
-	public String[] getRawDeferredPackages() {
-		return doQueryRequest(DEFERRED_URL).split("\n\n");
-	}
-	public ArrayList<ArrayList<String>> getNewPackages() {
+    public String[] getRawDeferredPackages() {
+        return doQueryRequest(DEFERRED_URL).split("\n\n");
+    }
+
+    public ArrayList<ArrayList<String>> getNewPackages() {
         String[] raw = getRawNewPackages();
         ArrayList<ArrayList<String>> formatted = new ArrayList<ArrayList<String>>();
         ArrayList<String> descriptions = new ArrayList<String>();
@@ -42,9 +44,9 @@ public class DFTP extends HTTPCaller {
         formatted.add(descriptions);
         formatted.add(fullDesc);
         return formatted;
-	}
+    }
 
-	public ArrayList<ArrayList<String>> getRemovedPackages() {
+    public ArrayList<ArrayList<String>> getRemovedPackages() {
         String[] raw = getRawRemovedPackages();
         ArrayList<ArrayList<String>> formatted = new ArrayList<ArrayList<String>>();
         ArrayList<String> descriptions = new ArrayList<String>();
@@ -60,9 +62,9 @@ public class DFTP extends HTTPCaller {
         formatted.add(descriptions);
         formatted.add(fullDesc);
         return formatted;
-	}
+    }
 
-	public ArrayList<ArrayList<String>> getDeferredPackages() {
+    public ArrayList<ArrayList<String>> getDeferredPackages() {
         String[] raw = getRawDeferredPackages();
         ArrayList<ArrayList<String>> formatted = new ArrayList<ArrayList<String>>();
         ArrayList<String> descriptions = new ArrayList<String>();
@@ -76,12 +78,12 @@ public class DFTP extends HTTPCaller {
         formatted.add(descriptions);
         formatted.add(fullDesc);
         return formatted;
-	}
+    }
 
-	public static String getPckgNameFromTitle(String title) {
+    public static String getPckgNameFromTitle(String title) {
         if ((title != null) && ((title = title.trim()).length() != 0) && title.contains(" ")) {
             return title.split(" ")[0];
         }
         return title;
-	}
+    }
 }

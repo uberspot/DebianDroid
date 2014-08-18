@@ -100,11 +100,11 @@ public class PTS extends PTSSoapCaller implements Subscribable {
 	}
 
 	public ArrayList<String> getMadisonInfo(String pckgName) {
-        ArrayList<String> madisonInfo = new ArrayList<String>();
         String htmlPage = httpCaller.doQueryRequest(PTSMADISONSEARCHURL + pckgName);
         String madisonSubstring = ApiTools.getSubstringIn(htmlPage, "<h2>dak ls</h2>[\\r\\n]+<pre>",
                 "</pre>[\\r\\n]+<p>");
         String[] lines = madisonSubstring.split("\n|\r\n");
+        ArrayList<String> madisonInfo = new ArrayList<String>(lines.length);
         for (String line : lines) {
             line = line.trim().replaceAll("^" + pckgName + " \\| ", "").replaceAll(" \\| ", "\n  ");
             madisonInfo.add(line);

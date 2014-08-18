@@ -73,8 +73,8 @@ public class BTSFragment extends ItemFragment {
         setHasOptionsMenu(true);
         getSherlockActivity().getSupportActionBar().setTitle(R.string.search_bugs);
 
-        searchOptionSelected = PreferenceManager.getDefaultSharedPreferences(context)
-                .getInt("btsSearchOptionPos", 0);
+        searchOptionSelected = PreferenceManager.getDefaultSharedPreferences(context).getInt(
+                "btsSearchOptionPos", 0);
         bugList = (ExpandableListView) rootView.findViewById(R.id.btsList);
 
         // Add autocollapsing of list if enabled
@@ -97,7 +97,8 @@ public class BTSFragment extends ItemFragment {
             @Override
             public void onSearchAction(String searchInput) {
                 if ((searchInput != null) && !searchInput.trim().equals("")) {
-                    SearchCacher.setLastBugSearch(optionSelectedToBTSParam(searchOptionSelected), searchInput);
+                    SearchCacher
+                            .setLastBugSearch(optionSelectedToBTSParam(searchOptionSelected), searchInput);
                     new SearchBugInfoTask().execute();
                 }
             }
@@ -121,7 +122,7 @@ public class BTSFragment extends ItemFragment {
                 btsSearchBar.setInputType(optionSelectedToInputType(pos));
                 //Save change in preferences with storageutils
                 PreferenceManager.getDefaultSharedPreferences(context).edit()
-                    .putInt("btsSearchOptionPos", searchOptionSelected).commit();
+                        .putInt("btsSearchOptionPos", searchOptionSelected).commit();
             }
 
             @Override
@@ -204,8 +205,8 @@ public class BTSFragment extends ItemFragment {
                             .get(childPosition);
                     String subject = bugListParentItems.get(groupPosition);
                     String bugnum = subject.replace("[", "").replaceFirst("].*$", "");
-                    UIUtils.forwardToMailApp(getSherlockActivity(), bugnum + "@bugs.debian.org",
-                            "Re: " + subject.replaceFirst("\\[.*\\)", ""), text.replaceAll("\n", "\n>"));
+                    UIUtils.forwardToMailApp(getSherlockActivity(), bugnum + "@bugs.debian.org", "Re: "
+                            + subject.replaceFirst("\\[.*\\)", ""), text.replaceAll("\n", "\n>"));
                     return true;
                 }
                 return false;
@@ -248,16 +249,18 @@ public class BTSFragment extends ItemFragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case SUBSCRIPTION_ID:
-                String subscription = SearchCacher.getLastBugSearchOption() + "|"
-                        + SearchCacher.getLastBugSearchValue();
-                if (bts.isSubscribedTo(subscription)) {
-                    item.setIcon(R.drawable.unsubscribed);
-                    item.setTitle(R.string.subscribe);
-                    bts.removeSubscriptionTo(subscription);
-                } else {
-                    item.setIcon(R.drawable.subscribed);
-                    item.setTitle(R.string.unsubscribe);
-                    bts.addSubscriptionTo(subscription);
+                String lastSearchOption = SearchCacher.getLastBugSearchOption();
+                String subscription = lastSearchOption + "|" + SearchCacher.getLastBugSearchValue();
+                if (lastSearchOption != null) {
+                    if (bts.isSubscribedTo(subscription)) {
+                        item.setIcon(R.drawable.unsubscribed);
+                        item.setTitle(R.string.subscribe);
+                        bts.removeSubscriptionTo(subscription);
+                    } else {
+                        item.setIcon(R.drawable.subscribed);
+                        item.setTitle(R.string.unsubscribe);
+                        bts.addSubscriptionTo(subscription);
+                    }
                 }
                 return true;
             case REFRESH_ID:
@@ -313,7 +316,7 @@ public class BTSFragment extends ItemFragment {
             }
             bugCount = bugNums.size();
 
-            for (int i = 0; i < bugNums.size(); i++) {
+            for (int i = 0; i < bugNums.size(); ++i) {
                 ArrayList<HashMap<String, String>> mailLog = new ArrayList<HashMap<String, String>>(2);
                 try {
                     //build array with mail log
@@ -322,16 +325,23 @@ public class BTSFragment extends ItemFragment {
                     e.printStackTrace();
                 }
                 int mailLogSize = mailLog.size();
-                ArrayList<String> log = new ArrayList<String>(mailLogSize);
-                // Shows bugs in the format [bugNumber](mails sent for that bugnum) Subject of first mail
-                bugListParentItems.add("[" + bugNums.get(i) + "](" + mailLogSize + ")"
-                        + ((mailLogSize > 0) ? mailLog.get(0).get("subject") : ""));
+                if (mailLogSize > 0) {
+                    ArrayList<String> log = new ArrayList<String>(mailLogSize);
+                    // Shows bugs in the format [bugNumber](mails sent for that bugnum) Subject of first mail
+                    StringBuilder title = new StringBuilder("[");
+                    title.append(bugNums.get(i));
+                    title.append("](");
+                    title.append(mailLogSize);
+                    title.append(")");
+                    title.append(mailLog.get(0).get("subject"));
+                    bugListParentItems.add(title.toString());
 
-                for (HashMap<String, String> mail : mailLog) {
-                    log.add(getString(R.string.bug_mail_format, mail.get("date"), mail.get("from"),
-                            mail.get("body")));
+                    for (HashMap<String, String> mail : mailLog) {
+                        log.add(getString(R.string.bug_mail_format, mail.get("date"), mail.get("from"),
+                                mail.get("body")));
+                    }
+                    bugListChildItems.add(log);
                 }
-                bugListChildItems.add(log);
                 publishProgress(i);
             }
 
@@ -355,9 +365,8 @@ public class BTSFragment extends ItemFragment {
             }
             if (SearchCacher.hasLastBugsSearch()) {
                 btsSearchBar.getInputEditText().setText(SearchCacher.getLastBugSearchValue());
-                spinner.setSelection(
-                        UIUtils.getValuePosition(spinnerValues, BTSParamToSpinnerOption(SearchCacher
-                        .getLastBugSearchOption())));
+                spinner.setSelection(UIUtils.getValuePosition(spinnerValues,
+                        BTSParamToSpinnerOption(SearchCacher.getLastBugSearchOption())));
             }
             // If in android 3+ update the action bar menu so that
             // the subscription icon is valid to the new search

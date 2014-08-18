@@ -1,3 +1,4 @@
+
 package net.debian.debiandroid.apiLayer.soaptools;
 
 import java.util.ArrayList;
@@ -8,20 +9,19 @@ import org.ksoap2.serialization.PropertyInfo;
 
 import android.content.Context;
 
-public class BTSSoapCaller extends SoapCaller{
+public class BTSSoapCaller extends SoapCaller {
 
     public BTSSoapCaller(Context context) {
-    	super(context);
-    	NAMESPACE = "Debbugs/SOAP";
-    	URL = "https://bugs.debian.org/cgi-bin/soap.cgi";
+        super(context);
+        NAMESPACE = "Debbugs/SOAP";
+        URL = "https://bugs.debian.org/cgi-bin/soap.cgi";
     }
 
     /** Key values for 'key' parameter in getBugs method*/
-    public static final String PACKAGE = "package" ,SUBMITTER = "submitter" ,
-    		MAINT = "maint" ,SRC = "src" ,SEVERITY = "severity" , BUGNUMBER = "bugnum",
-    		STATUS = "status", STATUS_DONE = "done", STATUS_FORWARDED = "forwarded",
-    		STATUS_OPEN = "open", OWNER = "owner", ARCHIVE = "archive", ARCHIVE_TRUE = "true",
-    		ARCHIVE_FALSE = "false", ARCHIVE_BOTH = "both", TAG = "tag";
+    public static final String PACKAGE = "package", SUBMITTER = "submitter", MAINT = "maint", SRC = "src",
+            SEVERITY = "severity", BUGNUMBER = "bugnum", STATUS = "status", STATUS_DONE = "done",
+            STATUS_FORWARDED = "forwarded", STATUS_OPEN = "open", OWNER = "owner", ARCHIVE = "archive",
+            ARCHIVE_TRUE = "true", ARCHIVE_FALSE = "false", ARCHIVE_BOTH = "both", TAG = "tag";
 
     public ArrayList<String> getBugs(String keys[], String values[]) {
         if (keys.length != values.length) {
@@ -42,7 +42,7 @@ public class BTSSoapCaller extends SoapCaller{
         }
         try {
             String response = doRequest("get_bugs", "get_bugs", properties).toString();
-            response = response.trim().replace("get_bugsResponse{Array=[", "").replace("]; }", "").trim();
+            response = response.replaceAll("get_bugsResponse\\{Array=\\[|^\\s+|\\s+$|\\]; \\}$", "");
             if ("".equals(response)) {
                 return new ArrayList<String>();
             }
@@ -53,7 +53,7 @@ public class BTSSoapCaller extends SoapCaller{
         return new ArrayList<String>();
     }
 
-    public ArrayList<HashMap<String,String>> getStatus(int[] bugNumbers) {
+    public ArrayList<HashMap<String, String>> getStatus(int[] bugNumbers) {
         PropertyInfo[] properties = new PropertyInfo[bugNumbers.length];
         for (int i = 0; i < bugNumbers.length; i++) {
             properties[i] = new PropertyInfo();
@@ -71,7 +71,7 @@ public class BTSSoapCaller extends SoapCaller{
         return new ArrayList<HashMap<String, String>>();
     }
 
-    private ArrayList<HashMap<String, String>> parseStatuses(String statusString, int[] bugNumbers) {
+    private static ArrayList<HashMap<String, String>> parseStatuses(String statusString, int[] bugNumbers) {
         ArrayList<HashMap<String, String>> statuses = new ArrayList<HashMap<String, String>>();
         int[] statusPositions = new int[bugNumbers.length];
         for (int i = 0; i < bugNumbers.length; i++) {
@@ -84,25 +84,25 @@ public class BTSSoapCaller extends SoapCaller{
         }
         statuses.add(parseStatus(statusString.substring(statusPositions[statusPositions.length - 1]).trim()));
         return statuses;
-	}
+    }
 
-	private HashMap<String, String> parseStatus(String statusString) {
-		HashMap<String, String> status = new HashMap<String, String>();
-		status.put("bug_num", getTagValue("bug_num", statusString));
-		status.put("date", getTagValue("date", statusString));
-		status.put("originator", getTagValue("originator", statusString));
-		status.put("msgid", getTagValue("msgid", statusString));
-		status.put("subject", getTagValue("subject", statusString));
-		status.put("source", getTagValue("source", statusString));
-		status.put("severity", getTagValue("severity", statusString));
-		status.put("tags", getTagValue("tags", statusString));
-		status.put("last_modified", getTagValue("last_modified", statusString));
-		status.put("pending", getTagValue("pending", statusString));
-		status.put("archived", getTagValue("archived", statusString));
-		return status;
-	}
+    private static HashMap<String, String> parseStatus(String statusString) {
+        HashMap<String, String> status = new HashMap<String, String>();
+        status.put("bug_num", getTagValue("bug_num", statusString));
+        status.put("date", getTagValue("date", statusString));
+        status.put("originator", getTagValue("originator", statusString));
+        status.put("msgid", getTagValue("msgid", statusString));
+        status.put("subject", getTagValue("subject", statusString));
+        status.put("source", getTagValue("source", statusString));
+        status.put("severity", getTagValue("severity", statusString));
+        status.put("tags", getTagValue("tags", statusString));
+        status.put("last_modified", getTagValue("last_modified", statusString));
+        status.put("pending", getTagValue("pending", statusString));
+        status.put("archived", getTagValue("archived", statusString));
+        return status;
+    }
 
-	private String getTagValue(String tag, String statusString) {
+    private static String getTagValue(String tag, String statusString) {
         StringBuilder value = new StringBuilder("");
         // do a for from the start position of the tag + the length of the tag + the char '='
         // till the first occurence of the char ';' to extract the value of the tag
@@ -114,9 +114,9 @@ public class BTSSoapCaller extends SoapCaller{
             value.append(ch);
         }
         return value.toString();
-	}
+    }
 
-	public ArrayList<HashMap<String,String>> getBugLog(int bugNumber) {
+    public ArrayList<HashMap<String, String>> getBugLog(int bugNumber) {
         PropertyInfo[] properties = new PropertyInfo[1];
         properties[0] = new PropertyInfo();
         properties[0].setName("bugnumber");
@@ -125,27 +125,26 @@ public class BTSSoapCaller extends SoapCaller{
         try {
             String response = doRequest("get_bug_log", "get_bug_log", properties).toString();
 
-            return parseStatusLog(response.replace("get_bug_logResponse{Array=[", "").replace("]; }", "")
-                    .trim());
+            return parseStatusLog(response.replaceAll("get_bug_logResponse\\{Array=\\[|^\\s+|\\s+$|\\]; \\}",
+                    ""));
         } catch (Exception e) {
             e.printStackTrace();
         }
         return new ArrayList<HashMap<String, String>>();
     }
 
-    private ArrayList<HashMap<String, String>> parseStatusLog(String statusLog) {
-    	ArrayList<HashMap<String,String>> logMails =
-    			new ArrayList<HashMap<String,String>>();
-    	String[] logs = statusLog.split("ur-type\\{body=");
-    	for (String log : logs) {
-    		if((log!=null) && (log.length()!=0)) {
-    			logMails.add(parseLogMail(log));
-    		}
-    	}
-		return logMails;
-	}
+    private static ArrayList<HashMap<String, String>> parseStatusLog(String statusLog) {
+        ArrayList<HashMap<String, String>> logMails = new ArrayList<HashMap<String, String>>();
+        String[] logs = statusLog.split("ur-type\\{body=");
+        for (String log : logs) {
+            if ((log != null) && (log.length() != 0)) {
+                logMails.add(parseLogMail(log));
+            }
+        }
+        return logMails;
+    }
 
-	private HashMap<String, String> parseLogMail(String log) {
+    private static HashMap<String, String> parseLogMail(String log) {
         HashMap<String, String> logMail = new HashMap<String, String>();
         int indexOfBodyEnd = log.indexOf("; msg_num");
         logMail.put("body", log.substring(0, indexOfBodyEnd).trim());
@@ -168,10 +167,10 @@ public class BTSSoapCaller extends SoapCaller{
                 logMail.put("subject", line.replace("Subject: ", ""));
             }
         }
-		return logMail;
-	}
+        return logMail;
+    }
 
-	public HashMap<String, int[]> getUserTag(String email, String[] tags) {
+    public HashMap<String, int[]> getUserTag(String email, String[] tags) {
         PropertyInfo[] properties = new PropertyInfo[1 + tags.length];
         properties[0] = new PropertyInfo();
         properties[0].setName("email");

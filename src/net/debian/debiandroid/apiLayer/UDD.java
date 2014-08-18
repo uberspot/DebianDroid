@@ -1,3 +1,4 @@
+
 package net.debian.debiandroid.apiLayer;
 
 import java.util.ArrayList;
@@ -6,16 +7,16 @@ import android.content.Context;
 
 public class UDD extends HTTPCaller {
 
-	public UDD(Context context) {
-		super(context);
-	}
+    public UDD(Context context) {
+        super(context);
+    }
 
-	private static final String UDD_CGI_URL = "https://udd.debian.org/cgi-bin/";
+    private static final String UDD_CGI_URL = "https://udd.debian.org/cgi-bin/";
 
-	public ArrayList<ArrayList<String>> getLastUploads() {
-		String[] response = doQueryRequest(UDD_CGI_URL + "last-uploads.cgi?out=csv").split("\n");
-		ArrayList<String> description = new ArrayList<String>();
-		ArrayList<String> fullDesc = new ArrayList<String>();
+    public ArrayList<ArrayList<String>> getLastUploads() {
+        String[] response = doQueryRequest(UDD_CGI_URL + "last-uploads.cgi?out=csv").split("\n");
+        ArrayList<String> description = new ArrayList<String>();
+        ArrayList<String> fullDesc = new ArrayList<String>();
         for (String element : response) {
             element = element.trim();
             int lastCommaPos = element.lastIndexOf(',');
@@ -28,9 +29,9 @@ public class UDD extends HTTPCaller {
         items.add(description);
         items.add(fullDesc);
         return items;
-	}
+    }
 
-	public ArrayList<ArrayList<String>> getRCBugs() {
+    public ArrayList<ArrayList<String>> getRCBugs() {
         String[] response = doQueryRequest(UDD_CGI_URL + "rcbugs.cgi?out=csv").split("\n");
         ArrayList<String> description = new ArrayList<String>();
         ArrayList<String> fullDesc = new ArrayList<String>();
@@ -48,9 +49,9 @@ public class UDD extends HTTPCaller {
         items.add(description);
         items.add(fullDesc);
         return items;
-	}
+    }
 
-	public ArrayList<ArrayList<String>> getNewMaintainers() {
+    public ArrayList<ArrayList<String>> getNewMaintainers() {
         String[] response = doQueryRequest(UDD_CGI_URL + "new-maintainers.cgi?out=csv").split("\n");
         ArrayList<String> description = new ArrayList<String>();
         ArrayList<String> fullDesc = new ArrayList<String>();
@@ -66,32 +67,32 @@ public class UDD extends HTTPCaller {
         items.add(description);
         items.add(fullDesc);
         return items;
-	}
+    }
 
-	public String[] getOverlappingInterests(String devamail, String devbmail) {
-		return doQueryRequest(UDD_CGI_URL +
-						"overlapping_interests.cgi?deva="+devamail+"&devb="+devbmail).trim().replaceAll(",", " ")
-						.split("\n");
-	}
+    public String[] getOverlappingInterests(String devamail, String devbmail) {
+        return doQueryRequest(
+                UDD_CGI_URL + "overlapping_interests.cgi?deva=" + devamail + "&devb=" + devbmail).trim()
+                .replaceAll(",", " ").split("\n");
+    }
 
-	public static String getBugNumFromRCBugTitle(String title) {
+    public static String getBugNumFromRCBugTitle(String title) {
         if ((title != null) && (title.length() != 0)) {
             return title.split(" ")[0];
         }
-		return title;
-	}
+        return title;
+    }
 
-	public static String getPckgNameFromRCBugTitle(String title) {
+    public static String getPckgNameFromRCBugTitle(String title) {
         if ((title != null) && (title.length() != 0) && title.contains(" ")) {
             return title.split(" ")[1];
         }
-		return title;
-	}
+        return title;
+    }
 
-	public static String getPckgNameFromUploadsTitle(String title) {
+    public static String getPckgNameFromUploadsTitle(String title) {
         if ((title != null) && (title.length() != 0)) {
             return title.split(" ")[0];
         }
-		return title;
-	}
+        return title;
+    }
 }
