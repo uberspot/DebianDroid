@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <changelog>
+  <release version="1.743" versioncode="20">
+      <change>Don't show garbage characters in "Uploaders" when there are none.</change>
+      <change>Some minor speed improvements in the parsing of soap/rest responses.</change>
+  </release>
   <release version="1.742" versioncode="19">
       <change>Modify the input type of the bug search field based on search type</change>
   </release>
